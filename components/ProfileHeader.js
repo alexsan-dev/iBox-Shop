@@ -1,7 +1,7 @@
 import ProfilePic from '../assets/profile.png';
 
 const ProfileHeader = props => {
-	let pic = props.user.provider === "facebook.com" ? props.user.photoURL + "?height=600" : props.user.photoURL;
+	let pic = props.user.provider?props.user.provider === "facebook.com" ? props.user.photoURL + "?height=600" : props.user.photoURL:"";
 	return (
 		<>
 			<div id="info">

@@ -6,12 +6,17 @@ const Alert = props => {
     const type = props.type;
     const current = useRef(null);
 
-    const hideAlert = () =>{
+    const onConfirm = () =>{
         current.current.style.opacity = 0;
         setTimeout(() => {
             props.hideAlert();
             if(props.onConfirm) props.onConfirm(input);
         }, 400);
+    }
+
+    const hideAlert = () =>{
+        current.current.style.opacity = 0;
+        setTimeout(() => props.hideAlert(), 400);
     }
 
     const value = data => input=data;
@@ -25,7 +30,7 @@ const Alert = props => {
                 {type==="input"?<Input value={value} type={props.input.type} label={props.input.label}  name={props.input.name}  helper={props.input.helper}  icon={props.input.icon} />:""}
                 <ul>
                     {type === "confirmation" ? <li><button className="waves waves-dark" onClick={hideAlert}>Cancelar</button></li> : ""}
-                    <li><button className="waves waves-dark primary" onClick={hideAlert}>Aceptar</button></li>
+                    <li><button className="waves waves-dark primary" onClick={onConfirm}>Aceptar</button></li>
                 </ul>
             </div>
             <style jsx>{`

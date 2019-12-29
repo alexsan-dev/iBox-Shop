@@ -49068,7 +49068,7 @@ const user = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth()
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /*!***************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=C%3A%5CUsers%5Cernesto%5CDesktop%5CiBox%5Cpages%5Cindex.js ***!
   \***************************************************************************************************************************/
@@ -49091,5 +49091,5 @@ module.exports = dll_ef0ff7c60362f24a921f;
 
 /***/ })
 
-},[[5,"static/runtime/webpack.js"]]]);
+},[[4,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=index.js.map
