@@ -1,12 +1,20 @@
 import { useRef } from "react"
+import Input from "./Input";
+
+let input = undefined;
 const Alert = props => {
     const type = props.type;
     const current = useRef(null);
 
     const hideAlert = () =>{
         current.current.style.opacity = 0;
-        setTimeout(() => props.hideAlert(), 400);
+        setTimeout(() => {
+            props.hideAlert();
+            if(props.onConfirm) props.onConfirm(input);
+        }, 400);
     }
+
+    const value = data => input=data;
 
     return (
         <div className="alertContainer" ref={current}>
@@ -14,6 +22,7 @@ const Alert = props => {
             <div id="alertContent">
                 <h1>{props.title}</h1>
                 <p>{props.body}</p>
+                {type==="input"?<Input value={value} type={props.input.type} label={props.input.label}  name={props.input.name}  helper={props.input.helper}  icon={props.input.icon} />:""}
                 <ul>
                     {type === "confirmation" ? <li><button className="waves waves-dark" onClick={hideAlert}>Cancelar</button></li> : ""}
                     <li><button className="waves waves-dark primary" onClick={hideAlert}>Aceptar</button></li>

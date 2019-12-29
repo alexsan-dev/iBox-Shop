@@ -6,48 +6,48 @@ self.__precacheManifest = [
     "url": "/_next/e79bfd88537def476913f3ed52f4f4b3.eot"
   },
   {
-    "url": "/_next/static/chunks/commons.834c54a23dfa8937f195.js",
-    "revision": "d0e26f6aac1655de4910"
+    "url": "/_next/static/chunks/commons.a3f26d499acced34516e.js",
+    "revision": "ad7664fe31aa1ef2170f"
   },
   {
-    "url": "/_next/static/chunks/styles.fc58ed1bb4b463c1f9e8.js",
-    "revision": "5651c59e4598d89e9dc9"
+    "url": "/_next/static/chunks/styles.d84bb11b4445aeff21d4.js",
+    "revision": "7a93e09019de82057751"
   },
   {
-    "url": "/_next/static/css/styles.0a156897.chunk.css",
-    "revision": "5651c59e4598d89e9dc9"
+    "url": "/_next/static/css/styles.b10b333f.chunk.css",
+    "revision": "7a93e09019de82057751"
   },
   {
-    "url": "/_next/static/runtime/main-b62e6565c395bcef4fa2.js",
-    "revision": "21c7559f6a2d8ea86102"
+    "url": "/_next/static/runtime/main-801bb775b2b240d1c084.js",
+    "revision": "fbb8be732c4e52fcea7d"
   },
   {
-    "url": "/_next/static/runtime/polyfills-2889d9d9fcf08314dd3a.js",
-    "revision": "72af0bf5f5ab36df8ae8"
+    "url": "/_next/static/runtime/polyfills-f5af81b00d12d923ec0f.js",
+    "revision": "c133b2cadab912d169ad"
   },
   {
     "url": "/_next/static/runtime/webpack-4b444dab214c6491079c.js",
     "revision": "71726f334912f74c262a"
   },
   {
-    "url": "/_next/static\\jxyLAs_gmCEUFsqUqYxH9\\pages\\_app.js",
-    "revision": "e1fb12182633e36c2943"
+    "url": "/_next/static\\Twi2yoHPkShrOCSWM7Wst\\pages\\_app.js",
+    "revision": "9097c2589a1a3c6663c7"
   },
   {
-    "url": "/_next/static\\jxyLAs_gmCEUFsqUqYxH9\\pages\\_error.js",
-    "revision": "14420cefbb4cdb0fffa4"
+    "url": "/_next/static\\Twi2yoHPkShrOCSWM7Wst\\pages\\_error.js",
+    "revision": "d6bd91c5e37f12d33bfb"
   },
   {
-    "url": "/_next/static\\jxyLAs_gmCEUFsqUqYxH9\\pages\\cuenta.js",
-    "revision": "e9ed34242cffc8df7d8d"
+    "url": "/_next/static\\Twi2yoHPkShrOCSWM7Wst\\pages\\cuenta.js",
+    "revision": "d13aadb29d9e48e7fa69"
   },
   {
-    "url": "/_next/static\\jxyLAs_gmCEUFsqUqYxH9\\pages\\index.js",
-    "revision": "060de47982e86f848354"
+    "url": "/_next/static\\Twi2yoHPkShrOCSWM7Wst\\pages\\index.js",
+    "revision": "4ea1e3b8351f3ece2b49"
   },
   {
-    "url": "/_next/static\\jxyLAs_gmCEUFsqUqYxH9\\pages\\tienda.js",
-    "revision": "4b7a8d53f8a3d8101052"
+    "url": "/_next/static\\Twi2yoHPkShrOCSWM7Wst\\pages\\tienda.js",
+    "revision": "2b64fba1107fb4c5787b"
   }
 ];
 

@@ -2136,7 +2136,7 @@ function defaultHead(inAmpMode = false) {
   if (!inAmpMode) {
     head.push(react_1.default.createElement("meta", {
       name: "viewport",
-      content: "width=device-width,minimum-scale=1,initial-scale=1"
+      content: "width=device-width,minimum-scale=1,initial-scale=1,user-scalable=no"
     }));
   }
 

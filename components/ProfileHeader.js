@@ -1,7 +1,7 @@
 import ProfilePic from '../assets/profile.png';
 
 const ProfileHeader = props => {
-	let pic = props.user.providerData[0].providerId === "facebook.com" ? props.user.photoURL + "?height=600" : props.user.photoURL;
+	let pic = props.user.provider === "facebook.com" ? props.user.photoURL + "?height=600" : props.user.photoURL;
 	return (
 		<>
 			<div id="info">
@@ -9,7 +9,7 @@ const ProfileHeader = props => {
 				<div>
 					<h1>Mi cuenta</h1>
 					<h2>{props.user.displayName}</h2>
-					<span><i className="material-icons">email</i> {props.user.email.substr(0, props.user.email.indexOf(".com"))}</span>
+					<span><i className="material-icons">email</i> {props.user.email}</span>
 				</div>
 
 				<div id="profilePic">
@@ -56,10 +56,12 @@ const ProfileHeader = props => {
 	   #profilePic{
 	      width:130px;
 	      height:130px;
-	      position:relative;
-	      margin-bottom:-80px;
+		  position:absolute;
+		  right:20px;
+	      bottom:-60px;
 	      border-radius:100%;
-	      overflow:hidden;
+		  overflow:hidden;
+		  background:red;
 	   }
 	   #profilePic img{
 	      width:100%;

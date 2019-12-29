@@ -2,13 +2,16 @@ import React, { useEffect, useRef, useContext, useState } from 'react';
 import firebase from '../credentials/servers';
 import Dexie from 'dexie';
 import 'firebase/auth';
+import "firebase/firestore"
 
 //local DB
-let db = {};
+let indexeddb = {};
+let db = firebase.firestore();
+
 export const useDB = () => {
-  db = new Dexie("localDB");
-  db.version(1).stores({ user: 'key, user' })
-  db.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
+  indexeddb = new Dexie("localDB");
+  indexeddb.version(1).stores({ user: 'key, user' })
+  indexeddb.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
 }
 
 // Intervals for states
@@ -29,6 +32,10 @@ export const useInterval = (callback, delay) => {
   }, [delay]);
 }
 
+// Firestore
+export const useUserSet = (id, data) => db.collection("users").doc(id).set(data);
+export const useUserGet = (id, listener, err) => db.collection("users").doc(id).get().then(listener).catch(err);
+
 // Firebase Auth
 let fbprovider, gprovider;
 export const useLogout = () => firebase.auth().signOut();
@@ -40,13 +47,6 @@ export const setProviders = () => {
   fbprovider.setCustomParameters({ 'display': 'popup' });
 }
 
-export const useLogin = data => {
-  if (data.type === true) firebase.auth().createUserWithEmailAndPassword(data.email, data.pass).catch(data.err);
-  else if (data.type === false) firebase.auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);
-  else if (data.type === "fb") firebase.auth().signInWithRedirect(fbprovider).catch(data.err);
-  else if (data.type === "g") firebase.auth().signInWithRedirect(gprovider).catch(data.err);
-}
-
 export const useAuth = listen => {
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
@@ -55,6 +55,18 @@ export const useAuth = listen => {
     });
     return () => unsubscribe();
   }, []);
+}
+
+export const useResetPass = (email, err) => firebase.auth().sendPasswordResetEmail(email).catch(err);
+
+export const useLogin = data => {
+  if (data.type === true) firebase.auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
+    useUserSet(res.user.uid, { displayName:data.name, email:data.email,  provider:res.user.providerData[0].providerId , photoURL:"https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"});
+    res.user.updateProfile({displayName:data.name, photoURL:"https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"});
+  }).catch(data.err);
+  else if (data.type === false) firebase.auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);
+  else if (data.type === "fb") firebase.auth().signInWithRedirect(fbprovider).catch(data.err);
+  else if (data.type === "g") firebase.auth().signInWithRedirect(gprovider).catch(data.err);
 }
 
 export const useAuthError = code => {

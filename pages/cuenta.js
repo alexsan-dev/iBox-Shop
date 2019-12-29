@@ -6,7 +6,6 @@ import Loading from '../components/Loading';
 
 const Cuenta = props => {
    const [page, setPage] = useState(<Loading />);
-
    useAuth(user => {
       if (user) setPage(<Profile user={user} />)
       else setPage(<Logins />)

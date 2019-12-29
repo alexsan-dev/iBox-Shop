@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3260,17 +3260,20 @@ const Index = props => {
 /*!************************!*\
   !*** ./utils/hooks.js ***!
   \************************/
-/*! exports provided: useDB, useInterval, useLogout, setProviders, useLogin, useAuth, useAuthError, user */
+/*! exports provided: useDB, useInterval, useUserSet, useUserGet, useLogout, setProviders, useAuth, useResetPass, useLogin, useAuthError, user */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useDB", function() { return useDB; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useInterval", function() { return useInterval; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserSet", function() { return useUserSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserGet", function() { return useUserGet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogout", function() { return useLogout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProviders", function() { return setProviders; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogin", function() { return useLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuth", function() { return useAuth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useResetPass", function() { return useResetPass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogin", function() { return useLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuthError", function() { return useAuthError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
@@ -3280,18 +3283,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dexie__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dexie__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase/auth */ "firebase/auth");
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(firebase_auth__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! firebase/firestore */ "firebase/firestore");
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(firebase_firestore__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
  //local DB
 
-let db = {};
+let indexeddb = {};
+let db = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].firestore();
 const useDB = () => {
-  db = new dexie__WEBPACK_IMPORTED_MODULE_2___default.a("localDB");
-  db.version(1).stores({
+  indexeddb = new dexie__WEBPACK_IMPORTED_MODULE_2___default.a("localDB");
+  indexeddb.version(1).stores({
     user: 'key, user'
   });
-  db.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
+  indexeddb.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
 }; // Intervals for states
 
 const useInterval = (callback, delay) => {
@@ -3309,7 +3316,10 @@ const useInterval = (callback, delay) => {
       return () => clearInterval(id);
     }
   }, [delay]);
-}; // Firebase Auth
+}; // Firestore
+
+const useUserSet = (id, data) => db.collection("users").doc(id).set(data);
+const useUserGet = (id, listener, err) => db.collection("users").doc(id).get().then(listener).catch(err); // Firebase Auth
 
 let fbprovider, gprovider;
 const useLogout = () => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signOut();
@@ -3321,9 +3331,6 @@ const setProviders = () => {
     'display': 'popup'
   });
 };
-const useLogin = data => {
-  if (data.type === true) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().createUserWithEmailAndPassword(data.email, data.pass).catch(data.err);else if (data.type === false) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);else if (data.type === "fb") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(fbprovider).catch(data.err);else if (data.type === "g") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(gprovider).catch(data.err);
-};
 const useAuth = listen => {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     const unsubscribe = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().onAuthStateChanged(user => {
@@ -3331,6 +3338,21 @@ const useAuth = listen => {
     });
     return () => unsubscribe();
   }, []);
+};
+const useResetPass = (email, err) => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().sendPasswordResetEmail(email).catch(err);
+const useLogin = data => {
+  if (data.type === true) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
+    useUserSet(res.user.uid, {
+      displayName: data.name,
+      email: data.email,
+      provider: res.user.providerData[0].providerId,
+      photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
+    });
+    res.user.updateProfile({
+      displayName: data.name,
+      photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
+    });
+  }).catch(data.err);else if (data.type === false) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);else if (data.type === "fb") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(fbprovider).catch(data.err);else if (data.type === "g") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(gprovider).catch(data.err);
 };
 const useAuthError = code => {
   switch (code) {
@@ -3420,7 +3442,7 @@ const user = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth()
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -3572,6 +3594,17 @@ module.exports = require("firebase/app");
 /***/ (function(module, exports) {
 
 module.exports = require("firebase/auth");
+
+/***/ }),
+
+/***/ "firebase/firestore":
+/*!*************************************!*\
+  !*** external "firebase/firestore" ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("firebase/firestore");
 
 /***/ }),
 

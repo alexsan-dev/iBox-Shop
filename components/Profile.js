@@ -1,4 +1,6 @@
 import ProfileHeader from "./ProfileHeader";
+import { useState } from 'react';
+import { useUserGet } from '../utils/hooks'
 import { motion } from "framer-motion";
 
 let ease = [0.175, 0.85, 0.42, 0.96];
@@ -11,10 +13,17 @@ const head = {
 }
 
 const Profile = props => {
+   const [user, setUser] = useState({
+      display:"Nombre de usuario", 
+      email:"correo@dominio",
+      provider:"password",
+      photoURL:null
+   })
+   useUserGet(props.user.uid, res => setUser(res.data()), err => console.log(err));
    return (
       <motion.div initial="exit" animate="enter" exit="exit" variants={{ exit: { transition: { staggerChildren: 0.1 } }, enter: { transition: { staggerChildren: 0.1 } } }}>
          <motion.div variants={head}>
-            <ProfileHeader user={props.user} />
+            <ProfileHeader user={user} />
          </motion.div>
       </motion.div>
    )
