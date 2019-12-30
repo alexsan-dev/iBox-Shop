@@ -44,7 +44,6 @@ const Header = props => {
 	       padding:20px;
 	       background:var(--primary);
 	       position:relative;
-	       font-size:15px;
 	       z-index:3;
 	       padding-bottom:40px;
 	    }
@@ -73,7 +72,14 @@ const Header = props => {
 	       z-index:2;
 	       margin-top:-2px;
 	    }
-	    
+	    @media screen and (max-width:355px){
+			#headText h1{
+				line-height:20px;
+			 }
+			 #mainHeader > img{
+				height:80px;
+			 }
+		}
 	 `}</style>
 		</div>
 	)

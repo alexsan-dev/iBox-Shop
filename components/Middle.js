@@ -73,7 +73,15 @@ const Middle = () => {
 	       color:var(--secondary);
 	       position:relative;
 	    }
-
+		@media screen and (max-width:355px){
+			.middle > #showInf{
+				top:-8px;
+				left:10px;
+			}
+			.middle > #showInf > svg{
+				transform:scale(1.7, 1.1);
+			 }
+		}
 	 `}</style>
 		</div>
 	)

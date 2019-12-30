@@ -24,40 +24,41 @@ const Recents = props => {
 			</Link>
 			<img src={Middle} alt="Store" />
 			<style jsx>{`
-         #middle{
-	    position:relative;
-	 }
-         #recents{
-	    position:relative;
-	    width:100%;
-	    margin-top:-115px;
-         }
-	 #recentsD{
-	    margin-bottom:-5px;
-	    width:115%;
-	 }
-	 .seeMore{
-	    bottom:45px;
-	    z-index:10;
-	 }
-	 #recents > div{
-	    background:var(--gray-light);
-	    padding:20px;
-	    padding-bottom:80px;
-	 }
-	 h2{
-	    margin-top:-50px;
-	}
-	 p{
-	   width:calc(100% - 135px);
-	   margin-bottom:25px;
-	 }
-	 img{
-	   position:absolute;
-	   top:-40px;
-	   right:-9%;
-	   z-index:2;
-	 }
+         	#middle{
+				position:relative;
+	 		}
+         	#recents{
+				overflow-x:hidden;
+	    		position:relative;
+	    		width:100%;
+	    		margin-top:-115px;
+         	}
+			#recentsD{
+	    		margin-bottom:-5px;
+	    		width:115%;
+	 		}
+	 		.seeMore{
+	    		bottom:45px;
+	    		z-index:10;
+	 		}
+	 		#recents > div{
+	    		background:var(--gray-light);
+	    		padding:20px;
+	    		padding-bottom:80px;
+	 		}
+	 		h2{
+	    		margin-top:-50px;
+			}
+	 		p{
+	   			width:calc(100% - 135px);
+	   			margin-bottom:25px;
+	 		}
+	 		img{
+	   			position:absolute;
+	   			top:-40px;
+	   			right:-9%;
+	   			z-index:2;
+	 		}
 
 	`}</style>
 		</div>

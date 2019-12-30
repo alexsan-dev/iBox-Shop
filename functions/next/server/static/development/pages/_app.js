@@ -200,6 +200,77 @@ const Splash = p => {
 
 /***/ }),
 
+/***/ "./components/Verified.js":
+/*!********************************!*\
+  !*** ./components/Verified.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "styled-jsx/style");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "C:\\Users\\ernesto\\Desktop\\iBox\\components\\Verified.js";
+
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+const Verified = props => {
+  if (!props.show) return __jsx("div", {
+    className: "jsx-2815924814" + " " + "amber",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 3
+    },
+    __self: undefined
+  }, __jsx("div", {
+    className: "jsx-2815924814",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4
+    },
+    __self: undefined
+  }, __jsx("h1", {
+    className: "jsx-2815924814",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5
+    },
+    __self: undefined
+  }, "Verifica tu correo"), __jsx("p", {
+    className: "jsx-2815924814",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6
+    },
+    __self: undefined
+  }, "Ya te enviamos un link para poder seguir utlizando la tienda con tu cuenta.")), __jsx("button", {
+    className: "jsx-2815924814" + " " + "waves white",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8
+    },
+    __self: undefined
+  }, __jsx("i", {
+    className: "jsx-2815924814" + " " + "material-icons",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8
+    },
+    __self: undefined
+  }, "send"), "Reenviar"), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "2815924814",
+    __self: undefined
+  }, ".amber.jsx-2815924814{padding:20px;color:var(--backgrounds);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}.amber.jsx-2815924814>div.jsx-2815924814{width:170px;}button.jsx-2815924814{color:var(--text);}h1.jsx-2815924814{color:var(--backgrounds);font-size:1.3em;}p.jsx-2815924814{font-size:0.9em;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVmVyaWZpZWQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUXdCLEFBR2lDLEFBT0QsQUFHTSxBQUdPLEFBSVQsWUFUbkIsQ0FQNEIsR0FpQjVCLEVBUEEsT0FHbUIsYUFaSCxHQWFoQix1RUFac0IsNkZBQ1csbUhBQ2pDIiwiZmlsZSI6IkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVmVyaWZpZWQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBWZXJpZmllZCA9IHByb3BzID0+IHtcclxuICAgIGlmICghcHJvcHMuc2hvdykgcmV0dXJuIChcclxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImFtYmVyXCI+XHJcbiAgICAgICAgICAgIDxkaXY+XHJcbiAgICAgICAgICAgICAgICA8aDE+VmVyaWZpY2EgdHUgY29ycmVvPC9oMT5cclxuICAgICAgICAgICAgICAgIDxwPllhIHRlIGVudmlhbW9zIHVuIGxpbmsgcGFyYSBwb2RlciBzZWd1aXIgdXRsaXphbmRvIGxhIHRpZW5kYSBjb24gdHUgY3VlbnRhLjwvcD5cclxuICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgIDxidXR0b24gY2xhc3NOYW1lPVwid2F2ZXMgd2hpdGVcIj48aSBjbGFzc05hbWU9XCJtYXRlcmlhbC1pY29uc1wiPnNlbmQ8L2k+UmVlbnZpYXI8L2J1dHRvbj4gXHJcbiAgICAgICAgICAgIDxzdHlsZSBqc3g+e2BcclxuICAgICAgICAgICAgICAgIC5hbWJlcntcclxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOjIwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6dmFyKC0tYmFja2dyb3VuZHMpO1xyXG4gICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczpjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAganVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAuYW1iZXIgPiBkaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgd2lkdGg6MTcwcHg7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBidXR0b257XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6dmFyKC0tdGV4dCk7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBoMXtcclxuICAgICAgICAgICAgICAgICAgICBjb2xvcjp2YXIoLS1iYWNrZ3JvdW5kcyk7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOjEuM2VtOyAgICAgICAgXHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTowLjllbTsgXHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIGB9PC9zdHlsZT5cclxuICAgICAgICA8L2Rpdj5cclxuICAgIClcclxuICAgIGVsc2UgcmV0dXJuIFwiXCI7XHJcbn1cclxuXHJcbmV4cG9ydCBkZWZhdWx0IFZlcmlmaWVkOyJdfQ== */\n/*@ sourceURL=C:\\\\Users\\\\ernesto\\\\Desktop\\\\iBox\\\\components\\\\Verified.js */"));else return "";
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Verified);
+
+/***/ }),
+
 /***/ "./credentials/servers.js":
 /*!********************************!*\
   !*** ./credentials/servers.js ***!
@@ -246,11 +317,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/logo.svg */ "./assets/logo.svg");
-/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_Verified__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Verified */ "./components/Verified.js");
+/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/logo.svg */ "./assets/logo.svg");
+/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "C:\\Users\\ernesto\\Desktop\\iBox\\layouts\\Layout.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -308,7 +381,7 @@ const Layout = props => {
   return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("nav", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 59
+      lineNumber: 60
     },
     __self: undefined
   }, __jsx("input", {
@@ -317,7 +390,7 @@ const Layout = props => {
     name: "drawer-toggle",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60
+      lineNumber: 61
     },
     __self: undefined
   }), __jsx("input", {
@@ -326,14 +399,14 @@ const Layout = props => {
     name: "search-toggle",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61
+      lineNumber: 62
     },
     __self: undefined
   }), __jsx("div", {
     className: "topbar",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62
+      lineNumber: 63
     },
     __self: undefined
   }, __jsx("label", {
@@ -342,58 +415,58 @@ const Layout = props => {
     id: "menuBtn",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63
+      lineNumber: 64
     },
     __self: undefined
   }, "menu"), __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64
+      lineNumber: 65
     },
     __self: undefined
   }, __jsx("div", {
     id: "brandLogo",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64
+      lineNumber: 65
     },
     __self: undefined
   }, __jsx("img", {
-    src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_4___default.a,
+    src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_5___default.a,
     alt: "Logo",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64
+      lineNumber: 65
     },
     __self: undefined
   }))), __jsx("div", {
     id: "navbtns",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 66
     },
     __self: undefined
   }, __jsx("label", {
     htmlFor: "search-toggle",
-    className: "material-icons waves waves-dark",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 66
-    },
-    __self: undefined
-  }, "search"), __jsx("i", {
     className: "material-icons waves waves-dark",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 67
     },
     __self: undefined
+  }, "search"), __jsx("i", {
+    className: "material-icons waves waves-dark",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 68
+    },
+    __self: undefined
   }, "shopping_cart")), __jsx("div", {
     id: "searchBar",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69
+      lineNumber: 70
     },
     __self: undefined
   }, __jsx("label", {
@@ -401,7 +474,7 @@ const Layout = props => {
     className: "material-icons waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 70
+      lineNumber: 71
     },
     __self: undefined
   }, "arrow_back"), __jsx("input", {
@@ -410,7 +483,7 @@ const Layout = props => {
     id: "search",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 71
+      lineNumber: 72
     },
     __self: undefined
   }))), __jsx("label", {
@@ -418,7 +491,7 @@ const Layout = props => {
     className: "drawerShadow ssf",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 74
+      lineNumber: 75
     },
     __self: undefined
   }), __jsx("label", {
@@ -426,45 +499,45 @@ const Layout = props => {
     className: "drawerShadow sbf",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 75
+      lineNumber: 76
     },
     __self: undefined
   }), __jsx("div", {
     id: "drawer",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76
+      lineNumber: 77
     },
     __self: undefined
   }, __jsx("div", {
     id: "drawerHead",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77
+      lineNumber: 78
     },
     __self: undefined
   }, __jsx("span", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 78
+      lineNumber: 79
     },
     __self: undefined
   }, "iBox\xAE App (v0.3)"), __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79
+      lineNumber: 80
     },
     __self: undefined
   }, "Tu comodidad en una caja")), __jsx("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81
+      lineNumber: 82
     },
     __self: undefined
   }, __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 83
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -472,7 +545,7 @@ const Layout = props => {
     passHref: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 83
     },
     __self: undefined
   }, __jsx("a", {
@@ -480,20 +553,20 @@ const Layout = props => {
     title: "Inicio",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 83
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 83
     },
     __self: undefined
   }, "home"), " Inicio"))), __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 84
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -501,7 +574,7 @@ const Layout = props => {
     passHref: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 84
     },
     __self: undefined
   }, __jsx("a", {
@@ -509,39 +582,39 @@ const Layout = props => {
     title: "Tienda",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 84
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 84
     },
     __self: undefined
   }, "store"), " Tienda")))), __jsx("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 85
+      lineNumber: 86
     },
     __self: undefined
   }), __jsx("span", {
     className: "dividerTitle",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86
+      lineNumber: 87
     },
     __self: undefined
   }, "Aplicaci\xF3n"), __jsx("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87
+      lineNumber: 88
     },
     __self: undefined
   }, __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 89
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -549,7 +622,7 @@ const Layout = props => {
     passHref: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 89
     },
     __self: undefined
   }, __jsx("a", {
@@ -557,27 +630,27 @@ const Layout = props => {
     title: "Cuenta",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 89
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 89
     },
     __self: undefined
   }, "person_add"), " Cuenta"))), user && __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90
+      lineNumber: 91
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90
+      lineNumber: 91
     },
     __self: undefined
   }, __jsx("button", {
@@ -585,64 +658,71 @@ const Layout = props => {
     className: "white waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90
+      lineNumber: 91
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90
+      lineNumber: 91
     },
     __self: undefined
   }, "exit_to_app"), " Cerrar Sesi\xF3n"))), __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92
+      lineNumber: 93
     },
     __self: undefined
   }, __jsx("button", {
     className: "white waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92
+      lineNumber: 93
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92
+      lineNumber: 93
     },
     __self: undefined
   }, "share"), " Compartir")), __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94
+      lineNumber: 95
     },
     __self: undefined
   }, __jsx("button", {
     className: "white waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94
+      lineNumber: 95
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94
+      lineNumber: 95
     },
     __self: undefined
   }, "arrow_downward"), " Descargar")))), __jsx("div", {
     id: "sideHook",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98
+      lineNumber: 99
     },
     __self: undefined
-  })), props.children);
+  })), user && __jsx(_components_Verified__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    show: user.providerData[0].providerId === "facebook.com" ? true : user.emailVerified,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 101
+    },
+    __self: undefined
+  }), props.children);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
@@ -2706,7 +2786,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/app */ "./node_modules/next/app.js");
 /* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_Splash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Splash */ "./components/Splash.js");
-/* harmony import */ var _layouts_Layout_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../layouts/Layout.js */ "./layouts/Layout.js");
+/* harmony import */ var _layouts_Layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../layouts/Layout */ "./layouts/Layout.js");
 /* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! framer-motion */ "framer-motion");
 /* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(framer_motion__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/functions */ "./utils/functions.js");
@@ -2755,7 +2835,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
         lineNumber: 32
       },
       __self: this
-    }), __jsx(_layouts_Layout_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), __jsx(_layouts_Layout__WEBPACK_IMPORTED_MODULE_4__["default"], {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 33
@@ -2848,7 +2928,7 @@ function setRipples() {
 /*!************************!*\
   !*** ./utils/hooks.js ***!
   \************************/
-/*! exports provided: useDB, useInterval, useUserSet, useUserGet, useLogout, setProviders, useAuth, useResetPass, useLogin, useAuthError, user */
+/*! exports provided: useDB, useInterval, useUserSet, useUserGet, useLogout, setProviders, useAuth, useResetPass, user, useVerifiedUser, useLogin, useAuthError */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2861,9 +2941,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProviders", function() { return setProviders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuth", function() { return useAuth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useResetPass", function() { return useResetPass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useVerifiedUser", function() { return useVerifiedUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogin", function() { return useLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuthError", function() { return useAuthError; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _credentials_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../credentials/servers */ "./credentials/servers.js");
@@ -2928,6 +3009,13 @@ const useAuth = listen => {
   }, []);
 };
 const useResetPass = (email, err) => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().sendPasswordResetEmail(email).catch(err);
+const user = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser;
+const useVerifiedUser = dats => {
+  if (dats) {
+    const userProvider = dats.providerData[0].providerId;
+    if (userProvider === "facebook.com") return true;else dats.emailVerified;
+  } else return false;
+};
 const useLogin = data => {
   if (data.type === true) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
     useUserSet(res.user.uid, {
@@ -3026,7 +3114,6 @@ const useAuthError = code => {
       return "Error desconocido intenta de nuevo.";
   }
 };
-const user = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser;
 
 /***/ }),
 

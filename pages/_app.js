@@ -1,7 +1,7 @@
 import React from "react";
 import App from "next/app";
 import Splash from '../components/Splash';
-import Layout from '../layouts/Layout.js';
+import Layout from '../layouts/Layout';
 import { AnimatePresence } from 'framer-motion';
 import { setRipples, darkMode } from '../utils/functions';
 import '../assets/icons/material-icons.css';

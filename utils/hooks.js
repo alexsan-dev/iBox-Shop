@@ -59,10 +59,20 @@ export const useAuth = listen => {
 
 export const useResetPass = (email, err) => firebase.auth().sendPasswordResetEmail(email).catch(err);
 
+export const user = firebase.auth().currentUser;
+
+export const useVerifiedUser = dats => {
+  if (dats) {
+    const userProvider = dats.providerData[0].providerId;
+    if (userProvider === "facebook.com") return true;
+    else dats.emailVerified;
+  } else return false;
+}
+
 export const useLogin = data => {
   if (data.type === true) firebase.auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
-    useUserSet(res.user.uid, { displayName:data.name, email:data.email,  provider:res.user.providerData[0].providerId , photoURL:"https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"});
-    res.user.updateProfile({displayName:data.name, photoURL:"https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"});
+    useUserSet(res.user.uid, { displayName: data.name, email: data.email, provider: res.user.providerData[0].providerId, photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef" });
+    res.user.updateProfile({ displayName: data.name, photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef" });
   }).catch(data.err);
   else if (data.type === false) firebase.auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);
   else if (data.type === "fb") firebase.auth().signInWithRedirect(fbprovider).catch(data.err);
@@ -127,5 +137,3 @@ export const useAuthError = code => {
       return "Error desconocido intenta de nuevo."
   }
 }
-
-export const user = firebase.auth().currentUser;

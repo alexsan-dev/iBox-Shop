@@ -3,7 +3,9 @@ import Alert from './Alert';
 import { setProviders, useLogin, useAuthError, useResetPass } from '../utils/hooks';
 import { useEffect, useState } from 'react';
 
-let email, name, pass;
+let email = "";
+let pass = "";
+let name = "";
 
 const Forms = () => {
   let [account, setAccount] = useState({ switchC: false, alert: false });
@@ -53,7 +55,7 @@ const Forms = () => {
       <div id="form">
         <h2>Conectate <i className="material-icons">cached</i></h2>
         <p>Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌</p>
-        <p>¿{account.switchC ? "ya" : "no"} tienes una cuenta? <button onClick={regSwitch}>{regText}</button></p>
+        <p>¿{account.switchC ? "ya" : "no"} tienes cuenta? <button onClick={regSwitch}>{regText}</button></p>
 
         <div id="credentials">
           <Input type="email" label="Email o teléfono" name="email" value={value} helper="Usuario de la cuenta" icon="mail" />

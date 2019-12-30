@@ -13,17 +13,18 @@ const head = {
 }
 
 const Profile = props => {
-   const [user, setUser] = useState({
-      display:"Nombre de usuario", 
+   const userTemp = {
+      displayName:"Nombre de usuario", 
       email:"correo@dominio",
       provider:"password",
       photoURL:null
-   })
+   };
+   const [user, setUser] = useState(userTemp)
    useUserGet(props.user.uid, res => setUser(res.data()), err => console.log(err));
    return (
       <motion.div initial="exit" animate="enter" exit="exit" variants={{ exit: { transition: { staggerChildren: 0.1 } }, enter: { transition: { staggerChildren: 0.1 } } }}>
          <motion.div variants={head}>
-            <ProfileHeader user={user} />
+            <ProfileHeader user={user || userTemp} />
          </motion.div>
       </motion.div>
    )

@@ -19,7 +19,7 @@ const Slider = () => {
 								<div className="cardBackground"></div>
 								<div className="catTitle">
 									<h3>Electrónica</h3>
-									<p>Componentes, integrados y más</p>
+									<p>Componentes, <br/>integrados y más</p>
 								</div>
 								<i className="material-icons">memory</i>
 							</a>
@@ -134,7 +134,14 @@ const Slider = () => {
 	 	  font-size:4em;
 		  margin-left:0px;
 		  color:var(--backgrounds);
-	       }
+		   }
+
+		   @media screen and (max-width:355px){
+			.mainSlide > .seeMore{
+	
+				bottom:-45px;
+				 }
+		   }
 	   `}</style>
 		</div>
 	)

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLogout, useAuth } from "../utils/hooks";
 import Router from 'next/router'
 import Link from "next/link";
+import Verified from '../components/Verified';
 import Logo from "../assets/logo.svg";
 
 const Layout = props => {
@@ -97,6 +98,7 @@ const Layout = props => {
             </div>
             <div id="sideHook"></div>
          </nav>
+         {user && <Verified show={user.providerData[0].providerId==="facebook.com"?true:user.emailVerified}/>}
          {props.children}
       </>
    )
