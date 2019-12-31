@@ -1,30 +1,45 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import firebase from '../credentials/servers';
 import Dexie from 'dexie';
 import 'firebase/auth';
 import "firebase/firestore"
 
-//local DB
-let indexeddb = {};
-let db = firebase.firestore();
+// ============== EFECTOS ===============
+// EFECTO RIPPLE PARA TODOS LOS BOTONES
+export const useRipples = () => {
+  useEffect(() => {
+    const surface = document.querySelectorAll('.waves');
+    function ripple(e) {
+      let circle = document.createElement("div");
+      let maxLarge = Math.max(this.clientWidth, this.clientHeight)
+      let rectSurface = this.getBoundingClientRect();
+      let time = (Math.log(maxLarge) / Math.log(Math.exp(1))) / 11;
 
-export const useDB = () => {
-  indexeddb = new Dexie("localDB");
-  indexeddb.version(1).stores({ user: 'key, user' })
-  indexeddb.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
+      circle.style.width = circle.style.height = maxLarge + "px";
+      circle.style.left = e.clientX - rectSurface.left - maxLarge / 2 + "px";
+      circle.style.top = e.clientY - rectSurface.top - maxLarge / 2 + "px";
+      circle.classList.add("ripple");
+      circle.style.animation = `ripple ${time}s ease-in`;
+
+      if (this.classList.contains("waves-dark")) circle.classList.add("ripple-dark");
+      this.appendChild(circle);
+      setTimeout(() => this.removeChild(circle), time * 1000);
+    }
+    for (let i = 0; i < surface.length; i++) {
+      if(!surface[i].getAttribute("data-ripple")){
+        surface[i].setAttribute("data-ripple", true);
+        surface[i].addEventListener('click', ripple);
+      }
+    }
+  }, []);
 }
 
-// Intervals for states
+// HOOK PARA INTERVALOS DE TIEMPO
 export const useInterval = (callback, delay) => {
   const savedCallback = useRef();
+  useEffect(() => { savedCallback.current = callback }, [callback]);
   useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+    function tick() { savedCallback.current(); }
     if (delay !== null) {
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
@@ -32,14 +47,49 @@ export const useInterval = (callback, delay) => {
   }, [delay]);
 }
 
-// Firestore
+// =========== BASE DE DATOS ============
+let indexeddb = {};
+
+// VARIABLES DE BASE DE DATOS LOCAL
+export const useDB = () => {
+  indexeddb = new Dexie("localDB");
+  indexeddb.version(1).stores({ user: 'key, user' })
+  indexeddb.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
+}
+
+// CONEXION A BASE DE DATOS FIRESTORE
+let db = firebase.firestore();
+let fireStoreHandler = 0;
+
+// AGREGAR USUARIO EN CUENTA NUEVA
 export const useUserSet = (id, data) => db.collection("users").doc(id).set(data);
-export const useUserGet = (id, listener, err) => db.collection("users").doc(id).get().then(listener).catch(err);
 
-// Firebase Auth
+// OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
+export const useUserGet = (id, listener, err) => {
+  indexeddb.user.get(1, user => {
+    if (user && fireStoreHandler === 0) {
+      console.log("Read user from Local");
+      fireStoreHandler++;
+      listener(user.user);
+    }
+    else if (fireStoreHandler === 0) {
+      db.collection("users").doc(id).get().then(user => {
+        console.log("Read user from Firestore");
+        fireStoreHandler++;
+        indexeddb.user.put({ key: 1, user: user.data() })
+        listener(user.data());
+      }).catch(err);
+    }
+  })
+}
+
+// ============== AUTENTICACION ===============
 let fbprovider, gprovider;
-export const useLogout = () => firebase.auth().signOut();
 
+// OBTENER USUARIO ACTUAL
+export let user = firebase.auth().currentUser;
+
+// CONFIGURAR PROVEEDORES ( FACEBOOK Y GOOGLE )
 export const setProviders = () => {
   fbprovider = new firebase.auth.FacebookAuthProvider();
   gprovider = new firebase.auth.GoogleAuthProvider();
@@ -47,8 +97,36 @@ export const setProviders = () => {
   fbprovider.setCustomParameters({ 'display': 'popup' });
 }
 
+// INICIO DE SESION
+export const useLogin = data => {
+  // USUARIO NUEVO
+  if (data.type === true) firebase.auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
+    useUserSet(res.user.uid, { 
+      displayName: data.name, 
+      email: data.email, 
+      provider: res.user.providerData[0].providerId, 
+      photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef" 
+    });
+
+    res.user.updateProfile({ 
+      displayName: 
+      data.name, 
+      photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef" 
+    });
+
+    res.user.sendEmailVerification().then(() => console.log("Send verification email for new user"));
+  }).catch(data.err);
+
+  // USUARIOS EXISTENTES CON EMIAL, FACEBOOK, GOOGLE
+  else if (data.type === false) firebase.auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);
+  else if (data.type === "fb") firebase.auth().signInWithRedirect(fbprovider).catch(data.err);
+  else if (data.type === "g") firebase.auth().signInWithRedirect(gprovider).catch(data.err);
+}
+
+// ESCUCHADOR PARA CAMBIOS EN EL INICIO DE SESION
 export const useAuth = listen => {
   useEffect(() => {
+    fireStoreHandler = 0;
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) listen(user);
       else listen(false);
@@ -57,10 +135,17 @@ export const useAuth = listen => {
   }, []);
 }
 
+// CERRAR SESION
+export const useLogout = () => {
+  firebase.auth().signOut();
+  indexeddb.user.clear();
+  fireStoreHandler = 0;
+}
+
+// RECUPERAR CONTRASEÑA
 export const useResetPass = (email, err) => firebase.auth().sendPasswordResetEmail(email).catch(err);
 
-export const user = firebase.auth().currentUser;
-
+// COMPROBAR SI ES UN USARIO VERIFICADO
 export const useVerifiedUser = dats => {
   if (dats) {
     const userProvider = dats.providerData[0].providerId;
@@ -69,16 +154,16 @@ export const useVerifiedUser = dats => {
   } else return false;
 }
 
-export const useLogin = data => {
-  if (data.type === true) firebase.auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
-    useUserSet(res.user.uid, { displayName: data.name, email: data.email, provider: res.user.providerData[0].providerId, photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef" });
-    res.user.updateProfile({ displayName: data.name, photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef" });
-  }).catch(data.err);
-  else if (data.type === false) firebase.auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);
-  else if (data.type === "fb") firebase.auth().signInWithRedirect(fbprovider).catch(data.err);
-  else if (data.type === "g") firebase.auth().signInWithRedirect(gprovider).catch(data.err);
-}
+// ENVIAR CORREO DE VERIFICACION
+export const useSendEmailVerification = () => firebase.auth().currentUser.sendEmailVerification();
 
+// BORRAR USUARIO
+export const useDeleteUser = () => firebase.auth().currentUser.delete();
+
+// TIEMPO USUARIO DESDE SU CREACION
+export let useUserTime = () => new Date(firebase.auth().currentUser.metadata.creationTime);
+
+// CODIGOS DE ERROR EN EL INCIO DE SESION
 export const useAuthError = code => {
   switch (code) {
     case "auth/app-deleted":

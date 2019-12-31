@@ -1,6 +1,6 @@
 import ProfileHeader from "./ProfileHeader";
 import { useState } from 'react';
-import { useUserGet } from '../utils/hooks'
+import { useUserGet, useRipples } from '../utils/hooks'
 import { motion } from "framer-motion";
 
 let ease = [0.175, 0.85, 0.42, 0.96];
@@ -13,14 +13,18 @@ const head = {
 }
 
 const Profile = props => {
+   useRipples();
+
    const userTemp = {
-      displayName:"Nombre de usuario", 
-      email:"correo@dominio",
-      provider:"password",
-      photoURL:null
+      displayName: "Nombre",
+      email: "correo@dominio",
+      provider: "password",
+      photoURL: null
    };
-   const [user, setUser] = useState(userTemp)
-   useUserGet(props.user.uid, res => setUser(res.data()), err => console.log(err));
+
+   const [user, setUser] = useState(userTemp);
+   useUserGet(props.user.uid, res => setUser(res), err => console.log(err));
+
    return (
       <motion.div initial="exit" animate="enter" exit="exit" variants={{ exit: { transition: { staggerChildren: 0.1 } }, enter: { transition: { staggerChildren: 0.1 } } }}>
          <motion.div variants={head}>

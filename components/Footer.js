@@ -3,7 +3,6 @@ import Store from '../assets/store.png';
 const Footer = props => {
    return (
       <footer>
-
          {props.store ? (
 
             <div className="st">
@@ -26,7 +25,6 @@ const Footer = props => {
             <h2>Hecho con ❤️ en Guatemala 🇬🇹</h2>
             <span>Todos los derechos reservados iBox® {new Date().getFullYear()}</span>
          </div>
-
       </footer>
    )
 }

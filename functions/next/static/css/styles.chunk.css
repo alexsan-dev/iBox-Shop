@@ -35,37 +35,6 @@
   font-feature-settings: 'liga';
 }
 
-ul{
-   margin:0;
-   list-style:none;
-   padding:0;
-}                                                    
-h1,h2,h3,h4,h5,h6,p{
-   margin:0;
-}
-hr{
-   height:1.5px;
-   border:none;
-   outline:none;
-   margin:0;
-   box-shadow:none;
-   background:#ddd;
-   margin:15px  0;
-} 
-button{
-   border:none;
-   box-shadow:none;
-   outline:none;
-}
-a{
-   text-decoration:none;
-}
-input{
-   border:none;
-   box-shadow:none;
-   outline:none;
-}
-
 /* GENERAL */
 body {
    overscroll-behavior:none;
@@ -107,6 +76,36 @@ body {
    -webkit-touch-callout: none;
    -webkit-tap-highlight-color: transparent;
    -webkit-user-drag: none;
+}
+ul{
+   margin:0;
+   list-style:none;
+   padding:0;
+}                                                    
+h1,h2,h3,h4,h5,h6,p{
+   margin:0;
+}
+hr{
+   height:1.5px;
+   border:none;
+   outline:none;
+   margin:0;
+   box-shadow:none;
+   background:#ddd;
+   margin:15px  0;
+} 
+button{
+   border:none;
+   box-shadow:none;
+   outline:none;
+}
+a{
+   text-decoration:none;
+}
+input{
+   border:none;
+   box-shadow:none;
+   outline:none;
 }
 
 h2{
@@ -715,7 +714,9 @@ footer svg{
       margin-bottom:-25px;
       width:calc(100% + 10px);
    }
-   
+   nav > #drawer{
+      width:260px;
+   }
 }
 @font-face {
   font-family: 'icomoon';

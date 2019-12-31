@@ -3,7 +3,8 @@ import App from "next/app";
 import Splash from '../components/Splash';
 import Layout from '../layouts/Layout';
 import { AnimatePresence } from 'framer-motion';
-import { setRipples, darkMode } from '../utils/functions';
+//import { darkMode } from '../utils/functions';
+import { useDB } from '../utils/hooks';
 import '../assets/icons/material-icons.css';
 import '../styles/ibox-wavy.css';
 import '../assets/icons/style.css';
@@ -19,8 +20,7 @@ export default class extends App {
          }, 1500);
       }
 
-      setRipples();
-
+      useDB();
       // COLORTHEME
       // if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) darkMode(document);
    }

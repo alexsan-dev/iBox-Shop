@@ -36,7 +36,7 @@ const Splash = p => {
   let display = true ? 'none' : undefined;
   return __jsx("div", {
     id: "splash",
-    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["3488087406", [display]]]),
+    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["1923400005", [display]]]),
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8
@@ -45,41 +45,84 @@ const Splash = p => {
   }, __jsx("img", {
     src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_2___default.a,
     alt: "Logo",
-    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["3488087406", [display]]]),
+    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["1923400005", [display]]]),
     __source: {
       fileName: _jsxFileName,
       lineNumber: 9
     },
     __self: undefined
   }), __jsx("div", {
-    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["3488087406", [display]]]),
+    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["1923400005", [display]]]),
     __source: {
       fileName: _jsxFileName,
       lineNumber: 11
     },
     __self: undefined
   }, __jsx("h2", {
-    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["3488087406", [display]]]),
+    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["1923400005", [display]]]),
     __source: {
       fileName: _jsxFileName,
       lineNumber: 12
     },
     __self: undefined
   }, "Mejora tu experiencia \uD83D\uDD25"), __jsx("p", {
-    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["3488087406", [display]]]),
+    className: styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a.dynamic([["1923400005", [display]]]),
     __source: {
       fileName: _jsxFileName,
       lineNumber: 13
     },
     __self: undefined
   }, "iBox es la tienda electr\xF3nica con el mayor impacto en Guatemala, creada desde cero para mejorar en cada detalle \uD83D\uDC4C, ay\xFAdanos a mejorar tu experiencia dej\xE1ndonos tu comentario sobre la tienda. \uD83D\uDCF2")), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    id: "3488087406",
+    id: "1923400005",
     dynamic: [display],
     __self: undefined
-  }, "@-webkit-keyframes spl-__jsx-style-dynamic-selector{0%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}50%{-webkit-transform:translate(-50%,-50%) scale(1.2,1.2);-ms-transform:translate(-50%,-50%) scale(1.2,1.2);transform:translate(-50%,-50%) scale(1.2,1.2);}100%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}}@keyframes spl-__jsx-style-dynamic-selector{0%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}50%{-webkit-transform:translate(-50%,-50%) scale(1.2,1.2);-ms-transform:translate(-50%,-50%) scale(1.2,1.2);transform:translate(-50%,-50%) scale(1.2,1.2);}100%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}}#splash.__jsx-style-dynamic-selector{background:var(--primary);position:fixed;top:0;left:0;width:100%;height:100vh;z-index:101;opacity:1;display:".concat(display, ";-webkit-transition:opacity 0.3s ease-in-out;transition:opacity 0.3s ease-in-out;}img.__jsx-style-dynamic-selector{position:absolute;top:40%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);width:80%;max-width:200px;-webkit-animation:spl-__jsx-style-dynamic-selector 2s ease-in-out infinite;animation:spl-__jsx-style-dynamic-selector 2s ease-in-out infinite;}div.__jsx-style-dynamic-selector{width:100%;font-size:15px;padding:20px;color:var(--backgrounds);background:var(--third);position:fixed;bottom:0;left:0;}div.__jsx-style-dynamic-selector h2.__jsx-style-dynamic-selector{color:var(--backgrounds);}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcU3BsYXNoLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQWVlLEFBR21ELEFBQ00sQUFDSixBQUd0QixBQVlSLEFBU1AsQUFVYyxXQVRWLE9BVFAsT0FtQlgsQ0EvQmtCLEFBYU4sQUFTSSxTQVJtQixJQVNQLEVBdEJuQixNQUNDLE9BQ0ksVUFxQmEsQ0FwQlgsYUFDRCxVQW9CRyxFQW5CTCxVQUMyQixHQW1CNUIsU0FDRixPQUNULGtCQXBCc0MsQ0FkVyxBQUVFLEVBbUJ2QyxVQXBCMkMsQUFxQnJDLGdCQUNzQixtREFSeEMsMkZBU0EiLCJmaWxlIjoiQzpcXFVzZXJzXFxlcm5lc3RvXFxEZXNrdG9wXFxpQm94XFxjb21wb25lbnRzXFxTcGxhc2guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgTG9nbyBmcm9tIFwiLi4vYXNzZXRzL2xvZ28uc3ZnXCI7XG5cbmNvbnN0IFNwbGFzaCA9IHAgPT4ge1xuXG5cdGxldCBkaXNwbGF5ID0gcHJvY2Vzcy5lbnYuTk9ERV9FTlYgPT09IFwiZGV2ZWxvcG1lbnRcIiA/ICdub25lJyA6ICdibG9jayc7XG5cblx0cmV0dXJuIChcblx0XHQ8ZGl2IGlkPVwic3BsYXNoXCI+XG5cdFx0XHQ8aW1nIHNyYz17TG9nb30gYWx0PVwiTG9nb1wiIC8+XG5cblx0XHRcdDxkaXY+XG5cdFx0XHRcdDxoMj5NZWpvcmEgdHUgZXhwZXJpZW5jaWEg8J+UpTwvaDI+XG5cdFx0XHRcdDxwPmlCb3ggZXMgbGEgdGllbmRhIGVsZWN0csOzbmljYSBjb24gZWwgbWF5b3IgaW1wYWN0byBlbiBHdWF0ZW1hbGEsIGNyZWFkYSBkZXNkZSBjZXJvIHBhcmEgbWVqb3JhciBlbiBjYWRhIGRldGFsbGUg8J+RjCwgYXnDumRhbm9zIGEgbWVqb3JhciB0dSBleHBlcmllbmNpYSBkZWrDoW5kb25vcyB0dSBjb21lbnRhcmlvIHNvYnJlIGxhIHRpZW5kYS4g8J+TsjwvcD5cblx0XHRcdDwvZGl2PlxuXG5cdFx0XHQ8c3R5bGUganN4PntgXG4gICAgICAgICBAa2V5ZnJhbWVzIHNwbCB7XG5cdCAgICAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKC01MCUsIC01MCUpIHNjYWxlKDEsMSl9XG5cdCAgICA1MCV7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtNTAlLCAtNTAlKSBzY2FsZSgxLjIsIDEuMil9XG5cdCAgICAxMDAle3RyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSwgLTUwJSkgc2NhbGUoMSwxKX1cblx0IH1cbiAgICAgICAgICNzcGxhc2h7XG5cdCAgICBiYWNrZ3JvdW5kOnZhcigtLXByaW1hcnkpO1xuXHQgICAgcG9zaXRpb246Zml4ZWQ7XG5cdCAgICB0b3A6MDtcblx0ICAgIGxlZnQ6MDtcblx0ICAgIHdpZHRoOjEwMCU7XG5cdCAgICBoZWlnaHQ6MTAwdmg7XG5cdCAgICB6LWluZGV4OjEwMTtcblx0ICAgIG9wYWNpdHk6MTtcblx0ICAgIGRpc3BsYXk6JHtkaXNwbGF5fTtcblx0ICAgIHRyYW5zaXRpb246b3BhY2l0eSAwLjNzIGVhc2UtaW4tb3V0O1xuXHQgfVxuXHQgaW1ne1xuXHQgICAgcG9zaXRpb246YWJzb2x1dGU7XG5cdCAgICB0b3A6NDAlO1xuXHQgICAgbGVmdDo1MCU7XG5cdCAgICB0cmFuc2Zvcm06dHJhbnNsYXRlKC01MCUsIC01MCUpO1xuXHQgICAgd2lkdGg6ODAlO1xuXHQgICAgbWF4LXdpZHRoOjIwMHB4O1xuXHQgICAgYW5pbWF0aW9uOnNwbCAycyBlYXNlLWluLW91dCBpbmZpbml0ZTtcblx0IH1cblx0IGRpdntcblx0ICAgIHdpZHRoOjEwMCU7XG5cdCAgICBmb250LXNpemU6MTVweDtcblx0ICAgIHBhZGRpbmc6MjBweDtcblx0ICAgIGNvbG9yOnZhcigtLWJhY2tncm91bmRzKTtcblx0ICAgIGJhY2tncm91bmQ6dmFyKC0tdGhpcmQpO1xuXHQgICAgcG9zaXRpb246Zml4ZWQ7XG5cdCAgICBib3R0b206MDtcblx0ICAgIGxlZnQ6MDtcblx0IH1cblx0IGRpdiBoMntcblx0ICAgIGNvbG9yOnZhcigtLWJhY2tncm91bmRzKTtcblx0fVxuICAgICAgICAgYH08L3N0eWxlPlxuXHRcdDwvZGl2PlxuXHQpXG59XG5cbmV4cG9ydCBkZWZhdWx0IFNwbGFzaDtcbiJdfQ== */\n/*@ sourceURL=C:\\\\Users\\\\ernesto\\\\Desktop\\\\iBox\\\\components\\\\Splash.js */")));
+  }, "@-webkit-keyframes spl-__jsx-style-dynamic-selector{0%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}50%{-webkit-transform:translate(-50%,-50%) scale(1.2,1.2);-ms-transform:translate(-50%,-50%) scale(1.2,1.2);transform:translate(-50%,-50%) scale(1.2,1.2);}100%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}}@keyframes spl-__jsx-style-dynamic-selector{0%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}50%{-webkit-transform:translate(-50%,-50%) scale(1.2,1.2);-ms-transform:translate(-50%,-50%) scale(1.2,1.2);transform:translate(-50%,-50%) scale(1.2,1.2);}100%{-webkit-transform:translate(-50%,-50%) scale(1,1);-ms-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1);}}#splash.__jsx-style-dynamic-selector{background:var(--primary);position:fixed;top:0;left:0;width:100%;height:100vh;z-index:101;opacity:1;-webkit-transition:opacity 0.3s ease-in-out;transition:opacity 0.3s ease-in-out;display:".concat(display, ";}img.__jsx-style-dynamic-selector{position:absolute;top:40%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);width:80%;max-width:200px;-webkit-animation:spl-__jsx-style-dynamic-selector 2s ease-in-out infinite;animation:spl-__jsx-style-dynamic-selector 2s ease-in-out infinite;}div.__jsx-style-dynamic-selector{width:100%;font-size:15px;padding:20px;color:var(--backgrounds);background:var(--third);position:fixed;bottom:0;left:0;}div.__jsx-style-dynamic-selector h2.__jsx-style-dynamic-selector{color:var(--backgrounds);}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcU3BsYXNoLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQWVlLEFBR21ELEFBQ00sQUFDSixBQUd0QixBQVlSLEFBU1AsQUFVYyxXQVRWLE9BVFAsT0FtQlIsQ0EvQmUsQUFhTixBQVNJLFNBUm1CLElBU1AsRUF0Qm5CLE1BQ0MsT0FDSSxVQXFCYSxDQXBCWCxhQUNELFVBb0JHLEVBbkJMLFVBQzBCLEdBbUIzQixTQUNGLE9BQ1AsbUJBbEMrQyxBQUVFLEVBbUJ2QyxVQXBCMkMsQUFxQnJDLGdCQUNzQixjQVRELHFDQUNyQywyRkFTQSIsImZpbGUiOiJDOlxcVXNlcnNcXGVybmVzdG9cXERlc2t0b3BcXGlCb3hcXGNvbXBvbmVudHNcXFNwbGFzaC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBMb2dvIGZyb20gXCIuLi9hc3NldHMvbG9nby5zdmdcIjtcblxuY29uc3QgU3BsYXNoID0gcCA9PiB7XG5cblx0bGV0IGRpc3BsYXkgPSBwcm9jZXNzLmVudi5OT0RFX0VOViA9PT0gXCJkZXZlbG9wbWVudFwiID8gJ25vbmUnIDogJ2Jsb2NrJztcblxuXHRyZXR1cm4gKFxuXHRcdDxkaXYgaWQ9XCJzcGxhc2hcIj5cblx0XHRcdDxpbWcgc3JjPXtMb2dvfSBhbHQ9XCJMb2dvXCIgLz5cblxuXHRcdFx0PGRpdj5cblx0XHRcdFx0PGgyPk1lam9yYSB0dSBleHBlcmllbmNpYSDwn5SlPC9oMj5cblx0XHRcdFx0PHA+aUJveCBlcyBsYSB0aWVuZGEgZWxlY3Ryw7NuaWNhIGNvbiBlbCBtYXlvciBpbXBhY3RvIGVuIEd1YXRlbWFsYSwgY3JlYWRhIGRlc2RlIGNlcm8gcGFyYSBtZWpvcmFyIGVuIGNhZGEgZGV0YWxsZSDwn5GMLCBhecO6ZGFub3MgYSBtZWpvcmFyIHR1IGV4cGVyaWVuY2lhIGRlasOhbmRvbm9zIHR1IGNvbWVudGFyaW8gc29icmUgbGEgdGllbmRhLiDwn5OyPC9wPlxuXHRcdFx0PC9kaXY+XG5cblx0XHRcdDxzdHlsZSBqc3g+e2Bcblx0XHRcdFx0QGtleWZyYW1lcyBzcGwge1xuXHRcdFx0XHRcdDAle3RyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSwgLTUwJSkgc2NhbGUoMSwxKX1cblx0XHRcdFx0XHQ1MCV7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtNTAlLCAtNTAlKSBzY2FsZSgxLjIsIDEuMil9XG5cdFx0XHRcdFx0MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKC01MCUsIC01MCUpIHNjYWxlKDEsMSl9XG5cdFx0XHRcdH1cblx0XHRcdFx0I3NwbGFzaHtcblx0XHRcdFx0XHRiYWNrZ3JvdW5kOnZhcigtLXByaW1hcnkpO1xuXHRcdFx0XHRcdHBvc2l0aW9uOmZpeGVkO1xuXHRcdFx0XHRcdHRvcDowO1xuXHRcdFx0XHRcdGxlZnQ6MDtcblx0XHRcdFx0XHR3aWR0aDoxMDAlO1xuXHRcdFx0XHRcdGhlaWdodDoxMDB2aDtcblx0XHRcdFx0XHR6LWluZGV4OjEwMTtcblx0XHRcdFx0XHRvcGFjaXR5OjE7XG5cdFx0XHRcdFx0dHJhbnNpdGlvbjpvcGFjaXR5IDAuM3MgZWFzZS1pbi1vdXQ7XG5cdFx0XHRcdFx0ZGlzcGxheToke2Rpc3BsYXl9O1xuXHRcdFx0XHR9XG5cdFx0XHRcdGltZ3tcblx0XHRcdFx0XHRwb3NpdGlvbjphYnNvbHV0ZTtcblx0XHRcdFx0XHR0b3A6NDAlO1xuXHRcdFx0XHRcdGxlZnQ6NTAlO1xuXHRcdFx0XHRcdHRyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG5cdFx0XHRcdFx0d2lkdGg6ODAlO1xuXHRcdFx0XHRcdG1heC13aWR0aDoyMDBweDtcblx0XHRcdFx0XHRhbmltYXRpb246c3BsIDJzIGVhc2UtaW4tb3V0IGluZmluaXRlO1xuXHRcdFx0XHR9XG5cdFx0XHRcdGRpdntcblx0XHRcdFx0XHR3aWR0aDoxMDAlO1xuXHRcdFx0XHRcdGZvbnQtc2l6ZToxNXB4O1xuXHRcdFx0XHRcdHBhZGRpbmc6MjBweDtcblx0XHRcdFx0XHRjb2xvcjp2YXIoLS1iYWNrZ3JvdW5kcyk7XG5cdFx0XHRcdFx0YmFja2dyb3VuZDp2YXIoLS10aGlyZCk7XG5cdFx0XHRcdFx0cG9zaXRpb246Zml4ZWQ7XG5cdFx0XHRcdFx0Ym90dG9tOjA7XG5cdFx0XHRcdFx0bGVmdDowO1xuXHRcdFx0XHR9XG5cdFx0XHRcdGRpdiBoMntcblx0XHRcdFx0XHRjb2xvcjp2YXIoLS1iYWNrZ3JvdW5kcyk7XG5cdFx0XHRcdH1cbiAgICAgICAgXHRgfTwvc3R5bGU+XG5cdFx0PC9kaXY+XG5cdClcbn1cblxuZXhwb3J0IGRlZmF1bHQgU3BsYXNoO1xuIl19 */\n/*@ sourceURL=C:\\\\Users\\\\ernesto\\\\Desktop\\\\iBox\\\\components\\\\Splash.js */")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Splash);
+
+/***/ }),
+
+/***/ "./components/Toast.js":
+/*!*****************************!*\
+  !*** ./components/Toast.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "./node_modules/styled-jsx/style.js");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "C:\\Users\\ernesto\\Desktop\\iBox\\components\\Toast.js";
+
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+const Toast = props => {
+  return __jsx("div", {
+    className: "jsx-4232183940" + " " + "toast",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 3
+    },
+    __self: undefined
+  }, __jsx("span", {
+    className: "jsx-4232183940",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4
+    },
+    __self: undefined
+  }, props.text), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "4232183940",
+    __self: undefined
+  }, "div.jsx-4232183940{position:fixed;bottom:0;left:0;width:100%;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%);-webkit-transition:-webkit-transform 0.3s ease-in-out;-webkit-transition:transform 0.3s ease-in-out;transition:transform 0.3s ease-in-out;background:var(--text);padding:20px;z-index:99;}span.jsx-4232183940{font-size:1em;font-weight:500;color:var(--backgrounds);}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVG9hc3QuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSXdCLEFBR21DLEFBV0QsY0FDRSxDQVhQLFNBQ0YsTUFXa0IsQ0FWZCxXQUNnQixhQVU5QixnRkFUeUMsMElBQ2YsdUJBQ1YsYUFDRixXQUNkIiwiZmlsZSI6IkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVG9hc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBUb2FzdCA9IHByb3BzID0+IHtcclxuICAgIHJldHVybihcclxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInRvYXN0XCI+XHJcbiAgICAgICAgICAgIDxzcGFuPntwcm9wcy50ZXh0fTwvc3Bhbj5cclxuICAgICAgICAgICAgPHN0eWxlIGpzeD57YFxyXG4gICAgICAgICAgICAgICAgZGl2e1xyXG4gICAgICAgICAgICAgICAgICAgIHBvc2l0aW9uOmZpeGVkO1xyXG4gICAgICAgICAgICAgICAgICAgIGJvdHRvbTowO1xyXG4gICAgICAgICAgICAgICAgICAgIGxlZnQ6MDtcclxuICAgICAgICAgICAgICAgICAgICB3aWR0aDoxMDAlO1xyXG4gICAgICAgICAgICAgICAgICAgIHRyYW5zZm9ybTp0cmFuc2xhdGVZKDEwMCUpO1xyXG4gICAgICAgICAgICAgICAgICAgIHRyYW5zaXRpb246dHJhbnNmb3JtIDAuM3MgZWFzZS1pbi1vdXQ7XHJcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDp2YXIoLS10ZXh0KTtcclxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOjIwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgei1pbmRleDo5OTtcclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIHNwYW57XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOjFlbTtcclxuICAgICAgICAgICAgICAgICAgICBmb250LXdlaWdodDo1MDA7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6dmFyKC0tYmFja2dyb3VuZHMpO1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICBgfTwvc3R5bGU+XHJcbiAgICAgICAgPC9kaXY+XHJcbiAgICApXHJcbn1cclxuXHJcbmV4cG9ydCBkZWZhdWx0IFRvYXN0OyJdfQ== */\n/*@ sourceURL=C:\\\\Users\\\\ernesto\\\\Desktop\\\\iBox\\\\components\\\\Toast.js */"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Toast);
 
 /***/ }),
 
@@ -96,58 +139,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/hooks */ "./utils/hooks.js");
 var _jsxFileName = "C:\\Users\\ernesto\\Desktop\\iBox\\components\\Verified.js";
 
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
+
+
 const Verified = props => {
-  if (!props.show) return __jsx("div", {
-    className: "jsx-2815924814" + " " + "amber",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 3
-    },
-    __self: undefined
-  }, __jsx("div", {
-    className: "jsx-2815924814",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 4
-    },
-    __self: undefined
-  }, __jsx("h1", {
-    className: "jsx-2815924814",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 5
-    },
-    __self: undefined
-  }, "Verifica tu correo"), __jsx("p", {
-    className: "jsx-2815924814",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6
-    },
-    __self: undefined
-  }, "Ya te enviamos un link para poder seguir utlizando la tienda con tu cuenta.")), __jsx("button", {
-    className: "jsx-2815924814" + " " + "waves white",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8
-    },
-    __self: undefined
-  }, __jsx("i", {
-    className: "jsx-2815924814" + " " + "material-icons",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8
-    },
-    __self: undefined
-  }, "send"), "Reenviar"), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    id: "2815924814",
-    __self: undefined
-  }, ".amber.jsx-2815924814{padding:20px;color:var(--backgrounds);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}.amber.jsx-2815924814>div.jsx-2815924814{width:170px;}button.jsx-2815924814{color:var(--text);}h1.jsx-2815924814{color:var(--backgrounds);font-size:1.3em;}p.jsx-2815924814{font-size:0.9em;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVmVyaWZpZWQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUXdCLEFBR2lDLEFBT0QsQUFHTSxBQUdPLEFBSVQsWUFUbkIsQ0FQNEIsR0FpQjVCLEVBUEEsT0FHbUIsYUFaSCxHQWFoQix1RUFac0IsNkZBQ1csbUhBQ2pDIiwiZmlsZSI6IkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVmVyaWZpZWQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBWZXJpZmllZCA9IHByb3BzID0+IHtcclxuICAgIGlmICghcHJvcHMuc2hvdykgcmV0dXJuIChcclxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImFtYmVyXCI+XHJcbiAgICAgICAgICAgIDxkaXY+XHJcbiAgICAgICAgICAgICAgICA8aDE+VmVyaWZpY2EgdHUgY29ycmVvPC9oMT5cclxuICAgICAgICAgICAgICAgIDxwPllhIHRlIGVudmlhbW9zIHVuIGxpbmsgcGFyYSBwb2RlciBzZWd1aXIgdXRsaXphbmRvIGxhIHRpZW5kYSBjb24gdHUgY3VlbnRhLjwvcD5cclxuICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgIDxidXR0b24gY2xhc3NOYW1lPVwid2F2ZXMgd2hpdGVcIj48aSBjbGFzc05hbWU9XCJtYXRlcmlhbC1pY29uc1wiPnNlbmQ8L2k+UmVlbnZpYXI8L2J1dHRvbj4gXHJcbiAgICAgICAgICAgIDxzdHlsZSBqc3g+e2BcclxuICAgICAgICAgICAgICAgIC5hbWJlcntcclxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOjIwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6dmFyKC0tYmFja2dyb3VuZHMpO1xyXG4gICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczpjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAganVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAuYW1iZXIgPiBkaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgd2lkdGg6MTcwcHg7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBidXR0b257XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6dmFyKC0tdGV4dCk7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBoMXtcclxuICAgICAgICAgICAgICAgICAgICBjb2xvcjp2YXIoLS1iYWNrZ3JvdW5kcyk7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOjEuM2VtOyAgICAgICAgXHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTowLjllbTsgXHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIGB9PC9zdHlsZT5cclxuICAgICAgICA8L2Rpdj5cclxuICAgIClcclxuICAgIGVsc2UgcmV0dXJuIFwiXCI7XHJcbn1cclxuXHJcbmV4cG9ydCBkZWZhdWx0IFZlcmlmaWVkOyJdfQ== */\n/*@ sourceURL=C:\\\\Users\\\\ernesto\\\\Desktop\\\\iBox\\\\components\\\\Verified.js */"));else return "";
+  const {
+    0: visible,
+    1: setVisible
+  } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(props.show);
+
+  const sendEmail = () => {
+    Object(_utils_hooks__WEBPACK_IMPORTED_MODULE_2__["useSendEmailVerification"])().then(() => {
+      console.log("Send verification email");
+      setVisible(true);
+    });
+  };
+
+  if (!visible) {
+    const timeDelta = new Date() - _utils_hooks__WEBPACK_IMPORTED_MODULE_2__["useUserTime"];
+
+    if (timeDelta > 3600 * 24 * 1000) {
+      Object(_utils_hooks__WEBPACK_IMPORTED_MODULE_2__["useDeleteUser"])().then(() => {
+        console.log("User deleted");
+        setVisible(true);
+      }).catch(error => console.log('Error deleting user:', error));
+    }
+
+    return __jsx("div", {
+      className: "jsx-664609245" + " " + "amber",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 24
+      },
+      __self: undefined
+    }, __jsx("div", {
+      className: "jsx-664609245",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 25
+      },
+      __self: undefined
+    }, __jsx("h1", {
+      className: "jsx-664609245",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 26
+      },
+      __self: undefined
+    }, "Verifica tu correo"), __jsx("p", {
+      className: "jsx-664609245",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 27
+      },
+      __self: undefined
+    }, "Ya te enviamos un link para poder seguir utlizando la tienda con tu cuenta.")), __jsx("button", {
+      onClick: sendEmail,
+      className: "jsx-664609245" + " " + "waves waves-dark white",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 29
+      },
+      __self: undefined
+    }, __jsx("i", {
+      className: "jsx-664609245" + " " + "material-icons",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 29
+      },
+      __self: undefined
+    }, "send"), "Reenviar"), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+      id: "664609245",
+      __self: undefined
+    }, ".amber.jsx-664609245{padding:20px;color:var(--backgrounds);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}.amber.jsx-664609245>div.jsx-664609245{width:170px;}button.jsx-664609245{color:var(--parraf);}h1.jsx-664609245{color:var(--backgrounds);font-size:1.3em;}p.jsx-664609245{font-size:0.9em;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcZXJuZXN0b1xcRGVza3RvcFxcaUJveFxcY29tcG9uZW50c1xcVmVyaWZpZWQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNkI0QixBQUdpQyxBQU9ELEFBR1EsQUFHSyxBQUlULFlBVG5CLENBUDRCLEdBaUI1QixJQVBBLEtBR21CLGFBWkgsR0FhaEIsdUVBWnNCLDZGQUNXLG1IQUNqQyIsImZpbGUiOiJDOlxcVXNlcnNcXGVybmVzdG9cXERlc2t0b3BcXGlCb3hcXGNvbXBvbmVudHNcXFZlcmlmaWVkLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlU2VuZEVtYWlsVmVyaWZpY2F0aW9uLCB1c2VEZWxldGVVc2VyLCB1c2VVc2VyVGltZSB9IGZyb20gJy4uL3V0aWxzL2hvb2tzJztcclxuaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICdyZWFjdCc7XHJcblxyXG5jb25zdCBWZXJpZmllZCA9IHByb3BzID0+IHtcclxuICAgIGNvbnN0IFt2aXNpYmxlLCBzZXRWaXNpYmxlXSA9IHVzZVN0YXRlKHByb3BzLnNob3cpO1xyXG5cclxuICAgIGNvbnN0IHNlbmRFbWFpbCA9ICgpID0+IHtcclxuICAgICAgICB1c2VTZW5kRW1haWxWZXJpZmljYXRpb24oKS50aGVuKCgpID0+IHtcclxuICAgICAgICAgICAgY29uc29sZS5sb2coXCJTZW5kIHZlcmlmaWNhdGlvbiBlbWFpbFwiKTtcclxuICAgICAgICAgICAgc2V0VmlzaWJsZSh0cnVlKTtcclxuICAgICAgICB9KTtcclxuICAgIH1cclxuXHJcbiAgICBpZiAoIXZpc2libGUpIHtcclxuICAgICAgICBjb25zdCB0aW1lRGVsdGEgPSBuZXcgRGF0ZSgpIC0gdXNlVXNlclRpbWU7XHJcbiAgICAgICAgaWYodGltZURlbHRhID4gKDM2MDAgKiAyNCAqIDEwMDApKSB7XHJcbiAgICAgICAgICAgIHVzZURlbGV0ZVVzZXIoKS50aGVuKCgpID0+e1xyXG4gICAgICAgICAgICAgICAgY29uc29sZS5sb2coXCJVc2VyIGRlbGV0ZWRcIik7XHJcbiAgICAgICAgICAgICAgICBzZXRWaXNpYmxlKHRydWUpO1xyXG4gICAgICAgICAgICB9KS5jYXRjaChlcnJvciA9PiBjb25zb2xlLmxvZygnRXJyb3IgZGVsZXRpbmcgdXNlcjonLCBlcnJvcikpO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgcmV0dXJuIChcclxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJhbWJlclwiPlxyXG4gICAgICAgICAgICAgICAgPGRpdj5cclxuICAgICAgICAgICAgICAgICAgICA8aDE+VmVyaWZpY2EgdHUgY29ycmVvPC9oMT5cclxuICAgICAgICAgICAgICAgICAgICA8cD5ZYSB0ZSBlbnZpYW1vcyB1biBsaW5rIHBhcmEgcG9kZXIgc2VndWlyIHV0bGl6YW5kbyBsYSB0aWVuZGEgY29uIHR1IGN1ZW50YS48L3A+XHJcbiAgICAgICAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICAgICAgICAgIDxidXR0b24gb25DbGljaz17c2VuZEVtYWlsfSBjbGFzc05hbWU9XCJ3YXZlcyB3YXZlcy1kYXJrIHdoaXRlXCI+PGkgY2xhc3NOYW1lPVwibWF0ZXJpYWwtaWNvbnNcIj5zZW5kPC9pPlJlZW52aWFyPC9idXR0b24+XHJcbiAgICAgICAgICAgICAgICA8c3R5bGUganN4PntgXHJcbiAgICAgICAgICAgICAgICAuYW1iZXJ7XHJcbiAgICAgICAgICAgICAgICAgICAgcGFkZGluZzoyMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGNvbG9yOnZhcigtLWJhY2tncm91bmRzKTtcclxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OmZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6Y2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDpzcGFjZS1iZXR3ZWVuO1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgLmFtYmVyID4gZGl2e1xyXG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOjE3MHB4O1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgYnV0dG9ue1xyXG4gICAgICAgICAgICAgICAgICAgIGNvbG9yOnZhcigtLXBhcnJhZik7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBoMXtcclxuICAgICAgICAgICAgICAgICAgICBjb2xvcjp2YXIoLS1iYWNrZ3JvdW5kcyk7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOjEuM2VtOyAgICAgICAgXHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTowLjllbTsgXHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIGB9PC9zdHlsZT5cclxuICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgKVxyXG4gICAgfVxyXG4gICAgZWxzZSByZXR1cm4gXCJcIjtcclxufVxyXG5cclxuZXhwb3J0IGRlZmF1bHQgVmVyaWZpZWQ7Il19 */\n/*@ sourceURL=C:\\\\Users\\\\ernesto\\\\Desktop\\\\iBox\\\\components\\\\Verified.js */"));
+  } else return "";
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Verified);
@@ -200,11 +270,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_Verified__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Verified */ "./components/Verified.js");
-/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/logo.svg */ "./assets/logo.svg");
-/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_Toast__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Toast */ "./components/Toast.js");
+/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../assets/logo.svg */ "./assets/logo.svg");
+/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_6__);
 var _jsxFileName = "C:\\Users\\ernesto\\Desktop\\iBox\\layouts\\Layout.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -216,16 +288,24 @@ const Layout = props => {
   const {
     0: user,
     1: setUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
-  Object(_utils_hooks__WEBPACK_IMPORTED_MODULE_1__["useAuth"])(user => setUser(user));
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    user: null,
+    online: false
+  });
+  Object(_utils_hooks__WEBPACK_IMPORTED_MODULE_1__["useAuth"])(user => setUser({
+    user,
+    online: user.online
+  }));
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     // GLOBALS
     const routes = document.querySelectorAll(".routes");
     const drawerToggle = document.getElementById("drawer-toggle");
     const drawerHook = document.getElementById("sideHook");
     const topbar = document.querySelector(".topbar");
+    const toast = document.querySelectorAll(".toast");
     const search = document.getElementById("search");
-    const searchToggle = document.getElementById("search-toggle"); // DRAWER ROUTER
+    const searchToggle = document.getElementById("search-toggle");
+    const shareBtn = document.querySelector(".shareBtn"); // DRAWER ROUTER
 
     function setActive(url) {
       setTimeout(() => {
@@ -259,11 +339,32 @@ const Layout = props => {
       const toggle = searchToggle.checked;
       if (toggle) search.focus();else setTimeout(() => search.value = null, 300);
     });
+
+    if (navigator.share) {
+      shareBtn.addEventListener("click", () => {
+        navigator.share({
+          title: 'iBox Shop',
+          text: 'Entra a esta tienda, te gustara. ✨👌!',
+          url: window.location.origin
+        }).then(() => console.log('Successfully share')).catch(error => console.log('Error sharing', error));
+      });
+    } else shareBtn.style.display = "none";
+
+    window.addEventListener('online', () => {
+      toast[0].style.transform = "translateY(100%)";
+      toast[1].style.transform = "translateY(0)";
+      setTimeout(() => toast[1].style.transform = "translateY(100%)", 5000);
+    });
+    window.addEventListener('offline', () => {
+      toast[1].style.transform = "translateY(100%)";
+      toast[0].style.transform = "translateY(0)";
+      setTimeout(() => toast[0].style.transform = "translateY(100%)", 5000);
+    });
   });
   return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("nav", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60
+      lineNumber: 86
     },
     __self: undefined
   }, __jsx("input", {
@@ -272,7 +373,7 @@ const Layout = props => {
     name: "drawer-toggle",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61
+      lineNumber: 87
     },
     __self: undefined
   }), __jsx("input", {
@@ -281,14 +382,14 @@ const Layout = props => {
     name: "search-toggle",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62
+      lineNumber: 88
     },
     __self: undefined
   }), __jsx("div", {
     className: "topbar",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63
+      lineNumber: 89
     },
     __self: undefined
   }, __jsx("label", {
@@ -297,36 +398,36 @@ const Layout = props => {
     id: "menuBtn",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64
+      lineNumber: 90
     },
     __self: undefined
   }, "menu"), __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 91
     },
     __self: undefined
   }, __jsx("div", {
     id: "brandLogo",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 91
     },
     __self: undefined
   }, __jsx("img", {
-    src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_5___default.a,
+    src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_6___default.a,
     alt: "Logo",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 91
     },
     __self: undefined
   }))), __jsx("div", {
     id: "navbtns",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66
+      lineNumber: 92
     },
     __self: undefined
   }, __jsx("label", {
@@ -334,21 +435,21 @@ const Layout = props => {
     className: "material-icons waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 67
+      lineNumber: 93
     },
     __self: undefined
   }, "search"), __jsx("i", {
     className: "material-icons waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68
+      lineNumber: 94
     },
     __self: undefined
   }, "shopping_cart")), __jsx("div", {
     id: "searchBar",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 70
+      lineNumber: 96
     },
     __self: undefined
   }, __jsx("label", {
@@ -356,7 +457,7 @@ const Layout = props => {
     className: "material-icons waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 71
+      lineNumber: 97
     },
     __self: undefined
   }, "arrow_back"), __jsx("input", {
@@ -365,7 +466,7 @@ const Layout = props => {
     id: "search",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 72
+      lineNumber: 98
     },
     __self: undefined
   }))), __jsx("label", {
@@ -373,7 +474,7 @@ const Layout = props => {
     className: "drawerShadow ssf",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 75
+      lineNumber: 101
     },
     __self: undefined
   }), __jsx("label", {
@@ -381,45 +482,45 @@ const Layout = props => {
     className: "drawerShadow sbf",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76
+      lineNumber: 102
     },
     __self: undefined
   }), __jsx("div", {
     id: "drawer",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77
+      lineNumber: 103
     },
     __self: undefined
   }, __jsx("div", {
     id: "drawerHead",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 78
+      lineNumber: 104
     },
     __self: undefined
   }, __jsx("span", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79
+      lineNumber: 105
     },
     __self: undefined
-  }, "iBox\xAE App (v0.3)"), __jsx("p", {
+  }, "iBox Shop\xAE App (v0.3)"), __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80
+      lineNumber: 106
     },
     __self: undefined
   }, "Tu comodidad en una caja")), __jsx("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 108
     },
     __self: undefined
   }, __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 109
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -427,7 +528,7 @@ const Layout = props => {
     passHref: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 109
     },
     __self: undefined
   }, __jsx("a", {
@@ -435,20 +536,20 @@ const Layout = props => {
     title: "Inicio",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 109
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 109
     },
     __self: undefined
   }, "home"), " Inicio"))), __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84
+      lineNumber: 110
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -456,7 +557,7 @@ const Layout = props => {
     passHref: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84
+      lineNumber: 110
     },
     __self: undefined
   }, __jsx("a", {
@@ -464,39 +565,39 @@ const Layout = props => {
     title: "Tienda",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84
+      lineNumber: 110
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84
+      lineNumber: 110
     },
     __self: undefined
   }, "store"), " Tienda")))), __jsx("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86
+      lineNumber: 112
     },
     __self: undefined
   }), __jsx("span", {
     className: "dividerTitle",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87
+      lineNumber: 113
     },
     __self: undefined
   }, "Aplicaci\xF3n"), __jsx("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 114
     },
     __self: undefined
   }, __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 89
+      lineNumber: 115
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -504,7 +605,7 @@ const Layout = props => {
     passHref: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 89
+      lineNumber: 115
     },
     __self: undefined
   }, __jsx("a", {
@@ -512,27 +613,27 @@ const Layout = props => {
     title: "Cuenta",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 89
+      lineNumber: 115
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 89
+      lineNumber: 115
     },
     __self: undefined
-  }, "person_add"), " Cuenta"))), user && __jsx("li", {
+  }, "person_add"), " Cuenta"))), user.user && __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91
+      lineNumber: 117
     },
     __self: undefined
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91
+      lineNumber: 117
     },
     __self: undefined
   }, __jsx("button", {
@@ -540,71 +641,85 @@ const Layout = props => {
     className: "white waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91
+      lineNumber: 117
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91
+      lineNumber: 117
     },
     __self: undefined
   }, "exit_to_app"), " Cerrar Sesi\xF3n"))), __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93
+      lineNumber: 119
     },
     __self: undefined
   }, __jsx("button", {
-    className: "white waves waves-dark",
+    className: "white waves waves-dark shareBtn",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93
+      lineNumber: 119
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93
+      lineNumber: 119
     },
     __self: undefined
   }, "share"), " Compartir")), __jsx("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95
+      lineNumber: 121
     },
     __self: undefined
   }, __jsx("button", {
     className: "white waves waves-dark",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95
+      lineNumber: 121
     },
     __self: undefined
   }, __jsx("i", {
     className: "material-icons",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95
+      lineNumber: 121
     },
     __self: undefined
   }, "arrow_downward"), " Descargar")))), __jsx("div", {
     id: "sideHook",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99
+      lineNumber: 125
     },
     __self: undefined
-  })), user && __jsx(_components_Verified__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    show: user.providerData[0].providerId === "facebook.com" ? true : user.emailVerified,
+  })), user.user && __jsx(_components_Verified__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    show: user.user.providerData[0].providerId === "facebook.com" ? true : user.user.emailVerified,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101
+      lineNumber: 127
     },
     __self: undefined
-  }), props.children);
+  }), props.children, __jsx(_components_Toast__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    text: "Sin conexion a internet",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 129
+    },
+    __self: undefined
+  }), __jsx(_components_Toast__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    text: "De nuevo en linea",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 130
+    },
+    __self: undefined
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
@@ -48396,7 +48511,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Splash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Splash */ "./components/Splash.js");
 /* harmony import */ var _layouts_Layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../layouts/Layout */ "./layouts/Layout.js");
 /* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/framer-motion.es.js");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/functions */ "./utils/functions.js");
+/* harmony import */ var _utils_hooks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/hooks */ "./utils/hooks.js");
 /* harmony import */ var _assets_icons_material_icons_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../assets/icons/material-icons.css */ "./assets/icons/material-icons.css");
 /* harmony import */ var _assets_icons_material_icons_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_assets_icons_material_icons_css__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _styles_ibox_wavy_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/ibox-wavy.css */ "./styles/ibox-wavy.css");
@@ -48410,6 +48525,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
+ //import { darkMode } from '../utils/functions';
 
 
 
@@ -48426,7 +48542,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
       }, 1500);
     };
 
-    Object(_utils_functions__WEBPACK_IMPORTED_MODULE_6__["setRipples"])(); // COLORTHEME
+    Object(_utils_hooks__WEBPACK_IMPORTED_MODULE_6__["useDB"])(); // COLORTHEME
     // if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) darkMode(document);
   }
 
@@ -48469,77 +48585,30 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 /***/ }),
 
-/***/ "./utils/functions.js":
-/*!****************************!*\
-  !*** ./utils/functions.js ***!
-  \****************************/
-/*! exports provided: darkMode, changeTheme, setRipples */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "darkMode", function() { return darkMode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTheme", function() { return changeTheme; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setRipples", function() { return setRipples; });
-let dom;
-function darkMode(d) {
-  dom = d;
-  const body = d.body;
-  body.style.setProperty('--primary', '#555');
-  body.style.setProperty('--four', '#1B5E20');
-  body.style.setProperty('--third', '#880E4F');
-  body.style.setProperty('--backgrounds', '#eee');
-  body.style.setProperty('--five', '#BF360C');
-  body.style.setProperty('--secondary', '#FBC02D');
-  body.style.setProperty('--blue', '#1565C0');
-}
-function changeTheme(color) {
-  const metaThemeColor = dom.querySelector("meta[name=theme-color]");
-  metaThemeColor.setAttribute("content", color);
-}
-function setRipples() {
-  const surface = document.querySelectorAll('.waves');
-
-  function ripple(e) {
-    let circle = document.createElement("div");
-    let maxLarge = Math.max(this.clientWidth, this.clientHeight);
-    let rectSurface = this.getBoundingClientRect();
-    let time = Math.log(maxLarge) / Math.log(Math.exp(1)) / 11;
-    circle.style.width = circle.style.height = maxLarge + "px";
-    circle.style.left = e.clientX - rectSurface.left - maxLarge / 2 + "px";
-    circle.style.top = e.clientY - rectSurface.top - maxLarge / 2 + "px";
-    circle.classList.add("ripple");
-    circle.style.animation = "ripple ".concat(time, "s ease-in");
-    if (this.classList.contains("waves-dark")) circle.classList.add("ripple-dark");
-    this.appendChild(circle);
-    setTimeout(() => this.removeChild(circle), time * 1000);
-  }
-
-  for (let i = 0; i < surface.length; i++) surface[i].addEventListener('click', ripple);
-}
-
-/***/ }),
-
 /***/ "./utils/hooks.js":
 /*!************************!*\
   !*** ./utils/hooks.js ***!
   \************************/
-/*! exports provided: useDB, useInterval, useUserSet, useUserGet, useLogout, setProviders, useAuth, useResetPass, user, useVerifiedUser, useLogin, useAuthError */
+/*! exports provided: useRipples, useInterval, useDB, useUserSet, useUserGet, user, setProviders, useLogin, useAuth, useLogout, useResetPass, useVerifiedUser, useSendEmailVerification, useDeleteUser, useUserTime, useAuthError */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useDB", function() { return useDB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useRipples", function() { return useRipples; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useInterval", function() { return useInterval; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useDB", function() { return useDB; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserSet", function() { return useUserSet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserGet", function() { return useUserGet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogout", function() { return useLogout; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProviders", function() { return setProviders; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuth", function() { return useAuth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useResetPass", function() { return useResetPass; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useVerifiedUser", function() { return useVerifiedUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProviders", function() { return setProviders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogin", function() { return useLogin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuth", function() { return useAuth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLogout", function() { return useLogout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useResetPass", function() { return useResetPass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useVerifiedUser", function() { return useVerifiedUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useSendEmailVerification", function() { return useSendEmailVerification; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useDeleteUser", function() { return useDeleteUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserTime", function() { return useUserTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuthError", function() { return useAuthError; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -48551,17 +48620,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //local DB
+ // ============== EFECTOS ===============
+// EFECTO RIPPLE PARA TODOS LOS BOTONES
 
-let indexeddb = {};
-let db = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].firestore();
-const useDB = () => {
-  indexeddb = new dexie__WEBPACK_IMPORTED_MODULE_2__["default"]("localDB");
-  indexeddb.version(1).stores({
-    user: 'key, user'
-  });
-  indexeddb.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
-}; // Intervals for states
+const useRipples = () => {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const surface = document.querySelectorAll('.waves');
+
+    function ripple(e) {
+      let circle = document.createElement("div");
+      let maxLarge = Math.max(this.clientWidth, this.clientHeight);
+      let rectSurface = this.getBoundingClientRect();
+      let time = Math.log(maxLarge) / Math.log(Math.exp(1)) / 11;
+      circle.style.width = circle.style.height = maxLarge + "px";
+      circle.style.left = e.clientX - rectSurface.left - maxLarge / 2 + "px";
+      circle.style.top = e.clientY - rectSurface.top - maxLarge / 2 + "px";
+      circle.classList.add("ripple");
+      circle.style.animation = "ripple ".concat(time, "s ease-in");
+      if (this.classList.contains("waves-dark")) circle.classList.add("ripple-dark");
+      this.appendChild(circle);
+      setTimeout(() => this.removeChild(circle), time * 1000);
+    }
+
+    for (let i = 0; i < surface.length; i++) {
+      if (!surface[i].getAttribute("data-ripple")) {
+        surface[i].setAttribute("data-ripple", true);
+        surface[i].addEventListener('click', ripple);
+      }
+    }
+  }, []);
+}; // HOOK PARA INTERVALOS DE TIEMPO
 
 const useInterval = (callback, delay) => {
   const savedCallback = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
@@ -48578,13 +48666,47 @@ const useInterval = (callback, delay) => {
       return () => clearInterval(id);
     }
   }, [delay]);
-}; // Firestore
+}; // =========== BASE DE DATOS ============
 
-const useUserSet = (id, data) => db.collection("users").doc(id).set(data);
-const useUserGet = (id, listener, err) => db.collection("users").doc(id).get().then(listener).catch(err); // Firebase Auth
+let indexeddb = {}; // VARIABLES DE BASE DE DATOS LOCAL
 
-let fbprovider, gprovider;
-const useLogout = () => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signOut();
+const useDB = () => {
+  indexeddb = new dexie__WEBPACK_IMPORTED_MODULE_2__["default"]("localDB");
+  indexeddb.version(1).stores({
+    user: 'key, user'
+  });
+  indexeddb.open().then(() => console.log("OpenDB")).catch(err => console.log("Error during open db ", err));
+}; // CONEXION A BASE DE DATOS FIRESTORE
+
+let db = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].firestore();
+let fireStoreHandler = 0; // AGREGAR USUARIO EN CUENTA NUEVA
+
+const useUserSet = (id, data) => db.collection("users").doc(id).set(data); // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
+
+const useUserGet = (id, listener, err) => {
+  indexeddb.user.get(1, user => {
+    if (user && fireStoreHandler === 0) {
+      console.log("Read user from Local");
+      fireStoreHandler++;
+      listener(user.user);
+    } else if (fireStoreHandler === 0) {
+      db.collection("users").doc(id).get().then(user => {
+        console.log("Read user from Firestore");
+        fireStoreHandler++;
+        indexeddb.user.put({
+          key: 1,
+          user: user.data()
+        });
+        listener(user.data());
+      }).catch(err);
+    }
+  });
+}; // ============== AUTENTICACION ===============
+
+let fbprovider, gprovider; // OBTENER USUARIO ACTUAL
+
+let user = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser; // CONFIGURAR PROVEEDORES ( FACEBOOK Y GOOGLE )
+
 const setProviders = () => {
   fbprovider = new _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth.FacebookAuthProvider();
   gprovider = new _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth.GoogleAuthProvider();
@@ -48592,24 +48714,10 @@ const setProviders = () => {
   fbprovider.setCustomParameters({
     'display': 'popup'
   });
-};
-const useAuth = listen => {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    const unsubscribe = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().onAuthStateChanged(user => {
-      if (user) listen(user);else listen(false);
-    });
-    return () => unsubscribe();
-  }, []);
-};
-const useResetPass = (email, err) => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().sendPasswordResetEmail(email).catch(err);
-const user = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser;
-const useVerifiedUser = dats => {
-  if (dats) {
-    const userProvider = dats.providerData[0].providerId;
-    if (userProvider === "facebook.com") return true;else dats.emailVerified;
-  } else return false;
-};
+}; // INICIO DE SESION
+
 const useLogin = data => {
+  // USUARIO NUEVO
   if (data.type === true) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().createUserWithEmailAndPassword(data.email, data.pass).then(res => {
     useUserSet(res.user.uid, {
       displayName: data.name,
@@ -48621,8 +48729,42 @@ const useLogin = data => {
       displayName: data.name,
       photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
     });
-  }).catch(data.err);else if (data.type === false) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);else if (data.type === "fb") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(fbprovider).catch(data.err);else if (data.type === "g") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(gprovider).catch(data.err);
-};
+    res.user.sendEmailVerification().then(() => console.log("Send verification email for new user"));
+  }).catch(data.err); // USUARIOS EXISTENTES CON EMIAL, FACEBOOK, GOOGLE
+  else if (data.type === false) _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithEmailAndPassword(data.email, data.pass).catch(data.err);else if (data.type === "fb") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(fbprovider).catch(data.err);else if (data.type === "g") _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signInWithRedirect(gprovider).catch(data.err);
+}; // ESCUCHADOR PARA CAMBIOS EN EL INICIO DE SESION
+
+const useAuth = listen => {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    fireStoreHandler = 0;
+    const unsubscribe = _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().onAuthStateChanged(user => {
+      if (user) listen(user);else listen(false);
+    });
+    return () => unsubscribe();
+  }, []);
+}; // CERRAR SESION
+
+const useLogout = () => {
+  _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().signOut();
+  indexeddb.user.clear();
+  fireStoreHandler = 0;
+}; // RECUPERAR CONTRASEÑA
+
+const useResetPass = (email, err) => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().sendPasswordResetEmail(email).catch(err); // COMPROBAR SI ES UN USARIO VERIFICADO
+
+const useVerifiedUser = dats => {
+  if (dats) {
+    const userProvider = dats.providerData[0].providerId;
+    if (userProvider === "facebook.com") return true;else dats.emailVerified;
+  } else return false;
+}; // ENVIAR CORREO DE VERIFICACION
+
+const useSendEmailVerification = () => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser.sendEmailVerification(); // BORRAR USUARIO
+
+const useDeleteUser = () => _credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser.delete(); // TIEMPO USUARIO DESDE SU CREACION
+
+let useUserTime = () => new Date(_credentials_servers__WEBPACK_IMPORTED_MODULE_1__["default"].auth().currentUser.metadata.creationTime); // CODIGOS DE ERROR EN EL INCIO DE SESION
+
 const useAuthError = code => {
   switch (code) {
     case "auth/app-deleted":

@@ -1,13 +1,15 @@
 import Input from "./Input";
 import Alert from './Alert';
-import { setProviders, useLogin, useAuthError, useResetPass } from '../utils/hooks';
-import { useEffect, useState } from 'react';
+import { setProviders, useLogin, useAuthError, useResetPass, useRipples } from '../utils/hooks';
+import { useState } from 'react';
 
 let email = "";
 let pass = "";
 let name = "";
 
 const Forms = () => {
+  useRipples();
+
   let [account, setAccount] = useState({ switchC: false, alert: false });
   let regText = !account.switchC ? "Crear Cuenta" : "Iniciar Sesión";
   setProviders();
@@ -18,40 +20,40 @@ const Forms = () => {
     else if (data.name === "pass") pass = data.text;
   }
 
-  const showAlert = data => setAccount({ switchC: account.switchC, alert: data?{ title: data.title, input:false || data.input, onConfirm:false || data.onConfirm, type: data.type, body:data.body?useAuthError(data.body.code):data.text }:false});
+  const showAlert = data => setAccount({ switchC: account.switchC, alert: data ? { title: data.title, input: false || data.input, onConfirm: false || data.onConfirm, type: data.type, body: data.body ? useAuthError(data.body.code) : data.text } : false });
 
   const forgotPass = () => {
     showAlert({
-      title:"Recuperar",
-      text:"Escribe el correo al que quieres que enviemos el link de recuperacion.",
-      type:"input",
-      input:{
-        type:"text",
-        label:"Correo electronico",
-        name:"remail",
-        helper:"Correo de recuperacion",
-        icon:"mail"
-      }, 
+      title: "Recuperar",
+      text: "Escribe el correo al que quieres que enviemos el link de recuperacion.",
+      type: "input",
+      input: {
+        type: "text",
+        label: "Correo electronico",
+        name: "remail",
+        helper: "Correo de recuperacion",
+        icon: "mail"
+      },
       onConfirm: data => {
-        if(data) useResetPass(data.text, body => showAlert({ title: "Ocurrio un error", body, type: "error" }))
-        else showAlert({title: "Ocurrio un error", text: "Todos los campos son obligatorios", type:"error"})
+        if (data) useResetPass(data.text, body => showAlert({ title: "Ocurrio un error", body, type: "error" }))
+        else showAlert({ title: "Ocurrio un error", text: "Todos los campos son obligatorios", type: "error" })
       }
     })
   }
 
   const logs = () => {
-    if(account.switchC && ( email.length*name.length*pass.length !== 0) && name.length <= 15 ) useLogin({ type: account.switchC, name, email, pass, err: body => showAlert({ title: "Ocurrio un error", body, type: "error" }) })
-    else if(!account.switchC && ( email.length*pass.length !== 0)) useLogin({ type: account.switchC, email, pass, err: body => showAlert({ title: "Ocurrio un error", body, type: "error" }) }) 
-    else showAlert({title: "Ocurrio un error", text: "Un campo tiene un error o faltan datos.", type:"error"})
+    if (account.switchC && (email.length * name.length * pass.length !== 0) && name.length <= 15) useLogin({ type: account.switchC, name, email, pass, err: body => showAlert({ title: "Ocurrio un error", body, type: "error" }) })
+    else if (!account.switchC && (email.length * pass.length !== 0)) useLogin({ type: account.switchC, email, pass, err: body => showAlert({ title: "Ocurrio un error", body, type: "error" }) })
+    else showAlert({ title: "Ocurrio un error", text: "Un campo tiene un error o faltan datos.", type: "error" })
   }
+
   const fblog = () => useLogin({ type: "fb", err: body => showAlert({ title: "Ocurrio un error", body, type: "error" }) })
   const glog = () => useLogin({ type: "g", err: body => showAlert({ title: "Ocurrio un error", body, type: "error" }) })
   const regSwitch = () => setAccount({ switchC: !account.switchC, alert: account.alert });
 
   return (
     <>
-      {account.alert && <Alert {...account.alert} hideAlert={showAlert}/>}
-
+      {account.alert && <Alert {...account.alert} hideAlert={showAlert} />}
       <div id="form">
         <h2>Conectate <i className="material-icons">cached</i></h2>
         <p>Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌</p>
@@ -68,11 +70,8 @@ const Forms = () => {
         <button onClick={logs} className="blue waves"><i className="material-icons">{account.switchC ? "person_add" : "person"}</i>{account.switchC ? "Crear Cuenta" : "Iniciar Sesión"}</button>
         <button onClick={fblog} className="waves fblog"><i className="icon-facebook"></i> Iniciar con Facebook</button>
         <button onClick={glog} className="waves glog"><i className="icon-google"></i> Iniciar con Google</button>
-
       </div>
-
       <a href="./privacidad.pdf" target="_blank" title="Privacidad" className="btn amber privacy waves waves-dark"><i className="material-icons">account_balance</i> Políticas de <br />privacidad</a>
-
       <style jsx>{`
 	        .privacy{
              position:absolute;
@@ -126,7 +125,6 @@ const Forms = () => {
              margin:0;
            }
          `}</style>
-
     </>
   )
 }

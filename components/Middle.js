@@ -22,67 +22,66 @@ const Middle = () => {
 				<Link href="/cuenta" passHref scroll={false}>
 					<a className="btn waves white waves-dark" title="Login"><i className="material-icons">person</i> {user ? "Ver Cuenta" : "Iniciar Sesión"}</a>
 				</Link>
-
 			</div>
 			<style jsx>{`
-	    .middle{
-	       position:relative;
-	       margin-top:-23px;
-	    }
-	    .middle > div{
-	       width:100%;
-	       padding:20px;
-	       padding-bottom:100px;
-	    }
-	    .middle > div h2, .middle > div p{
-	       color:var(--backgrounds);
-	       display:block;
-	    }
-	    #mWave{
-	       width:calc(100% + 100px);
-	       margin-left:-100px;
-	    }
-	    .middle > div h2{
-	       line-height:17px;
-	       margin-bottom:15px;
-	    }
-	    .middle > svg:nth-child(1){
-	       margin-bottom:-5px;
-	    }
-	    .middle > #showInf{
-	       position:absolute;
-	       top:2px;
-	       left:20px;
-	       width:150px;
-	       height:100px;
-	    }
-	    .middle > #showInf > svg{
-	       transform:scale(1.8, 1.2);
-	    }
-	    #blobText{
-	       position:absolute;
-	       top:60px;
-	       left:35px;
-	       font-weight:500;
-	       font-size:1em;
-	       line-height:15px;
-	       width:130px;
-	    }
-	    .middle > div a{
-	       margin-top:15px;
-	       color:var(--secondary);
-	       position:relative;
-	    }
-		@media screen and (max-width:355px){
-			.middle > #showInf{
-				top:-8px;
-				left:10px;
-			}
-			.middle > #showInf > svg{
-				transform:scale(1.7, 1.1);
-			 }
-		}
-	 `}</style>
+	 		   .middle{
+	 				position:relative;
+	  				margin-top:-23px;
+	    		}
+	    		.middle > div{
+	       			width:100%;
+	       			padding:20px;
+	       			padding-bottom:100px;
+	    		}
+	    		.middle > div h2, .middle > div p{
+	       			color:var(--backgrounds);
+	       			display:block;
+	    		}
+	    		#mWave{
+	       			width:calc(100% + 100px);
+	       			margin-left:-100px;
+	    		}
+	    		.middle > div h2{
+	       			line-height:17px;
+	       			margin-bottom:5px;
+	    		}
+	    		.middle > svg:nth-child(1){
+	    			margin-bottom:-5px;
+	    		}
+	    		.middle > #showInf{
+	       			position:absolute;
+	       			top:2px;
+	       			left:20px;
+	       			width:150px;
+	      			height:100px;
+	    		}
+	    		.middle > #showInf > svg{
+	       			transform:scale(1.8, 1.2);
+	    		}
+	    		#blobText{
+	       			position:absolute;
+	       			top:60px;
+	       			left:35px;
+	       			font-weight:500;
+	       			font-size:1em;
+	       			line-height:15px;
+	       			width:130px;
+	    		}
+	    		.middle > div a{
+	       			margin-top:15px;
+	       			color:var(--secondary);
+	       			position:relative;
+	    		}
+				@media screen and (max-width:355px){
+					.middle > #showInf{
+						top:-8px;
+						left:10px;
+					}
+					.middle > #showInf > svg{
+						transform:scale(1.7, 1.1);
+			 		}
+				}
+	 		`}</style>
 		</div>
 	)
 }

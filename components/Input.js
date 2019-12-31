@@ -36,7 +36,6 @@ const Input = props => {
 
    return (
       <>
-
          <div className="in">
             <input ref={inp} type={props.type} id={props.name} name={props.name} onFocus={fx} onBlur={fx} onChange={getText} />
             <label htmlFor={props.name} className="dlabel">{props.label}</label>
@@ -44,9 +43,7 @@ const Input = props => {
             <i className="iunactive material-icons">{props.icon}</i>
             {props.type === "password" ? <span onClick={visibled} className="material-icons">visibility_off</span> : ""}
          </div>
-
          <span>{props.helper}</span>
-
       </>
    )
 }

@@ -7,7 +7,7 @@ const Loading = () => {
             div{
                padding:20px;
                width:calc(100% - 40px);
-               max-with:400px;
+               max-width:400px;
                position:fixed;
                left:50%;
                top:50%;
@@ -16,6 +16,7 @@ const Loading = () => {
             }
             h1{
                color:var(--text);
+               font-size:1.6em;
             }
          `}</style>
       </div>
