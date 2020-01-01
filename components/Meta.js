@@ -2,7 +2,7 @@ const Meta = (props) => {
   return (
     <>
       <title>{props.title}</title>
-      <meta name="author" content="Alex Santos | iBox®" />
+      <meta name="author" content="Alex Santos | iBox Shop®" />
       <meta name="Robots" content="follow" />
       <meta name="description" content={props.desc} />
       <meta name="keywords" content="accesorios, compras en linea, tiendas en linea, venta de celulares, ibox" />

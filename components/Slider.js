@@ -4,7 +4,7 @@ const Slider = () => {
 	return (
 		<div className="mainSlide">
 			<div id="slideTitle">
-				<h2>Categorias <i className="material-icons">widgets</i></h2>
+				<h2>Categorias <i className="uil uil-apps"></i></h2>
 				<p>Puedes pedir tus piezas por mayor y recibirás descuentos y regalos en la tienda 🎁, agrega un método de pago o pide contra entrega. 🏍️</p>
 			</div>
 
@@ -19,7 +19,7 @@ const Slider = () => {
 									<h3>Electrónica</h3>
 									<p>Componentes, integrados y más</p>
 								</div>
-								<i className="material-icons">memory</i>
+								<i className="uil uil-circuit"></i>
 							</a>
 
 						</Link>
@@ -34,7 +34,7 @@ const Slider = () => {
 									<h3>Dispositivos</h3>
 									<p>Audio, video, red y smartphones</p>
 								</div>
-								<i className="material-icons">router</i>
+								<i className="uil uil-wifi-router"></i>
 							</a>
 
 						</Link>
@@ -49,14 +49,14 @@ const Slider = () => {
 									<h3>Accesorios</h3>
 									<p>Audifonos, cables, protectores.</p>
 								</div>
-								<i className="material-icons">headset</i>
+								<i className="uil uil-headphones"></i>
 							</a>
 
 						</Link>
 					</li>
 				</ul>
 			</div>
-			<Link href="/tienda" passHref scroll={false}><a className="waves waves-dark seeMore right" title="Ver todo">Ver todo <i className="material-icons">arrow_forward</i></a></Link>
+			<Link href="/tienda" passHref scroll={false}><a className="waves waves-dark seeMore right" title="Ver todo">Ver todo <i className="uil uil-arrow-right"></i></a></Link>
 			
 			<style jsx>{`
 				.mainSlide{
@@ -71,6 +71,7 @@ const Slider = () => {
 				#slideTitle{
 					padding:0 20px;
 				}
+
 				.slider{
 					position:relative;
 					width:100%;
@@ -131,7 +132,7 @@ const Slider = () => {
 				}
 				.slider ul li .catContent i{
 					font-size:4em;
-					margin-left:0px;
+					margin-right:-17px;
 					color:var(--backgrounds);
 				}
 				@media screen and (max-width:355px){

@@ -3,18 +3,19 @@ import { useInterval } from '../utils/hooks.js';
 
 const CardShadow = props => {
    let [bars, setBars] = useState(0);
+   const time = 600;
 
    useInterval(() => setBars({
       r1: Math.random() * 100,
       r2: Math.random() * 100,
       r3: Math.random() * 100
-   }), 600);
+   }), time);
 
    return (
       <div className="card">
          <div className="card-head waves">
-            <span className="material-icons">art_track</span>
-            <p>CARGANDO<br />PRODUCTO</p>
+            <span className="uil uil-image"></span>
+            <p>CARGANDO<br />PRODUCTOS</p>
          </div>
 
          <div className="card-body">
@@ -36,20 +37,20 @@ const CardShadow = props => {
 	            100%{opacity:1;}
 	         }
             .card{
-	            transition:opacity 0.6s ease-in-out;
+               margin-top:-20px;
                position:relative;
                width:100%;
                margin-bottom:20px;
                border-radius:15px;
                overflow:hidden;
                z-index:1;
+               transition:opacity ${time/1000}s ease-in-out;
             }
             .card .card-head{
                width:100%;
-               height:13vh;
                position:relative;
+               padding-left:10px;
                z-index:2;
-	            padding:30px;
 	            display:flex;
 	            align-items:center;
 	            justify-content:flex-start;
@@ -62,7 +63,7 @@ const CardShadow = props => {
 	            color:var(--unactive);
 	            font-weight:500;
 	            font-size:1.2em;
-	            margin-left:10px;
+	            margin-left:0px;
 	         }
            .card .card-head::before{
                content:'';
@@ -72,14 +73,12 @@ const CardShadow = props => {
                width:100%;
                height:100%;
                z-index:1;
-               background:rgba(0,0,0,.05);
             }
             .card .card-body{
                position:relative;
                width:100%;
-               padding:30px;
+               padding:0 30px;
                color:var(--text);
-               background:var(--backgrounds);
                z-index:2;
             }
 	         .card .card-body span{
@@ -89,7 +88,7 @@ const CardShadow = props => {
 	            height:20px;
 	            border-radius:50px;
 	            background:var(--unactive);
-	            transition:width 0.6s ease-in-out;
+	            transition:width ${time/1000}s ease-in-out;
 	         }
 	         .card .card-body > div > div{
 	            margin-top:10px;

@@ -5,7 +5,7 @@ const Header = props => {
 			<div id="headText">
 				<h1>{props.title}</h1>
 				<p>{props.text}</p>
-				<Link href={props.href} passHref scroll={false}><a id="shopBtn" className="waves btn" title="Tienda"><i className="material-icons">{props.icon}</i>{props.link}</a></Link>
+				<Link href={props.href} passHref scroll={false}><a id="shopBtn" className="waves btn" title="Tienda"><i className={`uil uil-${props.icon}`}></i>{props.link}</a></Link>
 			</div>
 
 			<span>{props.span}</span>
@@ -45,7 +45,10 @@ const Header = props => {
 	       			position:relative;
 	       			z-index:3;
 	       			padding-bottom:40px;
-	    		}
+				}
+				#headText a i{
+					margin-top:-3px;
+				}
 	    		#headText h1{
 	       			color:var(--backgrounds);
 	       			font-size:1.8em;

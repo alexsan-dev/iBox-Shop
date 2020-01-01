@@ -74,52 +74,56 @@ const Layout = props => {
          toast[1].style.transform = "translateY(0)";
          setTimeout(() => toast[1].style.transform = "translateY(100%)", 5000);
       })
+      
       window.addEventListener('offline', () => {
          toast[1].style.transform = "translateY(100%)";
          toast[0].style.transform = "translateY(0)";
          setTimeout(() => toast[0].style.transform = "translateY(100%)", 5000);
       })
-
    });
    return (
       <>
          <nav>
             <input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
             <input type="checkbox" id="search-toggle" name="search-toggle" />
+
             <div className="topbar">
-               <label htmlFor="drawer-toggle" className="material-icons" id="menuBtn">menu</label>
+               <label htmlFor="drawer-toggle" className="uil uil-list-ul" id="menuBtn"></label>
                <Link href="/"><div id="brandLogo"><img src={Logo} alt="Logo" /></div></Link>
+
                <div id="navbtns">
-                  <label htmlFor="search-toggle" className="material-icons waves waves-dark">search</label>
-                  <i className="material-icons waves waves-dark">shopping_cart</i>
+                  <label htmlFor="search-toggle" className="uil uil-search waves waves-dark"></label>
+                  <i className="uil uil-shopping-cart-alt waves waves-dark"></i>
                </div>
+
                <div id="searchBar">
-                  <label htmlFor="search-toggle" className="material-icons waves waves-dark">arrow_back</label>
+                  <label htmlFor="search-toggle" className="uil uil-arrow-left waves waves-dark"></label>
                   <input type="search" placeholder="Buscar productos" id="search" />
                </div>
             </div>
+
             <label htmlFor="search-toggle" className="drawerShadow ssf"></label>
             <label htmlFor="drawer-toggle" className="drawerShadow sbf"></label>
+
             <div id="drawer">
                <div id="drawerHead">
                   <span>iBox Shop® App (v0.3)</span>
                   <p>Tu comodidad en una caja</p>
                </div>
+
                <ul>
-                  <li><Link href="/" passHref><a className="white routes waves waves-dark btn" title="Inicio"><i className="material-icons">home</i> Inicio</a></Link></li>
-                  <li><Link href="/tienda" passHref><a className="btn white routes waves waves-dark" title="Tienda"><i className="material-icons">store</i> Tienda</a></Link></li>
+                  <li><Link href="/" passHref><a className="white routes waves waves-dark btn" title="Inicio"><i className="uil uil-home-alt"></i> Inicio</a></Link></li>
+                  <li><Link href="/tienda" passHref><a className="btn white routes waves waves-dark" title="Tienda"><i className="uil uil-store"></i> Tienda</a></Link></li>
                </ul>
+
                <hr />
                <span className="dividerTitle">Aplicación</span>
+
                <ul>
-                  <li><Link href="/cuenta" passHref><a className="white routes waves waves-dark btn" title="Cuenta"><i className="material-icons">person_add</i> Cuenta</a></Link></li>
-
-                  {user.user && <li><Link href="/"><button onClick={useLogout} className="white waves waves-dark"><i className="material-icons">exit_to_app</i> Cerrar Sesión</button></Link></li>}
-
-                  <li><button className="white waves waves-dark shareBtn"><i className="material-icons">share</i> Compartir</button></li>
-
-                  <li><button className="white waves waves-dark"><i className="material-icons">arrow_downward</i> Descargar</button></li>
-
+                  <li><Link href="/cuenta" passHref><a className="white routes waves waves-dark btn" title="Cuenta"><i className="uil uil-user"></i> Cuenta</a></Link></li>
+                  {user.user && <li><Link href="/"><button onClick={useLogout} className="white waves waves-dark"><i className="uil uil-exit"></i> Cerrar Sesión</button></Link></li>}
+                  <li><button className="white waves waves-dark shareBtn"><i className="uil uil-share-alt"></i> Compartir</button></li>
+                  <li><button className="white waves waves-dark"><i className="uil uil-import"></i> Descargar</button></li>
                </ul>
             </div>
             <div id="sideHook"></div>

@@ -3,7 +3,6 @@ const admin = require('firebase-admin')
 const next = require("next")
 admin.initializeApp(functions.config().firebase)
 
-
 let db = admin.firestore();
 let app = next({ dev: false, conf: { distDir: "next" }, xPoweredBy: false })
 let handle = app.getRequestHandler()

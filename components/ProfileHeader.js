@@ -8,7 +8,7 @@ const ProfileHeader = props => {
 				<div>
 					<h1>Mi cuenta</h1>
 					<h2>{props.user.displayName}</h2>
-					<span><i className="material-icons">email</i> {props.user.email}</span>
+					<span><i className="uil uil-envelope"></i> {props.user.email}</span>
 				</div>
 
 				<div id="profilePic">

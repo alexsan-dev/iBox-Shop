@@ -16,7 +16,7 @@ const Loading = () => {
             }
             h1{
                color:var(--text);
-               font-size:1.6em;
+               font-size:1.8em;
             }
          `}</style>
       </div>

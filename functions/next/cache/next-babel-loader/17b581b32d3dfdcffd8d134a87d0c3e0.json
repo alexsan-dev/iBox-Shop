@@ -1,1 +1,0 @@
-{"ast":null,"code":"import React from \"react\";\nvar __jsx = React.createElement;\n\nvar Loading = function Loading() {\n  return __jsx(\"h1\", null, \"Cargando...\");\n};\n\nexport default Loading;","map":null,"metadata":{},"sourceType":"module"}

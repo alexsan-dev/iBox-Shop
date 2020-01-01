@@ -19,11 +19,11 @@ const Input = props => {
 
    const visibled = e => {
       if (visible) {
-         e.target.innerHTML = "visibility";
+         e.target.classList.replace("uil-eye-slash", "uil-eye");
          inp.current.setAttribute("type", "text");
          visible = !visible;
       } else {
-         e.target.innerHTML = "visibility_off";
+         e.target.classList.replace("uil-eye", "uil-eye-slash");
          inp.current.setAttribute("type", "password");
          visible = !visible;
       }
@@ -40,8 +40,8 @@ const Input = props => {
             <input ref={inp} type={props.type} id={props.name} name={props.name} onFocus={fx} onBlur={fx} onChange={getText} />
             <label htmlFor={props.name} className="dlabel">{props.label}</label>
             <hr className="hrunactive" />
-            <i className="iunactive material-icons">{props.icon}</i>
-            {props.type === "password" ? <span onClick={visibled} className="material-icons">visibility_off</span> : ""}
+            <i className={`iunactive uil uil-${props.icon}`}></i>
+            {props.type === "password" ? <span onClick={visibled} className="uil uil-eye-slash"></span> : ""}
          </div>
          <span>{props.helper}</span>
       </>

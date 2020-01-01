@@ -26,7 +26,7 @@ const Logins = props => {
       <>
          <motion.div initial="exit" animate="enter" exit="exit" variants={{ exit: { transition: { staggerChildren: 0.1 } }, enter: { transition: { staggerChildren: 0.1 } } }}>
             <motion.div variants={pageAnim}>
-               <Header title={(<>Compra más rápido <i className="material-icons">shop</i></>)} text="En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁" img={Cart} href="/" icon="undo" link="Regresar" span="BEST SERVICE" />
+               <Header title={(<>Compra más rápido <i className="uil uil-store"></i></>)} text="En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁" img={Cart} href="/" icon="corner-up-left-alt" link="Regresar" span="BEST SERVICE" />
             </motion.div>
 
             <motion.div variants={slideAnim}>

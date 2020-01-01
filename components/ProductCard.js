@@ -15,7 +15,7 @@ const Card = props => {
 
 					<div id="cartInfo">
 						<button className="card-price">Q {props.price - 0.01}</button>
-						<button className="primary waves addToCart"><i className="material-icons">add_shopping_cart</i> Agregar al carrito</button>
+						<button className="primary waves addToCart"><i className="uil uil-shopping-cart"></i> Agregar al carrito</button>
 					</div>
 				</div>
 			</div>

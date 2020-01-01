@@ -16,11 +16,11 @@ const Middle = () => {
 			</div>
 
 			<div className="amber">
-				<h2>Únete a la mejor tienda y descubre más <i className="material-icons">styles</i></h2>
+				<h2>Únete a la mejor tienda y descubre más <i className="uil uil-gift"></i></h2>
 				<p>Puedes unirte a iBox de forma gratuita y recibe un regalo al crear tu cuenta, conecta con tus amigos en Facebook o inicia con Google. 🌎</p>
 
 				<Link href="/cuenta" passHref scroll={false}>
-					<a className="btn waves white waves-dark" title="Login"><i className="material-icons">person</i> {user ? "Ver Cuenta" : "Iniciar Sesión"}</a>
+					<a className="btn waves white waves-dark" title="Login"><i className="uil uil-user"></i> {user ? "Ver Cuenta" : "Iniciar Sesión"}</a>
 				</Link>
 			</div>
 			<style jsx>{`
@@ -44,7 +44,10 @@ const Middle = () => {
 	    		.middle > div h2{
 	       			line-height:17px;
 	       			margin-bottom:5px;
-	    		}
+				}
+				.middle > div h2 i{
+					margin-left:-10px;
+				}
 	    		.middle > svg:nth-child(1){
 	    			margin-bottom:-5px;
 	    		}
@@ -71,7 +74,8 @@ const Middle = () => {
 	       			margin-top:15px;
 	       			color:var(--secondary);
 	       			position:relative;
-	    		}
+				}
+				
 				@media screen and (max-width:355px){
 					.middle > #showInf{
 						top:-8px;

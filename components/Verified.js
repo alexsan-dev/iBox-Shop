@@ -26,29 +26,29 @@ const Verified = props => {
                     <h1>Verifica tu correo</h1>
                     <p>Ya te enviamos un link para poder seguir utlizando la tienda con tu cuenta.</p>
                 </div>
-                <button onClick={sendEmail} className="waves waves-dark white"><i className="material-icons">send</i>Reenviar</button>
+                <button onClick={sendEmail} className="waves waves-dark white"><i className="uil uil-message"></i>Reenviar</button>
                 <style jsx>{`
-                .amber{
-                    padding:20px;
-                    color:var(--backgrounds);
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                }
-                .amber > div{
-                    width:170px;
-                }
-                button{
-                    color:var(--parraf);
-                }
-                h1{
-                    color:var(--backgrounds);
-                    font-size:1.3em;        
-                }
-                p{
-                    font-size:0.9em; 
-                }
-            `}</style>
+                    .amber{
+                        padding:20px;
+                        color:var(--backgrounds);
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                    }
+                    .amber > div{
+                        width:170px;
+                    }
+                    button{
+                        color:var(--parraf);
+                    }
+                    h1{
+                        color:var(--backgrounds);
+                        font-size:1.3em;        
+                    }
+                    p{
+                        font-size:0.9em; 
+                    }
+                `}</style>
             </div>
         )
     }

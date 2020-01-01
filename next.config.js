@@ -1,7 +1,7 @@
-const withCSS = require('@zeit/next-css')
-const withLess = require('@zeit/next-less')
+const withCSS = require('@zeit/next-css');
+const withLess = require('@zeit/next-less');
 const withSass = require("@zeit/next-sass");
-const withOffline = require('next-offline')
+const withOffline = require('next-offline');
 
 module.exports = withOffline(withLess(withCSS(withSass({
     webpack(config, options) {

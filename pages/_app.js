@@ -5,9 +5,8 @@ import Layout from '../layouts/Layout';
 import { AnimatePresence } from 'framer-motion';
 //import { darkMode } from '../utils/functions';
 import { useDB } from '../utils/hooks';
-import '../assets/icons/material-icons.css';
 import '../styles/ibox-wavy.css';
-import '../assets/icons/style.css';
+import '../styles/icons.css';
 
 export default class extends App {
    componentDidMount() {

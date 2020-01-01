@@ -27,8 +27,7 @@ Ver package.json ( Mantener sin librerias externas a excepcion de paquetes de ic
         "@zeit/next-sass": "^1.0.1",
         "dexie": "^2.0.4",
         "firebase": "^7.6.1",
-        "framer-motion": "^1.7.0",
-        "material-design-icons": "^3.0.1",
+        "framer-motion": "^1.7.0"
         "next": "^9.1.6",
         "next-offline": "^4.0.6",
         "react": "^16.12.0",
