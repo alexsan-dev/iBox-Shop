@@ -1,4 +1,4 @@
-# iBox ( Código Fuente )
+# iBox Shop ( Código Fuente )
 ## Contiene toda la estructura SSR de la aplicación y el Backend con firebase en los Cloud Functions ☁️🔥.
 ----------
 ### Instalación
