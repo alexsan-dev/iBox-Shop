@@ -17,7 +17,7 @@ const Footer = props => {
          <div id="links">
             <h2>Contacta con nosotros <i className="uil uil-phone"></i></h2>
             <p>Si tienes algún comentario envianos un mensaje , visita también nuestra página en Facebook. 👍</p>
-            <a href="https://facebook.com/tienda.ibox" target="_blank" rel="noreferrer" title="FacebookPage"><i className="uil uil-facebook-f"></i> iBox</a>
+            <a href="https://facebook.com/shops.ibox" target="_blank" rel="noreferrer" title="FacebookPage"><i className="uil uil-facebook-f"></i> iBox Shop</a>
             <a href="mailto:ceo@ibox.gt" title="Email"><i className="uil uil-envelope"></i> Email</a>
          </div>
 
