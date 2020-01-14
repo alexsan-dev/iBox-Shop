@@ -1,0 +1,159 @@
+{
+  "es": {
+    "appDescription": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
+    "general": {
+      "appName": "iBox Shop",
+      "appNameCom": "iBox Shop® App (v0.35)",
+      "appNameShort": "iBox",
+      "appSlogan": "Tu comodidad en una caja.",
+      "appTitle": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
+      "logoutButton": "Cerrar Sesión",
+      "shareButton": "Compartir",
+      "downloadButton": "Descargar",
+      "navDivider": "Aplicación",
+      "homeRoute": "Inicio",
+      "shopRoute": "Tienda",
+      "accountRoute": "Cuenta",
+      "shareText": "Entra a esta tienda, te gustara. ✨👌!",
+      "searchPlaceholder": "Buscar productos",
+      "logoutTitle": "¿Estas seguro?",
+      "logoutText": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
+    },
+    "addToCart": "Agregar",
+    "alert": {
+      "confirm": "Aceptar",
+      "cancel": "Cancelar"
+    },
+    "verified": {
+      "alertTitle": "Lo sentimos",
+      "alertText": "Tu cuenta ha sido eliminada, 'No verificada'",
+      "title": "Verifica tu correo",
+      "text": "Ya te enviamos un link para poder seguir utilizando la tienda con tu cuenta.",
+      "button": "Reenviar"
+    },
+    "errorPage": {
+      "title": "¡Ocurrió un error!",
+      "description_1": "Lo sentimos, tenemos un error",
+      "description_2": "en la plataforma 😅, intenta de nuevo más tarde o revisa si la dirección es correcta.",
+      "button": "Regresar"
+    },
+    "indexPage": {
+      "headerButton": "Ver catálogo",
+      "headerText": "Entra hoy a la tienda para conocer nuestra variedad de productos, en iBox te facilitamos la vida 😉, compra y te lo llevamos hasta la puerta de tu casa, conoce nuestro catálogo.",
+      "headerTitle": "¡Tu tienda de electrónica y accesorios en línea!",
+      "slider": {
+        "title": "Categorias",
+        "text": "Al pedir tus piezas por mayor, también recibirás descuentos y regalos especiales 🎁. Contamos con servicios de pago en línea o contra entrega para garantizar tu comodidad. 🏍️",
+        "button": "Ver todo",
+        "electroCatTitle": "Electrónica",
+        "electroCatText": "Componentes, integrados y más.",
+        "devicesCatTitle": "Dispositivos",
+        "devicesCatText": "Audio, video, red y smartphones.",
+        "accesCatTitle": "Accesorios",
+        "accesCatText": "Audífonos, cables, protectores."
+      },
+      "middle": {
+        "blob_1": "Conoce más",
+        "blob_2": "de nosotros 💪",
+        "button_1": "Ver Cuenta",
+        "button_2": "Iniciar Sesión",
+        "title": "Únete a la mejor tienda y descubre más",
+        "text": "Únete a iBox de forma gratuita y recibe un regalo mas otros beneficios al crear tu cuenta 🌎. También puedes crear tu cuenta con Facebook, Google o con tu correo electrónico."
+      },
+      "recents": {
+        "title": "Recientes",
+        "text": "¡Conoce nuestros productos más recientes! Si eres de los primeros clientes en comprar nuestros productos más recientes 💰, obtendrás ofertas exclusivas, no esperes más y comienza a comprar.",
+        "button": "Ver más",
+        "productShadowText_1": "Cargando",
+        "productShadowText_2": "Productos"
+      }
+    },
+    "accountPage": {
+      "headerButton": "Regresar",
+      "headerTitle": "Compra más rápido",
+      "headerText": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁",
+      "headerButton_1": "Crear cuenta",
+      "headerButton_2": "Iniciar Sesión",
+      "forgotTitle": "Recuperar",
+      "forgotButtonText": "¿Olvidaste tu contraseña?",
+      "forgotText": "Escribe el correo al que quieres que enviemos el link de recuperación.",
+      "emailField": "Correo electrónico",
+      "emailForgotHelper": "Correo de recuperación",
+      "alertErrorTitle": "Ocurrió un error",
+      "alertErrorText_1": "Todos los campos son obligatorios.",
+      "alertErrorText_2": "Un campo tiene un error o faltan datos.",
+      "title": "Conectate",
+      "text": "Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌",
+      "alreadyAccount": "tienes cuenta?",
+      "confirm_1": "ya",
+      "fbLoginText": "Iniciar con Facebook",
+      "gLoginText": "Iniciar con Google",
+      "privacy_1": "Políticas de",
+      "privacy_2": "privacidad",
+      "emailHelper": "Usuario de la cuenta",
+      "userField": "Nombre de usuario",
+      "userHelper": "Máximo 15 caracteres",
+      "passField": "Contraseña",
+      "passHelper": "Clave secreta"
+    },
+    "profilePage": {
+      "title": "Mi cuenta"
+    },
+    "footer": {
+      "blob_1": "Contacta al área técnica 💻",
+      "blob_2": "cto@ibox.gt",
+      "title": "Contacta con nosotros",
+      "text": "Si tienes algún comentario envianos un mensaje, y visita también nuestra página en Facebook. 👍",
+      "text_1": "¿No encuentras el producto que buscas en nuestra tienda?",
+      "button_1": "Solicitar producto",
+      "button_2": "Comentar en Facebook",
+      "button_3": "Enviar mensaje personal",
+      "text_2": "¿Tienes algún comentario sobre nuestro servicio?",
+      "text_3": "¿Cualquier otra sugerencia o recomendación que tengas para seguir mejorando nuestra calidad de servicio?",
+      "rights_1": "Hecho con ❤️ en Guatemala 🇬🇹",
+      "rights_2": "Todos los derechos reservados iBox Shop®"
+    },
+    "loading": {
+      "title": "Espera un momento",
+      "text": "Esto solo dura unos segundos, solo estamos verificando y asegurando tu conexión..."
+    },
+    "splash": {
+      "title": "Mejora tu experiencia 🔥",
+      "text": "iBox es la tienda electrónica con el mayor impacto en Guatemala, creada desde cero para mejorar en cada detalle 👌, ayúdanos a mejorar tu experiencia dejándonos tu comentario sobre la tienda. 📲"
+    },
+    "toast": {
+      "text_1": "De nuevo en línea",
+      "text_2": "Sin conexión a internet"
+    },
+    "errors": {
+      "app_deleted": "Fallo la conexión interna, intenta recargar la página.",
+      "app_not_authorized": "Esta aplicación no esta autorizada para iniciar sesión aquí.",
+      "argument_error": "Se envió una solicitud con parámetros incorrectos.",
+      "invalid_api_key": "Las credenciales de la aplicación son incorrectas.",
+      "invalid_user_token": "Parece que tu cuenta se inválido.",
+      "network_request_failed": "Comprueba tu conexión a internet.",
+      "operation_not_allowed": "Se trató de iniciar sesión en proveedor no autorizado.",
+      "requires_recent_login": "Se registró una sesión anterior con el mismo usuario.",
+      "too_many_requests": "Se alcanzó él limite máximo de intentos.",
+      "unauthorized_domain": "Este sitio no está autorizado para iniciar sesión aquí.",
+      "user_disabled": "Este usuario ha sido deshabilitado.",
+      "user_token_expired": "Las credenciales del usuario han expirado.",
+      "web_storage_unsupported": "Tu navegador o dispositivo no soporta el almacenamiento interno.",
+      "account_exists_with_different_credential": "Esta cuenta ya existe y esta registrada con otro método.",
+      "credential_already_in_used": "Las credenciales de esta cuenta ya están en uso.",
+      "email_already_in_use": "Esta dirección de correo electrónico ya está registrado en otra cuenta.",
+      "user_not_found": "No se ha podido encontrar el usuario, intenta nuevamente.",
+      "weak_password": "Tu contraseña debe contener al menos 6 caracteres alfanuméricos.",
+      "invalid_email": "El correo electrónico no es valido.",
+      "wrong_password": "La contraseña no es la correcta, intenta nuevamente.",
+      "invalid_verification_code": "El código introducido no es valido.",
+      "invalid_verification_id": "El ID de verificación no es valido.",
+      "captcha_check_failed": "No se pudo verificar el Captcha, intenta nuevamente.",
+      "invalid_phone_number": "El numero de teléfono no es valido.",
+      "missing_phone_number": "El numero de teléfono es un campo obligatorio.",
+      "quota_exceeded": "Se alcanzo la cuota máxima.",
+      "default": "Error desconocido intenta de nuevo."
+    }
+  },
+  "en": {}
+}
