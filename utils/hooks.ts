@@ -24,12 +24,12 @@ export const useRipples = () => {
     const surface: NodeListOf<HTMLElement> | null = document.querySelectorAll(".waves") as NodeListOf<HTMLElement>;
 
     // FUNCION DE EFECTO
-    function ripple(e: any) {
-      if (e.target && surface) {
+    function ripple(el: HTMLElement, e: MouseEvent) {
+      if (el && surface) {
         // PROPIEDADES INICALES DEL CIRCULO
         const circle: HTMLDivElement = document.createElement("div") as HTMLDivElement;
-        const maxLarge: number = Math.max(e.target.clientWidth, e.target.clientHeight);
-        const rectSurface: ClientRect = e.target.getBoundingClientRect();
+        const maxLarge: number = Math.max(el.clientWidth, el.clientHeight);
+        const rectSurface: ClientRect = el.getBoundingClientRect();
 
         // FUNCION LOGARITMICA DEL TIEMPO
         const time: number = Math.log(maxLarge) / Math.log(Math.exp(1)) / 11;
@@ -42,12 +42,12 @@ export const useRipples = () => {
         circle.style.animation = `ripple ${time}s ease-in`;
 
         // AGREGAR CIRCULO A DIVS CON LA CLASE WAVES-DARK
-        if (e.target.classList.contains("waves-dark"))
+        if (el.classList.contains("waves-dark"))
           circle.classList.add("ripple-dark");
-        e.target.appendChild(circle);
+        el.appendChild(circle);
 
         // ELIMINAR CIRCULO LUEGO DE *TIME* SEGUNDOS
-        setTimeout(() => e.target.removeChild(circle), time * 1000);
+        setTimeout(() => el.removeChild(circle), time * 1000);
       }
     }
 
@@ -55,7 +55,7 @@ export const useRipples = () => {
     for (let i = 0; i < surface.length; i++) {
       if (!surface[i].getAttribute("data-ripple")) {
         surface[i].setAttribute("data-ripple", "true");
-        surface[i].addEventListener("click", ripple);
+        surface[i].addEventListener("click", (e: MouseEvent) => ripple(surface[i], e));
       }
     }
   }, []);
@@ -81,59 +81,81 @@ export const useInterval = (callback: any, delay: number) => {
 // =========== BASE DE DATOS ============
 // VARIABLES DE BASE DE DATOS LOCAL
 export class localDB extends Dexie {
+  // DECLARAR TABLAS
   users: Dexie.Table<user, number>;
+  productList: Dexie.Table<productList, number>;
+
   constructor() {
     super("localDB");
-    this.version(1).stores({ users: "id, user" });
+    this.version(1).stores({ users: "id, user", productList: "id, products" });
     this.users = this.table("users");
+    this.productList = this.table("productList");
+    console.log("Open localDB");
   }
 }
+
 const localdb = new localDB();
-export const clearUser = () => localdb.users.clear();
-export const getUser = (listen: Function) =>
-  localdb.users.toArray().then((data: any) => listen(data[0]));
-export const setUser = (user: userModel | firestore.DocumentData | undefined) =>
+export const clearUser: Function = async () => localdb.users.clear();
+
+// AGREGAR USUARIO A LOCAL
+export const setUser: Function = async (user: userModel | firestore.DocumentData | undefined) =>
   localdb.users.put({ id: 1, user });
+
+// AGREGAR PRODUCTOS AL LOCAL
+export const setProducts: Function = async (products: product[] | firestore.DocumentData | undefined) =>
+  localdb.productList.put({ id: 1, products })
+
 
 // OBTENER DATOS DE FIRESTORE
 // AGREGAR USUARIO EN CUENTA NUEVA
-export const useUserSet = (id?: string, data?: userModel) => {
-  if (id && data)
-    db.collection("users")
-      .doc(id)
-      .set(data);
-};
+export const useUserSet = async (id?: string, data?: userModel) => (id && data) ? db.collection("users").doc(id).set(data) : null;
 
 // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
-export const useUserGet = (
-  id: string | undefined,
-  listener: Function,
-  err: Function
-) => {
-  getUser((user: user | undefined) => {
-    if (user && fireStoreHandler === 0) {
-      console.log('%c📖 READ USER FROM LOCAL DB', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+export const useUserGet = async (id: string | undefined) => {
+  const user: user[] = await localdb.users.toArray();
+  let resUser: userModel | null | undefined | firestore.DocumentData = null;
 
+  if (user[0] && fireStoreHandler === 0) {
+    console.log("Read user from localDB");
+    resUser = user[0].user;
+    fireStoreHandler++;
+  }
+  else if (fireStoreHandler === 0 && id) {
+    const getUser: firestore.DocumentSnapshot<firestore.DocumentData> = await db.collection("users").doc(id).get();
+    if (getUser) {
+      console.log('%c📖 READ USER FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+      await setUser(getUser.data());
+      resUser = getUser.data();
       fireStoreHandler++;
-      listener(user.user);
-    } else if (fireStoreHandler === 0 && id) {
-      db.collection("users")
-        .doc(id)
-        .get()
-        .then((user: firestore.DocumentSnapshot<firestore.DocumentData>) => {
-          console.log('%c📖 READ USER FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
-          fireStoreHandler++;
-          setUser(user.data());
-          listener(user.data());
-        })
-        .catch((e: Error) => err(e));
-    }
-  });
+    } else resUser = null;
+  }
+  else resUser = null;
+
+  return resUser;
 };
+
+// =============== PRODUCTS ===============
+// OBTENER LISTADO DE PRODUCTOS DE FIRESTORE O LOCAL
+export const useGetAllProducts: Function = async () => {
+  let products: product[] | firestore.DocumentData[] = [];
+  const localData: productList[] = await localdb.productList.toArray();
+  if (localData[0]) {
+    console.log("read products from localDB");
+    products = localData[0].products;
+  }
+  else {
+    console.log('%c📖 READ PRODUCTS FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+    const firestoreData: firestore.QuerySnapshot<firestore.DocumentData> = await db.collection("products").get();
+    firestoreData.forEach((doc: firestore.DocumentData) => products.push(doc.data()))
+    await setProducts(products);
+  }
+  return products;
+}
+
 
 // =============== AUTENTICACION ===============
 // CONFIGURAR PROVEEDORES ( FACEBOOK Y GOOGLE )
-export const setProviders = () => {
+export const setProviders = async () => {
   fbprovider = new firebase.auth.FacebookAuthProvider();
   gprovider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().useDeviceLanguage();
@@ -152,97 +174,84 @@ export const useAuth = (listen: Function) => {
 };
 
 // CERRAR SESION
-export const useLogout = () => {
-  firebase.auth().signOut();
-  clearUser();
+export const useLogout = async () => {
+  await firebase.auth().signOut();
+  await clearUser();
   fireStoreHandler = 0;
+  return true;
 };
 
 // BORRAR TODOS LOS DATOS AL CERRAR SESION
-export const useCleanData = () => {
-  clearUser();
+export const useCleanData = async () => {
+  await clearUser();
   fireStoreHandler = 0;
+  return true;
 }
 
 // ENVIAR CORREO DE VERIFICACION
-export const useSendEmailVerification = () =>
-  firebase.auth().currentUser?.sendEmailVerification();
+export const useSendEmailVerification = async () => {
+  await firebase.auth().currentUser?.sendEmailVerification();
+  return true;
+}
+
 
 // BORRAR USUARIO
-export const useDeleteUser = () => {
-  clearUser();
+export const useDeleteUser = async () => {
+  await clearUser();
   fireStoreHandler = 0;
   return firebase.auth().currentUser?.delete();
 };
 
 // TIEMPO USUARIO DESDE SU CREACION
 export const useUserTime = () => {
-  const userDate: string | undefined = firebase.auth().currentUser?.metadata
-    .creationTime;
+  const userDate: string | undefined = firebase.auth().currentUser?.metadata.creationTime;
   if (userDate) return new Date(userDate);
   else return new Date();
 };
 
 // RECUPERAR CONTRASEÑA
-export const useResetPass = (email: string, err: Function) =>
-  firebase
-    .auth()
-    .sendPasswordResetEmail(email)
-    .catch((e: any) => err(e));
+export const useResetPass = async (email: string) => {
+  await firebase.auth().sendPasswordResetEmail(email)
+  return true;
+}
+
 
 // INICIO DE SESION
-interface LoginType {
-  email?: string;
-  pass?: string;
-  name?: string;
-  type: boolean | string;
-  err: Function;
-}
-export const useLogin = (data: LoginType) => {
+interface LoginType { email?: string; pass?: string; name?: string; type: boolean | string; }
+export const useLogin = async (data: LoginType) => {
   // USUARIO NUEVO
-  if (data.type === true && data.email && data.pass)
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(data.email, data.pass)
-      .then((res: firebase.auth.UserCredential) => {
-        const userData: userModel = {
-          emailVerified: res.user ? res.user.emailVerified : null,
-          displayName: data.name ? data.name : null,
-          email: data.email ? data.email : null,
-          provider: res.user?.providerData[0]?.providerId,
-          photoURL:
-            "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
-        };
-        useUserSet(res.user?.uid, userData);
-        res.user?.updateProfile({
-          displayName: data.name,
-          photoURL:
-            "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
-        });
+  if (data.type === true && data.email && data.pass) {
+    const credentials: firebase.auth.UserCredential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.pass);
 
-        res.user
-          ?.sendEmailVerification()
-          .then(() => console.log("Send verification email for new user"));
-      })
-      .catch((e: Error) => data.err(e));
+    if (credentials) {
+      const userData: userModel = {
+        emailVerified: credentials.user ? credentials.user.emailVerified : null,
+        displayName: data.name ? data.name : null,
+        email: data.email ? data.email : null,
+        provider: credentials.user?.providerData[0]?.providerId,
+        photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
+      };
 
+      await useUserSet(credentials.user?.uid, userData);
+      await credentials.user?.updateProfile({
+        displayName: data.name,
+        photoURL:
+          "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
+      });
+      await credentials.user?.sendEmailVerification()
+      console.log("Send verification email for new user");
+    }
+    else return false;
+  }
   // USUARIOS EXISTENTES CON EMAIL, FACEBOOK, GOOGLE
   else if (data.type === false && data.email && data.pass)
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(data.email, data.pass)
-      .catch((e: Error) => data.err(e));
+    await firebase.auth().signInWithEmailAndPassword(data.email, data.pass);
   else if (data.type === "fb")
-    firebase
-      .auth()
-      .signInWithRedirect(fbprovider)
-      .catch((e: Error) => data.err(e));
+    await firebase.auth().signInWithRedirect(fbprovider)
   else if (data.type === "g")
-    firebase
-      .auth()
-      .signInWithRedirect(gprovider)
-      .catch((e: Error) => data.err(e));
+    await firebase.auth().signInWithRedirect(gprovider);
   else throw Error("Missing type property");
+  return true;
 };
 
 // CODIGOS DE ERROR EN EL INCIO DE SESION

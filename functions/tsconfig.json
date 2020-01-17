@@ -10,11 +10,11 @@
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include":[
+  "include": [
     "src/**/*.ts",
   ],
   "exclude": [
-     "./node_modules",
-     "./next"
+    "./node_modules",
+    "./build"
   ]
 }

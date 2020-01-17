@@ -1,5 +1,6 @@
 // PROPIEDADES 
-interface Props { user: userModel; title: string; }
+import { firestore } from "firebase";
+interface Props { user: userModel | firestore.DocumentData; title: string; }
 
 // VARIABLES GLOBALES
 let pic: string | undefined;
@@ -79,6 +80,7 @@ const ProfileHeader: React.FC<Props> = (props: Props) => {
         svg {
           margin-top: -38px;
           width: calc(100% + 60px);
+          margin-bottom:10vh;
         }
         #profilePic {
           width: 120px;

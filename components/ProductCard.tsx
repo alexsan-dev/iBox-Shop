@@ -1,11 +1,15 @@
 // TIPOS DE DATOS Y CONTEXTO
 import { FC, useContext } from "react";
 import appContext from "../utils/appContext";
+import { useRipples } from "../utils/hooks";
 
 const Card: FC<CardProps> = (props: CardProps) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
   const { lang, addToCartEvent } = useContext(appContext.appContext);
   const addToCartCall = () => addToCartEvent(props.code);
+
+  // AGREGAR EFECTO DE RIPPLES
+  useRipples();
 
   return (
     <div className="card">
@@ -57,6 +61,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
         .card .card-head > img {
           width: 100%;
           position: relative;
+          top:-50%;
           z-index: -2;
         }
         .card .card-body #cartInfo {

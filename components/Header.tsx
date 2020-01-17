@@ -120,6 +120,11 @@ const Header: React.FC<Props> = (props: Props) => {
             bottom:-40px;
           }
         }
+        @media screen and (min-width:545px){
+          #mainHeader > img {
+            height: 110px;
+          }
+        }
       `}</style>
     </div>
   );

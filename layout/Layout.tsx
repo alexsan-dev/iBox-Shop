@@ -23,6 +23,7 @@ interface userState {
 }
 
 // EVENTOS DE AGREGAR AL CARRITO
+let layoutHandler: number = 0;
 let cartList: string[] = [];
 let topbar: any;
 const addToCartEvent = (e: string) => {
@@ -31,7 +32,7 @@ const addToCartEvent = (e: string) => {
 }
 
 const Layout: FC<Props> = (props: Props) => {
-  console.log('%c⚠️ RENDER ENTIRE APP', 'background:#f44336; color: #ffff; padding:10px; font-weight:bold; border-radius:5px');
+  console.log('%c⚠️ RENDER ENTIRE APP', 'background: #f44336;color:#fff;padding:5px;font-weight:bold; border-radius:5px');
 
   // ESTADOS Y CONEXTO DEL COMPONENTE
   const { lang } = useContext(langContext.langContext);
@@ -40,7 +41,11 @@ const Layout: FC<Props> = (props: Props) => {
   topbar = useRef(null);
 
   // DETECTAR CAMBIOS EN EL INCIO DE SESION
-  useAuth((getUser: User) => setUser({ user: getUser, online: user.online, logout: user.logout }));
+  useAuth((getUser: User) => {
+    if (layoutHandler === 0 && !getUser) return 0;
+    setUser({ user: getUser, online: user.online, logout: user.logout })
+    layoutHandler++;
+  });
 
   useEffect(() => {
     // SELECCIONAR MENSAJE DE ALERTA INFERIOR

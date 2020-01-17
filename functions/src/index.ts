@@ -11,7 +11,7 @@ const db: FirebaseFirestore.Firestore = admin.firestore();
 
 // CONFIGURAR SERVIDOR NEXT
 const next = require("next");
-const app = next({ dev: false, conf: { distDir: "next" } });
+const app = next({ dev: false, conf: { distDir: "build" } });
 const handle = app.getRequestHandler();
 
 // SERVER SIDE RENDER CON SERVIDOR NEXT

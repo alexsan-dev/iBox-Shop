@@ -8,6 +8,21 @@ interface Navigator {
   share: (data?: ShareData) => Promise<void>;
 }
 
+interface productList {
+  id?: number;
+  products: product[] | any;
+}
+
+interface product {
+  color: string;
+  description: string;
+  name: string;
+  price: number;
+  tag: string;
+  key: string;
+  img: string;
+}
+
 interface user {
   id?: number;
   user: userModel | any;
@@ -51,5 +66,5 @@ interface CardProps {
   img: string;
   text: string;
   price: number;
-  code:string;
+  code: string;
 }

@@ -58,8 +58,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 		const drawer: HTMLDivElement | null = document.getElementById("drawer") as HTMLDivElement;
 
 		// OCULTAR DRAWER
-		hideDrawer = () => { if (drawerToggle) drawerToggle.checked = false };
-		console.log("Hide drawer on", hideDrawer);
+		hideDrawer = () => (drawerToggle)? drawerToggle.checked = false: null;
 
 		// AGREGAR UNA CLASE "BLUE" A LAS PESTAÑAS ACTIVAS EN EL MENU
 		function setActive(url: string) {
@@ -153,14 +152,14 @@ const Drawer: React.FC<Props> = (props: Props) => {
 				</div>
 				<ul>
 					<li>
-						<Link href="/" passHref>
+						<Link href="/" passHref scroll={false}>
 							<a className="white routes waves waves-dark btn" title="Home">
 								<i className="uil uil-home-alt"></i> {props.homeRoute}
 							</a>
 						</Link>
 					</li>
 					<li>
-						<Link href="/tienda" passHref>
+						<Link href="/tienda" passHref scroll={false}>
 							<a className="btn white routes waves waves-dark" title="Shop">
 								<i className="uil uil-store"></i> {props.shopRoute}
 							</a>
@@ -171,7 +170,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 				<span className="dividerTitle">{props.navDivider}</span>
 				<ul>
 					<li>
-						<Link href="/cuenta" passHref>
+						<Link href="/cuenta" passHref scroll={false}>
 							<a className="white routes waves waves-dark btn" title="Account">
 								<i className="uil uil-user"></i> {props.accountRoute}
 							</a>

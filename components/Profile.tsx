@@ -1,5 +1,6 @@
 // TIPOS DE DATOS
 import { useState, SetStateAction, Dispatch, useContext } from "react";
+import { firestore } from "firebase";
 
 // HOOKS Y ANIMACION
 import { useUserGet, useRipples } from "../utils/hooks";
@@ -7,6 +8,7 @@ import { motion, Variants } from "framer-motion";
 
 // TIPOS DE DATOS FIREBASE Y NEXT
 import { NextPage } from "next";
+import { useRouter } from "next/router";
 import { User } from "firebase";
 
 // CONTEXTO Y COMPONENTES
@@ -27,28 +29,28 @@ const head: Variants = {
 // PROPIEDADES
 interface Props { user: User | userModel; }
 
-// ESTADO INICIAL
-const userTemp: userModel = {
+// ESTADO INICIAL E INTERFACES
+interface Istate { userData: userModel | null | undefined | firestore.DocumentData; }
+const userData: userModel = {
   displayName: "",
   email: "",
   provider: "",
   photoURL: null,
   emailVerified: false
 };
+const defState: Istate = { userData };
 
 const Profile: NextPage<Props> = (props: Props) => {
-  console.log('%c😀 RENDER PROFILE PAGE', 'background:#2196f3; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+  console.log('%c😀 RENDER PROFILE PAGE', 'background: #4caf50;color:#fff;padding:5px;font-weight:bold; border-radius:5px');
 
   // ESTADO DEL COMPONENTE Y CONTEXTO
-  const [user, setUser]: [User | userModel, Dispatch<SetStateAction<User | userModel>>] = useState(userTemp);
+  const [user, setUser]: [Istate, Dispatch<SetStateAction<Istate>>] = useState(defState);
   const str = useContext(appContext.appContext).lang.profilePage;
 
   // OBTENER USUARIO DE FIREBASE O LOCAL
-  useUserGet(
-    props.user.uid,
-    (res: User | userModel) => setUser(res),
-    (err: any) => console.log(err)
-  );
+  if (useRouter().pathname === "/cuenta") useUserGet(props.user.uid)
+    .then((userData: Istate["userData"]) => userData ? setUser({ userData }) : null)
+    .catch((err: Error) => console.log(err));
 
   // APLICAR EFECTO RIPPLE
   useRipples();
@@ -61,7 +63,7 @@ const Profile: NextPage<Props> = (props: Props) => {
       }}
     >
       <motion.div variants={head}>
-        <ProfileHeader user={user || userTemp} title={str.title} />
+        <ProfileHeader user={user.userData || userData} title={str.title} />
       </motion.div>
     </motion.div>
   );

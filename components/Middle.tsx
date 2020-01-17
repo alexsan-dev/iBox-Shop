@@ -149,6 +149,11 @@ const Middle: FC<Props> = (props: Props) => {
             left:-5%;
           }
         }
+        @media screen and (min-width:545px){
+          .middle > #showInf{
+            top:15px;
+          }
+        }
       `}</style>
     </div>
   );

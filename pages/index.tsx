@@ -1,4 +1,4 @@
-// ANIMACION Y HOOKS
+// ANIMACION, HOOKS Y TIPOS DE DATOS
 import { motion, Variants } from "framer-motion";
 import { useRipples } from "../utils/hooks";
 import { NextPage } from "next";
@@ -10,6 +10,7 @@ import appContext from "../utils/appContext";
 // COMPONENTES
 import Header from "../components/Header";
 import Slider from "../components/Slider";
+
 import Recents from "../components/Recents";
 import Middle from "../components/Middle";
 

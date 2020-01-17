@@ -5,6 +5,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 // COMPONENTES Y ALERTAS
 import Input from "./Input";
 import Alert from "./Alert";
+import { FirebaseError } from "firebase";
 
 // VARIABLES GLOBALES
 let email: string = "";
@@ -56,7 +57,7 @@ const Forms: React.FC<Props> = (props: Props) => {
   useRipples();
 
   // CONFIGURAR PROVEEDORES DE LOGIN
-  setProviders();
+  setProviders().catch((e: Error) => console.log("Error during set providers ", e));
 
   // OBTENER TEXTO DE LOS INPUTS
   const value = (data: InputGetProps) => {
@@ -103,13 +104,14 @@ const Forms: React.FC<Props> = (props: Props) => {
       onConfirm: (data: InputGetProps) => {
         if (data)
           // SI EXISTE RESETEAR LA CLAVE
-          useResetPass(data.text, (e: any) =>
-            showAlert({
-              title: props.alertErrorTitle,
-              body: useAuthError(e.code, props.errorText),
-              type: "error"
-            })
-          );
+          useResetPass(data.text)
+            .catch((e: FirebaseError) =>
+              showAlert({
+                title: props.alertErrorTitle,
+                body: useAuthError(e.code, props.errorText),
+                type: "error"
+              })
+            );
         else
           // SINO MOSTRAR ERROR
           showAlert({
@@ -125,34 +127,23 @@ const Forms: React.FC<Props> = (props: Props) => {
   const logs = () => {
     if (account.switchC && email.length * name.length * pass.length !== 0 && name.length <= 15)
       // INICIAR SESION CON CUENTA NUEVA
-      useLogin({
-        type: account.switchC,
-        name,
-        email,
-        pass,
-
-        // MOSTRAR ERROR SI EXISTE
-        err: (e: any) =>
+      useLogin({ type: account.switchC, name, email, pass })
+        .catch((e: FirebaseError) =>
           showAlert({
             title: props.alertErrorTitle,
             body: useAuthError(e.code, props.errorText),
             type: "error"
-          })
-      });
+          }))
 
     // INICIAR SESION CON CUENTA EXISTENTE
     else if (!account.switchC && email.length * pass.length !== 0)
-      useLogin({
-        type: account.switchC,
-        email,
-        pass,
-        err: (e: any) =>
+      useLogin({ type: account.switchC, email, pass })
+        .catch((e: FirebaseError) =>
           showAlert({
             title: props.alertErrorTitle,
             body: useAuthError(e.code, props.errorText),
             type: "error"
-          })
-      });
+          }))
 
     // VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
     else
@@ -165,19 +156,14 @@ const Forms: React.FC<Props> = (props: Props) => {
 
   // INICIAR SESION CON FACEBOOK
   const fblog = () =>
-    useLogin({
-      type: "fb",
-      err: (body: any) =>
-        showAlert({ title: props.alertErrorTitle, body, type: "error" })
-    });
+    useLogin({ type: "fb" })
+      .catch((body: FirebaseError) => showAlert({ title: props.alertErrorTitle, body: body.code, type: "error" }))
 
   // INICIAR SESION CON GOOGLE
   const glog = () =>
-    useLogin({
-      type: "g",
-      err: (body: any) =>
-        showAlert({ title: props.alertErrorTitle, body, type: "error" })
-    });
+    useLogin({ type: "g" })
+      .catch((body: FirebaseError) => showAlert({ title: props.alertErrorTitle, body: body.code, type: "error" }))
+
 
   // ACTUALIZAR ESTADO ( NUEVA CUENTA / CUENTA EXISTENTE )
   const regSwitch = () =>

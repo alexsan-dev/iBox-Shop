@@ -24,6 +24,7 @@ export default class iBoxApp extends App {
 
   public render() {
     const { Component, pageProps, router } = this.props;
+
     return (
       <>
         <Layout>

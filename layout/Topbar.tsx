@@ -23,11 +23,11 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
     renderManager = () => {
       if (addToCartBtn) {
         addToCartBtn.style.transform = "scale(2)";
-        setTimeout(() => {
-          addToCartBtn.style.transform = "scale(1)";
-        }, 300);
+        addToCartBtn.style.backgroundColor = "var(--primary)";
+        setTimeout(() => addToCartBtn.style.transform = "scale(1)", 300);
+        setTimeout(() => addToCartBtn.style.backgroundColor = "transparent", 600);
       }
-    }; console.log("update cart on handler", renderManager);
+    };
 
 
     // AGREGAR SOMBRA AL TOPBAR CUANDO SE HACE SCROLL
@@ -98,7 +98,7 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
             position: relative;
           }
           .topbar .addToCartBtn{
-            transition:transform 0.3s ease-in-out;
+            transition:transform 0.3s ease-in-out, background 0.3s ease-in-out;
           }
 
           .topbar i::before,
