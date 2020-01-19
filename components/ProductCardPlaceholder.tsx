@@ -7,7 +7,7 @@ interface Bars { r1: number; r2: number; r3: number; }
 const defaultBars: Bars = { r1: 0, r2: 0, r3: 0 };
 
 // PROPIEDADES
-interface Props { text_1: string; text_2: string; }
+interface Props { productShadowText_1: string; productShadowText_2: string; }
 
 // VARIABLES GLOBALES
 const time: number = 600;
@@ -29,9 +29,9 @@ const CardShadow: FC<Props> = (props: Props) => {
       <div className="card-head waves">
         <span className="uil uil-image"></span>
         <p>
-          {props.text_1}
+          {props.productShadowText_1}
           <br />
-          {props.text_2}
+          {props.productShadowText_2}
         </p>
       </div>
 

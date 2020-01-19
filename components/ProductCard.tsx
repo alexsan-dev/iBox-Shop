@@ -1,7 +1,7 @@
 // TIPOS DE DATOS Y CONTEXTO
 import { FC, useContext } from "react";
-import appContext from "../utils/appContext";
 import { useRipples } from "../utils/hooks";
+import appContext from "../utils/appContext";
 
 const Card: FC<CardProps> = (props: CardProps) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
@@ -38,7 +38,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
           border-radius: 15px;
           overflow: hidden;
           z-index: 1;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
         }
         .card .card-head {
           width: 100%;
@@ -61,7 +61,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
         .card .card-head > img {
           width: 100%;
           position: relative;
-          top:-50%;
+          top:-70%;
           z-index: -2;
         }
         .card .card-body #cartInfo {

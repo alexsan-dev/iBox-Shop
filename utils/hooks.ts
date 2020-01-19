@@ -13,6 +13,7 @@ import "firebase/firestore";
 // =============== GLOBALS ===============
 const db = firebase.firestore();
 let fireStoreHandler: number = 0;
+let localdbHandler: number = 0;
 let fbprovider: firebase.auth.FacebookAuthProvider,
   gprovider: firebase.auth.GoogleAuthProvider;
 
@@ -90,7 +91,6 @@ export class localDB extends Dexie {
     this.version(1).stores({ users: "id, user", productList: "id, products" });
     this.users = this.table("users");
     this.productList = this.table("productList");
-    console.log("Open localDB");
   }
 }
 
@@ -143,11 +143,12 @@ export const useGetAllProducts: Function = async () => {
     console.log("read products from localDB");
     products = localData[0].products;
   }
-  else {
+  else if (localdbHandler === 0) {
     console.log('%c📖 READ PRODUCTS FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
     const firestoreData: firestore.QuerySnapshot<firestore.DocumentData> = await db.collection("products").get();
     firestoreData.forEach((doc: firestore.DocumentData) => products.push(doc.data()))
     await setProducts(products);
+    localdbHandler++;
   }
   return products;
 }

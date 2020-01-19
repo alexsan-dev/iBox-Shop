@@ -1,4 +1,4 @@
-// ANIMACION
+// ANIMACION Y HOOKS
 import { AnimatePresence } from "framer-motion";
 
 // COMPONENTES
@@ -46,6 +46,7 @@ export default class iBoxApp extends App {
             --gray-light: rgb(245, 245, 245);
             --dark: rgb(44, 68, 130);
             --secondary: #ffca28;
+            --secondary-dark: #f9a825;
             --third: #ee477c;
             --four: #00e562;
             --five: #bc868d;
@@ -57,7 +58,7 @@ export default class iBoxApp extends App {
             background: var(--backgrounds);
             padding: 50px 0 0 0;
             box-sizing: border-box;
-            font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
+            font-family:Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
               "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
               "Helvetica Neue", sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -316,6 +317,7 @@ export default class iBoxApp extends App {
 
           .btn > i {
             margin-right: 10px;
+            margin-left:-7px;
           }
 
           .floating {

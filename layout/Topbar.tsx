@@ -31,11 +31,14 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
 
 
     // AGREGAR SOMBRA AL TOPBAR CUANDO SE HACE SCROLL
-    window.addEventListener("scroll", () => {
+    const addShadow = () => {
       if (window.scrollY > 15 && topbar)
         topbar.style.boxShadow = "0 0 10px rgba(0,0,0,.4)";
       else if (topbar) topbar.style.boxShadow = "none";
-    });
+    }
+
+    window.addEventListener("scroll", addShadow, { capture: true, passive: true });
+    addShadow();
 
     // LIMPIAR O SELECIONAR INPUT DE BUSQUEDA
     searchToggle?.addEventListener("click", () => {
@@ -66,11 +69,16 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
         </div>
         <div id="searchBar">
           <label htmlFor="search-toggle" className="uil uil-arrow-left waves waves-dark"></label>
-          <input type="search" placeholder={props.placeHolder} id="search" />
+          <label htmlFor="search" id="sLabel">Buscar</label>
+          <input type="search" placeholder={props.placeHolder} id="search" name="search" />
         </div>
       </div>
 
       <style jsx>{`
+          #sLabel{
+            position:absolute;
+            top:-100%;
+          }
           .topbar {
             background: var(--primary);
             position: relative;

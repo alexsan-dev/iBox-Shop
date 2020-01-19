@@ -1,7 +1,7 @@
 // HOOKS Y TIPOS DE DATOS
-import React, { useContext } from "react";
+import { useRipples, useGetAllProducts } from "../utils/hooks";
+import React, { useContext, useEffect } from "react";
 import { NextApiResponse } from "next";
-import { useRipples } from "../utils/hooks";
 
 // CONTENEDOR DE ANIMACION
 import { motion } from "framer-motion";
@@ -20,6 +20,9 @@ const ErrorPage = (props: Props) => {
 
   // APLICAR EFECTO RIPPLE
   useRipples();
+
+  // DESCARGAR PRODUCTOS
+  useEffect(() => { useGetAllProducts() });
 
   return (
     <motion.div initial="exit" animate="enter" exit="exit">

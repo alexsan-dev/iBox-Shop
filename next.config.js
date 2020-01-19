@@ -13,5 +13,26 @@ module.exports = withOffline({
     return config;
   },
   distDir: "build",
-  poweredByHeader: false
+  poweredByHeader: false,
+  workboxOpts: {
+    runtimeCaching: [
+      {
+        urlPattern: /^https?.*/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'offlineCache',
+          expiration: {
+            maxEntries: 200
+          }
+        }
+      },
+      {
+        urlPattern: /\.(?:png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'assets',
+        },
+      }
+    ]
+  }
 });

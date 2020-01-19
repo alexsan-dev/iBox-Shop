@@ -48,26 +48,27 @@ const Layout: FC<Props> = (props: Props) => {
   });
 
   useEffect(() => {
-    // SELECCIONAR MENSAJE DE ALERTA INFERIOR
+    // SELECCIONAR MENSAJE DE ALERTA INFERIOR Y ESTADO DE CONEXION
     const toast: NodeListOf<HTMLDivElement> | null = document.querySelectorAll(".toast") as NodeListOf<HTMLDivElement>;
+    const online = navigator.onLine;
 
-    // MOSTRAR ALERTA CUANDO RECUPERO LA CONEXION
-    window.addEventListener("online", () => {
+    // MOSTRA TOAST CON MENSAJE
+    const showToast = (i: number) => {
       if (toast) {
         toast[0].style.transform = "translateY(100%)";
-        toast[1].style.transform = "translateY(0)";
-        setTimeout(() => (toast[1].style.transform = "translateY(100%)"), 5000);
-      }
-    });
-
-    // MOSTRAR ALERTA CUANDO PERDIO LA CONEXION
-    window.addEventListener("offline", () => {
-      if (toast) {
         toast[1].style.transform = "translateY(100%)";
-        toast[0].style.transform = "translateY(0)";
-        setTimeout(() => (toast[0].style.transform = "translateY(100%)"), 5000);
+        toast[i].style.transform = "translateY(0)";
+        setTimeout(() => (toast[i].style.transform = "translateY(100%)"), 5000);
       }
-    });
+    }
+
+    // MOSTRAR ALERTA CUANDO RECUPERO LA CONEXION
+    window.addEventListener("online", () => showToast(1));
+    // MOSTRAR ALERTA CUANDO PERDIO LA CONEXION
+    window.addEventListener("offline", () => showToast(0));
+
+    // DETECTAR CONEXION AL ENTRAR
+    if (!online) showToast(0);
   });
 
   return (
@@ -98,10 +99,15 @@ const Layout: FC<Props> = (props: Props) => {
             background: var(--backgrounds);
           }  
 
+          main{
+            overflow:hidden;
+          }
+
           @media screen and (min-width:460px){
             main{
               width:90%;
               margin:0 auto;
+              overflow:unset;
             }
           }
       `}</style>

@@ -1,6 +1,7 @@
 {
   "es": {
     "appDescription": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
+    "addToCart": "Agregar",
     "general": {
       "appName": "iBox Shop",
       "appNameCom": "iBox Shop® App (v0.35)",
@@ -19,7 +20,10 @@
       "logoutTitle": "¿Estas seguro?",
       "logoutText": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
     },
-    "addToCart": "Agregar",
+    "placeholders": {
+      "productShadowText_1": "Cargando",
+      "productShadowText_2": "Productos"
+    },
     "alert": {
       "confirm": "Aceptar",
       "cancel": "Cancelar"
@@ -63,9 +67,7 @@
       "recents": {
         "title": "Recientes",
         "text": "¡Conoce nuestros productos más recientes! Si eres de los primeros clientes en comprar nuestros productos más recientes 💰, obtendrás ofertas exclusivas, no esperes más y comienza a comprar.",
-        "button": "Ver más",
-        "productShadowText_1": "Cargando",
-        "productShadowText_2": "Productos"
+        "button": "Ver más"
       }
     },
     "accountPage": {

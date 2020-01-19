@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "url": "/_next/static/chunks/commons.be7ee270ba7cd5afcbbc.js",
-    "revision": "c0a4a3a6422b961c23dd"
+    "url": "/_next/static/chunks/commons.aa4a883c6b33cefc3220.js",
+    "revision": "72ced08c307c2c5a308d"
   },
   {
     "url": "/_next/static/runtime/main-801bb775b2b240d1c084.js",
@@ -16,24 +16,24 @@ self.__precacheManifest = [
     "revision": "be4b6cc6d10632d2262c"
   },
   {
-    "url": "/_next/static\\idDqy-y8IaoanQC_vWpS8\\pages\\_app.js",
-    "revision": "bf7dac67046d79f62d84"
+    "url": "/_next/static\\wtZWGGdVq1BENsZSb9mpX\\pages\\_app.js",
+    "revision": "ea3fcbbe496bc848d4f3"
   },
   {
-    "url": "/_next/static\\idDqy-y8IaoanQC_vWpS8\\pages\\_error.js",
-    "revision": "25ebcde27747294cd610"
+    "url": "/_next/static\\wtZWGGdVq1BENsZSb9mpX\\pages\\_error.js",
+    "revision": "e1a0fdfe6b021c35c031"
   },
   {
-    "url": "/_next/static\\idDqy-y8IaoanQC_vWpS8\\pages\\cuenta.js",
-    "revision": "16387ad5150db359c45b"
+    "url": "/_next/static\\wtZWGGdVq1BENsZSb9mpX\\pages\\cuenta.js",
+    "revision": "991713a355d406d1862e"
   },
   {
-    "url": "/_next/static\\idDqy-y8IaoanQC_vWpS8\\pages\\index.js",
-    "revision": "a2ace2220282115d0eb2"
+    "url": "/_next/static\\wtZWGGdVq1BENsZSb9mpX\\pages\\index.js",
+    "revision": "ab2118aa1c414539df45"
   },
   {
-    "url": "/_next/static\\idDqy-y8IaoanQC_vWpS8\\pages\\tienda.js",
-    "revision": "01b4ba91425cf8412c37"
+    "url": "/_next/static\\wtZWGGdVq1BENsZSb9mpX\\pages\\tienda.js",
+    "revision": "f0817410a79ff535535f"
   }
 ];
 
