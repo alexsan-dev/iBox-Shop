@@ -3,6 +3,9 @@ import { FC, useContext } from "react";
 import { useRipples } from "../utils/hooks";
 import appContext from "../utils/appContext";
 
+// CARGAR IMAGEN DINAMICAMENTE
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 const Card: FC<CardProps> = (props: CardProps) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
   const { lang, addToCartEvent } = useContext(appContext.appContext);
@@ -13,8 +16,16 @@ const Card: FC<CardProps> = (props: CardProps) => {
 
   return (
     <div className="card">
-      <div className="card-head waves">
-        <img src={props.img} alt={props.title} />
+      <div className="card-head">
+        <LazyLoadImage
+          scrollPosition={props.scrollPosition}
+          effect="blur"
+          src={props.img}
+          alt={props.title}
+          width="100%"
+          style={{ marginTop: "-25%", position: "relative" }}
+        />
+        <div className="waves waves-dark headShadow"></div>
       </div>
 
       <div className="card-body">
@@ -22,7 +33,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
           <h3>{props.title}</h3>
           <p>{props.text}</p>
           <div id="cartInfo">
-            <button className="card-price">Q {props.price - 0.01}</button>
+            <button className="card-price"><span>Q</span>{props.price - 1}<span id="round">99</span></button>
             <button className="primary waves addToCart" onClick={addToCartCall}>
               <i className="uil uil-shopping-cart-alt"></i>{lang.addToCart}
             </button>
@@ -48,8 +59,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
           transition: transform 0.3s ease-in-out;
           transform-origin: right bottom;
         }
-        .card .card-head::before {
-          content: "";
+        .card .card-head .headShadow{
           position: absolute;
           top: 0;
           left: 0;
@@ -57,12 +67,6 @@ const Card: FC<CardProps> = (props: CardProps) => {
           height: 100%;
           z-index: 1;
           background: rgba(0, 0, 0, 0.1);
-        }
-        .card .card-head > img {
-          width: 100%;
-          position: relative;
-          top:-70%;
-          z-index: -2;
         }
         .card .card-body #cartInfo {
           display: flex;
@@ -80,9 +84,9 @@ const Card: FC<CardProps> = (props: CardProps) => {
           color: var(--primary);
           z-index: 2;
           font-weight: 550;
-          overflow: hidden;
           padding: 0;
-          font-size: 1.6em;
+          font-size: 2em;
+          position:relative;
         }
         .card .card-body {
           position: relative;
@@ -97,6 +101,18 @@ const Card: FC<CardProps> = (props: CardProps) => {
         .card .card-body .card-content > p {
           font-size: 0.9em;
           width: 100%;
+        }
+        span{
+          font-size:0.8em;
+          display:block;
+          position:relative;
+          top:2px;
+        }
+        #round{
+          font-size:0.6em;
+          position:absolute;
+          top:5px;
+          right:-20px;
         }
       `}</style>
     </div>

@@ -147,7 +147,20 @@ export default class iBoxApp extends App {
           h1 > .uil {
             font-size: 1em;
           }
-
+          .lazy-load-image-background.blur {
+            filter: blur(15px);
+          }
+          .lazy-load-image-background.blur.lazy-load-image-loaded {
+            filter: blur(0);
+            transition: filter .7s ease-in-out;
+          }
+          .lazy-load-image-background.blur > img {
+            opacity: 0;
+          }
+          .lazy-load-image-background.blur.lazy-load-image-loaded > img {
+            opacity: 1;
+            transition: opacity .7s ease-in-out;
+          }
           .seeMore {
             padding: 10px;
             text-decoration: none;

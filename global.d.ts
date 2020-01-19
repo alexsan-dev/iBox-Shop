@@ -67,4 +67,5 @@ interface CardProps {
   text: string;
   price: number;
   code: string;
+  scrollPosition?: any;
 }

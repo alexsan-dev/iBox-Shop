@@ -1,7 +1,12 @@
-// TIPOS DE DATOS, HOOKS Y COMPONENTES
+// TIPOS DE DATOS, HOOKS
 import { useState, Dispatch, SetStateAction, useContext, useEffect } from "react";
 import { useGetAllProducts } from "../utils/hooks";
 import { firestore } from "firebase";
+
+// CARGAR IMAGANES DINAMICAMENTE
+import { trackWindowScroll, ScrollPosition } from "react-lazy-load-image-component";
+
+// COMPONENTES
 import Card from "./ProductCard";
 import appContext from "../utils/appContext";
 import CardShadow from "./ProductCardPlaceholder";
@@ -10,16 +15,16 @@ import CardShadow from "./ProductCardPlaceholder";
 interface Props {
   recents?: boolean;
   max?: number;
+  scrollPosition: ScrollPosition;
 }
 
 const ProductList: React.FC<Props> = (props: Props) => {
-  // LISTA DE PRODUCTOS FINAL
-  let productsArray: JSX.Element[] = [];
-  // PLACEHOLDERS DEL CONTEXTO
+  // PLACEHOLDERS DEL CONTEXTO Y COMPONENTE DE CARGA
   const str = useContext(appContext.appContext).lang.placeholders;
+  const shadow: JSX.Element = <CardShadow key={0} {...str} />
 
   // COMPONENTE DE CARGANDO
-  const [products, setProducts]: [JSX.Element[], Dispatch<SetStateAction<JSX.Element[]>>] = useState([<CardShadow key={0} {...str} />]);
+  const [products, setProducts]: [JSX.Element[], Dispatch<SetStateAction<JSX.Element[]>>] = useState([shadow]);
 
   // OBTENER TODOS LOS PRODUCTOS
   useEffect(() => {
@@ -33,18 +38,19 @@ const ProductList: React.FC<Props> = (props: Props) => {
               code={data.key}
               img={data.img}
               price={data.price}
+              scrollPosition={props.scrollPosition}
             />
           ));
       })
   }, [])
 
-  productsArray = products.map((e: JSX.Element) => e);
-
   // MOSTRAR SOLO LOS PRIMEROS 5
-  if (props.recents) productsArray.length = 5;
-  else if (props.max) productsArray.length = props.max;
+  if (props.recents) products.length = 5;
 
-  return <>{productsArray}</>;
+  // MOSTRAR SOLO UN LIMITE DE RESULTADOS
+  else if (props.max) products.length = props.max;
+
+  return <>{products}</>;
 }
 
-export default ProductList;
+export default trackWindowScroll(ProductList);
