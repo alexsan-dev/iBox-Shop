@@ -1,10 +1,9 @@
 // TIPOS DE DATOS Y HOOKS
-import { setProviders, useLogin, useAuthError, useResetPass, useRipples } from "../utils/hooks";
+import { setProviders, useLogin, useAuthError, useResetPass, showAlert } from "../utils/hooks";
 import { useState, Dispatch, SetStateAction } from "react";
 
 // COMPONENTES Y ALERTAS
 import Input from "./Input";
-import Alert from "./Alert";
 import { FirebaseError } from "firebase";
 
 // VARIABLES GLOBALES
@@ -12,49 +11,24 @@ let email: string = "";
 let pass: string = "";
 let name: string = "";
 
-// ESTADOS INICIALES
-interface accountState { switchC: boolean; alert?: AlertProps; alertSwitch: boolean; }
-const defaultState: accountState = { switchC: false, alertSwitch: false };
-const defaultAlert: AlertProps = { type: "", title: "", body: "" };
-
 // PROPIEDADES
-interface Props {
-  headerButton_1: string;
-  headerButton_2: string;
-  headerButton: string;
-  headerTitle: string;
-  headerText: string;
-  forgotTitle: string;
-  forgotText: string;
-  emailField: string;
-  emailForgotHelper: string;
-  alertErrorTitle: string;
-  alertErrorText_1: string;
-  alertErrorText_2: string;
-  title: string;
-  text: string;
-  alreadyAccount: string;
-  confirm_1: string;
-  forgotButtonText: string;
-  fbLoginText: string;
-  gLoginText: string;
-  privacy_1: string;
-  privacy_2: string;
-  emailHelper: string;
-  userField: string;
-  userHelper: string;
-  passField: string;
-  passHelper: string;
-  errorText: any;
+interface FormProps {
+  errorLangPackage: langPackage.errors;
+  strings: langPackage.accountPage;
 }
 
-const Forms: React.FC<Props> = (props: Props) => {
+// ESTADOS INICIALES
+interface accountState { switchC: boolean; }
+const defaultState: accountState = { switchC: false };
+
+const Forms: React.FC<FormProps> = (props: FormProps) => {
   // ESTADOS DEL COMPONENTE
   let [account, setAccount]: [accountState, Dispatch<SetStateAction<accountState>>] = useState(defaultState);
-  let regText = !account.switchC ? props.headerButton_1 : props.headerButton_2;
+  let regText = account.switchC ? props.strings.buttons.login : props.strings.buttons.createAccount;
 
-  // AGREGAR EFFECTO RIPPLE
-  useRipples();
+  // INPUT DE RECUPERACION
+  let inputVal: InputGetProps = { name: "remail", text: "" };
+  const forgotInput: JSX.Element = <Input type="text" label={props.strings.forms.inputs.emailField} name="remail" helper={props.strings.forms.forgot.helper} icon={email} value={(data: InputGetProps) => { inputVal.text = data.text }} />;
 
   // CONFIGURAR PROVEEDORES DE LOGIN
   setProviders().catch((e: Error) => console.log("Error during set providers ", e));
@@ -66,57 +40,32 @@ const Forms: React.FC<Props> = (props: Props) => {
     else if (data.name === "pass") pass = data.text;
   };
 
-  // MOSTRAR ALERTAS Y ACTUALIZAR ESTADOS
-  const showAlert = (data: AlertProps) => {
-    const alertData: AlertProps = data
-      ? {
-        title: data.title,
-        input: data.input || undefined,
-        onConfirm: data.onConfirm || undefined,
-        type: data.type,
-        body: data.body
-      }
-      : defaultAlert;
-    setAccount({
-      switchC: account.switchC,
-      alert: alertData,
-      alertSwitch: data ? true : false
-    });
-  };
-
   // MOSTRAR ALERTA EN EL BOTON DE RECUPERAR CLAVE
   const forgotPass = () => {
     // MOSTRAR ALERTA PRIMERO
     showAlert({
-      title: props.forgotTitle,
-      body: props.forgotText,
+      title: props.strings.forms.forgot.title,
+      body: props.strings.forms.forgot.text,
       type: "input",
-      input: {
-        type: "text",
-        label: props.emailField,
-        name: "remail",
-        helper: props.emailForgotHelper,
-        icon: "envelope",
-        value: () => { }
-      },
+      inputElement: forgotInput,
 
       // VERIFICAR EL TEXTO EN EL INPUT DE LA ALERTA
-      onConfirm: (data: InputGetProps) => {
-        if (data)
+      onConfirm: () => {
+        if (inputVal)
           // SI EXISTE RESETEAR LA CLAVE
-          useResetPass(data.text)
+          useResetPass(inputVal.text)
             .catch((e: FirebaseError) =>
               showAlert({
-                title: props.alertErrorTitle,
-                body: useAuthError(e.code, props.errorText),
+                title: props.strings.alerts.title,
+                body: useAuthError(e.code, props.errorLangPackage),
                 type: "error"
               })
             );
         else
           // SINO MOSTRAR ERROR
           showAlert({
-            title: props.alertErrorTitle,
-            body: props.alertErrorText_1,
+            title: props.strings.alerts.title,
+            body: props.strings.alerts.text_1,
             type: "error"
           });
       }
@@ -130,8 +79,8 @@ const Forms: React.FC<Props> = (props: Props) => {
       useLogin({ type: account.switchC, name, email, pass })
         .catch((e: FirebaseError) =>
           showAlert({
-            title: props.alertErrorTitle,
-            body: useAuthError(e.code, props.errorText),
+            title: props.strings.alerts.title,
+            body: useAuthError(e.code, props.errorLangPackage),
             type: "error"
           }))
 
@@ -140,16 +89,16 @@ const Forms: React.FC<Props> = (props: Props) => {
       useLogin({ type: account.switchC, email, pass })
         .catch((e: FirebaseError) =>
           showAlert({
-            title: props.alertErrorTitle,
-            body: useAuthError(e.code, props.errorText),
+            title: props.strings.alerts.title,
+            body: useAuthError(e.code, props.errorLangPackage),
             type: "error"
           }))
 
     // VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
     else
       showAlert({
-        title: props.alertErrorTitle,
-        body: props.alertErrorText_2,
+        title: props.strings.alerts.title,
+        body: props.strings.alerts.text_2,
         type: "error"
       });
   };
@@ -157,99 +106,84 @@ const Forms: React.FC<Props> = (props: Props) => {
   // INICIAR SESION CON FACEBOOK
   const fblog = () =>
     useLogin({ type: "fb" })
-      .catch((body: FirebaseError) => showAlert({ title: props.alertErrorTitle, body: body.code, type: "error" }))
+      .catch((body: FirebaseError) => showAlert({ title: props.strings.alerts.title, body: body.code, type: "error" }))
 
   // INICIAR SESION CON GOOGLE
   const glog = () =>
     useLogin({ type: "g" })
-      .catch((body: FirebaseError) => showAlert({ title: props.alertErrorTitle, body: body.code, type: "error" }))
+      .catch((body: FirebaseError) => showAlert({ title: props.strings.alerts.title, body: body.code, type: "error" }))
 
 
   // ACTUALIZAR ESTADO ( NUEVA CUENTA / CUENTA EXISTENTE )
-  const regSwitch = () =>
-    setAccount({
-      switchC: !account.switchC,
-      alert: account.alert,
-      alertSwitch: account.alertSwitch
-    });
+  const regSwitch = () => setAccount({ switchC: !account.switchC });
 
   return (
     <>
-      {account.alertSwitch && account.alert && (
-        <Alert
-          title={account.alert.title}
-          type={account.alert.type}
-          body={account.alert.body}
-          onConfirm={account.alert.onConfirm}
-          hideAlert={showAlert}
-          input={account.alert.input}
-        />
-      )}
       <div id="form">
         <h2>
-          {props.title} <i className="uil uil-sync"></i>
+          {props.strings.title} <i className="material-icons">sync</i>
         </h2>
-        <p>{props.text}</p>
+        <p>{props.strings.text}</p>
         <p>
-          {account.switchC ? props.confirm_1 : "no"} {props.alreadyAccount}{" "}
+          {account.switchC ? props.strings.confirm_1 : "no"} {props.strings.alreadyAccount}{" "}
           <button onClick={regSwitch}>{regText}</button>
         </p>
 
         <div id="credentials">
           <Input
             type="email"
-            label={props.emailField}
+            label={props.strings.forms.inputs.emailField}
             name="email"
             value={value}
-            helper={props.emailHelper}
-            icon="envelope"
+            helper={props.strings.forms.inputs.emailHelper}
+            icon="email"
           />
           {account.switchC ? (
             <Input
               type="text"
-              label={props.userField}
+              label={props.strings.forms.inputs.userField}
               name="name"
               value={value}
-              helper={props.userHelper}
-              icon="user"
+              helper={props.strings.forms.inputs.userHelper}
+              icon="person"
             />
           ) : ("")}
           <Input
             type="password"
-            label={props.passField}
+            label={props.strings.forms.inputs.passField}
             name="pass"
             value={value}
-            helper={props.passHelper}
+            helper={props.strings.forms.inputs.passHelper}
             icon="lock"
           />
         </div>
 
         {account.switchC ? ("") : (
           <p>
-            {props.forgotButtonText}{" "}
+            {props.strings.forms.forgot.buttonText}{" "}
             <button className="waves waves-dark" onClick={forgotPass}>
-              {props.forgotTitle}
+              {props.strings.forms.forgot.title}
             </button>
           </p>
         )}
 
         <button onClick={logs} className="blue waves">
-          <i className="uil uil-user-square"></i>
-          {account.switchC ? props.headerButton_1 : props.headerButton_2}
+          <i className="material-icons">person</i>
+          {account.switchC ? props.strings.buttons.createAccount : props.strings.buttons.login}
         </button>
         <button onClick={fblog} className="waves fblog">
-          <i className="uil uil-facebook-f"></i> {props.fbLoginText}
+          <i className="material-icons"></i> {props.strings.buttons.fbLoginText}
         </button>
         <button onClick={glog} className="waves glog">
-          <i className="uil uil-google"></i> {props.gLoginText}
+          <i className="material-icons"></i> {props.strings.buttons.gLoginText}
         </button>
       </div>
 
       <a href="./privacidad.pdf" target="_blank" title="Privacy" className="btn amber privacy waves waves-dark">
-        <i className="uil uil-university"></i>
-        {props.privacy_1}
+        <i className="material-icons">account_balance</i>
+        {props.strings.privacy_1}
         <br />
-        {props.privacy_2}
+        {props.strings.privacy_2}
       </a>
 
       <style jsx>{`

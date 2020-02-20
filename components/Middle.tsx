@@ -5,17 +5,7 @@ import appContext from "../utils/appContext";
 // NAVEGACION
 import Link from "next/link";
 
-// PROPIEDADES
-interface Props {
-  blob_1: string;
-  blob_2: string;
-  title: string;
-  text: string;
-  button_1: string;
-  button_2: string;
-}
-
-const Middle: FC<Props> = (props: Props) => {
+const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexPage["middle"]) => {
   // OBTENER USUARIO DEL CONTEXTO
   const { user } = useContext(appContext.appContext);
 
@@ -41,22 +31,22 @@ const Middle: FC<Props> = (props: Props) => {
           </g>
         </svg>
         <p id="blobText">
-          {props.blob_1}
+          {strings.blob_1}
           <br />
-          {props.blob_2}
+          {strings.blob_2}
         </p>
       </div>
 
       <div className="amber">
         <h2>
-          {props.title} <i className="uil uil-gift"></i>
+          {strings.title} <i className="material-icons">pages</i>
         </h2>
-        <p>{props.text}</p>
+        <p>{strings.text}</p>
 
         <Link href="/cuenta" passHref scroll={false}>
           <a className="btn waves white waves-dark" title="Login">
-            <i className="uil uil-user"></i>{" "}
-            {user ? props.button_1 : props.button_2}
+            <i className="material-icons">person</i>{" "}
+            {user ? strings.button_1 : strings.button_2}
           </a>
         </Link>
       </div>
@@ -92,7 +82,9 @@ const Middle: FC<Props> = (props: Props) => {
           margin-bottom: 5px;
         }
         .middle > div h2 i {
-          margin-left: -10px;
+          margin-left: -2px;
+          position:relative;
+          top:3px;
         }
 
         .middle > #showInf {

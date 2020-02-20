@@ -1,5 +1,5 @@
 // HOOKS Y TIPOS DE DATOS
-import { useRipples, useGetAllProducts } from "../utils/hooks";
+import { useGetAllProducts } from "../utils/hooks";
 import React, { useContext, useEffect } from "react";
 import { NextApiResponse } from "next";
 
@@ -18,21 +18,20 @@ const ErrorPage = (props: Props) => {
   // TEXTOS DE PAGINA DE ERROR
   const str = useContext(appContext.appContext).lang.errorPage;
 
-  // APLICAR EFECTO RIPPLE
-  useRipples();
-
   // DESCARGAR PRODUCTOS
   useEffect(() => { useGetAllProducts() });
+
+  console.log(props);
 
   return (
     <motion.div initial="exit" animate="enter" exit="exit">
       <div id="errorPage">
         <div>
           <h1>{str.title}</h1>
-          <p>{str.description_1 + props.code + str.description_2}</p>
+          <p>{str.description_1 + str.description_2}</p>
           <Link href="/" passHref scroll={false}>
             <a className="waves waves-dark btn white" title="Home">
-              <i className="uil uil-corner-up-left-alt"></i> {str.button}
+              <i className="material-icons">reply</i> {str.button}
             </a>
           </Link>
         </div>
@@ -63,12 +62,6 @@ const ErrorPage = (props: Props) => {
             display: inline-flex;
             margin-top: 20px;
             justify-content: space-between;
-          }
-          a i {
-            position: relative;
-            left: -10px;
-            margin: 0;
-            padding: 0;
           }
           img {
             width: 250px;

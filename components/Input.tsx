@@ -1,5 +1,5 @@
 // HOOKS PARA REFERENCIA
-import { useRef, FC, RefObject } from "react";
+import { useRef, FC, RefObject, MouseEvent } from "react";
 
 // VARIABLES GLOBALES
 let visible: boolean = true;
@@ -25,13 +25,14 @@ const Input: FC<InputProps> = (props: InputProps) => {
   };
 
   // BOTON DE MOSTAR Y OCULTAR PARA INPUT DE CLAVE
-  const visibled = (e: any) => {
-    if (visible) {
-      e.target?.classList.replace("uil-eye-slash", "uil-eye");
+  const visibled = (e: MouseEvent<HTMLSpanElement>) => {
+    const el: HTMLSpanElement = e?.target as HTMLSpanElement;
+    if (visible && el) {
+      el.textContent = "visibility_off";
       inp.current?.setAttribute("type", "text");
       visible = !visible;
-    } else {
-      e.target?.classList.replace("uil-eye", "uil-eye-slash");
+    } else if (el) {
+      el.textContent = "visibility";
       inp.current?.setAttribute("type", "password");
       visible = !visible;
     }
@@ -60,9 +61,9 @@ const Input: FC<InputProps> = (props: InputProps) => {
           {props.label}
         </label>
         <hr className="hrunactive" />
-        <i className={`iunactive uil uil-${props.icon}`}></i>
+        <i className="iunactive material-icons">{props.icon}</i>
         {props.type === "password" ? (
-          <span onClick={visibled} className="uil uil-eye-slash"></span>
+          <span onClick={visibled} className="material-icons">visibility</span>
         ) : ("")}
       </div>
       <span>{props.helper}</span>

@@ -1,41 +1,31 @@
 // HOOKS Y TIPOS DE DATOS
-import { useSendEmailVerification, useDeleteUser, useUserTime } from "../utils/hooks";
+import { useSendEmailVerification, useDeleteUser, useUserTime, showAlert } from "../utils/hooks";
 import { useState, Dispatch, SetStateAction } from "react";
-
-// COMPONENTE DE ALERTAS
-import Alert from "./Alert";
 
 // PROPIEDADES Y ESTADOS
 interface Props {
   show: boolean;
-  alertTitle: string;
-  alertText: string;
-  title: string;
-  text: string;
-  button: string;
+  strings: langPackage.verified
 }
 
 // ESTADOS INICIALES
-interface Visibility { visible: boolean; deleted: boolean; }
+interface Visibility { visible: boolean; }
 
 const Verified: React.FC<Props> = (props: Props) => {
   // ESTADO DEL COMPONENTE
-  const defaultState: Visibility = { visible: props.show, deleted: false };
+  const defaultState: Visibility = { visible: props.show };
   const [visible, setVisible]: [Visibility, Dispatch<SetStateAction<Visibility>>] = useState(defaultState);
 
   // ENVIAR EMAIL DE RECUPERACION
   const sendEmail = () => {
     useSendEmailVerification()?.then(() => {
       console.log("Send verification email");
-      setVisible({ visible: true, deleted: visible.deleted });
+      setVisible({ visible: true });
     });
   };
 
-  // ACTUALIZAR ESTADO AL CERRAR ALERTA
-  const hideAlert = () => setVisible({ visible: true, deleted: false });
-
-  // BORRAR USUARIO
-  const onConfirm = () => {
+  // BORRAR USUARIO DE FIREBASE
+  const deleteUser = () => {
     useDeleteUser()
       ?.then(() => {
         console.log("User deleted");
@@ -50,35 +40,26 @@ const Verified: React.FC<Props> = (props: Props) => {
 
     // BORRAR USUARIO SI ES MAYOR DE 24H Y NO ESTA VERIFICADO
     if (timeDelta > 3600 * 24 * 1000) {
-      setVisible({ visible: false, deleted: true });
-      setTimeout(() => {
-        useDeleteUser()
-          ?.then(() => {
-            console.log("User deleted");
-          })
-          .catch((error: any) => console.log("Error deleting user:", error));
-      }, 60000);
+      showAlert({
+        title: props.strings.alertTitle,
+        body: props.strings.alertText,
+        type: "confirm",
+        onConfirm: deleteUser,
+        onHide: deleteUser
+      })
+      setTimeout(deleteUser, 60000);
     }
 
     return (
       <>
-        {visible.deleted && (
-          <Alert
-            hideAlert={hideAlert}
-            title={props.alertTitle}
-            body={props.alertText}
-            type="error"
-            onConfirm={onConfirm}
-          />
-        )}
         <div className="amber">
           <div>
-            <h1>{props.title}</h1>
-            <p>{props.text}</p>
+            <h1>{props.strings.title}</h1>
+            <p>{props.strings.text}</p>
           </div>
           <button onClick={sendEmail} className="waves waves-dark white">
-            <i className="uil uil-message"></i>
-            {props.button}
+            <i className="material-icons">send</i>
+            {props.strings.button}
           </button>
 
           <style jsx>{`

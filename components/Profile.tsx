@@ -3,7 +3,7 @@ import { useState, SetStateAction, Dispatch, useContext } from "react";
 import { firestore } from "firebase";
 
 // HOOKS Y ANIMACION
-import { useUserGet, useRipples } from "../utils/hooks";
+import { useUserGet } from "../utils/hooks";
 import { motion, Variants } from "framer-motion";
 
 // TIPOS DE DATOS FIREBASE Y NEXT
@@ -51,9 +51,6 @@ const Profile: NextPage<Props> = (props: Props) => {
   if (useRouter().pathname === "/cuenta") useUserGet(props.user.uid)
     .then((userData: Istate["userData"]) => userData ? setUser({ userData }) : null)
     .catch((err: Error) => console.log(err));
-
-  // APLICAR EFECTO RIPPLE
-  useRipples();
 
   return (
     <motion.div initial="exit" animate="enter" exit="exit"

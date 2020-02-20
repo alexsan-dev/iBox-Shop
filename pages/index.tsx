@@ -1,6 +1,5 @@
 // ANIMACION, HOOKS Y TIPOS DE DATOS
 import { motion, Variants } from "framer-motion";
-import { useRipples } from "../utils/hooks";
 import { NextPage } from "next";
 
 // CONTEXTO
@@ -36,10 +35,7 @@ const recents: Variants = {
 const Index: NextPage = () => {
   console.log('%c🏠 RENDER HOME PAGE', 'background:#2196f3; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
   // TEXTO DE PAGINA DE INICIO
-  const str = useContext(appContext.appContext).lang.indexPage;
-
-  // EFECTO DE RIPPLE
-  useRipples();
+  const strings = useContext(appContext.appContext).lang.indexPage;
 
   return (
     <>
@@ -51,25 +47,25 @@ const Index: NextPage = () => {
       >
         <motion.div variants={pageAnim}>
           <Header
-            link={str.headerButton}
+            link={strings.header.button}
             img={require("../assets/box.png")}
             href="/tienda"
             icon="store"
-            text={str.headerText}
-            title={str.headerTitle}
+            text={strings.header.text}
+            title={strings.header.title}
           />
         </motion.div>
 
         <motion.div variants={slideAnim}>
-          <Slider {...str.slider} />
+          <Slider {...strings.slider} />
         </motion.div>
 
         <motion.div variants={recents}>
-          <Middle {...str.middle} />
+          <Middle {...strings.middle} />
         </motion.div>
 
         <motion.div variants={slideAnim}>
-          <Recents {...str.recents} />
+          <Recents {...strings.recents} />
         </motion.div>
 
       </motion.div>

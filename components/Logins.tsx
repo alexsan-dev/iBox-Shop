@@ -27,7 +27,7 @@ const Logins: NextPage = () => {
   console.log('%c📝 RENDER LOGIN PAGE', 'background:#2196F3; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
 
   // CONEXTO Y MENSAJES DE ERROR
-  const langs = useContext(appContext.appContext).lang;
+  const langs: langType = useContext(appContext.appContext).lang;
   const str = langs.accountPage;
   const errors = langs.errors;
 
@@ -43,20 +43,20 @@ const Logins: NextPage = () => {
           <Header
             title={
               <>
-                {str.headerTitle} <i className="uil uil-store"></i>
+                {str.header.title} <i className="material-icons">flash_on</i>
               </>
             }
-            text={str.headerText}
+            text={str.header.text}
             img={require("../assets/cart.png")}
             href="/"
-            icon="corner-up-left-alt"
-            link={str.headerButton}
+            icon="reply"
+            link={str.header.button}
             span="BEST SERVICE"
           />
         </motion.div>
 
         <motion.div variants={slideAnim}>
-          <Forms {...str} errorText={errors} />
+          <Forms strings={str} errorLangPackage={errors} />
         </motion.div>
 
       </motion.div>

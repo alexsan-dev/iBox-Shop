@@ -1,33 +1,16 @@
 // TIPOS DE DATOS Y HOOKS
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { useLogout } from "../utils/hooks";
+import { useEffect } from "react";
+import { useLogout, showAlert } from "../utils/hooks";
 import { User } from "firebase";
 
 // NAVEGACION Y ALERTAS
 import Router from "next/router";
 import Link from "next/link";
-import Alert from "../components/Alert";
 
 //PROPIEDADES 
-interface Props {
-	user: User | null;
-	appName: string;
-	shareText: string;
-	appNameCom: string;
-	appSlogan: string;
-	homeRoute: string;
-	shopRoute: string;
-	navDivider: string;
-	accountRoute: string;
-	shareButton: string;
-	downloadButton: string;
-	logoutButton: string;
-	logoutTitle: string;
-	logoutText: string;
-}
+interface Props { user: User | null; strings: langPackage.general; }
 
 // ESTADOS Y VARIABLES GLOBALES
-interface drawerState { logout: boolean; }
 let shareCount: number = 0;
 let x0: number = 0;
 let x0_1: number = 0;
@@ -35,18 +18,16 @@ let deferredPrompt: Event | null;
 let hideDrawer: Function;
 
 const Drawer: React.FC<Props> = (props: Props) => {
-	// ESTADOS DEL COMPONENTE
-	const defaultState: drawerState = { logout: false }
-	const [account, setAccount]: [drawerState, Dispatch<SetStateAction<drawerState>>] = useState(defaultState);
-
 	// OCULTAR DRAWER AL CERRAR SESION
 	const logout = () => {
-		setAccount({ logout: true });
 		hideDrawer();
+		showAlert({
+			type: "confirm",
+			body: props.strings.logout.text,
+			title: props.strings.logout.title,
+			onConfirm: () => useLogout()
+		})
 	}
-
-	// PREGUNTAR SI QUIERE CERRAR SESION
-	const hideAlert = () => setAccount({ logout: false });
 
 	useEffect(() => {
 		// SELECCIONAR TODOS LOS BOTONES DE PAGINA, EL INPUT DE MOSTRAR Y OCULTAR, BOTON DE COMPARTIR Y BOTON DE INSTALAR
@@ -58,7 +39,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 		const drawer: HTMLDivElement | null = document.getElementById("drawer") as HTMLDivElement;
 
 		// OCULTAR DRAWER
-		hideDrawer = () => (drawerToggle)? drawerToggle.checked = false: null;
+		hideDrawer = () => (drawerToggle) ? drawerToggle.checked = false : null;
 
 		// AGREGAR UNA CLASE "BLUE" A LAS PESTAÑAS ACTIVAS EN EL MENU
 		function setActive(url: string) {
@@ -94,8 +75,8 @@ const Drawer: React.FC<Props> = (props: Props) => {
 				shareBtn.addEventListener("click", () => {
 					navigator
 						.share({
-							title: props.appName,
-							text: props.shareText,
+							title: props.strings.app.name,
+							text: props.strings.app.shareText,
 							url: window.location.origin
 						})
 						.then(() => console.log("Successfully share"))
@@ -143,54 +124,53 @@ const Drawer: React.FC<Props> = (props: Props) => {
 		<>
 			<input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
 			<label htmlFor="drawer-toggle" className="drawerShadow sbf"></label>
-			{account.logout && <Alert hideAlert={hideAlert} type="confirm" title={props.logoutTitle} body={props.logoutText} onConfirm={useLogout} />}
 
 			<div id="drawer">
 				<div id="drawerHead">
-					<span>{props.appNameCom}</span>
-					<p>{props.appSlogan}</p>
+					<span>{props.strings.app.nameCom}</span>
+					<p>{props.strings.app.slogan}</p>
 				</div>
 				<ul>
 					<li>
 						<Link href="/" passHref scroll={false}>
 							<a className="white routes waves waves-dark btn" title="Home">
-								<i className="uil uil-home-alt"></i> {props.homeRoute}
+								<i className="material-icons">home</i> {props.strings.routes.home}
 							</a>
 						</Link>
 					</li>
 					<li>
 						<Link href="/tienda" passHref scroll={false}>
 							<a className="btn white routes waves waves-dark" title="Shop">
-								<i className="uil uil-store"></i> {props.shopRoute}
+								<i className="material-icons">store</i> {props.strings.routes.shop}
 							</a>
 						</Link>
 					</li>
 				</ul>
 				<hr />
-				<span className="dividerTitle">{props.navDivider}</span>
+				<span className="dividerTitle">{props.strings.app.navDivider}</span>
 				<ul>
 					<li>
 						<Link href="/cuenta" passHref scroll={false}>
 							<a className="white routes waves waves-dark btn" title="Account">
-								<i className="uil uil-user"></i> {props.accountRoute}
+								<i className="material-icons">person</i> {props.strings.routes.account}
 							</a>
 						</Link>
 					</li>
 					{props.user && (
 						<li>
-							<button onClick={logout} className="white waves waves-dark">
-								<i className="uil uil-exit"></i> {props.logoutButton}
+							<button onClick={logout} className="white waves waves-dark btn">
+								<i className="material-icons">exit_to_app</i> {props.strings.buttons.logout}
 							</button>
 						</li>
 					)}
 					<li>
-						<button className="white waves waves-dark shareBtn">
-							<i className="uil uil-share-alt"></i> {props.shareButton}
+						<button className="white waves waves-dark shareBtn btn">
+							<i className="material-icons">share</i> {props.strings.buttons.share}
 						</button>
 					</li>
 					<li>
-						<button className="white waves waves-dark add-button">
-							<i className="uil uil-import"></i> {props.downloadButton}
+						<button className="white waves waves-dark add-button btn">
+							<i className="material-icons">arrow_downward</i> {props.strings.buttons.download}
 						</button>
 					</li>
 				</ul>
@@ -271,7 +251,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 
           #drawer > ul li button i,
           #drawer > ul li a i {
-            margin-right: 25px;
+            margin-right: 20px;
             margin-top: -1px;
           }
 

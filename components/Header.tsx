@@ -20,7 +20,7 @@ const Header: React.FC<Props> = (props: Props) => {
         <p>{props.text}</p>
         <Link href={props.href} passHref scroll={false}>
           <a id="shopBtn" className="waves btn" title="Shop">
-            <i className={`uil uil-${props.icon}`}></i>
+            <i className="material-icons">{props.icon}</i>
             {props.link}
           </a>
         </Link>
@@ -71,7 +71,8 @@ const Header: React.FC<Props> = (props: Props) => {
           padding-bottom: 40px;
         }
         #headText a i {
-          margin-top: -3px;
+          position:relative;
+          left:4px;
         }
         #headText h1 {
           color: var(--backgrounds);

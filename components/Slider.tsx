@@ -1,27 +1,14 @@
 // NAVEGACION
 import Link from "next/link";
 
-// PROPIEDADES
-interface Props {
-	title: string;
-	text: string;
-	button: string;
-	electroCatTitle: string;
-	electroCatText: string;
-	devicesCatTitle: string;
-	devicesCatText: string;
-	accesCatTitle: string;
-	accesCatText: string;
-}
-
-const Slider: React.FC<Props> = (props: Props) => {
+const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.indexPage["slider"]) => {
 	return (
 		<div className="mainSlide">
 			<div id="slideTitle">
 				<h2>
-					{props.title} <i className="uil uil-apps"></i>
+					{strings.title} <i className="material-icons">widgets</i>
 				</h2>
-				<p>{props.text}</p>
+				<p>{strings.text}</p>
 			</div>
 
 			<div className="slider">
@@ -31,10 +18,10 @@ const Slider: React.FC<Props> = (props: Props) => {
 							<a className="catContent waves" title="Electrónica">
 								<div className="cardBackground"></div>
 								<div className="catTitle">
-									<h3>{props.electroCatTitle}</h3>
-									<p>{props.electroCatText}</p>
+									<h3>{strings.electroCatTitle}</h3>
+									<p>{strings.electroCatText}</p>
 								</div>
-								<i className="uil uil-circuit"></i>
+								<i className="material-icons">memory</i>
 							</a>
 						</Link>
 					</li>
@@ -44,10 +31,10 @@ const Slider: React.FC<Props> = (props: Props) => {
 							<a className="catContent waves" title="Dispositivos">
 								<div className="cardBackground"></div>
 								<div className="catTitle">
-									<h3>{props.devicesCatTitle}</h3>
-									<p>{props.devicesCatText}</p>
+									<h3>{strings.devicesCatTitle}</h3>
+									<p>{strings.devicesCatText}</p>
 								</div>
-								<i className="uil uil-wifi-router"></i>
+								<i className="material-icons">phonelink_ring</i>
 							</a>
 						</Link>
 					</li>
@@ -57,10 +44,10 @@ const Slider: React.FC<Props> = (props: Props) => {
 							<a className="catContent waves" title="Accesorios">
 								<div className="cardBackground"></div>
 								<div className="catTitle">
-									<h3>{props.accesCatTitle}</h3>
-									<p>{props.accesCatText}</p>
+									<h3>{strings.accesCatTitle}</h3>
+									<p>{strings.accesCatText}</p>
 								</div>
-								<i className="uil uil-headphones"></i>
+								<i className="material-icons">headset</i>
 							</a>
 						</Link>
 					</li>
@@ -69,7 +56,7 @@ const Slider: React.FC<Props> = (props: Props) => {
 
 			<Link href="/tienda" passHref scroll={false}>
 				<a className="waves waves-dark seeMore right" title="Ver todo">
-					{props.button} <i className="uil uil-arrow-right"></i>
+					{strings.button} <i className="material-icons">arrow_forward</i>
 				</a>
 			</Link>
 
@@ -85,9 +72,6 @@ const Slider: React.FC<Props> = (props: Props) => {
 				}
 				#slideTitle{
 					padding:0 20px;
-				}
-				.seeMore{
-					bottom:0;
 				}
 				.slider{
 					position:relative;
@@ -118,7 +102,7 @@ const Slider: React.FC<Props> = (props: Props) => {
 					display:flex;
 					justify-content:space-between;
 					align-items:center;
-					padding:15px 20px;
+					padding:22px 20px;
 					overflow:hidden;
 					border-radius:10px;
 				}
@@ -149,9 +133,15 @@ const Slider: React.FC<Props> = (props: Props) => {
 					font-size:0.9em;
 				}
 				.slider ul li .catContent i{
-					font-size:4em;
-					margin-right:-17px;
+					font-size:3.5em;
+					margin-right:-7px;
 					color:var(--backgrounds);
+				}
+				.slider ul li:nth-child(1) .catContent{
+						padding:14.5px 20px;
+				}
+				.slider ul li:nth-child(1) .catContent  i{
+					font-size:4.5em;	
 				}
 				@media screen and (max-width:355px){
 					.mainSlide > .seeMore{

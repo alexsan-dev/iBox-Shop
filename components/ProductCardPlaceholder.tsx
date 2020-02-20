@@ -6,13 +6,10 @@ import { useInterval } from "../utils/hooks";
 interface Bars { r1: number; r2: number; r3: number; }
 const defaultBars: Bars = { r1: 0, r2: 0, r3: 0 };
 
-// PROPIEDADES
-interface Props { productShadowText_1: string; productShadowText_2: string; }
-
 // VARIABLES GLOBALES
 const time: number = 600;
 
-const CardShadow: FC<Props> = (props: Props) => {
+const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placeholders) => {
   // ESTADO INICIAL DEL COMPONENTE
   let [bars, setBars]: [Bars, Dispatch<SetStateAction<Bars>>] = useState(defaultBars);
 
@@ -27,11 +24,11 @@ const CardShadow: FC<Props> = (props: Props) => {
   return (
     <div className="card">
       <div className="card-head waves">
-        <span className="uil uil-image"></span>
+        <span className="material-icons">image</span>
         <p>
-          {props.productShadowText_1}
+          {strings.productShadowText_1}
           <br />
-          {props.productShadowText_2}
+          {strings.productShadowText_2}
         </p>
       </div>
 

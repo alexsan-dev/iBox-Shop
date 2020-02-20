@@ -1,44 +1,25 @@
-// PROPIEDADES
-interface Props {
-  store: boolean;
-  blob_1: string;
-  blob_2: string;
-  title: string;
-  text: string;
-  text_1: string;
-  text_2: string;
-  text_3: string;
-  rights_1: string;
-  rights_2: string;
-  button_1: string;
-  button_2: string;
-  button_3: string;
-}
-
-const Footer: React.FC<Props> = (props: Props) => {
+const Footer: React.FC<langPackage.footer> = (strings: langPackage.footer) => {
   return (
     <footer>
-      {props.store ? (
-        <div className="st">
-          <img src={require("../assets/store.png")} alt="iBox Store" />
+      <div className="st">
+        <img src={require("../assets/store.png")} alt="iBox Store" />
 
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
-            <g transform="translate(300,300)">
-              <path
-                d="M125.6,-71.2C136.3,-54,100.2,-8.5,71.4,16.1C42.7,40.7,21.4,44.3,-26.6,59.7C-74.5,75,-149,102,-181.7,75.1C-214.5,48.2,-205.5,-32.7,-168.3,-65.2C-131.1,-97.7,-65.5,-81.8,-4,-79.5C57.4,-77.2,114.9,-88.3,125.6,-71.2Z"
-                fill="var(--third)"
-              />
-            </g>
-          </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+          <g transform="translate(300,300)">
+            <path
+              d="M125.6,-71.2C136.3,-54,100.2,-8.5,71.4,16.1C42.7,40.7,21.4,44.3,-26.6,59.7C-74.5,75,-149,102,-181.7,75.1C-214.5,48.2,-205.5,-32.7,-168.3,-65.2C-131.1,-97.7,-65.5,-81.8,-4,-79.5C57.4,-77.2,114.9,-88.3,125.6,-71.2Z"
+              fill="var(--third)"
+            />
+          </g>
+        </svg>
 
-          <span>
-            {props.blob_1}{" "}
-            <a href="mailto:cto@ibox.gt" title="Cto mail">
-              {props.blob_2}
-            </a>
-          </span>
-        </div>
-      ) : ("")}
+        <span>
+          {strings.blobs.contact}{" "}
+          <a href="mailto:cto@ibox.gt" title="Cto mail">
+            {strings.blobs.email}
+          </a>
+        </span>
+      </div>
 
       <div id="footerWave">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -51,24 +32,24 @@ const Footer: React.FC<Props> = (props: Props) => {
 
       <div id="links">
         <h2>
-          {props.title}
-          <i className="uil uil-phone"></i>
+          {strings.title}
+          <i className="material-icons">phone</i>
         </h2>
 
-        <p>{props.text}</p>
+        <p>{strings.text}</p>
 
         <a href="https://facebook.com/shops.ibox" target="_blank" rel="noreferrer" title="FacebookPage">
-          <i className="uil uil-facebook-f"></i> iBox Shop
+          <i className="material-icons">flag</i> iBox Shop
         </a>
         <a href="mailto:ceo@ibox.gt" title="Email">
-          <i className="uil uil-envelope"></i> Email
+          <i className="material-icons">email</i> Email
         </a>
       </div>
 
       <div id="fText">
-        <h2>{props.rights_1}</h2>
+        <h2>{strings.rights.main}</h2>
         <span>
-          {props.rights_2} {new Date().getFullYear()}
+          {strings.rights.reserved} {new Date().getFullYear()}
         </span>
       </div>
 
@@ -118,13 +99,6 @@ const Footer: React.FC<Props> = (props: Props) => {
             transform:scaleX(-1) rotate(10deg);
             right:0px;
           }
-          footer .icon-facebook {
-            color: var(--backgrounds);
-            font-size: 1em;
-            position: relative;
-            top: 2px;
-            left:-5px;
-          }
           footer #links {
             padding-bottom: 0;
           }
@@ -133,6 +107,10 @@ const Footer: React.FC<Props> = (props: Props) => {
             margin-bottom:10px;
             width:110%;
             display:block;
+          }
+          footer h2 i{
+            position:relative;
+            top:3px;
           }
           footer #fText h2 {
             font-size: 1em;
@@ -155,6 +133,10 @@ const Footer: React.FC<Props> = (props: Props) => {
             font-weight:500;
             width:100%;
             display:block;
+          }
+          footer #links a i{
+            position:relative;
+            top:5px;
           }
           footer #links .fqs{
             margin-bottom:0px;

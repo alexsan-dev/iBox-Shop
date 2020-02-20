@@ -1,6 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { useEffect, useContext, useState, Dispatch, SetStateAction, FC, useRef } from "react";
-import { useAuth } from "../utils/hooks";
+import { useAuth, showToast, useRipples } from "../utils/hooks";
 import { User } from "firebase";
 
 // VARIABLES GLOBALES ( LENGUAJE, THEMA, USUARIO )
@@ -10,7 +10,6 @@ import appContext from "../utils/appContext";
 // COMPONENTES, ALERTAS Y LAYOUTS
 import Verified from "../components/Verified";
 import Footer from "./Footer";
-import Toast from "../components/Toast";
 import Topbar from "./Topbar";
 import Drawer from "./Drawer";
 
@@ -34,6 +33,9 @@ const addToCartEvent = (e: string) => {
 const Layout: FC<Props> = (props: Props) => {
   console.log('%c⚠️ RENDER ENTIRE APP', 'background: #f44336;color:#fff;padding:5px;font-weight:bold; border-radius:5px');
 
+  // EFECTO DE RIPPLES
+  useRipples();
+
   // ESTADOS Y CONEXTO DEL COMPONENTE
   const { lang } = useContext(langContext.langContext);
   const defaultUser: userState = { user: null, online: false, logout: false };
@@ -48,47 +50,33 @@ const Layout: FC<Props> = (props: Props) => {
   });
 
   useEffect(() => {
-    // SELECCIONAR MENSAJE DE ALERTA INFERIOR Y ESTADO DE CONEXION
-    const toast: NodeListOf<HTMLDivElement> | null = document.querySelectorAll(".toast") as NodeListOf<HTMLDivElement>;
+    // ESTADO DE CONEXION
     const online = navigator.onLine;
 
-    // MOSTRA TOAST CON MENSAJE
-    const showToast = (i: number) => {
-      if (toast) {
-        toast[0].style.transform = "translateY(100%)";
-        toast[1].style.transform = "translateY(100%)";
-        toast[i].style.transform = "translateY(0)";
-        setTimeout(() => (toast[i].style.transform = "translateY(100%)"), 5000);
-      }
-    }
-
     // MOSTRAR ALERTA CUANDO RECUPERO LA CONEXION
-    window.addEventListener("online", () => showToast(1));
+    window.addEventListener("online", () => showToast({ text: lang.toast.online }));
     // MOSTRAR ALERTA CUANDO PERDIO LA CONEXION
-    window.addEventListener("offline", () => showToast(0));
+    window.addEventListener("offline", () => showToast({ text: lang.toast.offline }));
 
     // DETECTAR CONEXION AL ENTRAR
-    if (!online) showToast(0);
+    if (!online) showToast({ text: lang.toast.online });
   });
 
   return (
     <>
       <nav>
-        <Topbar ref={topbar} placeHolder={lang.searchPlaceholder} />
-        <Drawer {...lang.general} user={user.user} />
+        <Topbar ref={topbar} placeHolder={lang.placeholders.searchInput} />
+        <Drawer strings={lang.general} user={user.user} />
       </nav>
 
-      <Toast text={lang.toast.text_2} />
-      <Toast text={lang.toast.text_1} />
-
       <appContext.appContext.Provider value={{ lang, theme: "light", user: user.user, addToCartEvent, cartList }}>
-        {user.user && <Verified {...lang.verified} show={user.user.providerData[0]?.providerId === "facebook.com" ? true : user.user.emailVerified} />}
+        {user.user && <Verified strings={lang.verified} show={user.user.providerData[0]?.providerId === "facebook.com" ? true : user.user.emailVerified} />}
         <main>
           {props.children}
         </main>
       </appContext.appContext.Provider>
 
-      <Footer store {...lang.footer} />
+      <Footer {...lang.footer} />
 
       <style jsx>{`
           nav {

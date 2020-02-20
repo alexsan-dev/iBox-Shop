@@ -4,14 +4,7 @@ import Link from "next/link";
 // COMPONENTES
 import ProductList from "./ProductList";
 
-// PROPIEDADES E INTERFACES
-interface Props {
-  title: string;
-  text: string;
-  button: string;
-}
-
-const Recents: React.FC<Props> = (props: Props) => {
+const Recents: React.FC<langPackage.indexPage["recents"]> = (strings: langPackage.indexPage["recents"]) => {
   return (
     <div id="middle">
       <div id="recents">
@@ -26,10 +19,10 @@ const Recents: React.FC<Props> = (props: Props) => {
         </div>
         <div>
           <h2>
-            {props.title}
-            <i className="uil uil-clock"></i>
+            {strings.title}
+            <i className="material-icons">history</i>
           </h2>
-          <p>{props.text}</p>
+          <p>{strings.text}</p>
 
           <ProductList recents />
 
@@ -39,7 +32,7 @@ const Recents: React.FC<Props> = (props: Props) => {
 
       <Link href="/tienda" passHref scroll={false}>
         <a className="waves waves-dark seeMore right" title="Ver más">
-          {props.button} <i className="uil uil-arrow-right"></i>
+          {strings.button} <i className="material-icons">arrow_forward</i>
         </a>
       </Link>
 
@@ -84,7 +77,7 @@ const Recents: React.FC<Props> = (props: Props) => {
         }
         img {
           position: absolute;
-          top: -40px;
+          top: -35px;
           right: -5%;
           z-index: 2;
         }

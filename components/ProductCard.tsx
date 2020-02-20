@@ -1,6 +1,5 @@
 // TIPOS DE DATOS Y CONTEXTO
 import { FC, useContext } from "react";
-import { useRipples } from "../utils/hooks";
 import appContext from "../utils/appContext";
 
 // CARGAR IMAGEN DINAMICAMENTE
@@ -10,9 +9,6 @@ const Card: FC<CardProps> = (props: CardProps) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
   const { lang, addToCartEvent } = useContext(appContext.appContext);
   const addToCartCall = () => addToCartEvent(props.code);
-
-  // AGREGAR EFECTO DE RIPPLES
-  useRipples();
 
   return (
     <div className="card">
@@ -35,7 +31,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
           <div id="cartInfo">
             <button className="card-price"><span>Q</span>{props.price - 1}<span id="round">99</span></button>
             <button className="primary waves addToCart" onClick={addToCartCall}>
-              <i className="uil uil-shopping-cart-alt"></i>{lang.addToCart}
+              <i className="material-icons">shopping_cart</i>{lang.general.buttons.addToCart}
             </button>
           </div>
         </div>
@@ -112,7 +108,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
           font-size:0.6em;
           position:absolute;
           top:5px;
-          right:-20px;
+          right:-23px;
         }
       `}</style>
     </div>

@@ -3,25 +3,25 @@ import { User } from "firebase";
 import React from "react";
 
 // JSON DE LENGUAJES
-import Langs from "../lang/strings.json";
+import LangsPackages from "../lang/strings.json";
 
 // HOC PARA LENGUAJE DE LA APLICACION
-interface langContext { lang: any; }
-const defaultLangContext: langContext = { lang: Langs.es };
-const langContext: React.Context<langContext> = React.createContext(
-  defaultLangContext
-);
+interface langContext { lang: langType; }
+// @ts-ignore
+const defaultLangContext: langContext = { lang: LangsPackages.es };
+const langContext: React.Context<langContext> = React.createContext(defaultLangContext);
 
 // HOC GENERAL DE LA APLICACION
 interface appContext {
-  lang: any;
+  lang: langType;
   user: userModel | User | null;
   theme: string;
   addToCartEvent: Function;
   cartList: string[];
 }
 const defaultAppContext: appContext = {
-  lang: Langs.es,
+  // @ts-ignore
+  lang: LangsPackages.es,
   user: null,
   theme: "light",
   addToCartEvent: () => { },

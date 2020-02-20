@@ -1,28 +1,37 @@
 {
   "es": {
-    "appDescription": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
-    "addToCart": "Agregar",
     "general": {
-      "appName": "iBox Shop",
-      "appNameCom": "iBox Shop® App (v0.35)",
-      "appNameShort": "iBox",
-      "appSlogan": "Tu comodidad en una caja.",
-      "appTitle": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
-      "logoutButton": "Cerrar Sesión",
-      "shareButton": "Compartir",
-      "downloadButton": "Descargar",
-      "navDivider": "Aplicación",
-      "homeRoute": "Inicio",
-      "shopRoute": "Tienda",
-      "accountRoute": "Cuenta",
-      "shareText": "Entra a esta tienda, te gustara. ✨👌!",
-      "searchPlaceholder": "Buscar productos",
-      "logoutTitle": "¿Estas seguro?",
-      "logoutText": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
+      "app": {
+        "name": "iBox Shop",
+        "description": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
+        "nameCom": "iBox Shop® App (v0.35)",
+        "nameShort": "iBox",
+        "slogan": "Tu comodidad en una caja.",
+        "title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
+        "navDivider": "Aplicación",
+        "shareText": "Entra a esta tienda, te gustara. ✨👌!"
+      },
+      "buttons": {
+        "logout": "Cerrar Sesión",
+        "addToCart": "Agregar",
+        "share": "Compartir",
+        "download": "Descargar"
+      },
+      "routes": {
+        "home": "Inicio",
+        "shop": "Tienda",
+        "account": "Cuenta"
+      },
+      "logout": {
+        "title": "¿Estas seguro?",
+        "text": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
+      }
     },
     "placeholders": {
       "productShadowText_1": "Cargando",
-      "productShadowText_2": "Productos"
+      "productShadowText_2": "Productos",
+      "searchPlaceholder": "Buscar productos",
+      "searchInput": "Buscar"
     },
     "alert": {
       "confirm": "Aceptar",
@@ -42,9 +51,11 @@
       "button": "Regresar"
     },
     "indexPage": {
-      "headerButton": "Ver catálogo",
-      "headerText": "Entra hoy a la tienda para conocer nuestra variedad de productos, en iBox te facilitamos la vida 😉, compra y te lo llevamos hasta la puerta de tu casa, conoce nuestro catálogo.",
-      "headerTitle": "¡Tu tienda de electrónica y accesorios en línea!",
+      "header": {
+        "button": "Ver catálogo",
+        "text": "Entra hoy a la tienda para conocer nuestra variedad de productos, en iBox te facilitamos la vida 😉, compra y te lo llevamos hasta la puerta de tu casa, conoce nuestro catálogo.",
+        "title": "¡Tu tienda de electrónica y accesorios en línea!"
+      },
       "slider": {
         "title": "Categorias",
         "text": "Al pedir tus piezas por mayor, también recibirás descuentos y regalos especiales 🎁. Contamos con servicios de pago en línea o contra entrega para garantizar tu comodidad. 🏍️",
@@ -71,49 +82,69 @@
       }
     },
     "accountPage": {
-      "headerButton": "Regresar",
-      "headerTitle": "Compra más rápido",
-      "headerText": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁",
-      "headerButton_1": "Crear cuenta",
-      "headerButton_2": "Iniciar Sesión",
-      "forgotTitle": "Recuperar",
-      "forgotButtonText": "¿Olvidaste tu contraseña?",
-      "forgotText": "Escribe el correo al que quieres que enviemos el link de recuperación.",
-      "emailField": "Correo electrónico",
-      "emailForgotHelper": "Correo de recuperación",
-      "alertErrorTitle": "Ocurrió un error",
-      "alertErrorText_1": "Todos los campos son obligatorios.",
-      "alertErrorText_2": "Un campo tiene un error o faltan datos.",
       "title": "Conectate",
       "text": "Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌",
       "alreadyAccount": "tienes cuenta?",
       "confirm_1": "ya",
-      "fbLoginText": "Iniciar con Facebook",
-      "gLoginText": "Iniciar con Google",
       "privacy_1": "Políticas de",
       "privacy_2": "privacidad",
-      "emailHelper": "Usuario de la cuenta",
-      "userField": "Nombre de usuario",
-      "userHelper": "Máximo 15 caracteres",
-      "passField": "Contraseña",
-      "passHelper": "Clave secreta"
+      "header": {
+        "button": "Regresar",
+        "title": "Compra más rápido",
+        "text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
+      },
+      "forms": {
+        "forgot": {
+          "title": "Recuperar",
+          "buttonText": "¿Olvidaste tu contraseña?",
+          "helper": "Correo de recuperación",
+          "text": "Escribe el correo al que quieres que enviemos el link de recuperación."
+        },
+        "inputs": {
+          "emailField": "Correo electrónico",
+          "emailHelper": "Usuario de la cuenta",
+          "userField": "Nombre de usuario",
+          "userHelper": "Máximo 15 caracteres",
+          "passField": "Contraseña",
+          "passHelper": "Clave secreta"
+        }
+      },
+      "alerts": {
+        "title": "Ocurrió un error",
+        "text_1": "Todos los campos son obligatorios.",
+        "text_2": "Un campo tiene un error o faltan datos."
+      },
+      "buttons": {
+        "createAccount": "Crear cuenta",
+        "login": "Iniciar Sesión",
+        "fbLoginText": "Iniciar con Facebook",
+        "gLoginText": "Iniciar con Google"
+      }
     },
     "profilePage": {
       "title": "Mi cuenta"
     },
     "footer": {
-      "blob_1": "Contacta al área técnica 💻",
-      "blob_2": "cto@ibox.gt",
       "title": "Contacta con nosotros",
       "text": "Si tienes algún comentario envianos un mensaje en Facebook para hablar con nuestro asistente 🤖, y visita también nuestra página 👍 en Facebook.",
-      "text_1": "¿No encuentras el producto que buscas en nuestra tienda?",
-      "button_1": "Solicitar producto",
-      "button_2": "Comentar en Facebook",
-      "button_3": "Enviar mensaje personal",
-      "text_2": "¿Tienes algún comentario sobre nuestro servicio?",
-      "text_3": "¿Cualquier otra sugerencia o recomendación que tengas para seguir mejorando nuestra calidad de servicio?",
-      "rights_1": "Hecho con ❤️ en Guatemala 🇬🇹",
-      "rights_2": "Todos los derechos reservados iBox Shop®"
+      "blobs": {
+        "contact": "Contacta al área técnica 💻",
+        "email": "cto@ibox.gt"
+      },
+      "buttons": {
+        "request": "Solicitar producto",
+        "comment": "Comentar en Facebook",
+        "sendMsg": "Enviar mensaje personal"
+      },
+      "faq": {
+        "quest_1": "¿No encuentras el producto que buscas en nuestra tienda?",
+        "quest_2": "¿Tienes algún comentario sobre nuestro servicio?",
+        "quest_3": "¿Cualquier otra sugerencia o recomendación que tengas para seguir mejorando nuestra calidad de servicio?"
+      },
+      "rights": {
+        "main": "Hecho con ❤️ en Guatemala 🇬🇹",
+        "reserved": "Todos los derechos reservados iBox Shop®"
+      }
     },
     "loading": {
       "title": "Espera un momento",
@@ -124,8 +155,8 @@
       "text": "iBox es la tienda electrónica con el mayor impacto en Guatemala, creada desde cero para mejorar en cada detalle 👌, ayúdanos a mejorar tu experiencia dejándonos tu comentario sobre la tienda. 📲"
     },
     "toast": {
-      "text_1": "De nuevo en línea",
-      "text_2": "Sin conexión a internet"
+      "online": "De nuevo en línea",
+      "offline": "Sin conexión a internet"
     },
     "errors": {
       "app_deleted": "Fallo la conexión interna, intenta recargar la página.",

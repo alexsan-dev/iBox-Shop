@@ -29,7 +29,6 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
       }
     };
 
-
     // AGREGAR SOMBRA AL TOPBAR CUANDO SE HACE SCROLL
     const addShadow = () => {
       if (window.scrollY > 15 && topbar)
@@ -37,6 +36,7 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
       else if (topbar) topbar.style.boxShadow = "none";
     }
 
+    // AGREGAR SOMBRA CUANDO SE HACE SCROLL
     window.addEventListener("scroll", addShadow, { capture: true, passive: true });
     addShadow();
 
@@ -57,28 +57,23 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
       <label htmlFor="search-toggle" className="topbarShadow ssf"></label>
 
       <div className="topbar">
-        <label htmlFor="drawer-toggle" className="uil uil-list-ul" id="menuBtn"></label>
+        <label htmlFor="drawer-toggle" className="material-icons" id="menuBtn">menu</label>
         <Link href="/">
           <div id="brandLogo">
             <img src={require("../assets/logo.svg")} alt="Logo" />
           </div>
         </Link>
         <div id="navbtns">
-          <label htmlFor="search-toggle" className="uil uil-search waves waves-dark"></label>
-          <i className="uil uil-shopping-cart-alt addToCartBtn waves waves-dark"></i>
+          <label htmlFor="search-toggle" className="material-icons waves waves-dark">search</label>
+          <i className="material-icons addToCartBtn waves waves-dark">shopping_cart</i>
         </div>
         <div id="searchBar">
-          <label htmlFor="search-toggle" className="uil uil-arrow-left waves waves-dark"></label>
-          <label htmlFor="search" id="sLabel">Buscar</label>
+          <label htmlFor="search-toggle" className="material-icons waves waves-dark">arrow_back</label>
           <input type="search" placeholder={props.placeHolder} id="search" name="search" />
         </div>
       </div>
 
       <style jsx>{`
-          #sLabel{
-            position:absolute;
-            top:-100%;
-          }
           .topbar {
             background: var(--primary);
             position: relative;
@@ -98,23 +93,13 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
           .topbar label {
             font-size: 25px;
             color: #fff;
-            overflow: hidden;
             border-radius: 100%;
             margin: 0;
-            height: 45px;
-            width: 45px;
             position: relative;
+            padding:8px;
           }
           .topbar .addToCartBtn{
             transition:transform 0.3s ease-in-out, background 0.3s ease-in-out;
-          }
-
-          .topbar i::before,
-          .topbar label::before {
-            position: absolute;
-            top: 50%;
-            left: 4px;
-            transform: translate(0%, -50%);
           }
 
           .topbar #navbtns {
@@ -143,7 +128,7 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
 
           #search-toggle:checked ~ .topbar #navbtns label:nth-child(1) {
             transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-            transform: translateX(45px);
+            transform: translateX(40px);
             color: var(--text);
           }
 
@@ -182,8 +167,8 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
 
           .topbar #searchBar label {
             color: var(--text);
-            font-size: 2.5em;
-            margin-right: 10px;
+            font-size: 1.8em;
+            margin-right: 6px;
           }
 
           .topbar #searchBar input {
@@ -191,7 +176,7 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
             outline: none;
             box-shadow: none;
             font-size: 18px;
-            padding: 17px 0;
+            padding: 15px 0;
             width: calc(100% - 97px);
             font-weight: 400;
           }
