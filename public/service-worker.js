@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "url": "/_next/static/chunks/commons.0b8b41c597209e2a67f9.js",
-    "revision": "8261b6cb4b5d84a8064c"
+    "url": "/_next/static/chunks/commons.cc2ce3def08854ad3118.js",
+    "revision": "ff0ace2f15f8f61d60f1"
   },
   {
     "url": "/_next/static/runtime/main-801bb775b2b240d1c084.js",
@@ -16,44 +16,35 @@ self.__precacheManifest = [
     "revision": "be4b6cc6d10632d2262c"
   },
   {
-    "url": "/_next/static\\ldrvxoIawcQHYQrnG_uHt\\pages\\_app.js",
-    "revision": "61fbc1687b28f8668c30"
+    "url": "/_next/static\\tgEyLM_pjBaGDEkarfSkQ\\pages\\_app.js",
+    "revision": "f4c7f2c4301d9804d15c"
   },
   {
-    "url": "/_next/static\\ldrvxoIawcQHYQrnG_uHt\\pages\\_error.js",
-    "revision": "ea72e02dc815a41fc5aa"
+    "url": "/_next/static\\tgEyLM_pjBaGDEkarfSkQ\\pages\\_error.js",
+    "revision": "058fab46289fc5b47aa7"
   },
   {
-    "url": "/_next/static\\ldrvxoIawcQHYQrnG_uHt\\pages\\cuenta.js",
-    "revision": "204e6e7418ff2a931f5d"
+    "url": "/_next/static\\tgEyLM_pjBaGDEkarfSkQ\\pages\\carrito.js",
+    "revision": "89ffd7acc1697294004b"
   },
   {
-    "url": "/_next/static\\ldrvxoIawcQHYQrnG_uHt\\pages\\index.js",
-    "revision": "2d1be92c59017b3c60dc"
+    "url": "/_next/static\\tgEyLM_pjBaGDEkarfSkQ\\pages\\cuenta.js",
+    "revision": "f4b6475d07e4fa013d7d"
   },
   {
-    "url": "/_next/static\\ldrvxoIawcQHYQrnG_uHt\\pages\\tienda.js",
-    "revision": "6e5c6063604e9079ad32"
+    "url": "/_next/static\\tgEyLM_pjBaGDEkarfSkQ\\pages\\index.js",
+    "revision": "e9c24d04d4cda90298ff"
+  },
+  {
+    "url": "/_next/static\\tgEyLM_pjBaGDEkarfSkQ\\pages\\tienda.js",
+    "revision": "f3de7c530616f94b6bef"
   }
 ];
-
-/**
- * Welcome to your Workbox-powered service worker!
- *
- * You'll need to register this file in your web app and you should
- * disable HTTP caching for this file too.
- * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
- */
 
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  
+
 );
 
 self.addEventListener('message', (event) => {
@@ -70,5 +61,5 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/^https?.*/, new workbox.strategies.NetworkFirst({ "cacheName":"offlineCache", plugins: [new workbox.expiration.Plugin({ maxEntries: 200, purgeOnQuotaError: false })] }), 'GET');
-workbox.routing.registerRoute(/\.(?:png|jpg|gif|svg|eot|ttf|woff|woff2)$/, new workbox.strategies.CacheFirst({ "cacheName":"assets", plugins: [] }), 'GET');
+workbox.routing.registerRoute(/^https?.*/, new workbox.strategies.NetworkFirst({ "cacheName": "offlineCache", plugins: [new workbox.expiration.Plugin({ maxEntries: 200, purgeOnQuotaError: false })] }), 'GET');
+workbox.routing.registerRoute(/\.(?:png|jpg|gif|svg|eot|ttf|woff|woff2)$/, new workbox.strategies.CacheFirst({ "cacheName": "assets", plugins: [] }), 'GET');

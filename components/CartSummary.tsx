@@ -2,6 +2,9 @@
 import { useContext, useState, Dispatch, SetStateAction, RefObject, useRef, useEffect, MouseEvent } from "react";
 import { defUserData, useUserGet, showAlert } from "../utils/hooks";
 
+// ROUTER
+import { useRouter, NextRouter } from "next/router";
+
 // TIPOS E INTERFACES
 interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
 interface SumState { user: userModel | null; total: number; }
@@ -16,6 +19,7 @@ import appContext from "../utils/appContext";
 // INTERFAZ Y ESTADO INICIAL
 const defState: SumState = { user: defUserData, total: 0 };
 const defForms: IForms = { name: "", email: "", address: "", phone: 0, nit: "CF" };
+let forms: NodeListOf<HTMLSpanElement>;
 
 // CONTADOR GLOBAL
 let sliderCount: number = 0;
@@ -69,12 +73,16 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
   const slider: RefObject<HTMLDivElement> = useRef(null);
   const formValues: RefObject<IForms> = useRef(defForms);
 
+  // ROUTER
+  const router: NextRouter = useRouter();
+
   // GUARDAR DATOS DE LOS INPUTS
   const saveToForm = (data: InputGetProps) => {
+    // ASIGNAR VALORES AL FORM
     if (formValues.current) Object.keys(formValues.current).forEach((keys: string) => {
       // @ts-ignore
       if (formValues.current && keys === data.name && data.text) formValues.current[keys] = data.text;
-      if (formValues.current && data.name === "nit" && data.text) formValues.current.nit = "CF";
+      if (formValues.current && data.name === "nit" && data.text.length === 0) formValues.current.nit = "CF";
     })
   }
 
@@ -125,13 +133,15 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
             // ANIMAR SLIDER
             slider.current.style.transform = transform;
 
+            // CAMBIAR ALTO DE DELIVERY
             if (sliderCount == 1) deliveryForm.style.height = "auto";
             if (sliderCount == 2) {
-              setTimeout(() => {
-                deliveryForm.style.height = "0"
-              }, 300)
+              // QUITAR ALTO DE DELIVERY
+              setTimeout(() => deliveryForm.style.height = "0", 300);
               finForm.style.height = "auto";
             }
+
+            // QUITAR ALTO DE DELIVERY Y FORM
             else if (sliderCount == 0) setTimeout(() => {
               deliveryForm.style.height = "0"
               finForm.style.height = "0";
@@ -181,8 +191,18 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
       })
   }
 
+  //ENVIAR LOS DATOS DE COMPRA
+  const sendToBuy = (e: MouseEvent<HTMLButtonElement>) => {
+    const btn: HTMLButtonElement = e.target as HTMLButtonElement;
+    if (btn) btn.style.pointerEvents = "none";
+    console.log(formValues.current, cartList);
+
+    router.back();
+  }
+
   // GUARDAR AVANCE INICIAL
   useEffect(() => {
+    // AVANZAR HASTA ACTUAL
     nexttoCurrent();
     firstRender++;
 
@@ -190,13 +210,21 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
     if (user)
       setUsertoState()
 
-    else {
-      saveToForm({ name: "name", text: "" });
-      saveToForm({ name: "email", text: "" });
+    // CONFIGURAR VALORES POR DEFECTO
+    else if (formValues.current) {
+      formValues.current.nit = defForms.nit;
+      formValues.current.name = defForms.name;
+      formValues.current.email = defForms.email;
+      formValues.current.phone = defForms.phone;
+      formValues.current.address = defForms.address;
     }
 
+
+    // ACTUALIZAR FORMULARIO DE ENVIO 
     const updateForm = setInterval(() => {
-      const forms: NodeListOf<HTMLSpanElement> = document.querySelectorAll(".finalForm") as NodeListOf<HTMLSpanElement>;
+      forms = document.querySelectorAll(".finalForm") as NodeListOf<HTMLSpanElement>;
+
+      // SELECCIONAR INFORMACION
       if (forms && formValues.current) {
         if (forms[0]) forms[0].textContent = formValues.current.nit;
         if (forms[1]) forms[1].textContent = formValues.current.name;
@@ -206,6 +234,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
       }
     }, 100);
 
+    // LIMPIAR INTERVALO
     return () => clearInterval(updateForm);
   }, [])
 
@@ -213,6 +242,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
   if (firstRender !== 0)
     nexttoCurrent();
 
+  // AGREGAR USUARIO AL ESTADO
   if (getUserRender === 0 && user) {
     setUsertoState();
     getUserRender++;
@@ -238,7 +268,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
             <h3>{strings.forms.title}</h3>
             <p>{strings.forms.text}</p>
 
-            <div id="deliveryForm">
+            <form id="deliveryForm">
               {
                 !user && <>
                   <Input
@@ -286,7 +316,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
                 icon="fiber_pin"
                 defValue={sumState.user?.nit}
               />
-            </div>
+            </form>
             <div className="controlSum">
               <button onClick={prevSlider} className="waves prevSlide"> <i className="material-icons">arrow_back</i> {strings.prevButton}</button>
               <button onClick={nextSlider} className="waves">{strings.button} <i className="material-icons">arrow_forward</i></button>
@@ -296,25 +326,25 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
             <div id="secureBanner">
               <i className="material-icons">https</i>
               <div>
-                <h2>Datos seguros</h2>
-                <p>Protejemos tus datos bajo HTTPS, tus datos son confidenciales y no los compartimos con nadie.</p>
+                <h2>{strings.sendForm.banner.title}</h2>
+                <p>{strings.sendForm.banner.text}</p>
               </div>
             </div>
-            <h3>Resumen de Compra <i className="material-icons">assignment</i></h3>
+            <h3>{strings.sendForm.info.title} <i className="material-icons">assignment</i></h3>
             <p id="summaryText">
-              <i className="material-icons">fiber_pin</i><strong>NIT:</strong> <span className="finalForm">{formValues.current?.nit}</span>
+              <i className="material-icons">fiber_pin</i><strong>{strings.sendForm.info.fields.nit}</strong> <span className="finalForm">{formValues.current?.nit}</span>
               <br />
-              <i className="material-icons">person</i><strong>Nombre:</strong> <span className="finalForm">{user?.displayName || formValues.current?.name}</span>
+              <i className="material-icons">person</i><strong>{strings.sendForm.info.fields.name}</strong> <span className="finalForm">{user?.displayName || formValues.current?.name}</span>
               <br />
-              <i className="material-icons">email</i><strong>Email:</strong> <span className="finalForm">{user?.email || formValues.current?.email}</span>
+              <i className="material-icons">email</i><strong>{strings.sendForm.info.fields.email}</strong> <span className="finalForm">{user?.email || formValues.current?.email}</span>
               <br />
-              <i className="material-icons">monetization_on</i><strong>Por un total de:</strong> Q <span className="finalForm">{sumState.total || sumTotal}</span>
+              <i className="material-icons">monetization_on</i><strong>{strings.sendForm.info.fields.total}</strong> Q <span className="finalForm">{sumState.total || sumTotal}</span>
               <br />
-              <i className="material-icons">directions</i><strong>En:</strong> <span className="finalForm">{formValues.current?.address}</span>
+              <i className="material-icons">directions</i><strong>{strings.sendForm.info.fields.address}</strong> <span className="finalForm">{formValues.current?.address}</span>
             </p>
             <div className="controlSum">
               <button onClick={prevSlider} className="waves prevSlide"> <i className="material-icons">arrow_back</i> {strings.prevButton}</button>
-              <button className="waves">Comprar <i className="material-icons">done_all</i></button>
+              <button onClick={sendToBuy} className="waves">{strings.sendForm.button} <i className="material-icons">done_all</i></button>
             </div>
           </div>
         </div>

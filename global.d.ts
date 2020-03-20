@@ -105,6 +105,7 @@ namespace langPackage {
       addToCart: string;
       share: string;
       download: string;
+      back: string;
     };
     routes: {
       home: string;
@@ -182,7 +183,6 @@ namespace langPackage {
     privacy_1: string;
     privacy_2: string;
     header: {
-      button: string;
       title: string;
       text: string;
     };
@@ -218,7 +218,6 @@ namespace langPackage {
     header: {
       title: string;
       text: string;
-      button: string;
     };
     shopList: {
       title: string;
@@ -230,7 +229,6 @@ namespace langPackage {
       title: string;
       titleExt: string;
       text: string;
-      button: string;
     };
     cards: {
       total: string;
@@ -239,6 +237,23 @@ namespace langPackage {
       button: string;
       prevButton: string;
       total: string;
+      sendForm: {
+        banner: {
+          title: string;
+          text: string;
+        };
+        button: string;
+        info: {
+          title: string;
+          fields: {
+            name: string;
+            nit: string;
+            email: string;
+            total: string;
+            address: string;
+          }
+        }
+      };
       notFound: {
         title: string;
         text: string

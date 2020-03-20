@@ -9,6 +9,9 @@ import * as admin from "firebase-admin";
 admin.initializeApp(functions.config().firebase);
 const db: FirebaseFirestore.Firestore = admin.firestore();
 
+// EMAILS
+const nodemailer = require("nodemailer");
+
 // CONFIGURAR SERVIDOR NEXT
 const next = require("next");
 const app = next({ dev: false, conf: { distDir: "build" } });
@@ -33,7 +36,7 @@ const sendNotification = async (data: { title: string, message: string, url: str
 }
 
 // ENVIAR NOTIFICACION NORMAL
-exports.sendPush = functions.https.onRequest(async (req, res) => {
+exports.sendPush = functions.https.onRequest(async (req: functions.Request, res: functions.Response) => {
   const title = req.query.title;
   const message = req.query.message;
 
@@ -75,3 +78,105 @@ exports.setUser = functions.auth.user().onCreate((user: UserRecord) => {
         photoURL: user.photoURL
       });
 });
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "iboxcart@gmail.com",
+    pass: "X2b=A2Z9"
+  }
+})
+
+interface product {
+  color: string;
+  description: string;
+  name: string;
+  price: number;
+  tag: string;
+  key: string;
+  img: string;
+}
+interface OrderCart { sum: number; productsFilter: Array<product | admin.firestore.DocumentData>; multArry: number[] }
+export const getCartProducts: Function = (cartList: string[], productList: Array<product | admin.firestore.DocumentData>) => {
+  // FILTRAR PRODUCTOS
+  const cartListFilter = (productList: Array<product | admin.firestore.DocumentData>) => {
+    // DECLARAR ARRAY DE CARDS
+    let productsFilter: Array<product | admin.firestore.DocumentData> = [];
+    let sum: number = 0;
+    let multArry: number[] = [];
+
+    // BUSCAR POR CLAVE
+    productList.reverse().forEach((product: product | admin.firestore.DocumentData) => {
+      // DECLARAR MULTIPLICIDAD
+      let firstAdded: boolean = false;
+      let mult: number = 0;
+
+      // AGREGAR MULTIPLICIDAD
+      cartList?.forEach((keyID: string) => product.key.trim() === keyID ? mult++ : null);
+
+      // CREAR LISTA DE CARDS
+      cartList?.forEach((keyID: string) => {
+        if (product.key.trim() === keyID && !firstAdded) {
+          productsFilter.push(product)
+
+          // SALIR Y AGREGAR A LA SUMA TOTAL
+          firstAdded = true;
+          sum += product.price * mult;
+        }
+      })
+
+      // CREAR LISTA DE MULTIPLICIDAD
+      if (mult !== 0) multArry.push(mult);
+    })
+
+    // RETORNAR LISTA FILTRADA
+    const newOrder: OrderCart = { sum, productsFilter, multArry }
+    return newOrder;
+  }
+
+  const result: OrderCart = cartListFilter(productList);
+  return result;
+}
+
+interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
+interface ReqForm { sendData: IForms; cartList: string[]; }
+// ENVIAR ARTICULOS PARA COMPRAR
+exports.buyFromCart = functions.https.onRequest(async (req: functions.Request, res: functions.Response) => {
+  if (req.method === "POST") {
+    // VERIFICAR SI ES UN METODO POST
+    const reqForm: ReqForm = req.body;
+
+    // LEER BASE DE DATOS
+    const productFeed: Array<admin.firestore.QueryDocumentSnapshot> = (await admin.firestore().collection("products").get()).docs;
+    const productList: Array<admin.firestore.DocumentData> = productFeed.map((product: admin.firestore.QueryDocumentSnapshot) => product.data);
+    const resCart: OrderCart = getCartProducts(reqForm.cartList, productList);
+    let summaryText: string = "";
+
+    resCart.productsFilter.forEach((dataFilter: product | admin.firestore.DocumentData, i: number) => {
+      summaryText += `
+        <strong>Nombre</strong>: ${dataFilter.name}
+        <br/>
+        <strong>Precio</strong>: ${dataFilter.price}
+        <br/>
+        <strong>Cantidad</strong>: ${resCart.multArry[i]}
+        <br/>
+        <strong>Por un total de</strong>: ${resCart.sum}
+        <br/>
+        <br/>
+      `
+    })
+
+
+    const mailOptions = {
+      from: 'iboxcart@gmail.com',
+      to: "ventas@ibox.gt",
+      subject: 'Nueva compra desde la App',
+      html: summaryText
+    };
+
+    return transporter.sendMail(mailOptions, (err: Error) => {
+      if (err) res.send(err.toString());
+      return res.status(200);
+    });
+  }
+}) 

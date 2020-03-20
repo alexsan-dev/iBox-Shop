@@ -9,10 +9,16 @@
         "slogan": "Tu comodidad en una caja.",
         "title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
         "navDivider": "Aplicación",
-        "shareText": "Entra a esta tienda, te gustara. ✨👌!"
+        "shareText": "Entra a esta tienda, te gustara. ✨👌!",
+        "update": {
+          "title": "Nueva actualización",
+          "text": "Hay una nueva actualización disponible, ¿deseas actualizar?",
+          "button": "Recargar"
+        }
       },
       "buttons": {
         "logout": "Cerrar Sesión",
+        "back": "Regresar",
         "addToCart": "Agregar",
         "share": "Compartir",
         "download": "Descargar"
@@ -57,7 +63,7 @@
         "title": "¡Tu tienda de electrónica y accesorios en línea!"
       },
       "slider": {
-        "title": "Categorias",
+        "title": "Categorías",
         "text": "Al pedir tus piezas por mayor, también recibirás descuentos y regalos especiales 🎁. Contamos con servicios de pago en línea o contra entrega para garantizar tu comodidad. 🏍️",
         "button": "Ver todo",
         "electroCatTitle": "Electrónica",
@@ -89,7 +95,6 @@
       "privacy_1": "Políticas de",
       "privacy_2": "privacidad",
       "header": {
-        "button": "Regresar",
         "title": "Compra más rápido",
         "text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
       },
@@ -102,22 +107,22 @@
         },
         "inputs": {
           "email": {
-            "field": "",
-            "helper": ""
+            "field": "Correo electrónico",
+            "helper": "Email de la cuenta"
           },
           "user": {
-            "field": "",
-            "helper": ""
+            "field": "Nombre",
+            "helper": "Nombre de usuario"
           },
           "pass": {
-            "field": "",
-            "helper": ""
+            "field": "Contraseña",
+            "helper": "Clave secreta"
           }
         }
       },
       "alerts": {
         "title": "¡Ocurrió un error!",
-        "text_1": "Hay campos vacios o la informacion no es correcta, todos los campos son obligatorios.",
+        "text_1": "Hay campos vacíos o la información no es correcta, todos los campos son obligatorios.",
         "text_2": "Un campo tiene un error o faltan datos."
       },
       "buttons": {
@@ -133,8 +138,7 @@
     "shopPage": {
       "header": {
         "title": "¡Encuentra los mejores productos para ti!",
-        "text": "Subscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis.",
-        "button": "Regresar"
+        "text": "Suscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis."
       },
       "shopList": {
         "title": "Productos",
@@ -145,8 +149,7 @@
       "header": {
         "title": "Carrito",
         "titleExt": "de",
-        "text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento.",
-        "button": "Regresar"
+        "text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento."
       },
       "cards": {
         "total": "Total"
@@ -156,16 +159,33 @@
         "prevButton": "Anterior",
         "total": "Precio total: ",
         "notFound": {
-          "title": "Carrito vacio",
-          "text": "Lo siento por el momento no hay articulos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automaticas. 📱"
+          "title": "Carrito vació",
+          "text": "Lo siento por el momento no hay artículos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automáticas. 📱"
+        },
+        "sendForm": {
+          "banner": {
+            "title": "Datos seguros",
+            "text": "Protegemos tus datos bajo HTTPS, tus datos son confidenciales y no los compartimos con nadie."
+          },
+          "button": "Comprar",
+          "info": {
+            "title": "Resumen de Compra",
+            "fields": {
+              "nit": "NIT:",
+              "name": "Nombre:",
+              "email": "Email:",
+              "total": "Por un total de:",
+              "address": "En:"
+            }
+          }
         },
         "forms": {
-          "title": "Informacion de Contacto:",
-          "text": "Solo necesitamos, tu informacion de envio para confirmar tu compra:",
+          "title": "Información de Contacto:",
+          "text": "Solo necesitamos, tu información de envió para confirmar tu compra:",
           "errors": {
             "title": "¡Espera un poco!",
-            "text": "Tienes que verificar si tus datos de envio son correctos antes de comprar.",
-            "text_1": "La informacion del correo es incorrecta, intenta nuevamente."
+            "text": "Tienes que verificar si tus datos de envió son correctos antes de comprar.",
+            "text_1": "La información del correo es incorrecta, intenta nuevamente."
           },
           "inputs": {
             "name": {
@@ -174,19 +194,19 @@
             },
             "email": {
               "field": "Correo electrónico",
-              "helper": "* Email de facturacion"
+              "helper": "* Email de facturación"
             },
             "address": {
-              "field": "Direccion",
+              "field": "Dirección",
               "helper": "* Residencia y Departamento o Municipio"
             },
             "phone": {
-              "field": "Telefono",
-              "helper": "* Numero de telefono"
+              "field": "Teléfono",
+              "helper": "* Numero de teléfono"
             },
             "nit": {
               "field": "NIT",
-              "helper": "Dejar vacio (CF)"
+              "helper": "Dejar vació (CF)"
             }
           }
         }
@@ -252,7 +272,7 @@
       "captcha_check_failed": "No se pudo verificar el Captcha, intenta nuevamente.",
       "invalid_phone_number": "El numero de teléfono no es valido.",
       "missing_phone_number": "El numero de teléfono es un campo obligatorio.",
-      "quota_exceeded": "Se alcanzo la cuota máxima.",
+      "quota_exceeded": "Actualmente la cuota es máxima.",
       "default": "Error desconocido intenta de nuevo."
     }
   },

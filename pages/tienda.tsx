@@ -40,10 +40,9 @@ const ShopPage: NextPage = () => {
       >
         <motion.div variants={pageAnim}>
           <Header
-            link={strings.header.button}
+            back
             img={require("../assets/shop.png")}
             href="/"
-            icon="reply"
             text={strings.header.text}
             title={strings.header.title}
             span="MORE SECURITY"

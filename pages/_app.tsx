@@ -5,10 +5,13 @@ import { AnimatePresence } from "framer-motion";
 import Layout from "../layout/Layout";
 import Splash from "../components/Splash";
 import App from "next/app";
+import { showAlert } from "../utils/hooks";
+
 
 export default class iBoxApp extends App {
+
   public componentDidMount() {
-    // SELECCIONAR COMPONENTE DE SPLASH
+    // SELECCIONAR COMPONENTE DE SPLASH Y CONTEXTO
     const splash: HTMLDivElement | null = document.getElementById("splash") as HTMLDivElement;
 
     // OCULTAR SPLASGG LUEGO DE 1500MS
@@ -20,6 +23,25 @@ export default class iBoxApp extends App {
         } else console.log("Run on dev mode");
       }, 1500);
     }
+
+    window.navigator.serviceWorker.getRegistration()
+      .then((reg: ServiceWorkerRegistration | undefined) => {
+        reg?.addEventListener("updatefound", () => {
+          const worker = reg.installing;
+          worker?.addEventListener("statechange", () => {
+            if (worker.state === "installed") {
+              showAlert({
+                type: "confirm",
+                body: "Hay una nueva actualización disponible, ¿deseas actualizar?",
+                title: "Nueva actualización",
+                confirmBtn: "Recargar",
+                onConfirm: () => window.location.reload()
+              })
+              worker.postMessage({ type: "SKIP_WAITING" })
+            }
+          })
+        })
+      })
   }
 
   public render() {

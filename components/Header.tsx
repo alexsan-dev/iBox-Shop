@@ -1,5 +1,8 @@
 // NAVEGACION
 import Link from "next/link";
+import { useRouter, NextRouter } from "next/router";
+import { useContext } from "react";
+import appContext from "../utils/appContext";
 
 // PROPIEDADES
 interface Props {
@@ -10,21 +13,38 @@ interface Props {
   img?: string;
   icon?: string;
   link?: string;
+  back?: boolean;
 }
 
 const Header: React.FC<Props> = (props: Props) => {
+  // ROUTER
+  const router: NextRouter = useRouter();
+
+  // CONTEXTO
+  const backStrings = useContext(appContext.appContext).lang.general.buttons.back;
+
+  // REGRESAR A PAGINA ANTERIOR
+  const returnBack = () => router.back();
+
   return (
     <div id="mainHeader">
       <div id="headText">
         <h1>{props.title}</h1>
         <p>{props.text}</p>
-        {props.link &&
+        {props.link && !props.back &&
           <Link href={props.href} passHref scroll={false}>
             <a id="shopBtn" className="waves btn" title="Shop">
               <i className="material-icons">{props.icon}</i>
               {props.link}
             </a>
           </Link>
+        }
+        {
+          props.back &&
+          <button onClick={returnBack} id="shopBtn" className="waves btn" title="Shop">
+            <i className="material-icons">reply</i>
+            {backStrings}
+          </button>
         }
       </div>
 

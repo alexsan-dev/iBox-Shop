@@ -41,11 +41,10 @@ const CartPage: NextPage = () => {
       >
         <motion.div variants={pageAnim}>
           <Header
+            back
             href="/"
-            icon="reply"
             img={require("../assets/cart.png")}
             span={"BEST DELIVERY"}
-            link={strings.header.button}
             text={strings.header.text}
             title={
               <>

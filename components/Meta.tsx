@@ -5,6 +5,7 @@ const Meta: React.FC<Props> = (props: Props) => {
   return (
     <>
       <title>{props.title}</title>
+      <meta name='application-name' content={props.title} />
       <meta name="author" content="Alex Santos | iBox Shop®" />
       <meta name="Robots" content="follow" />
       <meta name="description" content={props.desc} />
@@ -13,9 +14,11 @@ const Meta: React.FC<Props> = (props: Props) => {
         content="accesorios, compras en linea, tiendas en linea, venta de celulares, ibox"
       />
       <meta name="theme-color" content="rgb(47, 109, 153)" />
+      <meta name='msapplication-TileColor' content='rgb(47, 109, 153)' />
       <meta name="MobileOptimized" content="yes" />
       <meta name="HandheldFriendly" content="yes" />
       <meta name="mobile-web-app-capable" content="yes" />
+      <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <meta name="apple-mobile-web-app-title" content={props.title} />
       <link rel="apple-touch-icon" href="./favicon.ico" />

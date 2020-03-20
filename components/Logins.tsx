@@ -47,8 +47,7 @@ const Logins: NextPage = () => {
             text={str.header.text}
             img={require("../assets/account.png")}
             href="/"
-            icon="reply"
-            link={str.header.button}
+            back
             span="------ BEST SERVICE"
           />
         </motion.div>
