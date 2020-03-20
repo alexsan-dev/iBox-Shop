@@ -7,9 +7,9 @@ interface Props {
   text: string;
   span?: string;
   href: string;
-  img: string;
-  icon: string;
-  link: string;
+  img?: string;
+  icon?: string;
+  link?: string;
 }
 
 const Header: React.FC<Props> = (props: Props) => {
@@ -18,25 +18,36 @@ const Header: React.FC<Props> = (props: Props) => {
       <div id="headText">
         <h1>{props.title}</h1>
         <p>{props.text}</p>
-        <Link href={props.href} passHref scroll={false}>
-          <a id="shopBtn" className="waves btn" title="Shop">
-            <i className="material-icons">{props.icon}</i>
-            {props.link}
-          </a>
-        </Link>
+        {props.link &&
+          <Link href={props.href} passHref scroll={false}>
+            <a id="shopBtn" className="waves btn" title="Shop">
+              <i className="material-icons">{props.icon}</i>
+              {props.link}
+            </a>
+          </Link>
+        }
       </div>
 
-      <span>{props.span}</span>
+      {props.span && <span>{props.span}</span>}
 
-      <img src={props.img} alt="Header Image" />
+      {props.img && <img src={props.img} alt="Header Image" />}
 
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="var(--primary)"
-          fillOpacity="1"
-          d="M0,64L48,53.3C96,43,192,21,288,10.7C384,0,480,0,576,48C672,96,768,192,864,229.3C960,267,1056,245,1152,245.3C1248,245,1344,267,1392,277.3L1440,288L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-        ></path>
-      </svg>
+      {props.img ?
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fill="var(--primary)"
+            fillOpacity="1"
+            d="M0,64L48,53.3C96,43,192,21,288,10.7C384,0,480,0,576,48C672,96,768,192,864,229.3C960,267,1056,245,1152,245.3C1248,245,1344,267,1392,277.3L1440,288L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          ></path>
+        </svg> :
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fill="var(--primary)"
+            fillOpacity="1"
+            d="M0,96L48,128C96,160,192,224,288,245.3C384,267,480,245,576,218.7C672,192,768,160,864,170.7C960,181,1056,235,1152,245.3C1248,256,1344,224,1392,208L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+          </path>
+        </svg>
+      }
 
       <style jsx>{`
         #mainHeader {
@@ -62,6 +73,8 @@ const Header: React.FC<Props> = (props: Props) => {
           left: 90px;
           margin-top: -20px;
           z-index: 3;
+          display:block;
+          width:${props.span ? props.span.length > 20 ? 130 + "px" : "unset" : "unset"};
         }
         #headText {
           padding: 20px;

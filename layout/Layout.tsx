@@ -1,6 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { useEffect, useContext, useState, Dispatch, SetStateAction, FC, useRef } from "react";
-import { useAuth, showToast, useRipples } from "../utils/hooks";
+import { useAuth, showToast, useRipples, sendToken, initFCM } from "../utils/hooks";
 import { User } from "firebase";
 
 // VARIABLES GLOBALES ( LENGUAJE, THEMA, USUARIO )
@@ -19,20 +19,15 @@ interface userState {
   user: User | null;
   online: boolean;
   logout: boolean;
+  cartList?: string[]
 }
 
-// EVENTOS DE AGREGAR AL CARRITO
+// VARIABLES GLOBALES
 let layoutHandler: number = 0;
 let cartList: string[] = [];
 let topbar: any;
-const addToCartEvent = (e: string) => {
-  cartList.push(e);
-  if (topbar.current) topbar.current.callRender();
-}
 
 const Layout: FC<Props> = (props: Props) => {
-  console.log('%c⚠️ RENDER ENTIRE APP', 'background: #f44336;color:#fff;padding:5px;font-weight:bold; border-radius:5px');
-
   // EFECTO DE RIPPLES
   useRipples();
 
@@ -42,10 +37,22 @@ const Layout: FC<Props> = (props: Props) => {
   const [user, setUser]: [userState, Dispatch<SetStateAction<userState>>] = useState(defaultUser);
   topbar = useRef(null);
 
+  // AGREGAR AL CARRITO CONTEXTO
+  const addToCartEvent = async (key: string, mode: boolean) => {
+    if (mode) cartList.push(key);
+    else {
+      const rIndex = cartList.indexOf(key);
+      if (rIndex > -1) cartList.splice(rIndex, 1);
+    }
+    window.localStorage.setItem("cart", cartList.join());
+    if (topbar.current) topbar.current.callRender(cartList.length);
+    setUser({ user: user.user, online: user.online, logout: user.logout, cartList })
+  }
+
   // DETECTAR CAMBIOS EN EL INCIO DE SESION
   useAuth((getUser: User) => {
     if (layoutHandler === 0 && !getUser) return 0;
-    setUser({ user: getUser, online: user.online, logout: user.logout })
+    setUser({ user: getUser, online: user.online, logout: user.logout, cartList })
     layoutHandler++;
   });
 
@@ -60,16 +67,42 @@ const Layout: FC<Props> = (props: Props) => {
 
     // DETECTAR CONEXION AL ENTRAR
     if (!online) showToast({ text: lang.toast.online });
-  });
+
+    // PEDIR PERMISO PARA NOTIFICAR
+    const messaging = initFCM();
+    if (messaging) messaging.requestPermission()
+      .then(async function () {
+        // OBTENER TOKEN
+        const token: string | undefined = await messaging?.getToken();
+
+        // ENVIAR TOKEN AL SERVIDOR
+        if (!window.localStorage.getItem("token"))
+          sendToken(token || "")
+            .then(() => window.localStorage.setItem("token", token || ""));
+      })
+
+      // NO EXISTE PERMISO DEL USUARIO
+      .catch(function (err: Error) {
+        console.log("Unable to get permission to notify.", err);
+      });
+
+    // ASIGNAR CARRITO ACTUAL
+    setTimeout(() => {
+      const cartListLS = window.localStorage.getItem("cart");
+      if (cartListLS && cartListLS?.length > 1) cartList = window.localStorage.getItem("cart")?.split(",") || [];
+      topbar.current.callRender(cartList.length)
+      setUser({ user: user.user, online: user.online, logout: user.logout, cartList })
+    }, process.env.NODE_ENV === "development" ? 0 : 2000)
+  }, []);
 
   return (
     <>
       <nav>
-        <Topbar ref={topbar} placeHolder={lang.placeholders.searchInput} />
+        <Topbar ref={topbar} placeHolder={lang.placeholders.searchPlaceholder} />
         <Drawer strings={lang.general} user={user.user} />
       </nav>
 
-      <appContext.appContext.Provider value={{ lang, theme: "light", user: user.user, addToCartEvent, cartList }}>
+      <appContext.appContext.Provider value={{ lang, theme: "light", user: user.user, addToCartEvent, cartList: user.cartList || [] }}>
         {user.user && <Verified strings={lang.verified} show={user.user.providerData[0]?.providerId === "facebook.com" ? true : user.user.emailVerified} />}
         <main>
           {props.children}

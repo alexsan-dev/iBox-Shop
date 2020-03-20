@@ -29,7 +29,7 @@ class iBoxDoc extends Document {
         <Head>
           {/* 
           // @ts-ignore */}
-          <Meta title={this.props.lang.general.appTitle} desc={this.props.lang.appDescription} />
+          <Meta title={this.props.lang.general.app.title} desc={this.props.lang.general.app.description} />
         </Head>
         <body>
           {/* 

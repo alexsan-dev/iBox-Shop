@@ -56,10 +56,8 @@ const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placehold
           }
         }
         .card {
-          margin-top: -20px;
           position: relative;
           width: 100%;
-          margin-bottom: 20px;
           border-radius: 15px;
           overflow: hidden;
           z-index: 1;
@@ -97,7 +95,7 @@ const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placehold
         .card .card-body {
           position: relative;
           width: 100%;
-          padding: 0 30px;
+          padding: 0 20px;
           color: var(--text);
           z-index: 2;
         }

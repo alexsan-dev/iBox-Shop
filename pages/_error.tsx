@@ -10,11 +10,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import appContext from "../utils/appContext";
 
-
-// PROPIEDADES
-interface Props { code: number }
-
-const ErrorPage = (props: Props) => {
+const ErrorPage = (props: any) => {
   // TEXTOS DE PAGINA DE ERROR
   const str = useContext(appContext.appContext).lang.errorPage;
 
@@ -28,7 +24,7 @@ const ErrorPage = (props: Props) => {
       <div id="errorPage">
         <div>
           <h1>{str.title}</h1>
-          <p>{str.description_1 + str.description_2}</p>
+          <p>{str.description_1 + " " + str.description_2}</p>
           <Link href="/" passHref scroll={false}>
             <a className="waves waves-dark btn white" title="Home">
               <i className="material-icons">reply</i> {str.button}

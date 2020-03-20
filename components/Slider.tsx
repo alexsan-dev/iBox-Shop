@@ -14,7 +14,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 			<div className="slider">
 				<ul>
 					<li className="green">
-						<Link href="/tienda" passHref scroll={false}>
+						<Link href="/electronica" passHref scroll={false}>
 							<a className="catContent waves" title="Electrónica">
 								<div className="cardBackground"></div>
 								<div className="catTitle">
@@ -27,7 +27,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 					</li>
 
 					<li className="red">
-						<Link href="/tienda" passHref scroll={false}>
+						<Link href="/dispositivos" passHref scroll={false}>
 							<a className="catContent waves" title="Dispositivos">
 								<div className="cardBackground"></div>
 								<div className="catTitle">
@@ -40,7 +40,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 					</li>
 
 					<li className="five">
-						<Link href="/tienda" passHref scroll={false}>
+						<Link href="/accesorios" passHref scroll={false}>
 							<a className="catContent waves" title="Accesorios">
 								<div className="cardBackground"></div>
 								<div className="catTitle">

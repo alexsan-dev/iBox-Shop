@@ -6,14 +6,16 @@ import { Unsubscribe, User, firestore } from "firebase";
 import firebase from "../keys/firebase";
 import Dexie from "dexie";
 
-// FIREBASE AUTH Y FIREBASE FIRESTORE
+// FIREBASE AUTH, FIREBASE FIRESTORE, FIREBASE CLOUD MESSAGIN
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/messaging";
 
 // =============== GLOBALS ===============
 const db = firebase.firestore();
 let fireStoreHandler: number = 0;
 let localdbHandler: number = 0;
+let fcmHandler: number = 0;
 let fbprovider: firebase.auth.FacebookAuthProvider,
   gprovider: firebase.auth.GoogleAuthProvider;
 
@@ -22,7 +24,6 @@ let fbprovider: firebase.auth.FacebookAuthProvider,
 export const useRipples = () => {
   useEffect(() => {
     setInterval(() => {
-
       // OBTENER TODAS LAS SUPERFICIES
       const surface: NodeListOf<HTMLElement> | null = document.querySelectorAll(".waves") as NodeListOf<HTMLElement>;
 
@@ -52,7 +53,7 @@ export const useRipples = () => {
           // ELIMINAR CIRCULO LUEGO DE *TIME* SEGUNDOS
           setTimeout(() => {
             try { el.removeChild(circle) }
-            catch { }
+            catch (err) { console.log(err) }
           }, time * 1000);
         }
       }
@@ -98,9 +99,8 @@ export const showToast = (data: IToast) => {
     if (data.action) data.action(e);
     div.style.transform = "translateY(100%)";
     setTimeout(() => {
-      try {
-        document.body.removeChild(div);
-      } catch{ }
+      try { document.body.removeChild(div); }
+      catch (err) { console.log(err) }
       if (data.onHide) data.onHide();
     }, 5300);
   });
@@ -123,7 +123,7 @@ export const showToast = (data: IToast) => {
 
     setTimeout(() => {
       try { document.body.removeChild(div); }
-      catch { }
+      catch (err) { console.log(err) }
       if (data.onHide) data.onHide();
     }, 5300);
   }
@@ -131,12 +131,13 @@ export const showToast = (data: IToast) => {
 
 // MOSTRAR ALERTAS
 interface AlertProps {
-  type: string;
+  type: "confirm" | "window" | "alert" | "input" | "error";
   onHide?: Function;
   onConfirm?: Function;
-  inputElement?: JSX.Element;
   title: string;
   body: string;
+  confirmBtn?: string;
+  cancelBtn?: string;
 }
 
 export const showAlert = (props: AlertProps) => {
@@ -144,6 +145,7 @@ export const showAlert = (props: AlertProps) => {
   const alertContainer: HTMLDivElement = document.createElement("div");
   const alertShadow: HTMLDivElement = document.createElement("div");
   const alertContent: HTMLDivElement = document.createElement("div");
+  const alertBody: HTMLDivElement = document.createElement("div");
   const actions: HTMLUListElement = document.createElement("ul");
   const liCancel: HTMLLIElement = document.createElement("li");
   const liConfirm: HTMLLIElement = document.createElement("li");
@@ -156,14 +158,16 @@ export const showAlert = (props: AlertProps) => {
   alertContainer.classList.add("alertContainer");
   alertShadow.classList.add("alertShadow");
   alertContent.classList.add("alertContent");
+  alertBody.classList.add("alertBody");
+  actions.classList.add("alertActions");
   cancelBtn.classList.add("cancelBtn", "waves", "waves-dark");
   confirmBtn.classList.add("primary", "waves");
 
   // ASIGNAR TEXTOS
   h1.textContent = props.title;
   p.textContent = props.body;
-  cancelBtn.textContent = "Cancelar";
-  confirmBtn.textContent = "Aceptar";
+  cancelBtn.textContent = props.cancelBtn || "Cancelar";
+  confirmBtn.textContent = props.confirmBtn || "Aceptar";
 
   // ASIGNAR EVENTOS
   const hideAlert = () => {
@@ -172,7 +176,7 @@ export const showAlert = (props: AlertProps) => {
       try {
         document.body.removeChild(alertContainer);
         if (props.onHide) props.onHide();
-      } catch{ }
+      } catch (err) { console.log(err) }
     }, 400);
   }
 
@@ -184,23 +188,22 @@ export const showAlert = (props: AlertProps) => {
   });
 
   if (props.type == "confirm") cancelBtn.style.display = "block";
-  // @ts-ignore
-  if (props.type == "input" && props.inputElement) alertContent.appendChild(props.inputElement);
 
   // ASIGNAR AL DOM
   liConfirm.appendChild(confirmBtn);
   liCancel.appendChild(cancelBtn);
   actions.appendChild(liCancel);
   actions.appendChild(liConfirm);
-  alertContent.appendChild(h1);
-  alertContent.appendChild(p);
+  alertBody.appendChild(h1);
+  alertBody.appendChild(p);
+  alertContent.appendChild(alertBody);
   alertContent.appendChild(actions);
   alertContainer.appendChild(alertShadow);
   alertContainer.appendChild(alertContent);
   document.body.appendChild(alertContainer);
-
 }
 
+// =============== UTILIDADES ===============
 // HOOK PARA INTERVALOS DE TIEMPO
 export const useInterval = (callback: any, delay: number) => {
   const savedCallback: MutableRefObject<() => void> = useRef(() => { });
@@ -218,6 +221,21 @@ export const useInterval = (callback: any, delay: number) => {
   }, [delay]);
 };
 
+// =========== NOTIFICACIONES ============
+// INICIALIZAR NOTIFICACIONES
+export const initFCM = () => {
+  const messaging = process.browser ? firebase.messaging() : undefined;
+  if (fcmHandler === 0) messaging?.usePublicVapidKey("BHA7UNM4lYGtAPa3KxkrpAGjaY7krSo1KUzBKYI8r8G3yTji-PaIzLg7rIGvoZmFSrWrGVUNZ25WGvFiSua9XCs");
+  fcmHandler++;
+  return messaging;
+}
+
+// ENVIAR TOKEN A LA DB
+export const sendToken = async (token: string) => {
+  const tokens = await db.collection("tokens");
+  return tokens.add({ upload: new Date().toUTCString(), token });
+}
+
 // =========== BASE DE DATOS ============
 // VARIABLES DE BASE DE DATOS LOCAL
 export class localDB extends Dexie {
@@ -228,12 +246,17 @@ export class localDB extends Dexie {
   constructor() {
     super("localDB");
     this.version(1).stores({ users: "id, user", productList: "id, products" });
+
+    // TABLA USUARIOS Y PRODUCTOS
     this.users = this.table("users");
     this.productList = this.table("productList");
   }
 }
 
+// INSTANCIA DE BASE DE DATOS
 const localdb = new localDB();
+
+// LIMPIAR USUARIO
 export const clearUser: Function = async () => localdb.users.clear();
 
 // AGREGAR USUARIO A LOCAL
@@ -252,60 +275,153 @@ export const useUserSet = async (id?: string, data?: userModel) => (id && data) 
 // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
 export const useUserGet = async (id: string | undefined) => {
   const user: user[] = await localdb.users.toArray();
-  let resUser: userModel | null | undefined | firestore.DocumentData = null;
+  let resUser: userModel | null | undefined = null;
 
+  // VERIFICAR USUARIO LOCAL
   if (user[0] && fireStoreHandler === 0) {
+    // RETORNAR USUARIO LOCAL
     console.log("Read user from localDB");
     resUser = user[0].user;
     fireStoreHandler++;
   }
   else if (fireStoreHandler === 0 && id) {
+    // LEER DE FIREBASE
     const getUser: firestore.DocumentSnapshot<firestore.DocumentData> = await db.collection("users").doc(id).get();
     if (getUser) {
       console.log('%c📖 READ USER FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+
+      // GUARDAR EN LOCAL
       await setUser(getUser.data());
+
+      // RETORNAR USUARIO
+      // @ts-ignore
       resUser = getUser.data();
       fireStoreHandler++;
     } else resUser = null;
   }
-  else resUser = null;
 
+  // SINO AGREGAR NULL
+  else resUser = null;
   return resUser;
 };
 
-// =============== PRODUCTS ===============
+// =============== PRODUCTOS ===============
 // OBTENER LISTADO DE PRODUCTOS DE FIRESTORE O LOCAL
-export const useGetAllProducts: Function = async () => {
+export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
+  // OBTENER DATOS LOCALES
   let products: product[] | firestore.DocumentData[] = [];
   const localData: productList[] = await localdb.productList.toArray();
+
+  // VERIFICAR POR NUEVOS DATOS 
+  if (window.navigator.onLine) setTimeout(async () => {
+    // CREAR CONEXION
+    const firestoreData: firestore.CollectionReference<firestore.DocumentData> = await db.collection("products");
+
+    // DETECTAR CAMBIOS
+    firestoreData.onSnapshot(async (nData: firestore.QuerySnapshot) => {
+      // OBTENER NUEVOS DATOS
+      const newData: firestore.DocumentData[] = nData.docs.map((doc: firestore.DocumentData) => doc.data());
+
+      // VERIFICAR SI SON IGUALES
+      if (localData[0] && JSON.stringify(localData[0].products) !== JSON.stringify(newData)) {
+        // CREAR NUEVA LISTA
+        products = newData.map((doc: firestore.DocumentData) => doc);
+
+        // AGREGAR A BASE LOCAL Y ENVIAR
+        await setProducts(products);
+        if (onDataUpdate) onDataUpdate(products);
+      }
+    })
+  }, 1000);
+
+  // SI EXISTEN DEVOLVER DATOS LOCALES
   if (localData[0]) {
     console.log("read products from localDB");
     products = localData[0].products;
   }
+
+  // SINO DEVOLVER DE FIREBASE
   else if (localdbHandler === 0) {
     console.log('%c📖 READ PRODUCTS FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+
+    // CREAR NUEVA LISTA
     const firestoreData: firestore.QuerySnapshot<firestore.DocumentData> = await db.collection("products").get();
     firestoreData.forEach((doc: firestore.DocumentData) => products.push(doc.data()))
+
+    // AGREGAR A BASE LOCAL Y ENVIAR
     await setProducts(products);
     localdbHandler++;
   }
   return products;
 }
 
+interface OrderCart { sum: number; productsFilter: Array<product | firestore.DocumentData>; multArry: number[] }
+export const getCartProducts: Function = async (cartList: string[], updateProducts: Function) => {
+  // FILTRAR PRODUCTOS
+  const cartListFilter = (productList: Array<product | firestore.DocumentData>) => {
+    // DECLARAR ARRAY DE CARDS
+    let productsFilter: Array<product | firestore.DocumentData> = [];
+    let sum: number = 0;
+    let multArry: number[] = [];
+
+    // BUSCAR POR CLAVE
+    productList.reverse().forEach((product: product | firestore.DocumentData) => {
+      // DECLARAR MULTIPLICIDAD
+      let firstAdded: boolean = false;
+      let mult: number = 0;
+
+      // AGREGAR MULTIPLICIDAD
+      cartList?.forEach((keyID: string) => product.key.trim() === keyID ? mult++ : null);
+
+      // CREAR LISTA DE CARDS
+      cartList?.forEach((keyID: string) => {
+        if (product.key.trim() === keyID && !firstAdded) {
+          productsFilter.push(product)
+
+          // SALIR Y AGREGAR A LA SUMA TOTAL
+          firstAdded = true;
+          sum += product.price * mult;
+        }
+      })
+
+      // CREAR LISTA DE MULTIPLICIDAD
+      if (mult !== 0) multArry.push(mult);
+    })
+
+    // RETORNAR LISTA FILTRADA
+    const newOrder: OrderCart = { sum, productsFilter, multArry }
+    return newOrder;
+  }
+
+  const productList = await useGetAllProducts((productList: Array<product | firestore.DocumentData>) => updateProducts(cartListFilter(productList)));
+  const result: OrderCart = cartListFilter(productList)
+
+  return result;
+}
 
 // =============== AUTENTICACION ===============
+// USUARIO POR DEFECTO
+export const defUserData: userModel = { displayName: "", email: "", provider: "", photoURL: null, emailVerified: false, uid: "", address: "", phone: 0, nit: "", departament: "" };
+
 // CONFIGURAR PROVEEDORES ( FACEBOOK Y GOOGLE )
 export const setProviders = async () => {
+  // PROVEEDOR DE FACEBOOK
   fbprovider = new firebase.auth.FacebookAuthProvider();
+
+  // PROVEEDOR DE GOOGLE
   gprovider = new firebase.auth.GoogleAuthProvider();
+
+  // ASIGNAR IDIOMA DE AUTH
   firebase.auth().useDeviceLanguage();
-  fbprovider.setCustomParameters({ display: "popup" });
 };
 
 // ESCUCHADOR PARA CAMBIOS EN EL INICIO DE SESION
 export const useAuth = (listen: Function) => {
+  // LIMITAR RENDERS
   fireStoreHandler = 0;
+
   useEffect(() => {
+    // RETORNAR USUARIO
     const unsubscribe: Unsubscribe = firebase
       .auth()
       .onAuthStateChanged((user: User | null) => listen(user));
@@ -315,21 +431,30 @@ export const useAuth = (listen: Function) => {
 
 // CERRAR SESION
 export const useLogout = async () => {
+  // CERRAR SESION
   await firebase.auth().signOut();
+
+  // BORRAR DATOS
   await clearUser();
+
+  // SALIR
   fireStoreHandler = 0;
   return true;
 };
 
 // BORRAR TODOS LOS DATOS AL CERRAR SESION
 export const useCleanData = async () => {
+  // BORRAR DATOS
   await clearUser();
+
+  // SALIR
   fireStoreHandler = 0;
   return true;
 }
 
 // ENVIAR CORREO DE VERIFICACION
 export const useSendEmailVerification = async () => {
+  // VERIFICAR SI EXISTE USUARIO
   await firebase.auth().currentUser?.sendEmailVerification();
   return true;
 }
@@ -337,60 +462,82 @@ export const useSendEmailVerification = async () => {
 
 // BORRAR USUARIO
 export const useDeleteUser = async () => {
+  // BORRAR DATOS LOCALES
   await clearUser();
   fireStoreHandler = 0;
+
+  // RETORNAR ACCION
   return firebase.auth().currentUser?.delete();
 };
 
 // TIEMPO USUARIO DESDE SU CREACION
 export const useUserTime = () => {
+  // OBTENER FECHA DE USUARIO
   const userDate: string | undefined = firebase.auth().currentUser?.metadata.creationTime;
+
+  // RETORNAR NUEVA FECHA O FECHA DE USUARIO
   if (userDate) return new Date(userDate);
   else return new Date();
 };
 
 // RECUPERAR CONTRASEÑA
 export const useResetPass = async (email: string) => {
+  // ENVIAR CORREO DE RECUPERACION
   await firebase.auth().sendPasswordResetEmail(email)
   return true;
 }
 
 
 // INICIO DE SESION
-interface LoginType { email?: string; pass?: string; name?: string; type: boolean | string; }
+interface LoginType { email?: string; pass?: string; name?: string; type: boolean | string; onSucces?: Function }
 export const useLogin = async (data: LoginType) => {
   // USUARIO NUEVO
   if (data.type === true && data.email && data.pass) {
+    // VERIFICAR CREDENCIALES
     const credentials: firebase.auth.UserCredential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.pass);
 
+    // SI EXISTEN ASIGNAR DATOS INCIALES
     if (credentials) {
       const userData: userModel = {
         emailVerified: credentials.user ? credentials.user.emailVerified : null,
-        displayName: data.name ? data.name : null,
-        email: data.email ? data.email : null,
+        displayName: data.name || null,
+        email: data.email || null,
         provider: credentials.user?.providerData[0]?.providerId,
-        photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
+        photoURL: "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef",
+        uid: credentials.user?.uid,
+        address: "",
+        phone: 0,
+        nit: "",
+        departament: ""
       };
 
+      // AGREGAR A BASE LOCAL
       await useUserSet(credentials.user?.uid, userData);
+
+      // ACTUALIZAR PERFIL
       await credentials.user?.updateProfile({
         displayName: data.name,
         photoURL:
           "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
       });
+
+      // ENVIAR CORREO DE VERIFICACION
       await credentials.user?.sendEmailVerification()
       console.log("Send verification email for new user");
     }
     else return false;
   }
+
   // USUARIOS EXISTENTES CON EMAIL, FACEBOOK, GOOGLE
   else if (data.type === false && data.email && data.pass)
     await firebase.auth().signInWithEmailAndPassword(data.email, data.pass);
   else if (data.type === "fb")
-    await firebase.auth().signInWithRedirect(fbprovider)
+    await firebase.auth().signInWithPopup(fbprovider)
   else if (data.type === "g")
-    await firebase.auth().signInWithRedirect(gprovider);
+    await firebase.auth().signInWithPopup(gprovider);
   else throw Error("Missing type property");
+
+  if (data.onSucces) data.onSucces();
   return true;
 };
 

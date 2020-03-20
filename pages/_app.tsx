@@ -89,6 +89,7 @@ export default class iBoxApp extends App {
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
             font-size: 15px;
+            font-display:block;
           }
 
           * {
@@ -433,17 +434,17 @@ export default class iBoxApp extends App {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
           }
-          .alertContainer .alertContent ul {
+          .alertContainer .alertActions {
             display: flex;
             justify-content: flex-end;
             position:relative;
             z-index:3;
           }
-          .alertContainer .alertContent ul li .cancelBtn{
+          .alertContainer .alertActions li .cancelBtn{
             color:var(--text);
             display:none;
           }
-          .alertContainer .alertContent ul li button {
+          .alertContainer .alertActions li button {
             color: var(--backgrounds);
             overflow: hidden;
           }

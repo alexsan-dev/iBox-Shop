@@ -24,8 +24,6 @@ const slideAnim: Variants = {
 };
 
 const Logins: NextPage = () => {
-  console.log('%c📝 RENDER LOGIN PAGE', 'background:#2196F3; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
-
   // CONEXTO Y MENSAJES DE ERROR
   const langs: langType = useContext(appContext.appContext).lang;
   const str = langs.accountPage;
@@ -47,11 +45,11 @@ const Logins: NextPage = () => {
               </>
             }
             text={str.header.text}
-            img={require("../assets/cart.png")}
+            img={require("../assets/account.png")}
             href="/"
             icon="reply"
             link={str.header.button}
-            span="BEST SERVICE"
+            span="------ BEST SERVICE"
           />
         </motion.div>
 

@@ -42,9 +42,15 @@ const Input: FC<InputProps> = (props: InputProps) => {
   const getText = () =>
     props.value({
       name: props.name,
-      text: inp.current?.value
+      text: inp.current?.value.trim()
     });
 
+  // ASIGNAR VALOR POR DEFECTO
+  if (inp.current && props.defValue) {
+    fx();
+    inp.current.value = props.defValue.toString();
+    getText();
+  }
   return (
     <>
       <div className="in">
@@ -56,6 +62,7 @@ const Input: FC<InputProps> = (props: InputProps) => {
           onFocus={fx}
           onBlur={fx}
           onChange={getText}
+          autoComplete=""
         />
         <label htmlFor={props.name} className="dlabel">
           {props.label}

@@ -9,7 +9,7 @@ let renderManager: Function = () => { };
 const Topbar: React.FC<Props> = (props: Props, ref: any) => {
   // FUNCION IMPERATIVA PARA CALLBAKC EXTERNO
   useImperativeHandle(ref, () => ({
-    callRender() { renderManager(); }
+    callRender(count: number) { renderManager(count); }
   }))
 
   useEffect(() => {
@@ -18,14 +18,14 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
     const searchToggle: HTMLInputElement | null = document.getElementById("search-toggle") as HTMLInputElement;
     const search: HTMLInputElement | null = document.getElementById("search") as HTMLInputElement;
     const addToCartBtn: HTMLButtonElement | null = document.querySelector(".addToCartBtn") as HTMLButtonElement;
+    const shopCount: HTMLButtonElement | null = document.getElementById("shopCount") as HTMLButtonElement;
 
     // REACCIONAR CUANDO SE AGREGA UN PRODUCTO AL CARRITO
-    renderManager = () => {
+    renderManager = (count: number) => {
       if (addToCartBtn) {
-        addToCartBtn.style.transform = "scale(2)";
-        addToCartBtn.style.backgroundColor = "var(--primary)";
-        setTimeout(() => addToCartBtn.style.transform = "scale(1)", 300);
-        setTimeout(() => addToCartBtn.style.backgroundColor = "transparent", 600);
+        addToCartBtn.classList.add("animCart");
+        setTimeout(() => addToCartBtn.classList.remove("animCart"), 300);
+        if (shopCount) shopCount.textContent = count < 100 ? count.toString() : "99+";
       }
     };
 
@@ -49,6 +49,7 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
           if (search) search.value = "";
         }, 300);
     });
+
   }, [])
 
   return (
@@ -65,7 +66,12 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
         </Link>
         <div id="navbtns">
           <label htmlFor="search-toggle" className="material-icons waves waves-dark">search</label>
-          <i className="material-icons addToCartBtn waves waves-dark">shopping_cart</i>
+          <Link href="/carrito" scroll={false}>
+            <div>
+              <i className="material-icons addToCartBtn waves waves-dark">shopping_cart</i>
+              <i id="shopCount">{0}</i>
+            </div>
+          </Link>
         </div>
         <div id="searchBar">
           <label htmlFor="search-toggle" className="material-icons waves waves-dark">arrow_back</label>
@@ -144,9 +150,35 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
             transform: scale(1);
           }
 
+          @keyframes animCart{
+            0%{transform : rotate(15deg);}
+            25%{ transform:rotate(-15deg); }
+            50%{ transform:rotate(15deg); }
+            100%{ transform:rotate(0deg); }
+          }
+
           .topbar #navbtns label:nth-child(1) {
             z-index: 4;
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out;
+          }
+
+          .topbar #navbtns #shopCount{
+            position:absolute;
+            background:var(--third);
+            height:20px;
+            width:20px;
+            right:0;
+            top:0;
+            font-size:0.8em;
+            font-style:normal;
+            font-weight:bold;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+          }
+
+          .animCart{
+            animation:animCart 0.3s ease-in-out 1;
           }
 
           .topbar #searchBar {

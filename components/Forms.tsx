@@ -1,6 +1,7 @@
 // TIPOS DE DATOS Y HOOKS
 import { setProviders, useLogin, useAuthError, useResetPass, showAlert } from "../utils/hooks";
 import { useState, Dispatch, SetStateAction } from "react";
+import { useRouter, NextRouter } from "next/router";
 
 // COMPONENTES Y ALERTAS
 import Input from "./Input";
@@ -28,7 +29,9 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 
   // INPUT DE RECUPERACION
   let inputVal: InputGetProps = { name: "remail", text: "" };
-  const forgotInput: JSX.Element = <Input type="text" label={props.strings.forms.inputs.emailField} name="remail" helper={props.strings.forms.forgot.helper} icon={email} value={(data: InputGetProps) => { inputVal.text = data.text }} />;
+
+  // ROUTERS
+  const router: NextRouter = useRouter();
 
   // CONFIGURAR PROVEEDORES DE LOGIN
   setProviders().catch((e: Error) => console.log("Error during set providers ", e));
@@ -42,12 +45,29 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 
   // MOSTRAR ALERTA EN EL BOTON DE RECUPERAR CLAVE
   const forgotPass = () => {
+    let input: HTMLDivElement;
+    let currentAlert: HTMLDivElement;
+    let form: HTMLDivElement;
+
+    setTimeout(() => {
+      // SELECCIONAR ELEMENTOS
+      form = document.getElementById("form") as HTMLDivElement;
+      input = document.getElementById("forgotInput") as HTMLDivElement;
+      currentAlert = document.querySelector(".alertBody") as HTMLDivElement;
+
+      // MOSTARR INPUTS
+      input.style.display = "block";
+
+      // AGREGAR A LA ALERTA
+      if (currentAlert) currentAlert.appendChild(input);
+    }, 10)
+
     // MOSTRAR ALERTA PRIMERO
     showAlert({
       title: props.strings.forms.forgot.title,
       body: props.strings.forms.forgot.text,
+      confirmBtn: "Recuperar",
       type: "input",
-      inputElement: forgotInput,
 
       // VERIFICAR EL TEXTO EN EL INPUT DE LA ALERTA
       onConfirm: () => {
@@ -68,6 +88,12 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
             body: props.strings.alerts.text_1,
             type: "error"
           });
+      },
+      onHide: () => {
+        try {
+          input.style.display = "none";
+          form.appendChild(input);
+        } catch (e) { console.log(e) }
       }
     });
   };
@@ -76,7 +102,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
   const logs = () => {
     if (account.switchC && email.length * name.length * pass.length !== 0 && name.length <= 15)
       // INICIAR SESION CON CUENTA NUEVA
-      useLogin({ type: account.switchC, name, email, pass })
+      useLogin({ type: account.switchC, name, email, pass, onSucces: () => router.push("/tienda") })
         .catch((e: FirebaseError) =>
           showAlert({
             title: props.strings.alerts.title,
@@ -86,7 +112,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 
     // INICIAR SESION CON CUENTA EXISTENTE
     else if (!account.switchC && email.length * pass.length !== 0)
-      useLogin({ type: account.switchC, email, pass })
+      useLogin({ type: account.switchC, email, pass, onSucces: () => router.push("/tienda") })
         .catch((e: FirebaseError) =>
           showAlert({
             title: props.strings.alerts.title,
@@ -105,12 +131,12 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 
   // INICIAR SESION CON FACEBOOK
   const fblog = () =>
-    useLogin({ type: "fb" })
+    useLogin({ type: "fb", onSucces: () => router.push("/tienda") })
       .catch((body: FirebaseError) => showAlert({ title: props.strings.alerts.title, body: body.code, type: "error" }))
 
   // INICIAR SESION CON GOOGLE
   const glog = () =>
-    useLogin({ type: "g" })
+    useLogin({ type: "g", onSucces: () => router.push("/tienda") })
       .catch((body: FirebaseError) => showAlert({ title: props.strings.alerts.title, body: body.code, type: "error" }))
 
 
@@ -129,34 +155,34 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           <button onClick={regSwitch}>{regText}</button>
         </p>
 
-        <div id="credentials">
+        <form id="credentials">
           <Input
             type="email"
-            label={props.strings.forms.inputs.emailField}
+            label={props.strings.forms.inputs.email.field}
             name="email"
             value={value}
-            helper={props.strings.forms.inputs.emailHelper}
+            helper={props.strings.forms.inputs.email.helper}
             icon="email"
           />
           {account.switchC ? (
             <Input
               type="text"
-              label={props.strings.forms.inputs.userField}
+              label={props.strings.forms.inputs.user.field}
               name="name"
               value={value}
-              helper={props.strings.forms.inputs.userHelper}
+              helper={props.strings.forms.inputs.user.helper}
               icon="person"
             />
           ) : ("")}
           <Input
             type="password"
-            label={props.strings.forms.inputs.passField}
+            label={props.strings.forms.inputs.pass.field}
             name="pass"
             value={value}
-            helper={props.strings.forms.inputs.passHelper}
+            helper={props.strings.forms.inputs.pass.helper}
             icon="lock"
           />
-        </div>
+        </form>
 
         {account.switchC ? ("") : (
           <p>
@@ -167,15 +193,26 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           </p>
         )}
 
+        <div id="forgotInput">
+          <Input
+            type="text"
+            label={props.strings.forms.inputs.email.field}
+            name="remail"
+            helper={props.strings.forms.forgot.helper}
+            icon="email"
+            value={(vals: InputGetProps) => inputVal.text = vals.text}
+          />
+        </div>
+
         <button onClick={logs} className="blue waves">
           <i className="material-icons">person</i>
           {account.switchC ? props.strings.buttons.createAccount : props.strings.buttons.login}
         </button>
         <button onClick={fblog} className="waves fblog">
-          <i className="material-icons"></i> {props.strings.buttons.fbLoginText}
+          <img src={require("../assets/ficon.png")} /> {props.strings.buttons.fbLoginText}
         </button>
         <button onClick={glog} className="waves glog">
-          <i className="material-icons"></i> {props.strings.buttons.gLoginText}
+          <img src={require("../assets/gicon.png")} /> {props.strings.buttons.gLoginText}
         </button>
       </div>
 
@@ -215,7 +252,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           padding: 20px;
           border-radius: 10px;
           position: relative;
-          top: -50px;
+          top: -40px;
           left: 50%;
           transform: translate(-50%, 0%);
           margin-bottom: 60px;
@@ -225,6 +262,9 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           width: 100%;
           justify-content: center;
           margin-top: 10px;
+        }
+        #forgotInput{
+          display:none;
         }
         #credentials {
           margin-top: -10px;
@@ -236,9 +276,17 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           background: #3b5998;
           margin: 0;
         }
+        .fblog > img{
+          height:20px;
+          margin-right:13px;
+          filter:invert(100%);
+        }
         .glog {
           background: #d44638;
           margin: 0;
+        }
+        .glog > img{
+          margin-right:13px;
         }
 
         @media screen and (min-width:460px){

@@ -35,6 +35,10 @@ interface userModel {
   email: string | null;
   photoURL: string | null;
   uid?: string;
+  address?: string;
+  phone?: number;
+  nit?: string;
+  departament?: string;
 }
 
 interface InputProps {
@@ -44,6 +48,7 @@ interface InputProps {
   helper: string;
   icon: string;
   value: Function;
+  defValue?: string | number;
 }
 
 interface InputGetProps {
@@ -73,6 +78,8 @@ interface langType {
   errorPage: langPackage.errorPage;
   indexPage: langPackage.indexPage;
   accountPage: langPackage.accountPage;
+  shopPage: langPackage.shopPage;
+  cartPage: langPackage.cartPage;
   profilePage: langPackage.profilePage;
   footer: langPackage.footer;
   loading: langPackage.loading;
@@ -163,6 +170,10 @@ namespace langPackage {
       button: string;
     }
   };
+  interface inputFields {
+    field: string;
+    helper: string;
+  };
   interface accountPage {
     title: string;
     text: string;
@@ -183,12 +194,9 @@ namespace langPackage {
         buttonText: string;
       };
       inputs: {
-        emailField: string;
-        emailHelper: string;
-        userField: string;
-        userHelper: string;
-        passField: string;
-        passHelper: string;
+        email: inputFields;
+        user: inputFields;
+        pass: inputFields;
       }
     };
     alerts: {
@@ -205,6 +213,53 @@ namespace langPackage {
   };
   interface profilePage {
     title: string;
+  };
+  interface shopPage {
+    header: {
+      title: string;
+      text: string;
+      button: string;
+    };
+    shopList: {
+      title: string;
+      text: string;
+    }
+  };
+  interface cartPage {
+    header: {
+      title: string;
+      titleExt: string;
+      text: string;
+      button: string;
+    };
+    cards: {
+      total: string;
+    };
+    summary: {
+      button: string;
+      prevButton: string;
+      total: string;
+      notFound: {
+        title: string;
+        text: string
+      };
+      forms: {
+        title: string;
+        text: string;
+        errors: {
+          title: string;
+          text: string;
+          text_1: string;
+        };
+        inputs: {
+          name: inputFields;
+          email: inputFields;
+          address: inputFields;
+          phone: inputFields;
+          nit: inputFields;
+        }
+      }
+    }
   };
   interface footer {
     title: string;

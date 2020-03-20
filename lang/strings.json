@@ -101,17 +101,23 @@
           "text": "Escribe el correo al que quieres que enviemos el link de recuperación."
         },
         "inputs": {
-          "emailField": "Correo electrónico",
-          "emailHelper": "Usuario de la cuenta",
-          "userField": "Nombre de usuario",
-          "userHelper": "Máximo 15 caracteres",
-          "passField": "Contraseña",
-          "passHelper": "Clave secreta"
+          "email": {
+            "field": "",
+            "helper": ""
+          },
+          "user": {
+            "field": "",
+            "helper": ""
+          },
+          "pass": {
+            "field": "",
+            "helper": ""
+          }
         }
       },
       "alerts": {
-        "title": "Ocurrió un error",
-        "text_1": "Todos los campos son obligatorios.",
+        "title": "¡Ocurrió un error!",
+        "text_1": "Hay campos vacios o la informacion no es correcta, todos los campos son obligatorios.",
         "text_2": "Un campo tiene un error o faltan datos."
       },
       "buttons": {
@@ -124,9 +130,71 @@
     "profilePage": {
       "title": "Mi cuenta"
     },
+    "shopPage": {
+      "header": {
+        "title": "¡Encuentra los mejores productos para ti!",
+        "text": "Subscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis.",
+        "button": "Regresar"
+      },
+      "shopList": {
+        "title": "Productos",
+        "text": "Aquí se encuentra un listado de todos los productos en el inventario, también puedes pedirnos cualquier producto 🤝 que desearías ver en la tienda enviando un mensaje en facebook, o en nuestra plataforma."
+      }
+    },
+    "cartPage": {
+      "header": {
+        "title": "Carrito",
+        "titleExt": "de",
+        "text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento.",
+        "button": "Regresar"
+      },
+      "cards": {
+        "total": "Total"
+      },
+      "summary": {
+        "button": "Siguiente",
+        "prevButton": "Anterior",
+        "total": "Precio total: ",
+        "notFound": {
+          "title": "Carrito vacio",
+          "text": "Lo siento por el momento no hay articulos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automaticas. 📱"
+        },
+        "forms": {
+          "title": "Informacion de Contacto:",
+          "text": "Solo necesitamos, tu informacion de envio para confirmar tu compra:",
+          "errors": {
+            "title": "¡Espera un poco!",
+            "text": "Tienes que verificar si tus datos de envio son correctos antes de comprar.",
+            "text_1": "La informacion del correo es incorrecta, intenta nuevamente."
+          },
+          "inputs": {
+            "name": {
+              "field": "Nombre",
+              "helper": "* Nombre completo"
+            },
+            "email": {
+              "field": "Correo electrónico",
+              "helper": "* Email de facturacion"
+            },
+            "address": {
+              "field": "Direccion",
+              "helper": "* Residencia y Departamento o Municipio"
+            },
+            "phone": {
+              "field": "Telefono",
+              "helper": "* Numero de telefono"
+            },
+            "nit": {
+              "field": "NIT",
+              "helper": "Dejar vacio (CF)"
+            }
+          }
+        }
+      }
+    },
     "footer": {
       "title": "Contacta con nosotros",
-      "text": "Si tienes algún comentario envianos un mensaje en Facebook para hablar con nuestro asistente 🤖, y visita también nuestra página 👍 en Facebook.",
+      "text": "Si tienes algún comentario envianos un mensaje en Facebook para hablar con nuestro asistente 🤖, y visita también nuestra página 👍",
       "blobs": {
         "contact": "Contacta al área técnica 💻",
         "email": "cto@ibox.gt"

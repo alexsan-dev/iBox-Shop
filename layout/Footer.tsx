@@ -1,4 +1,4 @@
-const Footer: React.FC<langPackage.footer> = (strings: langPackage.footer) => {
+const Footer: React.FC<langPackage.footer> = (props: langPackage.footer) => {
   return (
     <footer>
       <div className="st">
@@ -14,9 +14,9 @@ const Footer: React.FC<langPackage.footer> = (strings: langPackage.footer) => {
         </svg>
 
         <span>
-          {strings.blobs.contact}{" "}
+          {props.blobs.contact}{" "}
           <a href="mailto:cto@ibox.gt" title="Cto mail">
-            {strings.blobs.email}
+            {props.blobs.email}
           </a>
         </span>
       </div>
@@ -32,11 +32,11 @@ const Footer: React.FC<langPackage.footer> = (strings: langPackage.footer) => {
 
       <div id="links">
         <h2>
-          {strings.title}
+          {props.title}
           <i className="material-icons">phone</i>
         </h2>
 
-        <p>{strings.text}</p>
+        <p>{props.text}</p>
 
         <a href="https://facebook.com/shops.ibox" target="_blank" rel="noreferrer" title="FacebookPage">
           <i className="material-icons">flag</i> iBox Shop
@@ -47,9 +47,9 @@ const Footer: React.FC<langPackage.footer> = (strings: langPackage.footer) => {
       </div>
 
       <div id="fText">
-        <h2>{strings.rights.main}</h2>
+        <h2>{props.rights.main}</h2>
         <span>
-          {strings.rights.reserved} {new Date().getFullYear()}
+          {props.rights.reserved} {new Date().getFullYear()}
         </span>
       </div>
 
@@ -98,6 +98,8 @@ const Footer: React.FC<langPackage.footer> = (strings: langPackage.footer) => {
             top:-90px;
             transform:scaleX(-1) rotate(10deg);
             right:0px;
+            touch-action:none;
+            pointer-events:none;
           }
           footer #links {
             padding-bottom: 0;

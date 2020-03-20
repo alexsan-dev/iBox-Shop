@@ -1,6 +1,7 @@
 {
   "name": "iBox Shop®",
   "short_name": "iBox",
+  "gcm_sender_id": "947837339959",
   "start_url": "./",
   "display": "standalone",
   "theme_color": "rgb(47, 109, 153)",

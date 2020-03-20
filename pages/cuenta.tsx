@@ -13,7 +13,7 @@ const AccountPage: NextPage = () => {
   const { user } = useContext(appContext.appContext);
 
   // DESCARGAR PRODUCTOS
-  useEffect(() => { useGetAllProducts() })
+  useEffect(() => { useGetAllProducts() }, [])
 
   // RETORNAR PAGINA PROFILE SI EXISTE USUARIO SINO ASIGNAR PAGINA DE LOGINS
   return user ? <Profile user={user} /> : <Logins />;

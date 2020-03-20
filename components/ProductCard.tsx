@@ -8,7 +8,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 const Card: FC<CardProps> = (props: CardProps) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
   const { lang, addToCartEvent } = useContext(appContext.appContext);
-  const addToCartCall = () => addToCartEvent(props.code);
+  const addToCartCall = () => addToCartEvent(props.code, true);
 
   return (
     <div className="card">
@@ -30,8 +30,8 @@ const Card: FC<CardProps> = (props: CardProps) => {
           <p>{props.text}</p>
           <div id="cartInfo">
             <button className="card-price"><span>Q</span>{props.price - 1}<span id="round">99</span></button>
-            <button className="primary waves addToCart" onClick={addToCartCall}>
-              <i className="material-icons">shopping_cart</i>{lang.general.buttons.addToCart}
+            <button className="amber waves addToCart" onClick={addToCartCall}>
+              <i className="material-icons">add_shopping_cart</i>{lang.general.buttons.addToCart}
             </button>
           </div>
         </div>

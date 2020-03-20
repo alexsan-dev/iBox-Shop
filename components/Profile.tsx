@@ -3,7 +3,7 @@ import { useState, SetStateAction, Dispatch, useContext } from "react";
 import { firestore } from "firebase";
 
 // HOOKS Y ANIMACION
-import { useUserGet } from "../utils/hooks";
+import { useUserGet, defUserData } from "../utils/hooks";
 import { motion, Variants } from "framer-motion";
 
 // TIPOS DE DATOS FIREBASE Y NEXT
@@ -31,18 +31,9 @@ interface Props { user: User | userModel; }
 
 // ESTADO INICIAL E INTERFACES
 interface Istate { userData: userModel | null | undefined | firestore.DocumentData; }
-const userData: userModel = {
-  displayName: "",
-  email: "",
-  provider: "",
-  photoURL: null,
-  emailVerified: false
-};
-const defState: Istate = { userData };
+const defState: Istate = { userData: defUserData };
 
 const Profile: NextPage<Props> = (props: Props) => {
-  console.log('%c😀 RENDER PROFILE PAGE', 'background: #4caf50;color:#fff;padding:5px;font-weight:bold; border-radius:5px');
-
   // ESTADO DEL COMPONENTE Y CONTEXTO
   const [user, setUser]: [Istate, Dispatch<SetStateAction<Istate>>] = useState(defState);
   const str = useContext(appContext.appContext).lang.profilePage;
@@ -60,7 +51,7 @@ const Profile: NextPage<Props> = (props: Props) => {
       }}
     >
       <motion.div variants={head}>
-        <ProfileHeader user={user.userData || userData} title={str.title} />
+        <ProfileHeader user={user.userData || defUserData} title={str.title} />
       </motion.div>
     </motion.div>
   );

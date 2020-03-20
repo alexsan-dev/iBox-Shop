@@ -26,21 +26,28 @@ const ProductList: React.FC<Props> = (props: Props) => {
   // COMPONENTE DE CARGANDO
   const [products, setProducts]: [JSX.Element[], Dispatch<SetStateAction<JSX.Element[]>>] = useState([shadow]);
 
+  // ACTUALIZAR EL ESTADO
+  const setProductsList = (productList: Array<product | firestore.DocumentData>) => {
+    if (productList.length > 0) setProducts(
+      productList.reverse().map((data: product | firestore.DocumentData, i: number) =>
+        <Card key={i}
+          title={data.name}
+          text={data.description}
+          code={data.key.trim()}
+          img={data.img}
+          price={data.price}
+          scrollPosition={props.scrollPosition}
+        />
+      ));
+  }
+
   // OBTENER TODOS LOS PRODUCTOS
   useEffect(() => {
-    useGetAllProducts()
+    useGetAllProducts((productList: product[]) => {
+      setProductsList(productList);
+    })
       .then((productList: Array<product | firestore.DocumentData>) => {
-        if (productList.length > 0) setProducts(
-          productList.map((data: product | firestore.DocumentData, i: number) =>
-            <Card key={i}
-              title={data.name}
-              text={data.description}
-              code={data.key}
-              img={data.img}
-              price={data.price}
-              scrollPosition={props.scrollPosition}
-            />
-          ));
+        setProductsList(productList);
       })
   }, [])
 
