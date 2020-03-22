@@ -1,6 +1,6 @@
 // HOOKS Y TIPOS DE DATOS
 import { useSendEmailVerification, useDeleteUser, useUserTime, showAlert } from "../utils/hooks";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, MouseEvent } from "react";
 
 // PROPIEDADES Y ESTADOS
 interface Props {
@@ -17,11 +17,16 @@ const Verified: React.FC<Props> = (props: Props) => {
   const [visible, setVisible]: [Visibility, Dispatch<SetStateAction<Visibility>>] = useState(defaultState);
 
   // ENVIAR EMAIL DE RECUPERACION
-  const sendEmail = () => {
+  const sendEmail = (e: MouseEvent<HTMLButtonElement>) => {
+    const btn: HTMLButtonElement = e.target as HTMLButtonElement;
+    btn.style.pointerEvents = "none";
+
     useSendEmailVerification()?.then(() => {
       console.log("Send verification email");
+      btn.style.pointerEvents = "unset";
       setVisible({ visible: true });
-    });
+    })
+      .catch((err: Error) => console.log(err));
   };
 
   // BORRAR USUARIO DE FIREBASE

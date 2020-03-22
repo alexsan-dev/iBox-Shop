@@ -1,6 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { setProviders, useLogin, useAuthError, useResetPass, showAlert } from "../utils/hooks";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, MouseEvent } from "react";
 import { useRouter, NextRouter } from "next/router";
 
 // COMPONENTES Y ALERTAS
@@ -99,7 +99,10 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
   };
 
   // INICIAR SESION CON CORREO O CREAR CUENTA
-  const logs = () => {
+  const logs = (e: MouseEvent<HTMLButtonElement>) => {
+    const btn: HTMLButtonElement = e.target as HTMLButtonElement;
+    btn.style.pointerEvents = "none";
+
     if (account.switchC && email.length * name.length * pass.length !== 0 && name.length <= 15)
       // INICIAR SESION CON CUENTA NUEVA
       useLogin({ type: account.switchC, name, email, pass, onSucces: () => router.push("/tienda") })
@@ -107,7 +110,8 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           showAlert({
             title: props.strings.alerts.title,
             body: useAuthError(e.code, props.errorLangPackage),
-            type: "error"
+            type: "error",
+            onHide: () => btn.style.pointerEvents = "unset"
           }))
 
     // INICIAR SESION CON CUENTA EXISTENTE
@@ -117,7 +121,8 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           showAlert({
             title: props.strings.alerts.title,
             body: useAuthError(e.code, props.errorLangPackage),
-            type: "error"
+            type: "error",
+            onHide: () => btn.style.pointerEvents = "unset"
           }))
 
     // VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
@@ -125,20 +130,40 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
       showAlert({
         title: props.strings.alerts.title,
         body: props.strings.alerts.text_2,
-        type: "error"
+        type: "error",
+        onHide: () => btn.style.pointerEvents = "unset"
       });
   };
 
   // INICIAR SESION CON FACEBOOK
-  const fblog = () =>
-    useLogin({ type: "fb", onSucces: () => router.push("/tienda") })
-      .catch((body: FirebaseError) => showAlert({ title: props.strings.alerts.title, body: body.code, type: "error" }))
+  const fblog = (e: MouseEvent<HTMLButtonElement>) => {
+    const btn: HTMLButtonElement = e.target as HTMLButtonElement;
+    btn.style.pointerEvents = "none";
+
+    const enableBtn = () => btn.style.pointerEvents = "unset";
+    useLogin({
+      type: "fb", onSucces: () => {
+        router.push("/tienda")
+        enableBtn();
+      }
+    })
+      .catch((body: FirebaseError) => showAlert({ onHide: enableBtn, title: props.strings.alerts.title, body: body.code, type: "error" }))
+  }
 
   // INICIAR SESION CON GOOGLE
-  const glog = () =>
-    useLogin({ type: "g", onSucces: () => router.push("/tienda") })
-      .catch((body: FirebaseError) => showAlert({ title: props.strings.alerts.title, body: body.code, type: "error" }))
+  const glog = (e: MouseEvent<HTMLButtonElement>) => {
+    const btn: HTMLButtonElement = e.target as HTMLButtonElement;
+    btn.style.pointerEvents = "none";
 
+    const enableBtn = () => btn.style.pointerEvents = "unset";
+    useLogin({
+      type: "g", onSucces: () => {
+        router.push("/tienda")
+        enableBtn();
+      }
+    })
+      .catch((body: FirebaseError) => showAlert({ onHide: enableBtn, title: props.strings.alerts.title, body: body.code, type: "error" }))
+  }
 
   // ACTUALIZAR ESTADO ( NUEVA CUENTA / CUENTA EXISTENTE )
   const regSwitch = () => setAccount({ switchC: !account.switchC });

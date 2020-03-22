@@ -162,6 +162,12 @@
           "title": "Carrito vació",
           "text": "Lo siento por el momento no hay artículos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automáticas. 📱"
         },
+        "buy": {
+          "alert": {
+            "title": "Espera un poco",
+            "text": "Te agradadecemos por tu compra ❤️, estamos procesando tus datos ✍️ ..."
+          }
+        },
         "sendForm": {
           "banner": {
             "title": "Datos seguros",

@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dexie": "^2.0.4",
     "firebase": "^7.6.1",
     "framer-motion": "^1.7.0",

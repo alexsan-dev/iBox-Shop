@@ -1,5 +1,5 @@
 // TIPOS DE DATOS Y HOOKS
-import { useEffect, useContext, useState, Dispatch, SetStateAction, FC, useRef } from "react";
+import { useEffect, useContext, useState, Dispatch, SetStateAction, FC, useRef, MutableRefObject } from "react";
 import { useAuth, showToast, useRipples, sendToken, initFCM } from "../utils/hooks";
 import { User } from "firebase";
 
@@ -15,12 +15,7 @@ import Drawer from "./Drawer";
 
 // INTERFACES PARA LAS PROPIEDADES Y PROVIDER GLOBAL
 interface Props { children: any; }
-interface userState {
-  user: User | null;
-  online: boolean;
-  logout: boolean;
-  cartList?: string[]
-}
+interface userState { user: User | null; cartList?: string[] }
 
 // VARIABLES GLOBALES
 let layoutHandler: number = 0;
@@ -33,12 +28,13 @@ const Layout: FC<Props> = (props: Props) => {
 
   // ESTADOS Y CONEXTO DEL COMPONENTE
   const { lang } = useContext(langContext.langContext);
-  const defaultUser: userState = { user: null, online: false, logout: false };
-  const [user, setUser]: [userState, Dispatch<SetStateAction<userState>>] = useState(defaultUser);
+  const defaultUser: userState = { user: null };
+  const stateUser: MutableRefObject<User | null> = useRef(null);
+  const [state, setState]: [userState, Dispatch<SetStateAction<userState>>] = useState(defaultUser);
   topbar = useRef(null);
 
   // AGREGAR AL CARRITO CONTEXTO
-  const addToCartEvent = async (key: string, mode: boolean) => {
+  const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) => {
     if (mode) cartList.push(key);
     else {
       const rIndex = cartList.indexOf(key);
@@ -46,13 +42,20 @@ const Layout: FC<Props> = (props: Props) => {
     }
     window.localStorage.setItem("cart", cartList.join());
     if (topbar.current) topbar.current.callRender(cartList.length);
-    setUser({ user: user.user, online: user.online, logout: user.logout, cartList })
+    if (reset) {
+      window.localStorage.setItem("cart", "");
+      cartList = [];
+      topbar.current.callRender(0);
+    }
+
+    setState({ user: stateUser.current || null, cartList })
   }
 
   // DETECTAR CAMBIOS EN EL INCIO DE SESION
   useAuth((getUser: User) => {
     if (layoutHandler === 0 && !getUser) return 0;
-    setUser({ user: getUser, online: user.online, logout: user.logout, cartList })
+    stateUser.current = getUser;
+    setState({ user: getUser, cartList })
     layoutHandler++;
   });
 
@@ -91,7 +94,7 @@ const Layout: FC<Props> = (props: Props) => {
       const cartListLS = window.localStorage.getItem("cart");
       if (cartListLS && cartListLS?.length > 1) cartList = window.localStorage.getItem("cart")?.split(",") || [];
       topbar.current.callRender(cartList.length)
-      setUser({ user: user.user, online: user.online, logout: user.logout, cartList })
+      setState({ user: stateUser.current || null, cartList })
     }, process.env.NODE_ENV === "development" ? 0 : 2000)
   }, []);
 
@@ -99,11 +102,11 @@ const Layout: FC<Props> = (props: Props) => {
     <>
       <nav>
         <Topbar ref={topbar} placeHolder={lang.placeholders.searchPlaceholder} />
-        <Drawer strings={lang.general} user={user.user} />
+        <Drawer strings={lang.general} user={state.user} />
       </nav>
 
-      <appContext.appContext.Provider value={{ lang, theme: "light", user: user.user, addToCartEvent, cartList: user.cartList || [] }}>
-        {user.user && <Verified strings={lang.verified} show={user.user.providerData[0]?.providerId === "facebook.com" ? true : user.user.emailVerified} />}
+      <appContext.appContext.Provider value={{ lang, theme: "light", user: state.user, addToCartEvent, cartList: state.cartList || [] }}>
+        {state.user && <Verified strings={lang.verified} show={state.user.providerData[0]?.providerId === "facebook.com" ? true : state.user.emailVerified} />}
         <main>
           {props.children}
         </main>

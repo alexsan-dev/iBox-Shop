@@ -30,7 +30,6 @@ interface user {
 
 interface userModel {
   provider?: string | null;
-  emailVerified: boolean | null;
   displayName: string | null;
   email: string | null;
   photoURL: string | null;
@@ -237,6 +236,12 @@ namespace langPackage {
       button: string;
       prevButton: string;
       total: string;
+      buy: {
+        alert: {
+          title: string;
+          text: string;
+        }
+      };
       sendForm: {
         banner: {
           title: string;

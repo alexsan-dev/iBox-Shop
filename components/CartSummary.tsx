@@ -1,6 +1,6 @@
 // HOOKS
 import { useContext, useState, Dispatch, SetStateAction, RefObject, useRef, useEffect, MouseEvent } from "react";
-import { defUserData, useUserGet, showAlert } from "../utils/hooks";
+import { defUserData, useUserGet, showAlert, buyFromCart, useUserSet } from "../utils/hooks";
 
 // ROUTER
 import { useRouter, NextRouter } from "next/router";
@@ -67,7 +67,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
   const [sumState, setSum]: [SumState, Dispatch<SetStateAction<SumState>>] = useState(defState);
 
   // CARRITO Y USUARIO DEL CONEXTO
-  const { cartList, user } = useContext(appContext.appContext);
+  const { cartList, user, addToCartEvent } = useContext(appContext.appContext);
 
   // REFERENCIAS
   const slider: RefObject<HTMLDivElement> = useRef(null);
@@ -191,13 +191,67 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
       })
   }
 
+  // REINICIAR CARRITO
+  const resetCart = () => {
+    sliderCount = 0;
+    sumTotal = 0;
+    window.localStorage.setItem("cartProcces", "");
+    addToCartEvent("", true, true);
+  }
+
   //ENVIAR LOS DATOS DE COMPRA
   const sendToBuy = (e: MouseEvent<HTMLButtonElement>) => {
+    // DESHABILITAR BOTON DE COMPRAR
     const btn: HTMLButtonElement = e.target as HTMLButtonElement;
     if (btn) btn.style.pointerEvents = "none";
-    console.log(formValues.current, cartList);
 
-    router.back();
+    // MOSTRAR ALERTA DE ESPERA
+    showAlert({
+      type: "window",
+      title: strings.buy.alert.title,
+      body: strings.buy.alert.text,
+      fixed: true
+    })
+
+    // ENVIAR DATOS A BACKEND
+    if (formValues.current) buyFromCart({ sendData: formValues.current, cartList })
+      .then(() => {
+        // QUITAR ALERTA DE ESPERA
+        const cAlert: NodeListOf<HTMLDivElement> = document.querySelectorAll(".alertContainer") as NodeListOf<HTMLDivElement>;
+        cAlert.forEach((el: HTMLDivElement) => {
+          el.style.opacity = "0";
+          setTimeout(() => el.style.display = "none", 400)
+        })
+
+        // HABILITAR BOTON
+        btn.style.pointerEvents = "unset";
+
+        // FUNCTION DE SALIR
+        const exitCart = () => {
+          // REGRESAR
+          router.back();
+
+          // REINICIAR CARRITO
+          setTimeout(() => resetCart(), 1500)
+        }
+
+        // AGREGAR DATOS AL USUARIO
+        let userCopy: userModel | null = sumState.user;
+
+        if (userCopy) {
+          // AGREGAR DATOS NUEVOS
+          if (userCopy.address !== formValues.current?.address || userCopy.phone !== formValues.current?.phone || userCopy.nit !== formValues.current?.nit) {
+            userCopy.address = formValues.current?.address;
+            userCopy.phone = formValues.current?.phone;
+            userCopy.nit = formValues.current?.nit;
+
+            // ACTULIAZAR DATOS CON FIREBASE
+            useUserSet(sumState.user?.uid, userCopy)
+              .then(exitCart);
+          }
+          else exitCart();
+        } else exitCart();
+      })
   }
 
   // GUARDAR AVANCE INICIAL
@@ -218,7 +272,6 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
       formValues.current.phone = defForms.phone;
       formValues.current.address = defForms.address;
     }
-
 
     // ACTUALIZAR FORMULARIO DE ENVIO 
     const updateForm = setInterval(() => {

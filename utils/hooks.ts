@@ -6,13 +6,15 @@ import { Unsubscribe, User, firestore } from "firebase";
 import firebase from "../keys/firebase";
 import Dexie from "dexie";
 
-// FIREBASE AUTH, FIREBASE FIRESTORE, FIREBASE CLOUD MESSAGIN
+// FIREBASE AUTH, FIREBASE FIRESTORE, FIREBASE CLOUD MESSAGING, CLOUD FUNCTIONS
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/messaging";
+import "firebase/functions";
 
 // =============== GLOBALS ===============
 const db = firebase.firestore();
+const funcs = firebase.functions();
 let fireStoreHandler: number = 0;
 let localdbHandler: number = 0;
 let fcmHandler: number = 0;
@@ -138,6 +140,7 @@ interface AlertProps {
   body: string;
   confirmBtn?: string;
   cancelBtn?: string;
+  fixed?: boolean;
 }
 
 export const showAlert = (props: AlertProps) => {
@@ -171,6 +174,9 @@ export const showAlert = (props: AlertProps) => {
 
   // ASIGNAR EVENTOS
   const hideAlert = () => {
+    alertShadow.style.pointerEvents = "none";
+    cancelBtn.style.pointerEvents = "none";
+    confirmBtn.style.pointerEvents = "none";
     alertContainer.style.opacity = "0";
     setTimeout(() => {
       try {
@@ -180,7 +186,7 @@ export const showAlert = (props: AlertProps) => {
     }, 400);
   }
 
-  alertShadow.addEventListener("click", hideAlert);
+  if (!props.fixed) alertShadow.addEventListener("click", hideAlert);
   cancelBtn.addEventListener("click", hideAlert);
   confirmBtn.addEventListener("click", () => {
     if (props.onConfirm) props.onConfirm();
@@ -197,7 +203,10 @@ export const showAlert = (props: AlertProps) => {
   alertBody.appendChild(h1);
   alertBody.appendChild(p);
   alertContent.appendChild(alertBody);
-  alertContent.appendChild(actions);
+
+  if (props.type !== "window")
+    alertContent.appendChild(actions);
+
   alertContainer.appendChild(alertShadow);
   alertContainer.appendChild(alertContent);
   document.body.appendChild(alertContainer);
@@ -270,7 +279,12 @@ export const setProducts: Function = async (products: product[] | firestore.Docu
 
 // OBTENER DATOS DE FIRESTORE
 // AGREGAR USUARIO EN CUENTA NUEVA
-export const useUserSet = async (id?: string, data?: userModel) => (id && data) ? db.collection("users").doc(id).set(data) : null;
+export const useUserSet = async (id?: string, data?: userModel) => {
+  if (id && data) {
+    db.collection("users").doc(id).set(data);
+    setUser(data);
+  }
+}
 
 // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
 export const useUserGet = async (id: string | undefined) => {
@@ -399,9 +413,13 @@ export const getCartProducts: Function = async (cartList: string[], updateProduc
   return result;
 }
 
+interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
+interface ReqForm { sendData: IForms; cartList: string[]; }
+export const buyFromCart = (req: ReqForm) => funcs.httpsCallable("buyFromCart")(req);
+
 // =============== AUTENTICACION ===============
 // USUARIO POR DEFECTO
-export const defUserData: userModel = { displayName: "", email: "", provider: "", photoURL: null, emailVerified: false, uid: "", address: "", phone: 0, nit: "", departament: "" };
+export const defUserData: userModel = { displayName: "", email: "", provider: "", photoURL: null, uid: "", address: "", phone: 0, nit: "", departament: "" };
 
 // CONFIGURAR PROVEEDORES ( FACEBOOK Y GOOGLE )
 export const setProviders = async () => {
@@ -453,12 +471,7 @@ export const useCleanData = async () => {
 }
 
 // ENVIAR CORREO DE VERIFICACION
-export const useSendEmailVerification = async () => {
-  // VERIFICAR SI EXISTE USUARIO
-  await firebase.auth().currentUser?.sendEmailVerification();
-  return true;
-}
-
+export const useSendEmailVerification = async () => firebase.auth().currentUser?.sendEmailVerification();
 
 // BORRAR USUARIO
 export const useDeleteUser = async () => {
@@ -487,7 +500,6 @@ export const useResetPass = async (email: string) => {
   return true;
 }
 
-
 // INICIO DE SESION
 interface LoginType { email?: string; pass?: string; name?: string; type: boolean | string; onSucces?: Function }
 export const useLogin = async (data: LoginType) => {
@@ -499,7 +511,6 @@ export const useLogin = async (data: LoginType) => {
     // SI EXISTEN ASIGNAR DATOS INCIALES
     if (credentials) {
       const userData: userModel = {
-        emailVerified: credentials.user ? credentials.user.emailVerified : null,
         displayName: data.name || null,
         email: data.email || null,
         provider: credentials.user?.providerData[0]?.providerId,
@@ -513,13 +524,6 @@ export const useLogin = async (data: LoginType) => {
 
       // AGREGAR A BASE LOCAL
       await useUserSet(credentials.user?.uid, userData);
-
-      // ACTUALIZAR PERFIL
-      await credentials.user?.updateProfile({
-        displayName: data.name,
-        photoURL:
-          "https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef"
-      });
 
       // ENVIAR CORREO DE VERIFICACION
       await credentials.user?.sendEmailVerification()
