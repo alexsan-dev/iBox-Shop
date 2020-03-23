@@ -1,4 +1,4 @@
-// CONTENEDORES DE ANIMACION Y HOOKS
+// CONTENEDORES DE ANIMACIÓN Y HOOKS
 import { motion, Variants } from "framer-motion";
 import { useContext } from "react";
 import { NextPage } from "next";
@@ -8,12 +8,12 @@ import appContext from "../utils/appContext";
 import Header from "./Header";
 import Forms from "./Forms";
 
-// CONFIGURACION DE ANIMACION
+// CONFIGURACIÓN DE ANIMACIÓN
 let ease: number[] = [0.175, 0.85, 0.42, 0.96];
 let duration: number = 0.5;
 let transition: object = { duration, ease };
 
-// OBJECTOS DE ANIMACION
+// OBJECTOS DE ANIMACIÓN
 const pageAnim: Variants = {
   exit: { opacity: 0, y: -150, transition },
   enter: { opacity: 1, y: 0, transition }
@@ -24,7 +24,7 @@ const slideAnim: Variants = {
 };
 
 const Logins: NextPage = () => {
-  // CONEXTO Y MENSAJES DE ERROR
+  // CONTEXTO Y MENSAJES DE ERROR
   const langs: langType = useContext(appContext.appContext).lang;
   const str = langs.accountPage;
   const errors = langs.errors;

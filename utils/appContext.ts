@@ -5,13 +5,13 @@ import React from "react";
 // JSON DE LENGUAJES
 import LangsPackages from "../lang/strings.json";
 
-// HOC PARA LENGUAJE DE LA APLICACION
+// HOC PARA LENGUAJE DE LA APLICACIÓN
 interface langContext { lang: langType; }
 // @ts-ignore
 const defaultLangContext: langContext = { lang: LangsPackages.es };
 const langContext: React.Context<langContext> = React.createContext(defaultLangContext);
 
-// HOC GENERAL DE LA APLICACION
+// HOC GENERAL DE LA APLICACIÓN
 interface appContext {
   lang: langType;
   user: userModel | User | null;

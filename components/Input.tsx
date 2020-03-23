@@ -15,17 +15,17 @@ const Input: FC<InputProps> = (props: InputProps) => {
     const i: HTMLElement = hr?.nextSibling as HTMLElement;
 
     if (label && inp.current?.value.length === 0 && hr && i) {
-      label.classList.toggle("alabel");
-      label.classList.toggle("dlabel");
-      hr.classList.toggle("hractive");
-      hr.classList.toggle("hrunactive");
-      i.classList.toggle("iactive");
-      i.classList.toggle("iunactive");
+      label.classList.toggle("aLabel");
+      label.classList.toggle("dLabel");
+      hr.classList.toggle("hrActive");
+      hr.classList.toggle("hrDisabled");
+      i.classList.toggle("iActive");
+      i.classList.toggle("iDisabled");
     }
   };
 
-  // BOTON DE MOSTAR Y OCULTAR PARA INPUT DE CLAVE
-  const visibled = (e: MouseEvent<HTMLSpanElement>) => {
+  // BOTÓN DE MOSTRAR Y OCULTAR PARA INPUT DE CLAVE
+  const visibles = (e: MouseEvent<HTMLSpanElement>) => {
     const el: HTMLSpanElement = e?.target as HTMLSpanElement;
     if (visible && el) {
       el.textContent = "visibility_off";
@@ -51,6 +51,7 @@ const Input: FC<InputProps> = (props: InputProps) => {
     inp.current.value = props.defValue.toString();
     getText();
   }
+
   return (
     <>
       <div className="in">
@@ -64,13 +65,13 @@ const Input: FC<InputProps> = (props: InputProps) => {
           onChange={getText}
           autoComplete=""
         />
-        <label htmlFor={props.name} className="dlabel">
+        <label htmlFor={props.name} className="dLabel">
           {props.label}
         </label>
-        <hr className="hrunactive" />
-        <i className="iunactive material-icons">{props.icon}</i>
+        <hr className="hrDisabled" />
+        <i className="iDisabled material-icons">{props.icon}</i>
         {props.type === "password" ? (
-          <span onClick={visibled} className="material-icons">visibility</span>
+          <span onClick={visibles} className="material-icons">visibility</span>
         ) : ("")}
       </div>
       <span>{props.helper}</span>
@@ -96,7 +97,7 @@ const Input: FC<InputProps> = (props: InputProps) => {
           .in + span {
             margin-bottom: 30px;
             font-size: 13px;
-            color: var(--parraf);
+            color: var(--paragraph);
           }
 
           .in > label {
@@ -108,11 +109,11 @@ const Input: FC<InputProps> = (props: InputProps) => {
           .in > span {
             position: absolute;
             right: 20px;
-            color: var(--parraf);
+            color: var(--paragraph);
           }
 
-          .dlabel {
-            color: var(--parraf);
+          .dLabel {
+            color: var(--paragraph);
             transform: translate(0, 0);
             font-size: 15px;
             left: 35px;
@@ -120,8 +121,8 @@ const Input: FC<InputProps> = (props: InputProps) => {
 
           .in > input {
             font-size: 15px;
-            color: var(--parraf);
-            border-bottom: 1.5px solid var(--unactive);
+            color: var(--paragraph);
+            border-bottom: 1.5px solid var(--disable);
             padding: 15px 0 15px 35px;
             width: 100%;
             font-weight: 500;
@@ -143,12 +144,12 @@ const Input: FC<InputProps> = (props: InputProps) => {
             color: var(--blue);
           }
 
-          .iactive {
+          .iActive {
             color: var(--blue);
           }
 
-          .iunactive {
-            color: var(--parraf);
+          .iDisabled {
+            color: var(--paragraph);
           }
 
           .in > hr {
@@ -164,15 +165,15 @@ const Input: FC<InputProps> = (props: InputProps) => {
             z-index: 2;
           }
 
-          .hrunactive {
+          .hrDisabled {
             transform: scaleX(0);
           }
 
-          .hractive {
+          .hrActive {
             transform: scaleX(1);
           }
 
-          .alabel {
+          .aLabel {
             transform: translate(0, -200%);
             font-size: 13px;
             left: 0;

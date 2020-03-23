@@ -1,15 +1,15 @@
-// NAVEGACION 
+// NAVEGACIÓN 
 import Link from "next/link";
 
 // COMPONENTES
 import ProductList from "./ProductList";
 
-const Recents: React.FC<langPackage.indexPage["recents"]> = (strings: langPackage.indexPage["recents"]) => {
+const Recent: React.FC<langPackage.indexPage["recent"]> = (strings: langPackage.indexPage["recent"]) => {
   return (
     <div id="middle">
-      <div id="recents">
+      <div id="recent">
         <div id="wave">
-          <svg id="recentsD" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <svg id="recentD" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
               fill="var(--gray-light)"
               fillOpacity="1"
@@ -24,14 +24,14 @@ const Recents: React.FC<langPackage.indexPage["recents"]> = (strings: langPackag
           </h2>
           <p>{strings.text}</p>
 
-          <ProductList recents />
+          <ProductList recent />
 
         </div>
         <img src={require("../assets/middle.png")} alt="Store" />
       </div>
 
       <Link href="/tienda" passHref scroll={false}>
-        <a className="waves waves-dark seeMore right" title="Ver más">
+        <a className="waves waves-dark seeMore right" title={strings.button}>
           {strings.button} <i className="material-icons">arrow_forward</i>
         </a>
       </Link>
@@ -40,12 +40,12 @@ const Recents: React.FC<langPackage.indexPage["recents"]> = (strings: langPackag
         #middle {
           position: relative;
         }
-        #recents {
+        #recent {
           position: relative;
           width: 100%;
           margin-top: -115px;
         }
-        #recentsD {
+        #recentD {
           margin-bottom: -5px;
           width: 115%;
         }
@@ -53,12 +53,12 @@ const Recents: React.FC<langPackage.indexPage["recents"]> = (strings: langPackag
           bottom: 45px;
           z-index: 10;
         }
-        #recents > div {
+        #recent > div {
           background: var(--gray-light);
           padding: 20px;
           padding-bottom: 125px;
         }
-        #recents > #wave{
+        #recent > #wave{
           background:none;
           padding:0;
           width:100%;
@@ -92,4 +92,4 @@ const Recents: React.FC<langPackage.indexPage["recents"]> = (strings: langPackag
   );
 };
 
-export default Recents;
+export default Recent;

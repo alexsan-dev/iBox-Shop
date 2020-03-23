@@ -1,5 +1,5 @@
 // TIPOS DE DATOS Y CONTEXTO
-import { FC, useContext } from "react";
+import { FC, useContext, useRef, RefObject } from "react";
 import appContext from "../utils/appContext";
 
 // PROPIEDADES
@@ -9,18 +9,36 @@ interface Props extends CardProps { cant: number; onUpdate?: Function }
 const CartProductCard: FC<Props> = (props: Props) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
   const { addToCartEvent, lang } = useContext(appContext.appContext);
+  const img: RefObject<HTMLDivElement> = useRef(null);
+
+  // ANIMAR IMAGEN
+  const animImg = () => {
+    // ANIMAR IMAGEN
+    img.current?.classList.add("animImg");
+    setTimeout(() => img.current?.classList.remove("animImg"), 300);
+  }
+
+  // AGREGAR AL CARRITO
   const addToCartCall = () => {
     addToCartEvent(props.code, true);
+
+    // ACTUALIZAR Y ANIMAR
     if (props.onUpdate) props.onUpdate();
+    animImg();
   }
+
+  // ELIMINAR DEL CARRITO
   const removeToCartCall = () => {
     addToCartEvent(props.code, false);
+
+    // ACTUALIZAR Y ANIMAR
     if (props.onUpdate) props.onUpdate();
+    animImg();
   }
 
   return (
     <div id="cartCard">
-      <div id="cartCardHead">
+      <div id="cartCardHead" ref={img}>
         <img src={props.img} alt={props.title} />
       </div>
       <div id="cartCardBody">
@@ -28,7 +46,7 @@ const CartProductCard: FC<Props> = (props: Props) => {
 
       </div>
       <div id="cartCardPrice">
-        <div>
+        <div className="amber">
           <span>{props.cant}</span>
           <button className="waves waves-dark" onClick={removeToCartCall}>-</button>
           <button className="waves waves-dark" onClick={addToCartCall}>+</button>
@@ -93,16 +111,26 @@ const CartProductCard: FC<Props> = (props: Props) => {
           top:-8px;
         }
         #cartCardPrice div{
-          background:var(--secondary);
           color:var(--backgrounds);
           border-radius:10px;
           overflow:hidden;
           display:flex;
           align-items:center;
+          position:relative;
+          z-index:2;
         }
         #cartCardPrice div span{
           font-weight:bold;
           margin:0 20px;
+        }
+        @keyframes animImg{
+            0%{transform : rotate(${Math.random() * 15}deg);}
+            25%{ transform:rotate(-${Math.random() * 15}deg); }
+            50%{ transform:rotate(${Math.random() * 15}deg); }
+            100%{ transform:rotate(0deg); }
+        }
+        .animImg{
+           animation:animImg 0.3s ease-in-out 1;
         }
         button{
           padding:0;

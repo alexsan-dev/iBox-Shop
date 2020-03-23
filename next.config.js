@@ -18,7 +18,7 @@ module.exports = withOffline({
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
-        handler: 'CacheFirst',
+        handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'offlineCache',
           expiration: {

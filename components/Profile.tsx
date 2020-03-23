@@ -2,7 +2,7 @@
 import { useState, SetStateAction, Dispatch, useContext } from "react";
 import { firestore } from "firebase";
 
-// HOOKS Y ANIMACION
+// HOOKS Y ANIMACIÓN
 import { useUserGet, defUserData } from "../utils/hooks";
 import { motion, Variants } from "framer-motion";
 
@@ -15,12 +15,12 @@ import { User } from "firebase";
 import appContext from "../utils/appContext";
 import ProfileHeader from "./ProfileHeader";
 
-// CONFIGURACION DE ANIMACION
+// CONFIGURACIÓN DE ANIMACIÓN
 let ease: number[] = [0.175, 0.85, 0.42, 0.96];
 let duration: number = 0.5;
 let transition: object = { duration, ease };
 
-// OBJECTOS DE ANIMACION
+// OBJECTOS DE ANIMACIÓN
 const head: Variants = {
   exit: { opacity: 0, y: -150, transition },
   enter: { opacity: 1, y: 0, transition }
@@ -30,17 +30,17 @@ const head: Variants = {
 interface Props { user: User | userModel; }
 
 // ESTADO INICIAL E INTERFACES
-interface Istate { userData: userModel | null | undefined | firestore.DocumentData; }
-const defState: Istate = { userData: defUserData };
+interface IState { userData: userModel | null | undefined | firestore.DocumentData; }
+const defState: IState = { userData: defUserData };
 
 const Profile: NextPage<Props> = (props: Props) => {
   // ESTADO DEL COMPONENTE Y CONTEXTO
-  const [user, setUser]: [Istate, Dispatch<SetStateAction<Istate>>] = useState(defState);
+  const [user, setUser]: [IState, Dispatch<SetStateAction<IState>>] = useState(defState);
   const str = useContext(appContext.appContext).lang.profilePage;
 
   // OBTENER USUARIO DE FIREBASE O LOCAL
   if (useRouter().pathname === "/cuenta") useUserGet(props.user.uid)
-    .then((userData: Istate["userData"]) => userData ? setUser({ userData }) : null)
+    .then((userData: IState["userData"]) => userData ? setUser({ userData }) : null)
     .catch((err: Error) => console.log(err));
 
   return (

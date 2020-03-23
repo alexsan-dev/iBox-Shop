@@ -13,10 +13,10 @@ class iBoxDoc extends Document {
     // OBTENER PROPIEDADES INICIALES
     const initialProps = await Document.getInitialProps(ctx);
 
-    // OBTENER CODIGO DEL LENGUAJE EN EL SERVIDOR O CLIENTE
+    // OBTENER CÓDIGO DEL LENGUAJE EN EL SERVIDOR O CLIENTE
     const lang: string | undefined = ctx.req ? ctx.req.headers["accept-language"]?.substr(0, 2) : process.browser ? navigator.language.substr(0, 2) : "es";
 
-    // ASIGNAR EL CODIFO DEL LENFUAJE AL OBJETO JSON DE LOS TEXTOS
+    // ASIGNAR EL CÓDIGO DEL LENGUAJE AL OBJETO JSON DE LOS TEXTOS
     // @ts-ignore
     return { ...initialProps, lang: lang ? Langs[lang] : Langs.es, langCode: lang || "es" }
   }

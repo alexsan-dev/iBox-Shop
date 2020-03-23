@@ -56,11 +56,12 @@ const CartList: React.FC<Props> = (props: Props) => {
       });
   }
 
+  // OBTENER PRODUCTOS
   useEffect(() => {
     readProducts();
   }, [])
 
-  // RENDERIZAR NUEVAMENTE LA PRIMERA VEZ
+  // RENDERER NUEVAMENTE LA PRIMERA VEZ
   if (props.cartList.length > 0 && firstRender === 0) {
     readProducts();
     firstRender++;

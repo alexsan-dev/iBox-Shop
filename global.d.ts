@@ -37,7 +37,7 @@ interface userModel {
   address?: string;
   phone?: number;
   nit?: string;
-  departament?: string;
+  department?: string;
 }
 
 interface InputProps {
@@ -110,6 +110,7 @@ namespace langPackage {
       home: string;
       shop: string;
       account: string;
+      cart: string;
     },
     logout: {
       title: string;
@@ -153,8 +154,8 @@ namespace langPackage {
       electroCatText: string;
       devicesCatTitle: string;
       devicesCatText: string;
-      accesCatTitle: string;
-      accesCatText: string;
+      accessCatTitle: string;
+      accessCatText: string;
     };
     middle: {
       blob_1: string;
@@ -164,7 +165,7 @@ namespace langPackage {
       title: string;
       text: string;
     };
-    recents: {
+    recent: {
       title: string;
       text: string;
       button: string;
@@ -236,6 +237,16 @@ namespace langPackage {
       button: string;
       prevButton: string;
       total: string;
+      alerts: {
+        title: string;
+        text: string;
+      };
+      banner: {
+        title: string;
+        text: string;
+        pd: string;
+        st: string;
+      }
       buy: {
         alert: {
           title: string;

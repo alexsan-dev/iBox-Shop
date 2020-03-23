@@ -16,28 +16,28 @@ import "firebase/functions";
 const db = firebase.firestore();
 const funcs = firebase.functions();
 let fireStoreHandler: number = 0;
-let localdbHandler: number = 0;
+let localDBHandler: number = 0;
 let fcmHandler: number = 0;
-let fbprovider: firebase.auth.FacebookAuthProvider,
-  gprovider: firebase.auth.GoogleAuthProvider;
+let fbProvider: firebase.auth.FacebookAuthProvider,
+  gProvider: firebase.auth.GoogleAuthProvider;
 
 // =============== EFECTOS ===============
-// EFECTO RIPPLE PARA TODOS LOS BOTONES
+// EFECTO RIPPLE PARA TODOS LOS BOTÓNES
 export const useRipples = () => {
   useEffect(() => {
     setInterval(() => {
       // OBTENER TODAS LAS SUPERFICIES
       const surface: NodeListOf<HTMLElement> | null = document.querySelectorAll(".waves") as NodeListOf<HTMLElement>;
 
-      // FUNCION DE EFECTO
+      // FUNCIÓN DE EFECTO
       function ripple(el: HTMLElement, e: MouseEvent) {
         if (el && surface) {
-          // PROPIEDADES INICALES DEL CIRCULO
+          // PROPIEDADES INICIALES DEL CIRCULO
           const circle: HTMLDivElement = document.createElement("div") as HTMLDivElement;
           const maxLarge: number = Math.max(el.clientWidth, el.clientHeight);
           const rectSurface: ClientRect = el.getBoundingClientRect();
 
-          // FUNCION LOGARITMICA DEL TIEMPO
+          // FUNCIÓN LOGARÍTMICA DEL TIEMPO
           const time: number = Math.log(maxLarge) / Math.log(Math.exp(1)) / 11;
 
           // APLICAR DIMENSIONES Y ESTILO AL CIRCULO
@@ -60,7 +60,7 @@ export const useRipples = () => {
         }
       }
 
-      // AGREGAR FUNCION RIPPLE A TODAS LAS SUPERFICIES Y VERIFICAR SI YA SE AGREGO ANTES
+      // AGREGAR FUNCIÓN RIPPLE A TODAS LAS SUPERFICIES Y VERIFICAR SI YA SE AGREGO ANTES
       for (let i = 0; i < surface.length; i++) {
         if (!surface[i].getAttribute("data-ripple")) {
           surface[i].setAttribute("data-ripple", "true");
@@ -96,7 +96,7 @@ export const showToast = (data: IToast) => {
   span.textContent = data.text;
   btn.textContent = data.actionText || "";
 
-  // EVENTO DE CLICK EN EL BOTON ACCION
+  // EVENTO DE CLICK EN EL BOTÓN ACCIÓN
   btn.addEventListener("click", (e: MouseEvent) => {
     if (data.action) data.action(e);
     div.style.transform = "translateY(100%)";
@@ -140,6 +140,7 @@ interface AlertProps {
   body: string;
   confirmBtn?: string;
   cancelBtn?: string;
+  customElements?: string;
   fixed?: boolean;
 }
 
@@ -202,6 +203,11 @@ export const showAlert = (props: AlertProps) => {
   actions.appendChild(liConfirm);
   alertBody.appendChild(h1);
   alertBody.appendChild(p);
+  if (props.customElements) {
+    const ct: HTMLDivElement = document.createElement("div") as HTMLDivElement;
+    ct.innerHTML = props.customElements;
+    alertBody.appendChild(ct);
+  }
   alertContent.appendChild(alertBody);
 
   if (props.type !== "window")
@@ -231,7 +237,7 @@ export const useInterval = (callback: any, delay: number) => {
 };
 
 // =========== NOTIFICACIONES ============
-// INICIALIZAR NOTIFICACIONES
+// INICIAR NOTIFICACIONES
 export const initFCM = () => {
   const messaging = process.browser ? firebase.messaging() : undefined;
   if (fcmHandler === 0) messaging?.usePublicVapidKey("BHA7UNM4lYGtAPa3KxkrpAGjaY7krSo1KUzBKYI8r8G3yTji-PaIzLg7rIGvoZmFSrWrGVUNZ25WGvFiSua9XCs");
@@ -263,18 +269,18 @@ export class localDB extends Dexie {
 }
 
 // INSTANCIA DE BASE DE DATOS
-const localdb = new localDB();
+const iLocalDB = new localDB();
 
 // LIMPIAR USUARIO
-export const clearUser: Function = async () => localdb.users.clear();
+export const clearUser: Function = async () => iLocalDB.users.clear();
 
 // AGREGAR USUARIO A LOCAL
 export const setUser: Function = async (user: userModel | firestore.DocumentData | undefined) =>
-  localdb.users.put({ id: 1, user });
+  iLocalDB.users.put({ id: 1, user });
 
 // AGREGAR PRODUCTOS AL LOCAL
 export const setProducts: Function = async (products: product[] | firestore.DocumentData | undefined) =>
-  localdb.productList.put({ id: 1, products })
+  iLocalDB.productList.put({ id: 1, products })
 
 
 // OBTENER DATOS DE FIRESTORE
@@ -288,7 +294,7 @@ export const useUserSet = async (id?: string, data?: userModel) => {
 
 // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
 export const useUserGet = async (id: string | undefined) => {
-  const user: user[] = await localdb.users.toArray();
+  const user: user[] = await iLocalDB.users.toArray();
   let resUser: userModel | null | undefined = null;
 
   // VERIFICAR USUARIO LOCAL
@@ -324,11 +330,11 @@ export const useUserGet = async (id: string | undefined) => {
 export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
   // OBTENER DATOS LOCALES
   let products: product[] | firestore.DocumentData[] = [];
-  const localData: productList[] = await localdb.productList.toArray();
+  const localData: productList[] = await iLocalDB.productList.toArray();
 
   // VERIFICAR POR NUEVOS DATOS 
   if (window.navigator.onLine) setTimeout(async () => {
-    // CREAR CONEXION
+    // CREAR CONEXIÓN
     const firestoreData: firestore.CollectionReference<firestore.DocumentData> = await db.collection("products");
 
     // DETECTAR CAMBIOS
@@ -355,7 +361,7 @@ export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
   }
 
   // SINO DEVOLVER DE FIREBASE
-  else if (localdbHandler === 0) {
+  else if (localDBHandler === 0) {
     console.log('%c📖 READ PRODUCTS FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
 
     // CREAR NUEVA LISTA
@@ -364,7 +370,7 @@ export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
 
     // AGREGAR A BASE LOCAL Y ENVIAR
     await setProducts(products);
-    localdbHandler++;
+    localDBHandler++;
   }
   return products;
 }
@@ -417,23 +423,23 @@ interface IForms { name: string; email: string; address: string; phone: number; 
 interface ReqForm { sendData: IForms; cartList: string[]; }
 export const buyFromCart = (req: ReqForm) => funcs.httpsCallable("buyFromCart")(req);
 
-// =============== AUTENTICACION ===============
+// =============== USUARIOS ===============
 // USUARIO POR DEFECTO
-export const defUserData: userModel = { displayName: "", email: "", provider: "", photoURL: null, uid: "", address: "", phone: 0, nit: "", departament: "" };
+export const defUserData: userModel = { displayName: "", email: "", provider: "", photoURL: null, uid: "", address: "", phone: 0, nit: "", department: "" };
 
 // CONFIGURAR PROVEEDORES ( FACEBOOK Y GOOGLE )
 export const setProviders = async () => {
   // PROVEEDOR DE FACEBOOK
-  fbprovider = new firebase.auth.FacebookAuthProvider();
+  fbProvider = new firebase.auth.FacebookAuthProvider();
 
   // PROVEEDOR DE GOOGLE
-  gprovider = new firebase.auth.GoogleAuthProvider();
+  gProvider = new firebase.auth.GoogleAuthProvider();
 
   // ASIGNAR IDIOMA DE AUTH
   firebase.auth().useDeviceLanguage();
 };
 
-// ESCUCHADOR PARA CAMBIOS EN EL INICIO DE SESION
+// ESCUCHADOR PARA CAMBIOS EN EL INICIO DE SESIÓN
 export const useAuth = (listen: Function) => {
   // LIMITAR RENDERS
   fireStoreHandler = 0;
@@ -447,9 +453,9 @@ export const useAuth = (listen: Function) => {
   }, []);
 };
 
-// CERRAR SESION
+// CERRAR SESIÓN
 export const useLogout = async () => {
-  // CERRAR SESION
+  // CERRAR SESIÓN
   await firebase.auth().signOut();
 
   // BORRAR DATOS
@@ -460,7 +466,7 @@ export const useLogout = async () => {
   return true;
 };
 
-// BORRAR TODOS LOS DATOS AL CERRAR SESION
+// BORRAR TODOS LOS DATOS AL CERRAR SESIÓN
 export const useCleanData = async () => {
   // BORRAR DATOS
   await clearUser();
@@ -470,7 +476,7 @@ export const useCleanData = async () => {
   return true;
 }
 
-// ENVIAR CORREO DE VERIFICACION
+// ENVIAR CORREO DE VERIFICACIÓN
 export const useSendEmailVerification = async () => firebase.auth().currentUser?.sendEmailVerification();
 
 // BORRAR USUARIO
@@ -479,11 +485,11 @@ export const useDeleteUser = async () => {
   await clearUser();
   fireStoreHandler = 0;
 
-  // RETORNAR ACCION
+  // RETORNAR ACCIÓN
   return firebase.auth().currentUser?.delete();
 };
 
-// TIEMPO USUARIO DESDE SU CREACION
+// TIEMPO USUARIO DESDE SU CREACIÓN
 export const useUserTime = () => {
   // OBTENER FECHA DE USUARIO
   const userDate: string | undefined = firebase.auth().currentUser?.metadata.creationTime;
@@ -495,20 +501,20 @@ export const useUserTime = () => {
 
 // RECUPERAR CONTRASEÑA
 export const useResetPass = async (email: string) => {
-  // ENVIAR CORREO DE RECUPERACION
+  // ENVIAR CORREO DE RECUPERACIÓN
   await firebase.auth().sendPasswordResetEmail(email)
   return true;
 }
 
-// INICIO DE SESION
-interface LoginType { email?: string; pass?: string; name?: string; type: boolean | string; onSucces?: Function }
+// INICIO DE SESIÓN
+interface LoginType { email?: string; pass?: string; name?: string; type: boolean | string; onSuccess?: Function }
 export const useLogin = async (data: LoginType) => {
   // USUARIO NUEVO
   if (data.type === true && data.email && data.pass) {
     // VERIFICAR CREDENCIALES
     const credentials: firebase.auth.UserCredential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.pass);
 
-    // SI EXISTEN ASIGNAR DATOS INCIALES
+    // SI EXISTEN ASIGNAR DATOS INICIALES
     if (credentials) {
       const userData: userModel = {
         displayName: data.name || null,
@@ -519,13 +525,13 @@ export const useLogin = async (data: LoginType) => {
         address: "",
         phone: 0,
         nit: "",
-        departament: ""
+        department: ""
       };
 
       // AGREGAR A BASE LOCAL
       await useUserSet(credentials.user?.uid, userData);
 
-      // ENVIAR CORREO DE VERIFICACION
+      // ENVIAR CORREO DE VERIFICACIÓN
       await credentials.user?.sendEmailVerification()
       console.log("Send verification email for new user");
     }
@@ -536,16 +542,16 @@ export const useLogin = async (data: LoginType) => {
   else if (data.type === false && data.email && data.pass)
     await firebase.auth().signInWithEmailAndPassword(data.email, data.pass);
   else if (data.type === "fb")
-    await firebase.auth().signInWithPopup(fbprovider)
+    await firebase.auth().signInWithPopup(fbProvider)
   else if (data.type === "g")
-    await firebase.auth().signInWithPopup(gprovider);
+    await firebase.auth().signInWithPopup(gProvider);
   else throw Error("Missing type property");
 
-  if (data.onSucces) data.onSucces();
+  if (data.onSuccess) data.onSuccess();
   return true;
 };
 
-// CODIGOS DE ERROR EN EL INCIO DE SESION
+// CÓDIGOS DE ERROR EN EL INICIO DE SESIÓN
 export const useAuthError = (code: string, str: langPackage.errors) => {
   const codeText = code.substr(5);
   switch (codeText) {

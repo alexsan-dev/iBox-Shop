@@ -27,7 +27,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
   let [account, setAccount]: [accountState, Dispatch<SetStateAction<accountState>>] = useState(defaultState);
   let regText = account.switchC ? props.strings.buttons.login : props.strings.buttons.createAccount;
 
-  // INPUT DE RECUPERACION
+  // INPUT DE RECUPERACIÓN
   let inputVal: InputGetProps = { name: "remail", text: "" };
 
   // ROUTERS
@@ -43,7 +43,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
     else if (data.name === "pass") pass = data.text;
   };
 
-  // MOSTRAR ALERTA EN EL BOTON DE RECUPERAR CLAVE
+  // MOSTRAR ALERTA EN EL BOTÓN DE RECUPERAR CLAVE
   const forgotPass = () => {
     let input: HTMLDivElement;
     let currentAlert: HTMLDivElement;
@@ -55,7 +55,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
       input = document.getElementById("forgotInput") as HTMLDivElement;
       currentAlert = document.querySelector(".alertBody") as HTMLDivElement;
 
-      // MOSTARR INPUTS
+      // MOSTRAR INPUTS
       input.style.display = "block";
 
       // AGREGAR A LA ALERTA
@@ -72,7 +72,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
       // VERIFICAR EL TEXTO EN EL INPUT DE LA ALERTA
       onConfirm: () => {
         if (inputVal)
-          // SI EXISTE RESETEAR LA CLAVE
+          // SI EXISTE REINICIAR LA CLAVE
           useResetPass(inputVal.text)
             .catch((e: FirebaseError) =>
               showAlert({
@@ -98,14 +98,14 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
     });
   };
 
-  // INICIAR SESION CON CORREO O CREAR CUENTA
+  // INICIAR SESIÓN CON CORREO O CREAR CUENTA
   const logs = (e: MouseEvent<HTMLButtonElement>) => {
     const btn: HTMLButtonElement = e.target as HTMLButtonElement;
     btn.style.pointerEvents = "none";
 
     if (account.switchC && email.length * name.length * pass.length !== 0 && name.length <= 15)
-      // INICIAR SESION CON CUENTA NUEVA
-      useLogin({ type: account.switchC, name, email, pass, onSucces: () => router.push("/tienda") })
+      // INICIAR SESIÓN CON CUENTA NUEVA
+      useLogin({ type: account.switchC, name, email, pass, onSuccess: () => router.push("/tienda") })
         .catch((e: FirebaseError) =>
           showAlert({
             title: props.strings.alerts.title,
@@ -114,9 +114,9 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
             onHide: () => btn.style.pointerEvents = "unset"
           }))
 
-    // INICIAR SESION CON CUENTA EXISTENTE
+    // INICIAR SESIÓN CON CUENTA EXISTENTE
     else if (!account.switchC && email.length * pass.length !== 0)
-      useLogin({ type: account.switchC, email, pass, onSucces: () => router.push("/tienda") })
+      useLogin({ type: account.switchC, email, pass, onSuccess: () => router.push("/tienda") })
         .catch((e: FirebaseError) =>
           showAlert({
             title: props.strings.alerts.title,
@@ -135,14 +135,14 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
       });
   };
 
-  // INICIAR SESION CON FACEBOOK
-  const fblog = (e: MouseEvent<HTMLButtonElement>) => {
+  // INICIAR SESIÓN CON FACEBOOK
+  const fbLog = (e: MouseEvent<HTMLButtonElement>) => {
     const btn: HTMLButtonElement = e.target as HTMLButtonElement;
     btn.style.pointerEvents = "none";
 
     const enableBtn = () => btn.style.pointerEvents = "unset";
     useLogin({
-      type: "fb", onSucces: () => {
+      type: "fb", onSuccess: () => {
         router.push("/tienda")
         enableBtn();
       }
@@ -150,14 +150,14 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
       .catch((body: FirebaseError) => showAlert({ onHide: enableBtn, title: props.strings.alerts.title, body: body.code, type: "error" }))
   }
 
-  // INICIAR SESION CON GOOGLE
-  const glog = (e: MouseEvent<HTMLButtonElement>) => {
+  // INICIAR SESIÓN CON GOOGLE
+  const gLog = (e: MouseEvent<HTMLButtonElement>) => {
     const btn: HTMLButtonElement = e.target as HTMLButtonElement;
     btn.style.pointerEvents = "none";
 
     const enableBtn = () => btn.style.pointerEvents = "unset";
     useLogin({
-      type: "g", onSucces: () => {
+      type: "g", onSuccess: () => {
         router.push("/tienda")
         enableBtn();
       }
@@ -233,15 +233,15 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           <i className="material-icons">person</i>
           {account.switchC ? props.strings.buttons.createAccount : props.strings.buttons.login}
         </button>
-        <button onClick={fblog} className="waves fblog">
-          <img src={require("../assets/ficon.png")} /> {props.strings.buttons.fbLoginText}
+        <button onClick={fbLog} className="waves fbLog">
+          <img src={require("../assets/f-icon.png")} /> {props.strings.buttons.fbLoginText}
         </button>
-        <button onClick={glog} className="waves glog">
-          <img src={require("../assets/gicon.png")} /> {props.strings.buttons.gLoginText}
+        <button onClick={gLog} className="waves gLog">
+          <img src={require("../assets/g-icon.png")} /> {props.strings.buttons.gLoginText}
         </button>
       </div>
 
-      <a href="./privacidad.pdf" target="_blank" title="Privacy" className="btn amber privacy waves waves-dark">
+      <a href="./privacidad.pdf" target="_blank" title={props.strings.privacy_1} className="btn amber privacy waves waves-dark">
         <i className="material-icons">account_balance</i>
         {props.strings.privacy_1}
         <br />
@@ -258,17 +258,17 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
           color: var(--backgrounds);
         }
         #form > p {
-          color: var(--parraf);
+          color: var(--paragraph);
         }
         #form > p:nth-child(5) {
           text-align: center;
         }
         p > button {
           display: inline-block;
-          color: var(--parraf);
+          color: var(--paragraph);
         }
         h2 {
-          color: var(--parraf);
+          color: var(--paragraph);
         }
         #form {
           width: calc(100% - 40px);
@@ -297,20 +297,20 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
         button svg {
           margin: 30px;
         }
-        .fblog {
+        .fbLog {
           background: #3b5998;
           margin: 0;
         }
-        .fblog > img{
+        .fbLog > img{
           height:20px;
           margin-right:13px;
           filter:invert(100%);
         }
-        .glog {
+        .gLog {
           background: #d44638;
           margin: 0;
         }
-        .glog > img{
+        .gLog > img{
           margin-right:13px;
         }
 

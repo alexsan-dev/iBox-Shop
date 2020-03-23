@@ -3,10 +3,10 @@ import { useGetAllProducts } from "../utils/hooks";
 import React, { useContext, useEffect } from "react";
 import { NextApiResponse } from "next";
 
-// CONTENEDOR DE ANIMACION
+// CONTENEDOR DE ANIMACIÓN
 import { motion } from "framer-motion";
 
-// NAVEGACION Y CONTEXTO
+// NAVEGACIÓN Y CONTEXTO
 import Link from "next/link";
 import appContext from "../utils/appContext";
 
@@ -26,7 +26,7 @@ const ErrorPage = (props: any) => {
           <h1>{str.title}</h1>
           <p>{str.description_1 + " " + str.description_2}</p>
           <Link href="/" passHref scroll={false}>
-            <a className="waves waves-dark btn white" title="Home">
+            <a className="waves waves-dark btn white" title={str.button}>
               <i className="material-icons">reply</i> {str.button}
             </a>
           </Link>

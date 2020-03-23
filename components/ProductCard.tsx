@@ -1,17 +1,27 @@
 // TIPOS DE DATOS Y CONTEXTO
-import { FC, useContext } from "react";
+import { FC, useContext, RefObject, useRef } from "react";
 import appContext from "../utils/appContext";
 
-// CARGAR IMAGEN DINAMICAMENTE
+// CARGAR IMAGEN
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Card: FC<CardProps> = (props: CardProps) => {
   // OBTENER LENGUAJE Y EVENTO DE AGREGAR AL CARRITO
   const { lang, addToCartEvent } = useContext(appContext.appContext);
-  const addToCartCall = () => addToCartEvent(props.code, true);
+  const card: RefObject<HTMLDivElement> = useRef(null);
+
+  // AGREGAR AL CARRITO
+  const addToCartCall = () => {
+    // ANIMAR CARD
+    card.current?.classList.add("animCard");
+    setTimeout(() => card.current?.classList.remove("animCard"), 300);
+
+    // AGREGAR AL CARRITO
+    addToCartEvent(props.code, true);
+  }
 
   return (
-    <div className="card">
+    <div className="card" ref={card}>
       <div className="card-head">
         <LazyLoadImage
           scrollPosition={props.scrollPosition}
@@ -38,6 +48,15 @@ const Card: FC<CardProps> = (props: CardProps) => {
       </div>
 
       <style jsx>{`
+        @keyframes animCard{
+            0%{transform : rotate(${Math.random() * 5}deg);}
+            25%{ transform:rotate(-${Math.random() * 5}deg); }
+            50%{ transform:rotate(${Math.random() * 5}deg); }
+            100%{ transform:rotate(0deg); }
+        }
+        .animCard{
+           animation:animCard 0.3s ease-in-out 1;
+        }
         .card {
           position: relative;
           width: 100%;

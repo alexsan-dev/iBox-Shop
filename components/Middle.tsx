@@ -2,7 +2,7 @@
 import { FC, useContext } from "react";
 import appContext from "../utils/appContext";
 
-// NAVEGACION
+// NAVEGACIÓN
 import Link from "next/link";
 
 const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexPage["middle"]) => {
@@ -44,7 +44,7 @@ const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexP
         <p>{strings.text}</p>
 
         <Link href="/cuenta" passHref scroll={false}>
-          <a className="btn waves white waves-dark" title="Login">
+          <a className="btn waves white waves-dark" title={user ? strings.button_1 : strings.button_2}>
             <i className="material-icons">person</i>{" "}
             {user ? strings.button_1 : strings.button_2}
           </a>

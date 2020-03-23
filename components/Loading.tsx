@@ -5,6 +5,7 @@ import appContext from "../utils/appContext";
 const Loading: React.FC = () => {
   // CONTEXTO PARA EL LENGUAJE
   const str = useContext(appContext.appContext).lang.loading;
+
   return (
     <div>
       <h1>{str.title}</h1>

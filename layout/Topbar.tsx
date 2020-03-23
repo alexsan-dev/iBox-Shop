@@ -1,4 +1,4 @@
-// HOOKS Y NAVEGACION
+// HOOKS Y NAVEGACIÓN
 import { useEffect, forwardRef, useImperativeHandle } from 'react';
 import Link from 'next/link';
 
@@ -6,14 +6,14 @@ import Link from 'next/link';
 interface Props { placeHolder: string }
 let renderManager: Function = () => { };
 
-const Topbar: React.FC<Props> = (props: Props, ref: any) => {
-  // FUNCION IMPERATIVA PARA CALLBAKC EXTERNO
+const TopBar: React.FC<Props> = (props: Props, ref: any) => {
+  // FUNCIÓN IMPERATIVA PARA CALLBACK EXTERNO
   useImperativeHandle(ref, () => ({
     callRender(count: number) { renderManager(count); }
   }))
 
   useEffect(() => {
-    // SELECCIONAR TOPBAR, INPUT DE MOSTRAR Y OCULTAR BUSQUEDA, INPUT DE BUSQUEDA Y BOTON DE AGREGAR AL CARRITO
+    // SELECCIONAR TOPBAR, INPUT DE MOSTRAR Y OCULTAR BÚSQUEDA, INPUT DE BÚSQUEDA Y BOTÓN DE AGREGAR AL CARRITO
     const topbar: HTMLDivElement | null = document.querySelector(".topbar") as HTMLDivElement;
     const searchToggle: HTMLInputElement | null = document.getElementById("search-toggle") as HTMLInputElement;
     const search: HTMLInputElement | null = document.getElementById("search") as HTMLInputElement;
@@ -40,7 +40,7 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
     window.addEventListener("scroll", addShadow, { capture: true, passive: true });
     addShadow();
 
-    // LIMPIAR O SELECIONAR INPUT DE BUSQUEDA
+    // LIMPIAR O SELECCIONAR INPUT DE BÚSQUEDA
     searchToggle?.addEventListener("click", () => {
       const toggle: boolean | undefined = searchToggle?.checked;
       if (toggle) search.focus();
@@ -247,4 +247,4 @@ const Topbar: React.FC<Props> = (props: Props, ref: any) => {
   )
 }
 
-export default forwardRef(Topbar);
+export default forwardRef(TopBar);

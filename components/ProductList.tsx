@@ -3,7 +3,7 @@ import { useState, Dispatch, SetStateAction, useContext, useEffect } from "react
 import { useGetAllProducts } from "../utils/hooks";
 import { firestore } from "firebase";
 
-// CARGAR IMAGANES DINAMICAMENTE
+// CARGAR IMÁGENES
 import { trackWindowScroll, ScrollPosition } from "react-lazy-load-image-component";
 
 // COMPONENTES
@@ -13,7 +13,7 @@ import CardShadow from "./ProductCardPlaceholder";
 
 // VARIABLES GLOBALES
 interface Props {
-  recents?: boolean;
+  recent?: boolean;
   max?: number;
   scrollPosition: ScrollPosition;
 }
@@ -52,7 +52,7 @@ const ProductList: React.FC<Props> = (props: Props) => {
   }, [])
 
   // MOSTRAR SOLO LOS PRIMEROS 5
-  if (props.recents) products.length = 5;
+  if (props.recent) products.length = 5;
 
   // MOSTRAR SOLO UN LIMITE DE RESULTADOS
   else if (props.max) products.length = props.max;

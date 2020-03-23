@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import appContext from "../utils/appContext";
 
-// MOSTRAR SOLO EN MODO DE PRODUCCION
+// MOSTRAR SOLO EN MODO DE PRODUCCIÓN
 const display: string = process.env.NODE_ENV === "development" ? "none" : "block";
 
 const Splash: React.FC = () => {

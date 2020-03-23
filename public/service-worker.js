@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "url": "/_next/static/chunks/commons.00123f64a29a48d6de62.js",
-    "revision": "922b28a9948f33b9c548"
+    "url": "/_next/static/chunks/commons.d94483c747c28bfc606e.js",
+    "revision": "441c05110c4b26c038a9"
   },
   {
     "url": "/_next/static/runtime/main-801bb775b2b240d1c084.js",
@@ -16,28 +16,28 @@ self.__precacheManifest = [
     "revision": "be4b6cc6d10632d2262c"
   },
   {
-    "url": "/_next/static\\xt6-vyMcxHcK9FfDe0uJf\\pages\\_app.js",
-    "revision": "d4b78496375cda6382f2"
+    "url": "/_next/static\\nObWQjil3PY6_RPFd8zW_\\pages\\_app.js",
+    "revision": "dad905834588ca84a693"
   },
   {
-    "url": "/_next/static\\xt6-vyMcxHcK9FfDe0uJf\\pages\\_error.js",
-    "revision": "8eab9b2828312f7311ac"
+    "url": "/_next/static\\nObWQjil3PY6_RPFd8zW_\\pages\\_error.js",
+    "revision": "3acc9acbfaf7b4155f69"
   },
   {
-    "url": "/_next/static\\xt6-vyMcxHcK9FfDe0uJf\\pages\\carrito.js",
-    "revision": "c1d1a02e9d053bfe9897"
+    "url": "/_next/static\\nObWQjil3PY6_RPFd8zW_\\pages\\carrito.js",
+    "revision": "80b94667ddb44a0d353a"
   },
   {
-    "url": "/_next/static\\xt6-vyMcxHcK9FfDe0uJf\\pages\\cuenta.js",
-    "revision": "02cc78a68581a6a2778e"
+    "url": "/_next/static\\nObWQjil3PY6_RPFd8zW_\\pages\\cuenta.js",
+    "revision": "cd221d4e060802865633"
   },
   {
-    "url": "/_next/static\\xt6-vyMcxHcK9FfDe0uJf\\pages\\index.js",
-    "revision": "f8fbaf31af7a29d2b051"
+    "url": "/_next/static\\nObWQjil3PY6_RPFd8zW_\\pages\\index.js",
+    "revision": "65b891c577c7936da8a2"
   },
   {
-    "url": "/_next/static\\xt6-vyMcxHcK9FfDe0uJf\\pages\\tienda.js",
-    "revision": "bba2bb4244741dedfbb3"
+    "url": "/_next/static\\nObWQjil3PY6_RPFd8zW_\\pages\\tienda.js",
+    "revision": "d56901c08899d5cc93f5"
   }
 ];
 
@@ -74,5 +74,5 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/^https?.*/, new workbox.strategies.CacheFirst({ "cacheName":"offlineCache", plugins: [new workbox.expiration.Plugin({ maxEntries: 200, purgeOnQuotaError: false })] }), 'GET');
+workbox.routing.registerRoute(/^https?.*/, new workbox.strategies.StaleWhileRevalidate({ "cacheName":"offlineCache", plugins: [new workbox.expiration.Plugin({ maxEntries: 200, purgeOnQuotaError: false })] }), 'GET');
 workbox.routing.registerRoute(/\.(?:png|jpg|gif|svg|eot|ttf|woff|woff2)$/, new workbox.strategies.CacheFirst({ "cacheName":"assets", plugins: [] }), 'GET');

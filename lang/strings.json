@@ -2,7 +2,7 @@
   "es": {
     "general": {
       "app": {
-        "name": "iBox Shop",
+        "name": "iBox Shop®",
         "description": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
         "nameCom": "iBox Shop® App (v0.35)",
         "nameShort": "iBox",
@@ -26,6 +26,7 @@
       "routes": {
         "home": "Inicio",
         "shop": "Tienda",
+        "cart": "Carrito",
         "account": "Cuenta"
       },
       "logout": {
@@ -70,8 +71,8 @@
         "electroCatText": "Componentes, integrados y más.",
         "devicesCatTitle": "Dispositivos",
         "devicesCatText": "Audio, video, red y smartphones.",
-        "accesCatTitle": "Accesorios",
-        "accesCatText": "Audífonos, cables, protectores."
+        "accessCatTitle": "Accesorios",
+        "accessCatText": "Audífonos, cables, protectores."
       },
       "middle": {
         "blob_1": "Conoce más",
@@ -81,7 +82,7 @@
         "title": "Únete a la mejor tienda y descubre más",
         "text": "Únete a iBox de forma gratuita y recibe un regalo mas otros beneficios al crear tu cuenta 🌎. También puedes crear tu cuenta con Facebook, Google o con tu correo electrónico."
       },
-      "recents": {
+      "recent": {
         "title": "Recientes",
         "text": "¡Conoce nuestros productos más recientes! Si eres de los primeros clientes en comprar nuestros productos más recientes 💰, obtendrás ofertas exclusivas, no esperes más y comienza a comprar.",
         "button": "Ver más"
@@ -158,6 +159,16 @@
         "button": "Siguiente",
         "prevButton": "Anterior",
         "total": "Precio total: ",
+        "banner": {
+          "title": "Gracias ",
+          "text": "Agradecemos mucho tu compra ❤️, tu eres lo mas importante para nosotros y esperamos que nuestro servicio sea de tu agrado 🙏, en 15 días recibirás tus productos, pagas al recibir 😉.",
+          "st": "Atentamente: ",
+          "pd": "Equipo de iBox Shop®."
+        },
+        "alerts": {
+          "title": "¡Ocurrió un error!",
+          "text": "No se pudo procesar tu compra por un error de conexión, intenta de nuevamente."
+        },
         "notFound": {
           "title": "Carrito vació",
           "text": "Lo siento por el momento no hay artículos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automáticas. 📱"
@@ -165,7 +176,7 @@
         "buy": {
           "alert": {
             "title": "Espera un poco",
-            "text": "Te agradadecemos por tu compra ❤️, estamos procesando tus datos ✍️ ..."
+            "text": "Te agradecemos por tu compra ❤️, estamos procesando tus datos ✍️ ..."
           }
         },
         "sendForm": {

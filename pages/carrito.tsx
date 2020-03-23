@@ -1,4 +1,4 @@
-// ANIMACION, HOOKS Y TIPOS DE DATOS
+// ANIMACIÓN, HOOKS Y TIPOS DE DATOS
 import { motion, Variants } from "framer-motion";
 import { NextPage } from "next";
 
@@ -10,12 +10,12 @@ import appContext from "../utils/appContext";
 import Header from "../components/Header";
 import CartSummary from "../components/CartSummary";
 
-// CONFIGURACION DE ANIMACION
+// CONFIGURACIÓN DE ANIMACIÓN
 let ease: number[] = [0.175, 0.85, 0.42, 0.96];
 let duration: number = 0.5;
 let transition: object = { duration, ease };
 
-// OBJECTOS DE ANIMACION
+// OBJECTOS DE ANIMACIÓN
 const pageAnim: Variants = {
   exit: { opacity: 0, y: -150, transition },
   enter: { opacity: 1, y: 0, transition }

@@ -1,4 +1,4 @@
-// NAVEGACION
+// NAVEGACIÓN
 import Link from "next/link";
 import { useRouter, NextRouter } from "next/router";
 import { useContext } from "react";
@@ -33,7 +33,7 @@ const Header: React.FC<Props> = (props: Props) => {
         <p>{props.text}</p>
         {props.link && !props.back &&
           <Link href={props.href} passHref scroll={false}>
-            <a id="shopBtn" className="waves btn" title="Shop">
+            <a id="shopBtn" className="waves btn" title={props.link}>
               <i className="material-icons">{props.icon}</i>
               {props.link}
             </a>
@@ -84,7 +84,7 @@ const Header: React.FC<Props> = (props: Props) => {
         }
         #mainHeader > span {
           font-size: 10px;
-          color: var(--parraf);
+          color: var(--paragraph);
           font-weight: bold;
           background: var(--backgrounds);
           padding: 10px 10px 10px 20px;
@@ -127,7 +127,7 @@ const Header: React.FC<Props> = (props: Props) => {
           padding: 12px 15px;
           z-index: 3;
         }
-        #wavesone {
+        #wavesOne {
           position: relative;
           z-index: 2;
           margin-top: -2px;

@@ -1,4 +1,4 @@
-// ANIMACION Y HOOKS
+// ANIMACIÓN Y HOOKS
 import { AnimatePresence } from "framer-motion";
 
 // COMPONENTES
@@ -11,10 +11,10 @@ import { showAlert } from "../utils/hooks";
 export default class iBoxApp extends App {
 
   public componentDidMount() {
-    // SELECCIONAR COMPONENTE DE SPLASH Y CONTEXTO
+    // SELECCIÓNAR COMPONENTE DE SPLASH Y CONTEXTO
     const splash: HTMLDivElement | null = document.getElementById("splash") as HTMLDivElement;
 
-    // OCULTAR SPLASGG LUEGO DE 1500MS
+    // OCULTAR SPLASH LUEGO DE 1500MS
     window.onload = () => {
       setTimeout(() => {
         if (splash) {
@@ -98,8 +98,8 @@ export default class iBoxApp extends App {
             --five: #bc868d;
             --backgrounds: #fff;
             --text: #444;
-            --parraf: #666;
-            --unactive: #999;
+            --paragraph: #666;
+            --disable: #999;
             margin: 0;
             background: var(--backgrounds);
             padding: 50px 0 0 0;
@@ -211,7 +211,7 @@ export default class iBoxApp extends App {
           .seeMore {
             padding: 10px;
             text-decoration: none;
-            color: var(--parraf);
+            color: var(--paragraph);
             display: flex;
             align-items: center;
             font-weight: 500;

@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // IMPORTAR FUNCTIONS Y FIREBASE ADMIN
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+// CORS
+require('cors')({ origin: true });
 // EMAILS
 const nodemailer = require("nodemailer");
 // INICIALIZAR FIREBASE Y FIRESTORE
@@ -169,6 +171,7 @@ exports.buyFromCart = functions.https.onCall(async (reqForm) => {
     const mailOptions = { from: 'iboxcart@gmail.com', to: "ventas@ibox.gt", subject: 'Nueva compra desde la App', html: summaryText };
     // ENVIAR MENSAJE A CORREO
     const sendMail = await transporter.sendMail(mailOptions);
+    console.log(reqForm, sendMail);
     return sendMail;
 });
 //# sourceMappingURL=index.js.map

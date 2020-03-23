@@ -2,7 +2,7 @@
 import { useState, FC, Dispatch, SetStateAction } from "react";
 import { useInterval } from "../utils/hooks";
 
-// VARIABLES INICIALES DE ANIMACION
+// VARIABLES INICIALES DE ANIMACIÓN
 interface Bars { r1: number; r2: number; r3: number; }
 const defaultBars: Bars = { r1: 0, r2: 0, r3: 0 };
 
@@ -13,7 +13,7 @@ const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placehold
   // ESTADO INICIAL DEL COMPONENTE
   let [bars, setBars]: [Bars, Dispatch<SetStateAction<Bars>>] = useState(defaultBars);
 
-  // OBTENER NUMEROS ALEATORIOS CADA *TIME* 
+  // OBTENER NÚMEROS ALEATORIOS CADA *TIME* 
   useInterval(() =>
     setBars({
       r1: Math.random() * 100,
@@ -74,10 +74,10 @@ const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placehold
         }
         .card .card-head span {
           font-size: 5em;
-          color: var(--unactive);
+          color: var(--disable);
         }
         .card .card-head p {
-          color: var(--unactive);
+          color: var(--disable);
           font-weight: 500;
           font-size: 1.2em;
           text-transform: uppercase;
@@ -105,7 +105,7 @@ const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placehold
           width: 100%;
           height: 20px;
           border-radius: 50px;
-          background: var(--unactive);
+          background: var(--disable);
           transition: width ${time / 1000}s ease-in-out;
         }
         .card .card-body > div > div {

@@ -1,4 +1,4 @@
-// NAVEGACION
+// NAVEGACIÓN
 import Link from "next/link";
 
 const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.indexPage["slider"]) => {
@@ -15,7 +15,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 				<ul>
 					<li className="green">
 						<Link href="/electronica" passHref scroll={false}>
-							<a className="catContent waves" title="Electrónica">
+							<a className="catContent waves" title={strings.electroCatTitle}>
 								<div className="cardBackground"></div>
 								<div className="catTitle">
 									<h3>{strings.electroCatTitle}</h3>
@@ -28,7 +28,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 
 					<li className="red">
 						<Link href="/dispositivos" passHref scroll={false}>
-							<a className="catContent waves" title="Dispositivos">
+							<a className="catContent waves" title={strings.devicesCatTitle}>
 								<div className="cardBackground"></div>
 								<div className="catTitle">
 									<h3>{strings.devicesCatTitle}</h3>
@@ -41,11 +41,11 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 
 					<li className="five">
 						<Link href="/accesorios" passHref scroll={false}>
-							<a className="catContent waves" title="Accesorios">
+							<a className="catContent waves" title={strings.accessCatTitle}>
 								<div className="cardBackground"></div>
 								<div className="catTitle">
-									<h3>{strings.accesCatTitle}</h3>
-									<p>{strings.accesCatText}</p>
+									<h3>{strings.accessCatTitle}</h3>
+									<p>{strings.accessCatText}</p>
 								</div>
 								<i className="material-icons">headset</i>
 							</a>
@@ -55,7 +55,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 			</div>
 
 			<Link href="/tienda" passHref scroll={false}>
-				<a className="waves waves-dark seeMore right" title="Ver todo">
+				<a className="waves waves-dark seeMore right" title={strings.button}>
 					{strings.button} <i className="material-icons">arrow_forward</i>
 				</a>
 			</Link>
@@ -138,7 +138,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 					color:var(--backgrounds);
 				}
 				.slider ul li:nth-child(1) .catContent{
-						padding:14.5px 20px;
+						padding:18px 20px;
 				}
 				.slider ul li:nth-child(1) .catContent  i{
 					font-size:4.5em;	

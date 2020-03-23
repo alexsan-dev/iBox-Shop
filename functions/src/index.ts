@@ -11,10 +11,13 @@ interface OrderCart { sum: number; productsFilter: Array<product | admin.firesto
 interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
 interface ReqForm { sendData: IForms; cartList: string[]; }
 
+// CORS
+require('cors')({ origin: true });
+
 // EMAILS
 const nodemailer = require("nodemailer");
 
-// INICIALIZAR FIREBASE Y FIRESTORE
+// INICIAR FIREBASE Y FIRESTORE
 admin.initializeApp(functions.config().firebase);
 const db: FirebaseFirestore.Firestore = admin.firestore();
 
@@ -29,7 +32,7 @@ const transporter = nodemailer.createTransport({
   auth: { user: "iboxcart@gmail.com", pass: "X2b=A3Z9" }
 })
 
-// FUNCION PARA ENVIAR NOTIFICACION COMO MULTICAST
+// FUNCIÓN PARA ENVIAR NOTIFICACIÓN COMO MULTICAST
 const sendNotification = async (data: { title: string, message: string, url: string }) => {
   // TOKENS
   let tokens: string[] = [];
@@ -53,18 +56,18 @@ const sendNotification = async (data: { title: string, message: string, url: str
   return admin.messaging().sendMulticast(messageS);
 }
 
-// ENVIAR NOTIFICACION NORMAL
+// ENVIAR NOTIFICACIÓN NORMAL
 exports.sendPush = functions.https.onRequest(async (req: functions.Request, res: functions.Response) => {
   // OBTENER TITULO Y MENSAJE DE PARAMS
   const title = req.query.title;
   const message = req.query.message;
 
-  // ENVIAR NOTIFICACION COMO MULTCAST
+  // ENVIAR NOTIFICACIÓN COMO MULTICAST
   sendNotification({
     title,
     message,
     url: "noProduct"
-  }).then(() => res.send("Push notificacion send succesfully"))
+  }).then(() => res.send("Push notification send successfully"))
 })
 
 // CUANDO HAY UN CAMBIO EN /DATA
@@ -72,7 +75,7 @@ exports.showPush = functions.firestore.document("products/{product}").onCreate(a
   // OBTENER NOTICIAS, Y TOKENS DE USUARIOS
   const productFeed = (await admin.firestore().collection("products").get()).docs;
 
-  // ENVIAR NOTIFICACION COMO MULTICAST
+  // ENVIAR NOTIFICACIÓN COMO MULTICAST
   sendNotification({
     title: productFeed[productFeed.length - 1].data().name,
     message: productFeed[productFeed.length - 1].data().description,
@@ -189,7 +192,7 @@ const emailTemplate = (resCart: OrderCart, reqForm: ReqForm) =>
     </div>
   `;
 
-// ENVIAR ARTICULOS PARA COMPRAR
+// ENVIAR ARTÍCULOS PARA COMPRAR
 exports.buyFromCart = functions.https.onCall(async (reqForm: ReqForm) => {
   // LEER BASE DE DATOS
   const productFeed: Array<admin.firestore.QueryDocumentSnapshot> = (await admin.firestore().collection("products").get()).docs;
@@ -207,6 +210,7 @@ exports.buyFromCart = functions.https.onCall(async (reqForm: ReqForm) => {
   // ENVIAR MENSAJE A CORREO
   const sendMail = await transporter.sendMail(mailOptions);
 
+  console.log(reqForm, sendMail);
   return sendMail;
 })
 

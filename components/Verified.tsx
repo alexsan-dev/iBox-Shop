@@ -16,7 +16,7 @@ const Verified: React.FC<Props> = (props: Props) => {
   const defaultState: Visibility = { visible: props.show };
   const [visible, setVisible]: [Visibility, Dispatch<SetStateAction<Visibility>>] = useState(defaultState);
 
-  // ENVIAR EMAIL DE RECUPERACION
+  // ENVIAR EMAIL DE RECUPERACIÓN
   const sendEmail = (e: MouseEvent<HTMLButtonElement>) => {
     const btn: HTMLButtonElement = e.target as HTMLButtonElement;
     btn.style.pointerEvents = "none";
@@ -38,9 +38,9 @@ const Verified: React.FC<Props> = (props: Props) => {
       .catch((error: any) => console.log("Error deleting user:", error));
   }
 
-  // BORRAR USUARIO DESPUES DE PASADO UN DIA 
+  // BORRAR USUARIO DESPUÉS DE PASADO UN DIA 
   if (!visible.visible) {
-    // OBTENER LA DIFERENCIA DE TIEMPOS ( ACTUAL - CREACION )
+    // OBTENER LA DIFERENCIA DE TIEMPOS ( ACTUAL - CREACIÓN )
     const timeDelta: number = new Date().getMilliseconds() - useUserTime().getMilliseconds();
 
     // BORRAR USUARIO SI ES MAYOR DE 24H Y NO ESTA VERIFICADO
@@ -80,7 +80,7 @@ const Verified: React.FC<Props> = (props: Props) => {
               width: 170px;
             }
             button {
-              color: var(--parraf);
+              color: var(--paragraph);
             }
             h1 {
               color: var(--backgrounds);

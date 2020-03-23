@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useLogout, showAlert } from "../utils/hooks";
 import { User } from "firebase";
 
-// NAVEGACION Y ALERTAS
+// NAVEGACIÓN Y ALERTAS
 import Router from "next/router";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ let deferredPrompt: Event | null;
 let hideDrawer: Function;
 
 const Drawer: React.FC<Props> = (props: Props) => {
-	// OCULTAR DRAWER AL CERRAR SESION
+	// OCULTAR DRAWER AL CERRAR SESIÓN
 	const logout = () => {
 		hideDrawer();
 		showAlert({
@@ -30,7 +30,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 	}
 
 	useEffect(() => {
-		// SELECCIONAR TODOS LOS BOTONES DE PAGINA, EL INPUT DE MOSTRAR Y OCULTAR, BOTON DE COMPARTIR Y BOTON DE INSTALAR
+		// SELECCIONAR TODOS LOS BOTÓNES DE PAGINA, EL INPUT DE MOSTRAR Y OCULTAR, BOTÓN DE COMPARTIR Y BOTÓN DE INSTALAR
 		const routes: NodeListOf<HTMLAnchorElement> | null = document.querySelectorAll(".routes") as NodeListOf<HTMLAnchorElement>;
 		const drawerToggle: HTMLInputElement | null = document.getElementById("drawer-toggle") as HTMLInputElement;
 		const shareBtn: HTMLButtonElement | null = document.querySelector(".shareBtn") as HTMLButtonElement;
@@ -69,7 +69,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 		Router.events.on("routeChangeComplete", setActive);
 		setActive(Router.pathname);
 
-		// BOTON DE COMPARTIR CON SHARE API
+		// BOTÓN DE COMPARTIR CON SHARE API
 		if (navigator.share && shareCount === 0) {
 			if (shareBtn) {
 				shareBtn.addEventListener("click", () => {
@@ -86,7 +86,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 			}
 		} else if (shareBtn) shareBtn.style.display = "none";
 
-		// BOTON DE INSTALAR ( SERVICE WORKER )
+		// BOTÓN DE INSTALAR ( SERVICE WORKER )
 		if (addBtn) {
 			addBtn.style.display = "none";
 			window.addEventListener("beforeinstallprompt", e => {
@@ -133,15 +133,22 @@ const Drawer: React.FC<Props> = (props: Props) => {
 				<ul>
 					<li>
 						<Link href="/" passHref scroll={false}>
-							<a className="white routes waves waves-dark btn" title="Home">
+							<a className="white routes waves waves-dark btn" title={props.strings.routes.home}>
 								<i className="material-icons">home</i> {props.strings.routes.home}
 							</a>
 						</Link>
 					</li>
 					<li>
 						<Link href="/tienda" passHref scroll={false}>
-							<a className="btn white routes waves waves-dark" title="Shop">
+							<a className="btn white routes waves waves-dark" title={props.strings.routes.shop}>
 								<i className="material-icons">store</i> {props.strings.routes.shop}
+							</a>
+						</Link>
+					</li>
+					<li>
+						<Link href="/carrito" passHref scroll={false}>
+							<a className="btn white routes waves waves-dark" title={props.strings.routes.cart}>
+								<i className="material-icons">shopping_cart</i> {props.strings.routes.cart}
 							</a>
 						</Link>
 					</li>
@@ -151,7 +158,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 				<ul>
 					<li>
 						<Link href="/cuenta" passHref scroll={false}>
-							<a className="white routes waves waves-dark btn" title="Account">
+							<a className="white routes waves waves-dark btn" title={props.strings.routes.account}>
 								<i className="material-icons">person</i> {props.strings.routes.account}
 							</a>
 						</Link>
@@ -231,7 +238,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 
           #drawer > #drawerHead > p {
             font-size: 0.85em;
-            color: var(--parraf);
+            color: var(--paragraph);
           }
 
           #drawer > ul {
@@ -244,7 +251,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
 
           #drawer > ul li button,
           #drawer > ul li a {
-            color: var(--parraf);
+            color: var(--paragraph);
             font-size: 14px;
             width: 100%;
           }
@@ -273,7 +280,7 @@ const Drawer: React.FC<Props> = (props: Props) => {
           }
 
           #drawer > .dividerTitle {
-            color: var(--unactive);
+            color: var(--disable);
             margin: 25px 20px 12px 20px;
             font-size: 0.87em;
             display: block;
