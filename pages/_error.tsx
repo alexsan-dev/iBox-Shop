@@ -10,14 +10,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import appContext from "../utils/appContext";
 
-const ErrorPage = (props: any) => {
+const ErrorPage = () => {
   // TEXTOS DE PAGINA DE ERROR
   const str = useContext(appContext.appContext).lang.errorPage;
 
   // DESCARGAR PRODUCTOS
-  useEffect(() => { useGetAllProducts() });
-
-  console.log(props);
+  useEffect(() => { useGetAllProducts() }, []);
 
   return (
     <motion.div initial="exit" animate="enter" exit="exit">

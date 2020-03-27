@@ -7,7 +7,7 @@ const admin = require("firebase-admin");
 require('cors')({ origin: true });
 // EMAILS
 const nodemailer = require("nodemailer");
-// INICIALIZAR FIREBASE Y FIRESTORE
+// INICIAR FIREBASE Y FIRESTORE
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 // CONFIGURAR SERVIDOR NEXT
@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: { user: "iboxcart@gmail.com", pass: "X2b=A3Z9" }
 });
-// FUNCION PARA ENVIAR NOTIFICACION COMO MULTICAST
+// FUNCIÓN PARA ENVIAR NOTIFICACIÓN COMO MULTICAST
 const sendNotification = async (data) => {
     // TOKENS
     let tokens = [];
@@ -39,23 +39,23 @@ const sendNotification = async (data) => {
     // ENVIAR A LOS DISPOSITIVOS
     return admin.messaging().sendMulticast(messageS);
 };
-// ENVIAR NOTIFICACION NORMAL
+// ENVIAR NOTIFICACIÓN NORMAL
 exports.sendPush = functions.https.onRequest(async (req, res) => {
     // OBTENER TITULO Y MENSAJE DE PARAMS
     const title = req.query.title;
     const message = req.query.message;
-    // ENVIAR NOTIFICACION COMO MULTCAST
+    // ENVIAR NOTIFICACIÓN COMO MULTICAST
     sendNotification({
         title,
         message,
         url: "noProduct"
-    }).then(() => res.send("Push notificacion send succesfully"));
+    }).then(() => res.send("Push notification send successfully"));
 });
 // CUANDO HAY UN CAMBIO EN /DATA
 exports.showPush = functions.firestore.document("products/{product}").onCreate(async () => {
     // OBTENER NOTICIAS, Y TOKENS DE USUARIOS
     const productFeed = (await admin.firestore().collection("products").get()).docs;
-    // ENVIAR NOTIFICACION COMO MULTICAST
+    // ENVIAR NOTIFICACIÓN COMO MULTICAST
     sendNotification({
         title: productFeed[productFeed.length - 1].data().name,
         message: productFeed[productFeed.length - 1].data().description,
@@ -158,7 +158,7 @@ const emailTemplate = (resCart, reqForm) => `
       <h1>El total del pedido es de: Q${resCart.sum} </h1>
     </div>
   `;
-// ENVIAR ARTICULOS PARA COMPRAR
+// ENVIAR ARTÍCULOS PARA COMPRAR
 exports.buyFromCart = functions.https.onCall(async (reqForm) => {
     // LEER BASE DE DATOS
     const productFeed = (await admin.firestore().collection("products").get()).docs;
@@ -171,7 +171,6 @@ exports.buyFromCart = functions.https.onCall(async (reqForm) => {
     const mailOptions = { from: 'iboxcart@gmail.com', to: "ventas@ibox.gt", subject: 'Nueva compra desde la App', html: summaryText };
     // ENVIAR MENSAJE A CORREO
     const sendMail = await transporter.sendMail(mailOptions);
-    console.log(reqForm, sendMail);
     return sendMail;
 });
 //# sourceMappingURL=index.js.map

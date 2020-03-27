@@ -210,7 +210,6 @@ exports.buyFromCart = functions.https.onCall(async (reqForm: ReqForm) => {
   // ENVIAR MENSAJE A CORREO
   const sendMail = await transporter.sendMail(mailOptions);
 
-  console.log(reqForm, sendMail);
   return sendMail;
 })
 

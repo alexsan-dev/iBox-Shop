@@ -1,11 +1,12 @@
 // TIPOS DE DATOS Y HOOKS
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useLogout, showAlert } from "../utils/hooks";
 import { User } from "firebase";
 
 // NAVEGACIÓN Y ALERTAS
 import Router from "next/router";
 import Link from "next/link";
+import appContext from "../utils/appContext";
 
 //PROPIEDADES 
 interface Props { user: User | null; strings: langPackage.general; }
@@ -18,6 +19,8 @@ let deferredPrompt: Event | null;
 let hideDrawer: Function;
 
 const Drawer: React.FC<Props> = (props: Props) => {
+	const { addToCartEvent } = useContext(appContext.appContext);
+
 	// OCULTAR DRAWER AL CERRAR SESIÓN
 	const logout = () => {
 		hideDrawer();
@@ -25,7 +28,10 @@ const Drawer: React.FC<Props> = (props: Props) => {
 			type: "confirm",
 			body: props.strings.logout.text,
 			title: props.strings.logout.title,
-			onConfirm: () => useLogout()
+			onConfirm: () => {
+				addToCartEvent("", true, true);
+				useLogout()
+			}
 		})
 	}
 

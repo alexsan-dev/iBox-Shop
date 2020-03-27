@@ -374,52 +374,82 @@ export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
   }
   return products;
 }
-
+// =============== CARRITO ===============
 interface OrderCart { sum: number; productsFilter: Array<product | firestore.DocumentData>; multArry: number[] }
-export const getCartProducts: Function = async (cartList: string[], updateProducts: Function) => {
-  // FILTRAR PRODUCTOS
-  const cartListFilter = (productList: Array<product | firestore.DocumentData>) => {
-    // DECLARAR ARRAY DE CARDS
-    let productsFilter: Array<product | firestore.DocumentData> = [];
-    let sum: number = 0;
-    let multArry: number[] = [];
+export const useCartSearch: Function = (cartList: string[], productList: Array<product | firestore.DocumentData>) => {
+  // DECLARAR ARRAY DE CARDS
+  let productsFilter: Array<product | firestore.DocumentData> = [];
+  let sum: number = 0;
+  let multArry: number[] = [];
 
-    // BUSCAR POR CLAVE
-    productList.reverse().forEach((product: product | firestore.DocumentData) => {
-      // DECLARAR MULTIPLICIDAD
-      let firstAdded: boolean = false;
-      let mult: number = 0;
+  // BUSCAR POR CLAVE
+  productList.reverse().forEach((product: product | firestore.DocumentData) => {
+    // DECLARAR MULTIPLICIDAD
+    let firstAdded: boolean = false;
+    let mult: number = 0;
 
-      // AGREGAR MULTIPLICIDAD
-      cartList?.forEach((keyID: string) => product.key.trim() === keyID ? mult++ : null);
+    // AGREGAR MULTIPLICIDAD
+    cartList?.forEach((keyID: string) => product.key.trim() === keyID ? mult++ : null);
 
-      // CREAR LISTA DE CARDS
-      cartList?.forEach((keyID: string) => {
-        if (product.key.trim() === keyID && !firstAdded) {
-          productsFilter.push(product)
+    // CREAR LISTA DE CARDS
+    cartList?.forEach((keyID: string) => {
+      if (product.key.trim() === keyID && !firstAdded) {
+        productsFilter.push(product)
 
-          // SALIR Y AGREGAR A LA SUMA TOTAL
-          firstAdded = true;
-          sum += product.price * mult;
-        }
-      })
-
-      // CREAR LISTA DE MULTIPLICIDAD
-      if (mult !== 0) multArry.push(mult);
+        // SALIR Y AGREGAR A LA SUMA TOTAL
+        firstAdded = true;
+        sum += product.price * mult;
+      }
     })
 
-    // RETORNAR LISTA FILTRADA
-    const newOrder: OrderCart = { sum, productsFilter, multArry }
-    return newOrder;
-  }
-
-  const productList = await useGetAllProducts((productList: Array<product | firestore.DocumentData>) => updateProducts(cartListFilter(productList)));
-  const result: OrderCart = cartListFilter(productList)
-
-  return result;
+    // CREAR LISTA DE MULTIPLICIDAD
+    if (mult !== 0) multArry.push(mult);
+  })
+  let resData: OrderCart = { sum, productsFilter, multArry };
+  return resData;
 }
 
-interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
+export const verifyForm = (vals: IForms | null) => {
+  // OBTENER VALORES DEL FORMULARIO
+  let out: boolean = false;
+  let errCode: number = 1;
+
+  if (vals) {
+    // VERIFICAR LONGITUD
+    if ((vals.address.length * vals.email.length * vals.displayName.length * vals.phone) !== 0) out = true;
+
+    // VERIFICAR SI INCLUYE UN @
+    if (out) {
+      if (vals.email.includes("@")) {
+        // VERIFICAR SI TIENE UN . DESPUÉS DE @
+        const nString: string = vals.email.substr(vals.email.indexOf("@"));
+        if (!nString.includes(".")) {
+          out = false;
+          errCode = 2;
+        }
+      }
+
+      // SINO RETORNAR FALSE
+      else {
+        errCode = 2;
+        out = false;
+      }
+    }
+
+    // VERIFICAR EL NUMERO DE TELÉFONO
+    if (out) {
+      if (vals.phone.toString().length !== 8) {
+        errCode = 3;
+        out = false;
+      }
+    }
+  }
+
+  // RETORNAR VERIFICACIÓN
+  return { errCode, out };
+}
+
+interface IForms { displayName: string; email: string; address: string; phone: number; nit: string; }
 interface ReqForm { sendData: IForms; cartList: string[]; }
 export const buyFromCart = (req: ReqForm) => funcs.httpsCallable("buyFromCart")(req);
 

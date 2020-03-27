@@ -2,6 +2,9 @@
 import { FC, useContext, useRef, RefObject } from "react";
 import appContext from "../utils/appContext";
 
+// CARGAR IMAGEN
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 // PROPIEDADES
 interface Props extends CardProps { cant: number; onUpdate?: Function }
 
@@ -39,7 +42,13 @@ const CartProductCard: FC<Props> = (props: Props) => {
   return (
     <div id="cartCard">
       <div id="cartCardHead" ref={img}>
-        <img src={props.img} alt={props.title} />
+        <LazyLoadImage
+          scrollPosition={props.scrollPosition}
+          effect="black-and-white"
+          src={props.img}
+          alt={props.title}
+          width="100%"
+        />
       </div>
       <div id="cartCardBody">
         <h3>{props.title}</h3>

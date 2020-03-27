@@ -1,73 +1,42 @@
 // HOOKS
-import { useContext, Dispatch, SetStateAction, useState, useEffect } from "react";
-import { getCartProducts } from "../utils/hooks";
+import { useContext } from "react";
+import { useCartSearch } from "../utils/hooks";
 
 // TIPOS DE DATOS
 import { firestore } from "firebase";
 
 // COMPONENTES
 import CartProductCard from "./CartProductCard";
-import appContext from "../utils/appContext";
 import CardShadow from "./ProductCardPlaceholder";
+import appContext from "../utils/appContext";
 
 // PROPIEDADES Y GLOBALES
-interface OrderCart { sum: number; productsFilter: Array<product | firestore.DocumentData>; multArry: number[] }
-interface Props { cartList: string[]; updateTotal: Function; }
-
-// VARIABLES GLOBALES
-let firstRender: number = 0;
+interface OptProps { filterList?: OrderCart }
 
 // COMPONENTE
-const CartList: React.FC<Props> = (props: Props) => {
+const CartList: React.FC<OptProps> = (optProps: OptProps) => {
   // OBTENER LISTA DEL CONTEXTO
-  const { lang } = useContext(appContext.appContext);
-
-  // PLACEHOLDERS DEL CONTEXTO Y COMPONENTE DE CARGA
-  const shadow: JSX.Element = <CardShadow key={0} {...lang.placeholders} />
-  const [state, setState]: [JSX.Element[], Dispatch<SetStateAction<JSX.Element[]>>] = useState([shadow])
+  const { productList, cartList } = useContext(appContext.appContext);
+  let filterList: OrderCart;
+  let cardList: JSX.Element[] = [<CardShadow key={0} />];
 
   // CREAR LISTA DE CARDS
-  const setList = (data: OrderCart) => {
-    if (data.productsFilter.length > 0) setState(
-      data.productsFilter.map((product: product | firestore.DocumentData, i: number) =>
-        <CartProductCard
-          key={i}
-          title={product.name}
-          text={product.description}
-          code={product.key?.trim()}
-          img={product.img}
-          price={product.price * data.multArry[i]}
-          cant={data.multArry[i]}
-          onUpdate={readProducts}
-        />
-      )
+  filterList = optProps.filterList || useCartSearch(cartList, productList);
+
+  if (filterList.productsFilter.length > 0) cardList =
+    filterList.productsFilter.map((product: product | firestore.DocumentData, i: number) =>
+      <CartProductCard
+        key={i}
+        title={product.name}
+        text={product.description}
+        code={product.key?.trim()}
+        img={product.img}
+        price={product.price * filterList.multArry[i]}
+        cant={filterList.multArry[i]}
+      />
     )
-  }
 
-  // LEER PRODUCTOS
-  const readProducts = () => {
-    getCartProducts(props.cartList, (data: OrderCart) => {
-      setList(data)
-      props.updateTotal(data.sum);
-    })
-      .then((data: OrderCart) => {
-        setList(data)
-        props.updateTotal(data.sum);
-      });
-  }
-
-  // OBTENER PRODUCTOS
-  useEffect(() => {
-    readProducts();
-  }, [])
-
-  // RENDERER NUEVAMENTE LA PRIMERA VEZ
-  if (props.cartList.length > 0 && firstRender === 0) {
-    readProducts();
-    firstRender++;
-  }
-
-  return <>{state}</>
+  return <>{cardList}</>
 }
 
 export default CartList;

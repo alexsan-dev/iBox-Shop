@@ -1,104 +1,63 @@
 // HOOKS
-import { useContext, useState, Dispatch, SetStateAction, RefObject, useRef, useEffect, MouseEvent } from "react";
-import { renderToString } from "react-dom/server";
-import { defUserData, useUserGet, showAlert, buyFromCart, useUserSet } from "../utils/hooks";
-
-// ROUTER
+import { useContext, MutableRefObject, RefObject, useRef, Dispatch, SetStateAction, useState, MouseEvent, useEffect } from "react";
+import { useCartSearch, showAlert, verifyForm, buyFromCart, useUserSet } from "../utils/hooks";
 import { useRouter, NextRouter } from "next/router";
 
-// TIPOS E INTERFACES
-interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
-interface SumState { user: userModel | null; total: number; }
-
-// COMPONENTES
-import CartList from "./CartList";
-import Input from "./Input";
+// REACT SERVER
+import { renderToString } from "react-dom/server";
 
 // CONTEXTO
 import appContext from "../utils/appContext";
-import Banner from "./Banner";
 
-// INTERFAZ Y ESTADO INICIAL
-const defState: SumState = { user: defUserData, total: 0 };
-const defForms: IForms = { name: "", email: "", address: "", phone: 0, nit: "CF" };
-let forms: NodeListOf<HTMLSpanElement>;
+// COMPONENTES
+import CartList from "./CartList";
+import CartForm from "./CartForm";
+import CartBill from "./CartBill";
+import Banner from "./Banner";
+import Input from "./Input";
 
 // CONTADOR GLOBAL
-let sliderCount: number = 0;
-let firstRender: number = 0;
-let getUserRender: number = 0;
-let sumTotal: number = 0;
 const nSliders: number = 3;
+// GLOBALES
+const defForm: IForms = { displayName: "", email: "", address: "", phone: 0, nit: "" };
 
-// VERIFICAR INPUTS
-const verifyForm = (vals: IForms | null) => {
-  // OBTENER VALORES DEL FORMULARIO
-  let out: boolean = false;
-  let errCode: number = 1;
-
-  if (vals) {
-    // VERIFICAR LONGITUD
-    if ((vals.address.length * vals.email.length * vals.name.length * vals.phone) !== 0) out = true;
-
-    // VERIFICAR SI INCLUYE UN @
-    if (out) {
-      if (vals.email.includes("@")) {
-        // VERIFICAR SI TIENE UN . DESPUÉS DE @
-        const nString: string = vals.email.substr(vals.email.indexOf("@"));
-        if (!nString.includes(".")) {
-          out = false;
-          errCode = 2;
-        }
-      }
-
-      // SINO RETORNAR FALSE
-      else {
-        errCode = 2;
-        out = false;
-      }
-    }
-  }
-
-  // RETORNAR VERIFICACIÓN
-  return { errCode, out };
-}
+// ESTADOS
+interface SumState { formValues: IForms }
 
 // COMPONENTE
 const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPackage.cartPage["summary"]) => {
-  // ESTADO DEL COMPONENTE
-  const [sumState, setSum]: [SumState, Dispatch<SetStateAction<SumState>>] = useState(defState);
-
   // CARRITO Y USUARIO DEL CONTEXTO
-  const { cartList, user, addToCartEvent } = useContext(appContext.appContext);
-
-  // REFERENCIAS
-  const slider: RefObject<HTMLDivElement> = useRef(null);
-  const formValues: RefObject<IForms> = useRef(defForms);
+  const { cartList, productList, user, addToCartEvent } = useContext(appContext.appContext);
 
   // ROUTER
   const router: NextRouter = useRouter();
 
+  // REFERENCIAS
+  const filterList: OrderCart = useCartSearch(cartList, productList);
+  const formValues: MutableRefObject<IForms> = useRef(defForm);
+  const refUser: MutableRefObject<userModel | null> = useRef(null);
+  const sliderCount: MutableRefObject<number> = useRef(0);
+  const promoCode: MutableRefObject<string> = useRef("");
+  const slider: RefObject<HTMLDivElement> = useRef(null);
+
   // BANNERS
   const banner: JSX.Element = <Banner
     {...strings.banner}
-    title={`${strings.banner.title} ${(user?.displayName || formValues.current?.name)?.split(" ")[0]}`}
+    title={`${strings.banner.title} ${(user?.displayName || formValues.current?.displayName)?.split(" ")[0]}`}
   />
 
-  // GUARDAR DATOS DE LOS INPUTS
-  const saveToForm = (data: InputGetProps) => {
-    // ASIGNAR VALORES AL FORM
-    if (formValues.current) Object.keys(formValues.current).forEach((keys: string) => {
-      // @ts-ignore
-      if (formValues.current && keys === data.name && data.text) formValues.current[keys] = data.text;
-      if (formValues.current && data.name === "nit" && data.text.length === 0) formValues.current.nit = "CF";
-    })
-  }
+  // ESTADO DEL COMPONENTE
+  const [state, setState]: [SumState, Dispatch<SetStateAction<SumState>>] = useState({ formValues: defForm });
 
-  // GUARDAR AVANCE
-  const saveProcess = () => window.localStorage.setItem("cartProcess", sliderCount.toString());
+  // GUARDAR PROGRESO
+  const saveProcess = () => window.localStorage.setItem("cartProcess", sliderCount.current.toString());
+
+
+  // GUARDAR CÓDIGO DE PROMOCIÓN
+  const savePromoCode = (data: InputGetProps) => promoCode.current = data.text;
 
   // CAMBIAR SLIDER
-  const changeSlider = (condition: boolean, resize: boolean, e?: MouseEvent<HTMLButtonElement>, ) => {
+  const moveSlider = (toRight: boolean, condition: boolean, e?: MouseEvent<HTMLButtonElement>) => {
     // SELECCIONAR BOTÓN
     const btn: HTMLButtonElement = e?.target as HTMLButtonElement;
 
@@ -113,49 +72,33 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
 
     if (condition) {
       // AUMENTAR O REDUCIR CONTADOR
-      sliderCount = resize ? sliderCount + 1 : sliderCount - 1;
+      sliderCount.current = toRight ? sliderCount.current + 1 : sliderCount.current - 1;
 
-      if (sliderCount === 2 && !verifyForm(formValues.current).out && resize) {
-        // OBTENER CÓDIGO DE ERROR
-        const errText = verifyForm(formValues.current).errCode === 2 ? strings.forms.errors.text_1 : strings.forms.errors.text;
+      setTimeout(() => {
+        if (slider.current) {
+          // SELECCIONAR FORMULARIO Y ANIMAR
+          const deliveryForm: HTMLDivElement = slider.current.childNodes[1].childNodes[2] as HTMLDivElement;
+          const transform = `translateX(calc(calc(${(100 / nSliders) * sliderCount.current}% + ${30 * sliderCount.current}px) * -1))`;
+          const finForm: HTMLParagraphElement = slider.current.childNodes[2].childNodes[0].childNodes[2] as HTMLParagraphElement;
 
-        // MOSTRAR ALERTA SI OCURRIÓ UN ERROR
-        showAlert({
-          type: "error",
-          title: strings.forms.errors.title,
-          body: errText,
-        })
+          // ANIMAR SLIDER
+          slider.current.style.transform = transform;
 
-        // REGRESAR EL VALOR DEL SLIDER
-        sliderCount--;
-      }
-
-      else
-        setTimeout(() => {
-          if (slider.current) {
-            // SELECCIONAR FORMULARIO Y ANIMAR
-            const deliveryForm: HTMLDivElement = slider.current.childNodes[1].childNodes[2] as HTMLDivElement;
-            const transform = `translateX(calc(calc(${(100 / nSliders) * sliderCount}% + ${30 * sliderCount}px) * -1))`;
-            const finForm: HTMLParagraphElement = slider.current.childNodes[2].childNodes[2] as HTMLParagraphElement;
-
-            // ANIMAR SLIDER
-            slider.current.style.transform = transform;
-
-            // CAMBIAR ALTO DE DELIVERY
-            if (sliderCount == 1) deliveryForm.style.height = "auto";
-            if (sliderCount == 2) {
-              // QUITAR ALTO DE DELIVERY
-              setTimeout(() => deliveryForm.style.height = "0", 300);
-              finForm.style.height = "auto";
-            }
-
-            // QUITAR ALTO DE DELIVERY Y FORM
-            else if (sliderCount == 0) setTimeout(() => {
-              deliveryForm.style.height = "0"
-              finForm.style.height = "0";
-            }, 300)
+          // CAMBIAR ALTO DE DELIVERY
+          if (sliderCount.current == 1) deliveryForm.style.height = "auto";
+          if (sliderCount.current == 2) {
+            // QUITAR ALTO DE DELIVERY
+            setTimeout(() => deliveryForm.style.height = "0", 300);
+            if (finForm) finForm.style.height = "auto";
           }
-        }, 300);
+
+          // QUITAR ALTO DE DELIVERY Y FORM
+          else if (sliderCount.current == 0) setTimeout(() => {
+            deliveryForm.style.height = "0"
+            if (finForm) finForm.style.height = "0";
+          }, 300)
+        }
+      }, 300);
 
       // GUARDAR AVANCE
       saveProcess();
@@ -163,10 +106,10 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
   }
 
   // SIGUIENTE SLIDER
-  const nextSlider = (e?: MouseEvent<HTMLButtonElement>) => changeSlider(sliderCount < nSliders - 1, true, e);
+  const nextSlider = (e?: MouseEvent<HTMLButtonElement>) => moveSlider(true, sliderCount.current < nSliders - 1, e);
 
   // ANTERIOR SLIDER
-  const prevSlider = (e?: MouseEvent<HTMLButtonElement>) => changeSlider(sliderCount >= 0, false, e);
+  const prevSlider = (e?: MouseEvent<HTMLButtonElement>) => moveSlider(false, sliderCount.current >= 0, e);
 
   const nextToCurrent = () => {
     // SELECCIONAR AVANCE
@@ -177,37 +120,84 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
 
     // AVANZAR HASTA ACTUAL
     else {
-      sliderCount = 0;
-      for (let i = 0; i < parseInt(getProcess); i++)
-        changeSlider(sliderCount < nSliders - 1, true)
+      sliderCount.current = 0;
+      if (parseInt(getProcess) > 0) moveSlider(true, true);
     }
   }
 
-  // ACTUALIZAR ESTADO CON USUARIO 
-  const setUserToState = () => {
-    // OBTENER DATOS COMPLETOS
-    if (user) useUserGet(user.uid)
+  // ACTUALIZAR FACTURA
+  const updateBill = (e?: MouseEvent<HTMLButtonElement>) => {
+    // OBTENER CÓDIGO DE ERROR
+    const vForms = verifyForm(formValues.current);
+    const errText = vForms.errCode === 1 ? strings.forms.errors.text : vForms.errCode === 2 ? strings.forms.errors.text_1 : strings.forms.errors.text_2;
 
-      // AGREGAR AL ESTADO
-      .then((user: userModel | null | undefined) => {
-        // GUARDAR DATOS PREDETERMINADOS
-        saveToForm({ name: "name", text: user?.displayName || "" });
-        saveToForm({ name: "email", text: user?.email || "" });
-
-        // ACTUALIZAR ESTADOS
-        setSum({ user: user || defState.user, total: sumState.total })
+    if (!vForms.out) {
+      // MOSTRAR ALERTA SI OCURRIÓ UN ERROR
+      showAlert({
+        type: "error",
+        title: strings.forms.errors.title,
+        body: errText
       })
+    }
+
+    // ACTUALIZAR ESTADOS SI NO HAY ERRORES
+    else {
+      if (e) nextSlider(e);
+      setState({ formValues: formValues.current });
+    }
   }
 
   // REINICIAR CARRITO
   const resetCart = () => {
     // REINICIAR GLOBALES
-    sliderCount = 0;
-    sumTotal = 0;
     window.localStorage.setItem("cartProcess", "");
 
     // ACTUALIZAR CARRITO
     addToCartEvent("", true, true);
+  }
+
+  // MOSTRAR ALERTA DE ERROR
+  const showErr = (btn: HTMLButtonElement) => {
+    // QUITAR ALERTA DE ESPERA
+    const cAlert: NodeListOf<HTMLDivElement> = document.querySelectorAll(".alertContainer") as NodeListOf<HTMLDivElement>;
+    cAlert.forEach((el: HTMLDivElement) => {
+      el.style.opacity = "0";
+      setTimeout(() => el.style.display = "none", 400)
+    })
+
+    // MOSTRAR ALERTA DE ERROR
+    showAlert({
+      title: strings.alerts.title,
+      body: strings.alerts.text,
+      type: "error",
+      onHide: () => btn.style.pointerEvents = "unset"
+    })
+  }
+
+  // MOSTRAR ALERTA DE PROMOCIÓN
+  const showPromoInput = () => {
+    // SELECCIONAR LISTA DEL CARRITO E INPUT
+    const currentList: HTMLDivElement = document.getElementById("list") as HTMLDivElement;
+    const promoInput: HTMLDivElement = document.getElementById("promoForm") as HTMLDivElement;
+
+    // MOSTRAR ALERTA PARA INGRESAR CÓDIGO
+    showAlert({
+      title: strings.forms.promo.title,
+      body: strings.forms.promo.text,
+      type: "confirm",
+      onHide: () => {
+        // QUITAR INPUT DE LA ALERTA
+        promoInput.style.display = "none";
+        currentList.appendChild(promoInput);
+      }
+    })
+
+    // AGREGAR INPUT A LA ALERTA
+    setTimeout(() => {
+      const currentAlert = document.querySelector(".alertBody") as HTMLDivElement;
+      promoInput.style.display = "block";
+      if (currentAlert) currentAlert.appendChild(promoInput);
+    }, 10)
   }
 
   //ENVIAR LOS DATOS DE COMPRA
@@ -256,184 +246,72 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
         }
 
         // AGREGAR DATOS AL USUARIO
-        let userCopy: userModel | null = sumState.user;
+        let userCopy: userModel | null = refUser.current;
 
+        // VERIFICAR SI EXISTE USUARIO
         if (userCopy) {
+          // AGREGAR HISTORIAL DE COMPRAS
+          const history = { cartList, date: new Date().toUTCString() };
+
+          // ACTUALIZAR HISTORIAL
+          if (userCopy.history) userCopy.history.push(history);
+          else userCopy.history = [history];
+
           // AGREGAR DATOS NUEVOS
           if (userCopy.address !== formValues.current?.address || userCopy.phone !== formValues.current?.phone || userCopy.nit !== formValues.current?.nit) {
             userCopy.address = formValues.current?.address;
             userCopy.phone = formValues.current?.phone;
             userCopy.nit = formValues.current?.nit;
-
-            // ACTUALIZAR DATOS CON FIREBASE
-            useUserSet(sumState.user?.uid, userCopy)
-              .then(exitCart);
           }
-          else exitCart();
+
+          // ACTUALIZAR DATOS CON FIREBASE
+          useUserSet(user?.uid, userCopy)
+            .then(exitCart)
+            .catch(() => showErr(btn));
         } else exitCart();
       })
-      .catch((e: Error) => {
-        // QUITAR ALERTA DE ESPERA
-        const cAlert: NodeListOf<HTMLDivElement> = document.querySelectorAll(".alertContainer") as NodeListOf<HTMLDivElement>;
-        cAlert.forEach((el: HTMLDivElement) => {
-          el.style.opacity = "0";
-          setTimeout(() => el.style.display = "none", 400)
-        })
-
-        // MOSTRAR ERROR
-        console.log(e);
-
-        // MOSTRAR ALERTA DE ERROR
-        showAlert({
-          title: strings.alerts.title,
-          body: strings.alerts.text,
-          type: "error"
-        })
-      })
+      .catch(() => showErr(btn));
   }
 
-
-  // GUARDAR AVANCE INICIAL
   useEffect(() => {
     // AVANZAR HASTA ACTUAL
     nextToCurrent();
-    firstRender++;
-
-    // OBTENER USUARIO ACTUAL SI EXISTE
-    if (user)
-      setUserToState()
-
-    // CONFIGURAR VALORES POR DEFECTO
-    else if (formValues.current) {
-      formValues.current.nit = defForms.nit;
-      formValues.current.name = defForms.name;
-      formValues.current.email = defForms.email;
-      formValues.current.phone = defForms.phone;
-      formValues.current.address = defForms.address;
-    }
-
-    // ACTUALIZAR FORMULARIO DE ENVIÓ 
-    const updateForm = setInterval(() => {
-      forms = document.querySelectorAll(".finalForm") as NodeListOf<HTMLSpanElement>;
-
-      // SELECCIONAR INFORMACIÓN
-      if (forms && formValues.current) {
-        if (forms[0]) forms[0].textContent = formValues.current.nit;
-        if (forms[1]) forms[1].textContent = formValues.current.name;
-        if (forms[2]) forms[2].textContent = formValues.current.email;
-        if (forms[3]) forms[3].textContent = (sumState.total || sumTotal).toString();
-        if (forms[4]) forms[4].textContent = formValues.current.address;
-      }
-    }, 100);
-
-    // LIMPIAR INTERVALO
-    return () => clearInterval(updateForm);
   }, [])
-
-  // AVANZAR HASTA ACTUAL
-  if (firstRender !== 0)
-    nextToCurrent();
-
-  // AGREGAR USUARIO AL ESTADO
-  if (getUserRender === 0 && user) {
-    setUserToState();
-    getUserRender++;
-  }
 
   return (
     <div id="cartListCt">
       {cartList.length > 0 ? <>
         <div id="cartSliders" ref={slider}>
-          <div className="cartSlider">
-            <CartList cartList={cartList} updateTotal={(sum: number) => {
-              setSum({ user: sumState.user, total: ((sum > 0 ? sum : 0.01) - 0.01) })
-              sumTotal = (sum > 0 ? sum : 0.01) - 0.01;
-            }
-            } />
+          <div className="cartSlider" id="list">
+            <CartList />
+            <span className="waves waves-dark white" id="promoSwitch" onClick={showPromoInput}>{strings.forms.promo.helper}</span>
             <div id="totalCart">
               <span><i className="material-icons">monetization_on</i> {strings.total}</span>
-              <h3 id="sum">{sumState.total || sumTotal}</h3>
+              <h3 id="sum">Q{filterList.sum > 0 ? filterList.sum - 0.01 : 0}</h3>
+            </div>
+            <div id="promoForm">
+              <Input
+                label={strings.forms.inputs.promo.field}
+                helper={strings.forms.inputs.promo.helper}
+                icon="vpn_key"
+                type="text"
+                name="promoCode"
+                value={savePromoCode}
+              />
             </div>
             <button onClick={nextSlider} className="waves blue">{strings.button} <i className="material-icons">arrow_forward</i></button>
           </div>
           <div className="cartSlider">
             <h3>{strings.forms.title}</h3>
             <p>{strings.forms.text}</p>
-
-            <form id="deliveryForm">
-              {
-                !user && <>
-                  <Input
-                    type="text"
-                    label={strings.forms.inputs.name.field}
-                    name="name"
-                    value={saveToForm}
-                    helper={strings.forms.inputs.name.helper}
-                    icon="person"
-                  />
-                  <Input
-                    type="email"
-                    label={strings.forms.inputs.email.field}
-                    name="email"
-                    value={saveToForm}
-                    helper={strings.forms.inputs.email.helper}
-                    icon="email"
-                  />
-                </>
-              }
-              <Input
-                type="text"
-                label={strings.forms.inputs.address.field}
-                name="address"
-                value={saveToForm}
-                helper={strings.forms.inputs.address.helper}
-                icon="directions"
-                defValue={sumState.user?.address}
-              />
-              <Input
-                type="number"
-                label={strings.forms.inputs.phone.field}
-                name="phone"
-                value={saveToForm}
-                helper={strings.forms.inputs.phone.helper}
-                icon="phone"
-                defValue={sumState.user?.phone}
-              />
-              <Input
-                type="text"
-                label={strings.forms.inputs.nit.field}
-                name="nit"
-                value={saveToForm}
-                helper={strings.forms.inputs.nit.helper}
-                icon="fiber_pin"
-                defValue={sumState.user?.nit}
-              />
-            </form>
+            <CartForm getUser={(newUser: userModel) => refUser.current = newUser} formValues={state.formValues.address.length !== 0 ? state.formValues : undefined} strings={strings.forms.inputs} updateValues={(data: IForms) => formValues.current = data} />
             <div className="controlSum">
               <button onClick={prevSlider} className="waves prevSlide amber"> <i className="material-icons">arrow_back</i> {strings.prevButton}</button>
-              <button onClick={nextSlider} className="waves blue">{strings.button} <i className="material-icons">arrow_forward</i></button>
+              <button onClick={updateBill} className="waves blue">{strings.button} <i className="material-icons">arrow_forward</i></button>
             </div>
           </div>
           <div className="cartSlider">
-            <div id="secureBanner">
-              <i className="material-icons">https</i>
-              <div>
-                <h2>{strings.sendForm.banner.title}</h2>
-                <p>{strings.sendForm.banner.text}</p>
-              </div>
-            </div>
-            <h3>{strings.sendForm.info.title} <i className="material-icons">assignment</i></h3>
-            <p id="summaryText">
-              <i className="material-icons">fiber_pin</i><strong>{strings.sendForm.info.fields.nit}</strong> <span className="finalForm">{formValues.current?.nit}</span>
-              <br />
-              <i className="material-icons">person</i><strong>{strings.sendForm.info.fields.name}</strong> <span className="finalForm">{user?.displayName || formValues.current?.name}</span>
-              <br />
-              <i className="material-icons">email</i><strong>{strings.sendForm.info.fields.email}</strong> <span className="finalForm">{user?.email || formValues.current?.email}</span>
-              <br />
-              <i className="material-icons">monetization_on</i><strong>{strings.sendForm.info.fields.total}</strong> Q <span className="finalForm">{sumState.total || sumTotal}</span>
-              <br />
-              <i className="material-icons">directions</i><strong>{strings.sendForm.info.fields.address}</strong> <span className="finalForm">{formValues.current?.address}</span>
-            </p>
+            <CartBill strings={strings.sendForm} sum={filterList.sum} formValues={state.formValues} />
             <div className="controlSum">
               <button onClick={prevSlider} className="waves prevSlide amber"> <i className="material-icons">arrow_back</i> {strings.prevButton}</button>
               <button onClick={sendToBuy} className="waves blue">{strings.sendForm.button} <i className="material-icons">done_all</i></button>
@@ -447,7 +325,6 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
           <img src={require("../assets/error.png")} alt="EmptyCart" />
         </div>
       }
-
       <style jsx>{`
         #cartListCt{
           width:calc(100% - 40px);
@@ -476,6 +353,18 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
           position:relative;
           top:5px;
         }
+        #promoSwitch{
+          text-align:center;
+          color:var(--blue);
+          display:block;
+          margin-bottom:0px;
+          margin-top:20px;
+          position:relative;
+          z-index:3;
+        }
+        #promoForm{
+          display:none;
+        }
         #cartSliders{
           display:grid;
           grid-template-columns:repeat(${nSliders}, ${100 / nSliders}%);
@@ -486,12 +375,8 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
         .cartSlider{
           width:100%;
         }
-        .cartSlider h3{
+        h3{
           opacity:0.8;
-        }
-        #deliveryForm{
-          margin-bottom:20px;
-          height:0;
         }
         button{
           position:relative;
@@ -508,6 +393,9 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
           margin-left:10px;
           margin-right:0;
         }
+        .prevSlide{
+          padding-left:9px;
+        }
         .prevSlide i {
           margin:0;
           margin-right:10px;
@@ -522,42 +410,6 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
           display:grid;
           grid-template-columns:1fr 1fr;
           column-gap:10px
-        }
-        .cartSlider > #summaryText{
-          height:0;
-          margin:15px 0 20px 0;
-        }
-        .cartSlider  h3 > i{
-          position:relative;
-          top:5px;
-        }
-        .cartSlider > #summaryText > strong{
-          opacity:0.7;
-        }
-        .cartSlider > #summaryText > i{
-          opacity:0.7;
-          font-size:1em;
-          position:relative;
-          top:1px;
-          margin-right:5px;
-        }
-        #secureBanner{
-          padding:10px;
-          padding-bottom:13px;
-          display:flex;
-          font-size:0.8em;
-          align-items:center;
-          background:linear-gradient(to left,#2196f3, var(--primary));
-          border-radius:10px;
-          color:var(--backgrounds);
-          margin-bottom:10px;
-        }
-        #secureBanner > i{
-          font-size:3em;
-          margin-right:10px;
-        }
-        #secureBanner h2{
-          color:var(--backgrounds);
         }
       `}</style>
     </div>

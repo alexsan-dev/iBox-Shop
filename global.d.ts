@@ -8,9 +8,25 @@ interface Navigator {
   share: (data?: ShareData) => Promise<void>;
 }
 
+interface OrderCart { sum: number; productsFilter: Array<product | firestore.DocumentData>; multArry: number[] }
+
+// TIPOS E INTERFACES
+interface IForms {
+  displayName: string;
+  email: string;
+  address: string;
+  phone: number;
+  nit: string;
+  wa?: boolean
+}
+
 interface productList {
   id?: number;
   products: product[] | any;
+}
+
+interface String {
+  format(): string;
 }
 
 interface product {
@@ -28,6 +44,11 @@ interface user {
   user: userModel | any;
 }
 
+interface IPromoCodes {
+  code: string;
+  price: number | string;
+}
+
 interface userModel {
   provider?: string | null;
   displayName: string | null;
@@ -38,6 +59,14 @@ interface userModel {
   phone?: number;
   nit?: string;
   department?: string;
+  promoCodes?: {
+    code: string;
+    used: boolean;
+  }[];
+  history?: {
+    cartList: string[];
+    date: string;
+  }[]
 }
 
 interface InputProps {
@@ -48,6 +77,7 @@ interface InputProps {
   icon: string;
   value: Function;
   defValue?: string | number;
+  maxLength?: number;
 }
 
 interface InputGetProps {
@@ -213,6 +243,29 @@ namespace langPackage {
   };
   interface profilePage {
     title: string;
+    span: string;
+    history: {
+      title: string;
+      text: string;
+      empty: string;
+      button: string;
+    };
+    info: {
+      title: string;
+      text: string;
+      button: string;
+      confirmUpdate: {
+        alert: {
+          title: string;
+          text: string;
+        }
+      }
+      inputs: {
+        address: inputFields;
+        phone: inputFields;
+        nit: inputFields;
+      }
+    }
   };
   interface shopPage {
     header: {
@@ -277,12 +330,19 @@ namespace langPackage {
       forms: {
         title: string;
         text: string;
+        promo: {
+          title: string;
+          text: string;
+          helper: string;
+        }
         errors: {
           title: string;
           text: string;
           text_1: string;
+          text_2: string;
         };
         inputs: {
+          promo: inputFields;
           name: inputFields;
           email: inputFields;
           address: inputFields;

@@ -25,7 +25,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
       <div className="card-head">
         <LazyLoadImage
           scrollPosition={props.scrollPosition}
-          effect="blur"
+          effect="black-and-white"
           src={props.img}
           alt={props.title}
           width="100%"

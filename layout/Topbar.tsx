@@ -1,12 +1,19 @@
 // HOOKS Y NAVEGACIÓN
-import { useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, forwardRef, useImperativeHandle, Dispatch, SetStateAction, useState, ChangeEvent } from 'react';
 import Link from 'next/link';
+import SearchResults from '../components/SearchResults';
 
 // PROPIEDADES Y EVENTOS
 interface Props { placeHolder: string }
 let renderManager: Function = () => { };
 
+// ESTADO
+interface topBarState { search: string; }
+
 const TopBar: React.FC<Props> = (props: Props, ref: any) => {
+  // ESTADO
+  const [state, setState]: [topBarState, Dispatch<SetStateAction<topBarState>>] = useState({ search: "" });
+
   // FUNCIÓN IMPERATIVA PARA CALLBACK EXTERNO
   useImperativeHandle(ref, () => ({
     callRender(count: number) { renderManager(count); }
@@ -44,13 +51,21 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
     searchToggle?.addEventListener("click", () => {
       const toggle: boolean | undefined = searchToggle?.checked;
       if (toggle) search.focus();
-      else
+      else {
+        setState({ search: "" });
         setTimeout(() => {
           if (search) search.value = "";
         }, 300);
+      }
     });
 
   }, [])
+
+  // ACTUALIZAR BÚSQUEDA
+  const updateSearch = (el: ChangeEvent<HTMLInputElement>) => {
+    const input: HTMLInputElement = el.target as HTMLInputElement;
+    setState({ search: input.value })
+  }
 
   return (
     <>
@@ -75,8 +90,12 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
         </div>
         <div id="searchBar">
           <label htmlFor="search-toggle" className="material-icons waves waves-dark">arrow_back</label>
-          <input type="search" placeholder={props.placeHolder} id="search" name="search" />
+          <input onChange={updateSearch} type="search" placeholder={props.placeHolder} id="search" name="search" />
         </div>
+      </div>
+
+      <div id="searchBox">
+        <SearchResults text={state.search} />
       </div>
 
       <style jsx>{`
@@ -148,6 +167,12 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
             transition: opacity 0.3s ease-in-out, transform 0s linear 0s;
             opacity: 1;
             transform: scale(1);
+          }
+          #searchBox{
+            position:absolute;
+            top:58px;
+            z-index:3;
+            padding:${state.search.length > 0 ? 20 : 0}px;
           }
 
           @keyframes animCart{

@@ -1,6 +1,7 @@
 // TIPOS DE DATOS Y HOOKS
-import { useState, FC, Dispatch, SetStateAction } from "react";
+import { useState, FC, Dispatch, SetStateAction, useContext } from "react";
 import { useInterval } from "../utils/hooks";
+import appContext from "../utils/appContext";
 
 // VARIABLES INICIALES DE ANIMACIÓN
 interface Bars { r1: number; r2: number; r3: number; }
@@ -9,7 +10,10 @@ const defaultBars: Bars = { r1: 0, r2: 0, r3: 0 };
 // VARIABLES GLOBALES
 const time: number = 600;
 
-const CardShadow: FC<langPackage.placeholders> = (strings: langPackage.placeholders) => {
+const CardShadow: FC = () => {
+  // CONTEXTO
+  const strings = useContext(appContext.appContext).lang.placeholders;
+
   // ESTADO INICIAL DEL COMPONENTE
   let [bars, setBars]: [Bars, Dispatch<SetStateAction<Bars>>] = useState(defaultBars);
 

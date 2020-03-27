@@ -39,7 +39,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
   // OBTENER TEXTO DE LOS INPUTS
   const value = (data: InputGetProps) => {
     if (data.name === "email") email = data.text;
-    else if (data.name === "name") name = data.text;
+    else if (data.name === "displayName") name = data.text;
     else if (data.name === "pass") pass = data.text;
   };
 
@@ -152,10 +152,14 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 
   // INICIAR SESIÓN CON GOOGLE
   const gLog = (e: MouseEvent<HTMLButtonElement>) => {
+    // DESHABILITAR BOTÓN
     const btn: HTMLButtonElement = e.target as HTMLButtonElement;
     btn.style.pointerEvents = "none";
 
+    // HABILITAR BOTÓN
     const enableBtn = () => btn.style.pointerEvents = "unset";
+
+    // INICIAR SESIÓN
     useLogin({
       type: "g", onSuccess: () => {
         router.push("/tienda")
@@ -193,7 +197,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
             <Input
               type="text"
               label={props.strings.forms.inputs.user.field}
-              name="name"
+              name="displayName"
               value={value}
               helper={props.strings.forms.inputs.user.helper}
               icon="person"

@@ -18,6 +18,7 @@ interface appContext {
   theme: string;
   addToCartEvent: Function;
   cartList: string[];
+  productList: product[] | [];
 }
 const defaultAppContext: appContext = {
   // @ts-ignore
@@ -25,7 +26,8 @@ const defaultAppContext: appContext = {
   user: null,
   theme: "light",
   addToCartEvent: () => { },
-  cartList: []
+  cartList: [],
+  productList: []
 }
 const appContext: React.Context<appContext> = React.createContext(
   defaultAppContext

@@ -4,7 +4,7 @@
       "app": {
         "name": "iBox Shop®",
         "description": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
-        "nameCom": "iBox Shop® App (v0.35)",
+        "nameCom": "iBox Shop® App (v0.73)",
         "nameShort": "iBox",
         "slogan": "Tu comodidad en una caja.",
         "title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
@@ -134,7 +134,39 @@
       }
     },
     "profilePage": {
-      "title": "Mi cuenta"
+      "title": "Mi cuenta",
+      "span": "Cuidamos 💪 tu seguridad",
+      "history": {
+        "title": "Historial de compras",
+        "text": "Aquí se muestran todas las compras que has hecho 🚚 con la aplicación durante los últimos dias y el resumen de pedidos ⭐️.",
+        "empty": "Por el momento no tienes ninguna compra registrada 😅, ve a la tienda, has tu primer pedido y registra tu compra 💲.",
+        "button": "Ver tienda"
+      },
+      "info": {
+        "button": "Actualizar información",
+        "title": "Tu información",
+        "text": "Aquí se muestran tus datos confidenciales ✍️ , verifica siempre tu conexión 📲 a internet  antes de poder editar tus datos.",
+        "confirmUpdate": {
+          "alert": {
+            "title": "Espera un poco",
+            "text": "Tus datos se están actualizando ✍️, espera solo un momento ..."
+          }
+        },
+        "inputs": {
+          "address": {
+            "field": "Dirección",
+            "helper": "Residencia y Departamento o Municipio"
+          },
+          "phone": {
+            "field": "Teléfono",
+            "helper": "Numero de teléfono"
+          },
+          "nit": {
+            "field": "NIT",
+            "helper": "Tu número de nit."
+          }
+        }
+      }
     },
     "shopPage": {
       "header": {
@@ -202,9 +234,19 @@
           "errors": {
             "title": "¡Espera un poco!",
             "text": "Tienes que verificar si tus datos de envió son correctos antes de comprar.",
-            "text_1": "La información del correo es incorrecta, intenta nuevamente."
+            "text_1": "La información del correo es incorrecta, intenta nuevamente.",
+            "text_2": "La información de tu número de teléfono es incorrecta, intenta nuevamente."
+          },
+          "promo": {
+            "title": "¿Tienes un código?",
+            "text": "Si cuentas con algún código de promoción por oferta 📲 o descuento, puedes ingresar tu código aquí solo una ves 😉.",
+            "helper": "¿Tienes un código de promoción?"
           },
           "inputs": {
+            "promo": {
+              "field": "Código de promoción",
+              "helper": "Descuentos o promociones"
+            },
             "name": {
               "field": "Nombre",
               "helper": "* Nombre completo"
@@ -223,7 +265,7 @@
             },
             "nit": {
               "field": "NIT",
-              "helper": "Dejar vació (CF)"
+              "helper": "Dejar vació (C/F)"
             }
           }
         }

@@ -1,6 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { useEffect, useContext, useState, Dispatch, SetStateAction, FC, useRef, MutableRefObject } from "react";
-import { useAuth, showToast, useRipples, sendToken, initFCM } from "../utils/hooks";
+import { useAuth, showToast, useRipples, sendToken, initFCM, useGetAllProducts } from "../utils/hooks";
 import { User } from "firebase";
 
 // VARIABLES GLOBALES ( LENGUAJE, TEMA, USUARIO )
@@ -15,11 +15,10 @@ import Drawer from "./Drawer";
 
 // INTERFACES PARA LAS PROPIEDADES Y PROVIDER GLOBAL
 interface Props { children: any; }
-interface userState { user: User | null; cartList?: string[] }
+interface appState { user: User | null; cartList: string[], productList: product[] | [] }
 
 // VARIABLES GLOBALES
 let layoutHandler: number = 0;
-let cartList: string[] = [];
 let topBar: any;
 
 const Layout: FC<Props> = (props: Props) => {
@@ -28,34 +27,36 @@ const Layout: FC<Props> = (props: Props) => {
 
   // ESTADOS Y CONTEXTO DEL COMPONENTE
   const { lang } = useContext(langContext.langContext);
-  const defaultUser: userState = { user: null };
+  const defaultUser: appState = { user: null, productList: [], cartList: [] };
   const stateUser: MutableRefObject<User | null> = useRef(null);
-  const [state, setState]: [userState, Dispatch<SetStateAction<userState>>] = useState(defaultUser);
+  const stateProductList: MutableRefObject<product[] | []> = useRef([]);
+  const cartList: MutableRefObject<string[]> = useRef([]);
+  const [state, setState]: [appState, Dispatch<SetStateAction<appState>>] = useState(defaultUser);
   topBar = useRef(null);
 
   // AGREGAR AL CARRITO CONTEXTO
   const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) => {
-    if (mode) cartList.push(key);
+    if (mode) cartList.current.push(key);
     else {
-      const rIndex = cartList.indexOf(key);
-      if (rIndex > -1) cartList.splice(rIndex, 1);
+      const rIndex = cartList.current.indexOf(key);
+      if (rIndex > -1) cartList.current.splice(rIndex, 1);
     }
-    window.localStorage.setItem("cart", cartList.join());
-    if (topBar.current) topBar.current.callRender(cartList.length);
+    window.localStorage.setItem("cart", cartList.current.join());
+    if (topBar.current) topBar.current.callRender(cartList.current.length);
     if (reset) {
       window.localStorage.setItem("cart", "");
-      cartList = [];
+      cartList.current = [];
       topBar.current.callRender(0);
     }
 
-    setState({ user: stateUser.current || null, cartList })
+    setState({ user: stateUser.current || null, cartList: cartList.current, productList: stateProductList.current })
   }
 
   // DETECTAR CAMBIOS EN EL INICIÓ DE SESIÓN
   useAuth((getUser: User) => {
     if (layoutHandler === 0 && !getUser) return 0;
     stateUser.current = getUser;
-    setState({ user: getUser, cartList })
+    setState({ user: getUser, cartList: cartList.current, productList: stateProductList.current })
     layoutHandler++;
   });
 
@@ -89,23 +90,32 @@ const Layout: FC<Props> = (props: Props) => {
         console.log("Unable to get permission to notify.", err);
       });
 
+    // OBTENER PRODUCTOS
+    const saveProducts = (products: product[]) => {
+      stateProductList.current = products;
+      setState({ user: stateUser.current || null, cartList: cartList.current, productList: stateProductList.current });
+    }
+
+    // LEER DE LA DB
+    useGetAllProducts(saveProducts)
+      .then(saveProducts);
+
     // ASIGNAR CARRITO ACTUAL
     setTimeout(() => {
       const cartListLS = window.localStorage.getItem("cart");
-      if (cartListLS && cartListLS?.length > 1) cartList = window.localStorage.getItem("cart")?.split(",") || [];
-      topBar.current.callRender(cartList.length)
-      setState({ user: stateUser.current || null, cartList })
+      if (cartListLS && cartListLS?.length > 1) cartList: cartList.current = window.localStorage.getItem("cart")?.split(",") || [];
+      topBar.current.callRender(cartList.current.length)
+      setState({ user: stateUser.current || null, cartList: cartList.current, productList: stateProductList.current })
     }, process.env.NODE_ENV === "development" ? 0 : 2000)
   }, []);
 
   return (
     <>
-      <nav>
-        <TopBar ref={topBar} placeHolder={lang.placeholders.searchPlaceholder} />
-        <Drawer strings={lang.general} user={state.user} />
-      </nav>
-
-      <appContext.appContext.Provider value={{ lang, theme: "light", user: state.user, addToCartEvent, cartList: state.cartList || [] }}>
+      <appContext.appContext.Provider value={{ lang, theme: "light", user: state.user, addToCartEvent, cartList: state.cartList || [], productList: state.productList }}>
+        <nav>
+          <TopBar ref={topBar} placeHolder={lang.placeholders.searchPlaceholder} />
+          <Drawer strings={lang.general} user={state.user} />
+        </nav>
         {state.user && <Verified strings={lang.verified} show={state.user.providerData[0]?.providerId === "facebook.com" ? true : state.user.emailVerified} />}
         <main>
           {props.children}

@@ -1,6 +1,6 @@
 // PROPIEDADES 
 import { firestore } from "firebase";
-interface Props { user: userModel | firestore.DocumentData; title: string; }
+interface Props { user: userModel | firestore.DocumentData; title: string; span: string; }
 
 // VARIABLES GLOBALES
 let pic: string | undefined;
@@ -29,6 +29,8 @@ const ProfileHeader: React.FC<Props> = (props: Props) => {
           <img src={pic} alt="Profile" />
         </div>
       </div>
+
+      <span id="infoSecure">{props.span}</span>
 
       <div id="wave">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -81,6 +83,21 @@ const ProfileHeader: React.FC<Props> = (props: Props) => {
           position:relative;
           top:3px;
         }
+        #infoSecure{
+          padding:10px;
+          width:100px;
+          border-radius:0 10px 10px 0;
+          margin-top:-8px;
+          box-shadow:0 10px 10px rgba(0,0,0,.15);
+          font-size:0.8em;
+          color:var(--backgrounds);
+          display:block;
+          white-space:unset;
+          background:var(--blue);
+          opacity:1;
+          position:absolute;
+          z-index:2;
+        }
         #wave{
           width:100%;
           position:relative;
@@ -89,7 +106,6 @@ const ProfileHeader: React.FC<Props> = (props: Props) => {
         svg {
           margin-top: -38px;
           width: calc(100% + 60px);
-          margin-bottom:10vh;
         }
         #profilePic {
           width: 120px;

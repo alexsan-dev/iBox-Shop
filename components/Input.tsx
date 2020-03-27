@@ -64,6 +64,7 @@ const Input: FC<InputProps> = (props: InputProps) => {
           onBlur={fx}
           onChange={getText}
           autoComplete=""
+          maxLength={props.maxLength}
         />
         <label htmlFor={props.name} className="dLabel">
           {props.label}
