@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "url": "/_next/static/chunks/commons.cf48ec0af7bf3f40db9b.js",
-    "revision": "7b3681ce9353e6f2af72"
+    "url": "/_next/static/chunks/commons.e9478030d96ca1ed06b2.js",
+    "revision": "552b9c8135c01d20647d"
   },
   {
     "url": "/_next/static/runtime/main-801bb775b2b240d1c084.js",
@@ -16,28 +16,28 @@ self.__precacheManifest = [
     "revision": "be4b6cc6d10632d2262c"
   },
   {
-    "url": "/_next/static\\or-JaF683k_J_68HLCqZb\\pages\\_app.js",
-    "revision": "4b02b3ae2c30d735b2d6"
+    "url": "/_next/static\\zcf6WZ7hL_jB0GiNMLUq-\\pages\\_app.js",
+    "revision": "d28b1c3449f2d4cbebfc"
   },
   {
-    "url": "/_next/static\\or-JaF683k_J_68HLCqZb\\pages\\_error.js",
-    "revision": "0f002327d1660a0d8baf"
+    "url": "/_next/static\\zcf6WZ7hL_jB0GiNMLUq-\\pages\\_error.js",
+    "revision": "5b3a6dd67777a6aee70c"
   },
   {
-    "url": "/_next/static\\or-JaF683k_J_68HLCqZb\\pages\\carrito.js",
-    "revision": "7d9ed6a52b842e08de92"
+    "url": "/_next/static\\zcf6WZ7hL_jB0GiNMLUq-\\pages\\carrito.js",
+    "revision": "abf185ada02ce2eb1bb5"
   },
   {
-    "url": "/_next/static\\or-JaF683k_J_68HLCqZb\\pages\\cuenta.js",
-    "revision": "637c4ccb4c3a03798c14"
+    "url": "/_next/static\\zcf6WZ7hL_jB0GiNMLUq-\\pages\\cuenta.js",
+    "revision": "56099ef37bd87860de21"
   },
   {
-    "url": "/_next/static\\or-JaF683k_J_68HLCqZb\\pages\\index.js",
-    "revision": "a1c005c9b8a2f4d3a191"
+    "url": "/_next/static\\zcf6WZ7hL_jB0GiNMLUq-\\pages\\index.js",
+    "revision": "33eb4d50b7a3ccbd998e"
   },
   {
-    "url": "/_next/static\\or-JaF683k_J_68HLCqZb\\pages\\tienda.js",
-    "revision": "780df8dacb8c108374df"
+    "url": "/_next/static\\zcf6WZ7hL_jB0GiNMLUq-\\pages\\tienda.js",
+    "revision": "59d3f1ce36b8a108e79f"
   }
 ];
 

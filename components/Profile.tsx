@@ -3,12 +3,11 @@ import { useState, SetStateAction, Dispatch, useContext, useEffect } from "react
 import { firestore } from "firebase";
 
 // HOOKS Y ANIMACIÓN
-import { useUserGet, defUserData, useUserSet, showAlert } from "../utils/hooks";
+import { defUserData, useUserSet, showAlert } from "../utils/hooks";
 import { motion, Variants } from "framer-motion";
 
 // TIPOS DE DATOS FIREBASE Y NEXT
 import { NextPage } from "next";
-import { User } from "firebase";
 
 // CONTEXTO Y COMPONENTES
 import appContext from "../utils/appContext";
@@ -35,14 +34,11 @@ const history: Variants = {
   enter: { opacity: 1, x: 0, transition }
 }
 
-// PROPIEDADES
-interface Props { user: User | userModel; }
-
 // ESTADO INICIAL E INTERFACES
 interface IState { userData: userModel | null | undefined | firestore.DocumentData; }
 const defState: IState = { userData: defUserData };
 
-const Profile: NextPage<Props> = (props: Props) => {
+const Profile: NextPage = () => {
   // ESTADO DEL COMPONENTE Y CONTEXTO
   const [state, setState]: [IState, Dispatch<SetStateAction<IState>>] = useState(defState);
   const str = useContext(appContext.appContext).lang.profilePage;
@@ -82,9 +78,7 @@ const Profile: NextPage<Props> = (props: Props) => {
 
   // OBTENER USUARIO DE FIREBASE O LOCAL
   useEffect(() => {
-    useUserGet(props.user.uid)
-      .then((userData: IState["userData"]) => userData ? setState({ userData }) : null)
-      .catch((err: Error) => console.log(err));
+    setState({ userData: user })
   }, [])
 
   return (

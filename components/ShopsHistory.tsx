@@ -16,12 +16,12 @@ const ShopsHistory: React.FC<props> = (props: props) => {
   const { productList } = useContext(appContext.appContext);
 
   // LISTA DE PRODUCTOS
-  let elementList: JSX.Element[] = [<div key={0}></div>]
+  let elementList: JSX.Element[] = [];
 
   // OBTENER DATOS DE COMPRA
   if (props.user?.history) {
     const history = props.user.history;
-    history.forEach((currentHistory: { cartList: string[], date: string }) => {
+    history.forEach((currentHistory: { cartList: string[], date: string }, i: number) => {
       // LISTA DE COMPRAS
       const cartList: string[] = currentHistory.cartList;
 
@@ -29,7 +29,7 @@ const ShopsHistory: React.FC<props> = (props: props) => {
       const userShops: OrderCart = useCartSearch(cartList, productList);
 
       // RECORRER LISTA
-      userShops.productsFilter.forEach((product: product | firestore.DocumentData, i: number) => elementList.push(
+      userShops.productsFilter.forEach((product: product | firestore.DocumentData) => elementList.push(
         <HistoryElement key={i} name={product.name} cant={userShops.multArry[i]} date={currentHistory.date} />
       ))
     });

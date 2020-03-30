@@ -18,8 +18,9 @@ import Input from "./Input";
 
 // CONTADOR GLOBAL
 const nSliders: number = 3;
+
 // GLOBALES
-const defForm: IForms = { displayName: "", email: "", address: "", phone: 0, nit: "" };
+const defForm: IForms = { displayName: "", email: "", address: "", phone: 0, nit: "C/F" };
 
 // ESTADOS
 interface SumState { formValues: IForms }
@@ -51,7 +52,6 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
 
   // GUARDAR PROGRESO
   const saveProcess = () => window.localStorage.setItem("cartProcess", sliderCount.current.toString());
-
 
   // GUARDAR CÓDIGO DE PROMOCIÓN
   const savePromoCode = (data: InputGetProps) => promoCode.current = data.text;
@@ -177,8 +177,8 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
   // MOSTRAR ALERTA DE PROMOCIÓN
   const showPromoInput = () => {
     // SELECCIONAR LISTA DEL CARRITO E INPUT
-    const currentList: HTMLDivElement = document.getElementById("list") as HTMLDivElement;
-    const promoInput: HTMLDivElement = document.getElementById("promoForm") as HTMLDivElement;
+    let currentList: HTMLDivElement;
+    let promoInput: HTMLDivElement;
 
     // MOSTRAR ALERTA PARA INGRESAR CÓDIGO
     showAlert({
@@ -194,7 +194,11 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
 
     // AGREGAR INPUT A LA ALERTA
     setTimeout(() => {
+      // SELECCIONAR LISTA DEL CARRITO E INPUT
       const currentAlert = document.querySelector(".alertBody") as HTMLDivElement;
+      currentList = document.getElementById("list") as HTMLDivElement;
+      promoInput = document.getElementById("promoForm") as HTMLDivElement;
+
       promoInput.style.display = "block";
       if (currentAlert) currentAlert.appendChild(promoInput);
     }, 10)
@@ -287,7 +291,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
             <span className="waves waves-dark white" id="promoSwitch" onClick={showPromoInput}>{strings.forms.promo.helper}</span>
             <div id="totalCart">
               <span><i className="material-icons">monetization_on</i> {strings.total}</span>
-              <h3 id="sum">Q{filterList.sum > 0 ? filterList.sum - 0.01 : 0}</h3>
+              <h3 id="sum">Q{filterList.sum.toFixed(2)}</h3>
             </div>
             <div id="promoForm">
               <Input
@@ -304,7 +308,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
           <div className="cartSlider">
             <h3>{strings.forms.title}</h3>
             <p>{strings.forms.text}</p>
-            <CartForm getUser={(newUser: userModel) => refUser.current = newUser} formValues={state.formValues.address.length !== 0 ? state.formValues : undefined} strings={strings.forms.inputs} updateValues={(data: IForms) => formValues.current = data} />
+            <CartForm strings={strings.forms.inputs} updateValues={(data: IForms) => formValues.current = data} />
             <div className="controlSum">
               <button onClick={prevSlider} className="waves prevSlide amber"> <i className="material-icons">arrow_back</i> {strings.prevButton}</button>
               <button onClick={updateBill} className="waves blue">{strings.button} <i className="material-icons">arrow_forward</i></button>

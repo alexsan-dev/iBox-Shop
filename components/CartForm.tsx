@@ -1,6 +1,6 @@
 // TIPOS Y HOOKS
-import { useContext, useRef, MutableRefObject, Dispatch, SetStateAction, useState } from "react";
-import { useUserGet, defUserData } from "../utils/hooks";
+import { useContext, useRef, MutableRefObject } from "react";
+import { defUserData } from "../utils/hooks";
 
 // CONTEXTO
 import appContext from "../utils/appContext";
@@ -9,18 +9,15 @@ import appContext from "../utils/appContext";
 import Input from "../components/Input";
 
 // PROPIEDADES
-interface formProps { getUser?: Function; formValues?: IForms; updateValues: Function; strings: langPackage.cartPage["summary"]["forms"]["inputs"] }
+interface formProps { updateValues: Function; strings: langPackage.cartPage["summary"]["forms"]["inputs"] }
 
 const CartForm: React.FC<formProps> = (props: formProps) => {
-  // ESTADOS
-  const [userState, setUser]: [userModel, Dispatch<SetStateAction<userModel>>] = useState(defUserData);
-
   // CONTEXTO
   const { user } = useContext(appContext.appContext);
 
   // REFERENCIAS
-  const defForm: IForms = { displayName: user?.displayName || "", email: user?.email || "", address: "", phone: 0, nit: "" };
-  const form: MutableRefObject<IForms> = useRef(props.formValues || defForm);
+  const defForm: IForms = { displayName: user?.displayName || "", email: user?.email || "", address: "", phone: 0, nit: "C/F" };
+  const form: MutableRefObject<IForms> = useRef(defForm);
   const refUser: MutableRefObject<userModel> = useRef(defUserData);
 
   // GUARDAR DATOS DE LOS INPUTS
@@ -35,21 +32,13 @@ const CartForm: React.FC<formProps> = (props: formProps) => {
   }
 
   // OBTENER INFORMACIÓN DEL USUARIO
-  if (user && !props.formValues)
-    useUserGet(user.uid)
-      .then((newUser: userModel | null | undefined) => {
-        // VERIFICAR NUEVOS DATOS
-        if (newUser && JSON.stringify(newUser) !== JSON.stringify(refUser.current)) {
-          // GUARDAR NUEVO NOMBRE Y CORREO
-          saveToForm({ name: "displayName", text: newUser.displayName || "" })
-          saveToForm({ name: "email", text: newUser.email || "" })
-
-          // ACTUALIZAR DATOS
-          if (props.getUser) props.getUser(newUser);
-          setUser(newUser);
-          refUser.current = newUser;
-        }
-      })
+  if (user) {
+    if (JSON.stringify(user) !== JSON.stringify(refUser.current)) {
+      // GUARDAR NUEVO NOMBRE Y CORREO
+      saveToForm({ name: "displayName", text: user.displayName || "" })
+      saveToForm({ name: "email", text: user.email || "" })
+    }
+  }
 
   return (
     <form id="deliveryForm">
@@ -62,7 +51,6 @@ const CartForm: React.FC<formProps> = (props: formProps) => {
             value={saveToForm}
             helper={props.strings.name.helper}
             icon="person"
-            defValue={props.formValues?.displayName || userState.displayName || ""}
           />
           <Input
             type="email"
@@ -71,7 +59,6 @@ const CartForm: React.FC<formProps> = (props: formProps) => {
             value={saveToForm}
             helper={props.strings.email.helper}
             icon="email"
-            defValue={props.formValues?.email || userState.email || ""}
           />
         </>
       }
@@ -82,7 +69,7 @@ const CartForm: React.FC<formProps> = (props: formProps) => {
         value={saveToForm}
         helper={props.strings.address.helper}
         icon="directions"
-        defValue={props.formValues?.address || userState.address}
+        defValue={user?.address}
       />
       <Input
         type="number"
@@ -91,7 +78,7 @@ const CartForm: React.FC<formProps> = (props: formProps) => {
         value={saveToForm}
         helper={props.strings.phone.helper}
         icon="phone"
-        defValue={props.formValues?.phone || userState.phone}
+        defValue={user?.phone}
         maxLength={8}
       />
       <Input
@@ -101,7 +88,7 @@ const CartForm: React.FC<formProps> = (props: formProps) => {
         value={saveToForm}
         helper={props.strings.nit.helper}
         icon="fiber_pin"
-        defValue={props.formValues?.nit || userState.nit}
+        defValue={user?.nit}
       />
       <style jsx>{`
         #deliveryForm{

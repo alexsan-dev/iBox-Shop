@@ -1,6 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { useEffect, useContext, useState, Dispatch, SetStateAction, FC, useRef, MutableRefObject } from "react";
-import { useAuth, showToast, useRipples, sendToken, initFCM, useGetAllProducts } from "../utils/hooks";
+import { useAuth, showToast, useRipples, sendToken, initFCM, useGetAllProducts, useUserGet } from "../utils/hooks";
 import { User } from "firebase";
 
 // VARIABLES GLOBALES ( LENGUAJE, TEMA, USUARIO )
@@ -8,17 +8,15 @@ import langContext from "../utils/appContext";
 import appContext from "../utils/appContext";
 
 // COMPONENTES, ALERTAS Y LAYOUTS
-import Verified from "../components/Verified";
 import Footer from "./Footer";
 import TopBar from "./Topbar";
 import Drawer from "./Drawer";
 
 // INTERFACES PARA LAS PROPIEDADES Y PROVIDER GLOBAL
 interface Props { children: any; }
-interface appState { user: User | null; cartList: string[], productList: product[] | [] }
+interface appState { user: null | userModel; cartList: string[], productList: product[] | [] }
 
 // VARIABLES GLOBALES
-let layoutHandler: number = 0;
 let topBar: any;
 
 const Layout: FC<Props> = (props: Props) => {
@@ -28,7 +26,7 @@ const Layout: FC<Props> = (props: Props) => {
   // ESTADOS Y CONTEXTO DEL COMPONENTE
   const { lang } = useContext(langContext.langContext);
   const defaultUser: appState = { user: null, productList: [], cartList: [] };
-  const stateUser: MutableRefObject<User | null> = useRef(null);
+  const stateUser: MutableRefObject<userModel | null> = useRef(null);
   const stateProductList: MutableRefObject<product[] | []> = useRef([]);
   const cartList: MutableRefObject<string[]> = useRef([]);
   const [state, setState]: [appState, Dispatch<SetStateAction<appState>>] = useState(defaultUser);
@@ -53,11 +51,22 @@ const Layout: FC<Props> = (props: Props) => {
   }
 
   // DETECTAR CAMBIOS EN EL INICIÓ DE SESIÓN
-  useAuth((getUser: User) => {
-    if (layoutHandler === 0 && !getUser) return 0;
-    stateUser.current = getUser;
-    setState({ user: getUser, cartList: cartList.current, productList: stateProductList.current })
-    layoutHandler++;
+  useAuth((getUser: User | null) => {
+    // LIMPIAR USUARIO
+    if (!getUser) {
+      stateUser.current = getUser;
+      setState({ user: getUser, cartList: cartList.current, productList: stateProductList.current })
+      return 0;
+    }
+
+    // OBTENER USUARIO COMPLETO
+    useUserGet(getUser.uid)
+      .then((nUser) => {
+        if (nUser) {
+          stateUser.current = nUser;
+          setState({ user: nUser, cartList: cartList.current, productList: stateProductList.current })
+        }
+      })
   });
 
   useEffect(() => {
@@ -116,7 +125,6 @@ const Layout: FC<Props> = (props: Props) => {
           <TopBar ref={topBar} placeHolder={lang.placeholders.searchPlaceholder} />
           <Drawer strings={lang.general} user={state.user} />
         </nav>
-        {state.user && <Verified strings={lang.verified} show={state.user.providerData[0]?.providerId === "facebook.com" ? true : state.user.emailVerified} />}
         <main>
           {props.children}
         </main>

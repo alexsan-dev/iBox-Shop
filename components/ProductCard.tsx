@@ -39,7 +39,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
           <h3>{props.title}</h3>
           <p>{props.text}</p>
           <div id="cartInfo">
-            <button className="card-price"><span>Q</span>{props.price - 1}<span id="round">99</span></button>
+            <button className="card-price"><span>Q</span>{Math.floor(props.price)}<span id="round">{Math.round((props.price - Math.floor(props.price)) * 100)}</span></button>
             <button className="amber waves addToCart" onClick={addToCartCall}>
               <i className="material-icons">add_shopping_cart</i>{lang.general.buttons.addToCart}
             </button>

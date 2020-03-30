@@ -1,5 +1,4 @@
 // TIPOS DE DATOS
-import { User } from "firebase";
 import React from "react";
 
 // JSON DE LENGUAJES
@@ -14,7 +13,7 @@ const langContext: React.Context<langContext> = React.createContext(defaultLangC
 // HOC GENERAL DE LA APLICACIÓN
 interface appContext {
   lang: langType;
-  user: userModel | User | null;
+  user: userModel | null;
   theme: string;
   addToCartEvent: Function;
   cartList: string[];

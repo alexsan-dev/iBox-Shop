@@ -16,7 +16,7 @@ const AccountPage: NextPage = () => {
   useEffect(() => { useGetAllProducts() }, [])
 
   // RETORNAR PAGINA PROFILE SI EXISTE USUARIO SINO ASIGNAR PAGINA DE LOGINS
-  return user ? <Profile user={user} /> : <Logins />;
+  return user ? <Profile /> : <Logins />;
 };
 
 export default AccountPage;

@@ -62,7 +62,7 @@ const CartProductCard: FC<Props> = (props: Props) => {
         </div>
         <strong>
           <i>{lang.cartPage.cards.total}: </i>
-          <span>Q</span>{props.price - 1}<span id="round">99</span>
+          <span>Q</span>{Math.floor(props.price)}<span id="round">{Math.round((props.price - Math.floor(props.price)) * 100)}</span>
         </strong>
       </div>
 

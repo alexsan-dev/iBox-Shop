@@ -1,7 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { useEffect, useContext } from "react";
 import { useLogout, showAlert } from "../utils/hooks";
-import { User } from "firebase";
 
 // NAVEGACIÓN Y ALERTAS
 import Router from "next/router";
@@ -9,7 +8,7 @@ import Link from "next/link";
 import appContext from "../utils/appContext";
 
 //PROPIEDADES 
-interface Props { user: User | null; strings: langPackage.general; }
+interface Props { user: userModel | null; strings: langPackage.general; }
 
 // ESTADOS Y VARIABLES GLOBALES
 let shareCount: number = 0;

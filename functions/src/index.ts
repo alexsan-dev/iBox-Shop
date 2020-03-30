@@ -8,7 +8,7 @@ import * as admin from "firebase-admin";
 // INTERFACES Y TIPOS
 interface product { color: string; description: string; name: string; price: number; tag: string; key: string; img: string; }
 interface OrderCart { sum: number; productsFilter: Array<product | admin.firestore.DocumentData>; multArry: number[] }
-interface IForms { name: string; email: string; address: string; phone: number; nit: string; }
+interface IForms { displayName: string; email: string; address: string; phone: number; nit: string; }
 interface ReqForm { sendData: IForms; cartList: string[]; }
 
 // CORS
@@ -176,7 +176,7 @@ const emailTemplate = (resCart: OrderCart, reqForm: ReqForm) =>
       <p id="client">
         <strong>NIT: </strong><span>${reqForm.sendData.nit}</span>
         <br />
-        <strong>Nombre: </strong><span>${reqForm.sendData.name}</span>
+        <strong>Nombre: </strong><span>${reqForm.sendData.displayName}</span>
         <br />
         <strong>Email: </strong><span>${reqForm.sendData.email}</span>
         <br />

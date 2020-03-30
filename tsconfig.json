@@ -24,7 +24,9 @@
     "isolatedModules": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".vscode",
+    ".firebase"
   ],
   "include": [
     "next-env.d.ts",

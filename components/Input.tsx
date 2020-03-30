@@ -1,5 +1,5 @@
 // HOOKS PARA REFERENCIA
-import { useRef, FC, RefObject, MouseEvent } from "react";
+import { useRef, FC, RefObject, MouseEvent, useEffect } from "react";
 
 // VARIABLES GLOBALES
 let visible: boolean = true;
@@ -46,11 +46,13 @@ const Input: FC<InputProps> = (props: InputProps) => {
     });
 
   // ASIGNAR VALOR POR DEFECTO
-  if (inp.current && props.defValue) {
-    fx();
-    inp.current.value = props.defValue.toString();
-    getText();
-  }
+  useEffect(() => {
+    if (inp.current && props.defValue) {
+      fx();
+      inp.current.value = props.defValue.toString();
+      getText();
+    }
+  })
 
   return (
     <>

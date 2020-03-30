@@ -143,7 +143,7 @@ const emailTemplate = (resCart, reqForm) => `
       <p id="client">
         <strong>NIT: </strong><span>${reqForm.sendData.nit}</span>
         <br />
-        <strong>Nombre: </strong><span>${reqForm.sendData.name}</span>
+        <strong>Nombre: </strong><span>${reqForm.sendData.displayName}</span>
         <br />
         <strong>Email: </strong><span>${reqForm.sendData.email}</span>
         <br />
