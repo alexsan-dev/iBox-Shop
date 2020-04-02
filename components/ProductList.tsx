@@ -31,6 +31,7 @@ const ProductList: React.FC<Props> = (props: Props) => {
         code={data.key.trim()}
         img={data.img}
         price={data.price}
+        pid={data.key}
         scrollPosition={props.scrollPosition}
       />
     );

@@ -29,14 +29,23 @@ interface String {
   format(): string;
 }
 
+interface productPoints {
+  pid: string;
+  points: number[];
+  comments: string[];
+}
+
 interface product {
   color: string;
   description: string;
   name: string;
   price: number;
-  tag: string;
+  tag: string[];
   key: string;
   img: string;
+  brand: string;
+  specs: string;
+  points: productPoints;
 }
 
 interface user {
@@ -92,6 +101,7 @@ interface CardProps {
   price: number;
   code: string;
   scrollPosition?: any;
+  pid: string;
 }
 
 interface lang {
@@ -275,6 +285,18 @@ namespace langPackage {
     shopList: {
       title: string;
       text: string;
+    };
+    productPage: {
+      header: {
+        text: string;
+      };
+      description: {
+        pointsDefault: string;
+        points: string;
+        tags: string;
+        brand: string;
+        color: string;
+      }
     }
   };
   interface cartPage {
@@ -384,6 +406,7 @@ namespace langPackage {
   };
   interface toast {
     online: string;
+    button: string;
     offline: string;
   };
   interface errors {

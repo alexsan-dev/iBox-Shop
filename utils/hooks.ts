@@ -15,6 +15,7 @@ import "firebase/functions";
 // =============== GLOBALS ===============
 const db = firebase.firestore();
 const funcs = firebase.functions();
+let dbHandler: number = 0;
 let fireStoreHandler: number = 0;
 let localDBHandler: number = 0;
 let fcmHandler: number = 0;
@@ -78,12 +79,16 @@ interface IToast {
   onHide?: Function;
   action?: (e: MouseEvent) => void;
   fixed?: boolean;
+  time?: number;
 }
 export const showToast = (data: IToast) => {
   let allToast: NodeListOf<HTMLDivElement> = document.querySelectorAll(".toast") as NodeListOf<HTMLDivElement>;
   let div: HTMLDivElement = document.createElement("div") as HTMLDivElement;
   let span: HTMLDivElement = document.createElement("span") as HTMLDivElement;
   let btn: HTMLButtonElement = document.createElement("button") as HTMLButtonElement;
+
+  // TIEMPO
+  let time: number = data.time || 5000;
 
   // LIMPIAR TODOS LOS TOAST ANTERIORES
   allToast.forEach((el: HTMLDivElement) => document.body.removeChild(el));
@@ -95,6 +100,7 @@ export const showToast = (data: IToast) => {
   // AGREGAR TEXTOS Y ACCIONES
   span.textContent = data.text;
   btn.textContent = data.actionText || "";
+  btn.classList.add("waves");
 
   // EVENTO DE CLICK EN EL BOTÓN ACCIÓN
   btn.addEventListener("click", (e: MouseEvent) => {
@@ -104,7 +110,7 @@ export const showToast = (data: IToast) => {
       try { document.body.removeChild(div); }
       catch (err) { console.log(err) }
       if (data.onHide) data.onHide();
-    }, 5300);
+    }, time + 300);
   });
 
   // AGREGAR DIV AL BODY
@@ -121,13 +127,13 @@ export const showToast = (data: IToast) => {
   if (!data.fixed) {
     setTimeout(() => {
       div.style.transform = "translateY(100%)";
-    }, 5000);
+    }, time);
 
     setTimeout(() => {
       try { document.body.removeChild(div); }
       catch (err) { console.log(err) }
       if (data.onHide) data.onHide();
-    }, 5300);
+    }, time + 300);
   }
 }
 
@@ -332,27 +338,65 @@ export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
   let products: product[] | firestore.DocumentData[] = [];
   const localData: productList[] = await iLocalDB.productList.toArray();
 
+  // INSERTAR COMENTARIOS EN PRODUCTOS
+  const insertOnProducts = (productList: product[] | firestore.DocumentData[], commentList: firestore.DocumentData[] | productPoints[]) => {
+    // VARIABLES TEMPORALES
+    let tempProducts: product[] | firestore.DocumentData[] = productList;
+    let tempComments: firestore.DocumentData[] | productPoints[] = commentList;
+
+    // RECORRER PRODUCTOS Y COMENTARIOS
+    for (let i = 0; i < tempProducts.length; i++) {
+      // VARIABLE POR DEFAULT
+      tempProducts[i].points = { points: [0], pid: tempProducts[i].key, comments: [""] };
+      for (let j = 0; j < tempComments.length; j++) {
+        // ASIGNAR COMENTARIOS RESPECTIVOS
+        if (tempProducts[i].key === tempComments[j].pid) tempProducts[i].points = tempComments[j];
+      }
+    }
+
+    // RETORNAR VARIABLE TEMPORAL
+    return tempProducts;
+  }
+
   // VERIFICAR POR NUEVOS DATOS 
-  if (window.navigator.onLine) setTimeout(async () => {
+  if (window.navigator.onLine && dbHandler === 0) setTimeout(async () => {
     // CREAR CONEXIÓN
     const firestoreData: firestore.CollectionReference<firestore.DocumentData> = await db.collection("products");
+    const commentList: firestore.CollectionReference<firestore.DocumentData> = await db.collection("points");
 
     // DETECTAR CAMBIOS
     firestoreData.onSnapshot(async (nData: firestore.QuerySnapshot) => {
+      console.log('%c📖 CHANGE FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
+
       // OBTENER NUEVOS DATOS
       const newData: firestore.DocumentData[] = nData.docs.map((doc: firestore.DocumentData) => doc.data());
+      const commentS = await commentList.get();
 
-      // VERIFICAR SI SON IGUALES
-      if (localData[0] && JSON.stringify(localData[0].products) !== JSON.stringify(newData)) {
-        // CREAR NUEVA LISTA
-        products = newData.map((doc: firestore.DocumentData) => doc);
+      // CREAR NUEVA LISTA
+      products = newData.map((doc: firestore.DocumentData) => doc);
+      const nsComments: product[] | firestore.DocumentData[] = insertOnProducts(products, commentS.docs.map((cms: firestore.QueryDocumentSnapshot<firestore.DocumentData>) => cms.data()))
 
-        // AGREGAR A BASE LOCAL Y ENVIAR
-        await setProducts(products);
-        if (onDataUpdate) onDataUpdate(products);
-      }
+      // AGREGAR A BASE LOCAL Y ENVIAR
+      await setProducts(nsComments);
+      if (onDataUpdate) onDataUpdate(nsComments);
     })
+
+    // DETECTAR CAMBIOS EN COMENTARIOS
+    commentList.onSnapshot(async (nComment: firestore.QuerySnapshot) => {
+      const newData: firestore.DocumentData[] = nComment.docs.map((doc: firestore.DocumentData) => doc.data());
+      const nsComments: product[] | firestore.DocumentData = insertOnProducts(products, newData);
+
+      // ACTUALIZAR CAMBIOS LOCALES
+      await setProducts(nsComments);
+
+      // ACTUALIZAR ESTADO
+      if (onDataUpdate) onDataUpdate(nsComments);
+    })
+
+    // LIMITAR PETICIONES
+    dbHandler++;
   }, 1000);
+
 
   // SI EXISTEN DEVOLVER DATOS LOCALES
   if (localData[0]) {
@@ -366,10 +410,13 @@ export const useGetAllProducts: Function = async (onDataUpdate?: Function) => {
 
     // CREAR NUEVA LISTA
     const firestoreData: firestore.QuerySnapshot<firestore.DocumentData> = await db.collection("products").get();
+    const commentList: firestore.QuerySnapshot<firestore.DocumentData> = await db.collection("points").get();
+
+    // AGREGAR A LOS PRODUCTOS
     firestoreData.forEach((doc: firestore.DocumentData) => products.push(doc.data()))
 
     // AGREGAR A BASE LOCAL Y ENVIAR
-    await setProducts(products);
+    await setProducts(insertOnProducts(products, commentList.docs.map((cms: firestore.QueryDocumentSnapshot<firestore.DocumentData>) => cms.data())));
     localDBHandler++;
   }
   return products;
@@ -452,6 +499,9 @@ export const verifyForm = (vals: IForms | null) => {
 interface IForms { displayName: string; email: string; address: string; phone: number; nit: string; }
 interface ReqForm { sendData: IForms; cartList: string[]; }
 export const buyFromCart = (req: ReqForm) => funcs.httpsCallable("buyFromCart")(req);
+
+
+// =============== COMENTARIOS ===============
 
 // =============== USUARIOS ===============
 // USUARIO POR DEFECTO

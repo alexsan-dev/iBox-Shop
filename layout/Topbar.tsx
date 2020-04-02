@@ -1,5 +1,5 @@
 // HOOKS Y NAVEGACIÓN
-import { useEffect, forwardRef, useImperativeHandle, Dispatch, SetStateAction, useState, ChangeEvent } from 'react';
+import { useEffect, forwardRef, useImperativeHandle, Dispatch, SetStateAction, useState, ChangeEvent, RefObject, useRef } from 'react';
 import Link from 'next/link';
 import SearchResults from '../components/SearchResults';
 
@@ -14,6 +14,9 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
   // ESTADO
   const [state, setState]: [topBarState, Dispatch<SetStateAction<topBarState>>] = useState({ search: "" });
 
+  // OCULTAR BÚSQUEDA
+  const searchToggle: RefObject<HTMLInputElement> = useRef(null);
+
   // FUNCIÓN IMPERATIVA PARA CALLBACK EXTERNO
   useImperativeHandle(ref, () => ({
     callRender(count: number) { renderManager(count); }
@@ -22,7 +25,6 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
   useEffect(() => {
     // SELECCIONAR TOPBAR, INPUT DE MOSTRAR Y OCULTAR BÚSQUEDA, INPUT DE BÚSQUEDA Y BOTÓN DE AGREGAR AL CARRITO
     const topbar: HTMLDivElement | null = document.querySelector(".topbar") as HTMLDivElement;
-    const searchToggle: HTMLInputElement | null = document.getElementById("search-toggle") as HTMLInputElement;
     const search: HTMLInputElement | null = document.getElementById("search") as HTMLInputElement;
     const addToCartBtn: HTMLButtonElement | null = document.querySelector(".addToCartBtn") as HTMLButtonElement;
     const shopCount: HTMLButtonElement | null = document.getElementById("shopCount") as HTMLButtonElement;
@@ -48,8 +50,8 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
     addShadow();
 
     // LIMPIAR O SELECCIONAR INPUT DE BÚSQUEDA
-    searchToggle?.addEventListener("click", () => {
-      const toggle: boolean | undefined = searchToggle?.checked;
+    searchToggle.current?.addEventListener("click", () => {
+      const toggle: boolean | undefined = searchToggle.current?.checked;
       if (toggle) search.focus();
       else {
         setState({ search: "" });
@@ -69,7 +71,7 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
 
   return (
     <>
-      <input type="checkbox" id="search-toggle" name="search-toggle" />
+      <input ref={searchToggle} type="checkbox" id="search-toggle" name="search-toggle" />
       <label htmlFor="search-toggle" className="topbarShadow ssf"></label>
 
       <div className="topbar">
@@ -95,7 +97,7 @@ const TopBar: React.FC<Props> = (props: Props, ref: any) => {
       </div>
 
       <div id="searchBox">
-        <SearchResults text={state.search} />
+        <SearchResults text={state.search} onPush={() => setTimeout(() => searchToggle.current?.click(), 300)} />
       </div>
 
       <style jsx>{`

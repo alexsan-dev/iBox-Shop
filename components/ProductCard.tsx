@@ -2,6 +2,8 @@
 import { FC, useContext, RefObject, useRef } from "react";
 import appContext from "../utils/appContext";
 
+import Link from "next/link";
+
 // CARGAR IMAGEN
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -31,7 +33,9 @@ const Card: FC<CardProps> = (props: CardProps) => {
           width="100%"
           style={{ marginTop: "-25%", position: "relative" }}
         />
-        <div className="waves waves-dark headShadow"></div>
+        <Link href={`/tienda/[pid]`} as={`/tienda/${props.pid}`} scroll={false}>
+          <div className="waves waves-dark headShadow"></div>
+        </Link>
       </div>
 
       <div className="card-body">

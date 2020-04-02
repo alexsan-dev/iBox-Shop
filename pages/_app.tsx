@@ -1,15 +1,13 @@
 // ANIMACIÓN Y HOOKS
 import { AnimatePresence } from "framer-motion";
+import { showAlert } from "../utils/hooks";
 
 // COMPONENTES
 import Layout from "../layout/Layout";
 import Splash from "../components/Splash";
 import App from "next/app";
-import { showAlert } from "../utils/hooks";
-
 
 export default class iBoxApp extends App {
-
   public componentDidMount() {
     // SELECCIÓNAR COMPONENTE DE SPLASH Y CONTEXTO
     const splash: HTMLDivElement | null = document.getElementById("splash") as HTMLDivElement;
@@ -409,13 +407,31 @@ export default class iBoxApp extends App {
             background: var(--text);
             padding: 20px;
             z-index: 99;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+          }
+          .toast > button{
+            position:relative;
+            appearance: none;
+            border: none;
+            outline: none;
+            background: rgba(0, 0, 0, .4);
+            color:#fff;
+            padding: 15px 25px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
           }
           .toast > span {
             font-size: 1em;
             font-weight: 500;
             color: var(--backgrounds);
           }
-
+          .actionToast{
+            padding:10px 20px;
+          }
           @keyframes show {
             from {
               opacity: 0;

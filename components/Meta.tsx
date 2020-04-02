@@ -21,10 +21,10 @@ const Meta: React.FC<Props> = (props: Props) => {
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <meta name="apple-mobile-web-app-title" content={props.title} />
-      <link rel="apple-touch-icon" href="./favicon.ico" />
-      <link rel="shortcut icon" href="./favicon.ico" />
-      <link rel="favicon" href="./favicon.ico" />
-      <link rel="manifest" href="./manifest.json" />
+      <link rel="apple-touch-icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="favicon" href="/favicon.ico" />
+      <link rel="manifest" href="/manifest.json" />
       <meta property="og:title" content={props.title} />
       <meta property="og:description" content={props.desc} />
       <meta property="og:image" content="https://ibox.gt/images/banner.jpg" />

@@ -31,6 +31,7 @@ const CartList: React.FC<OptProps> = (optProps: OptProps) => {
         text={product.description}
         code={product.key?.trim()}
         img={product.img}
+        pid={product.key}
         price={product.price * filterList.multArry[i]}
         cant={filterList.multArry[i]}
       />

@@ -73,13 +73,21 @@ const Layout: FC<Props> = (props: Props) => {
     // ESTADO DE CONEXIÓN
     const online = navigator.onLine;
 
+    // ALERTA DE OFFLINE
+    const offlineToast = () => showToast({
+      text: lang.toast.offline,
+      fixed: true,
+      actionText: lang.toast.button,
+      action: () => window.location.reload()
+    })
+
     // MOSTRAR ALERTA CUANDO RECUPERO LA CONEXIÓN
     window.addEventListener("online", () => showToast({ text: lang.toast.online }));
     // MOSTRAR ALERTA CUANDO PERDIÓ LA CONEXIÓN
-    window.addEventListener("offline", () => showToast({ text: lang.toast.offline }));
+    window.addEventListener("offline", offlineToast);
 
     // DETECTAR CONEXIÓN AL ENTRAR
-    if (!online) showToast({ text: lang.toast.online });
+    if (!online) offlineToast();
 
     // PEDIR PERMISO PARA NOTIFICAR
     const messaging = initFCM();

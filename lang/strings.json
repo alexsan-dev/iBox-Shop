@@ -176,6 +176,18 @@
       "shopList": {
         "title": "Productos",
         "text": "Aquí se encuentra un listado de todos los productos en el inventario, también puedes pedirnos cualquier producto 🤝 que desearías ver en la tienda enviando un mensaje en facebook, o en nuestra plataforma."
+      },
+      "productPage": {
+        "header": {
+          "text": "Encontraras muchos mas productos relacionados 🎲 a este utilizando nuestro buscador 🔍, Tip: también puedes buscar por etiquetas 📌."
+        },
+        "description": {
+          "points": "Puntuación: ",
+          "pointsDefault": "Sin puntuaciones",
+          "tags": "Etiquetas: ",
+          "brand": "Marca: ",
+          "color": "Color: "
+        }
       }
     },
     "cartPage": {
@@ -303,7 +315,8 @@
     },
     "toast": {
       "online": "De nuevo en línea",
-      "offline": "Sin conexión a internet"
+      "offline": "Sin conexión a internet",
+      "button": "Recargar"
     },
     "errors": {
       "app_deleted": "Fallo la conexión interna, intenta recargar la página.",

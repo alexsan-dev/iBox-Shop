@@ -5,7 +5,7 @@ import { useEffect, RefObject, useRef } from "react";
 import Link from "next/link";
 
 // PROPIEDADES
-interface props { text: string; search: string; id: string; index: number }
+interface props { text: string; search: string; id: string; index: number; onPush: Function }
 
 const ProductListElement: React.FC<props> = (props: props) => {
   // REFERENCIAS
@@ -24,9 +24,9 @@ const ProductListElement: React.FC<props> = (props: props) => {
 
   return (
     <>
-      <Link href={`/tienda/${props.id}`} passHref>
-        <li ref={li} className="white waves waves-dark">
-          <a title={`/tienda/${props.id}`}>{props.text}</a>
+      <Link href="/tienda/[pid]" as={`/tienda/${props.id}`}>
+        <li ref={li} className="white waves waves-dark" onClick={() => props.onPush()}>
+          <span>{props.text}</span>
         </li>
       </Link>
 
@@ -48,6 +48,9 @@ const ProductListElement: React.FC<props> = (props: props) => {
         cursor:pointer;
         opacity:0;
         transition:opacity 0.3s ease-in-out;
+      }
+      span{
+        color:rgba(0,0,0,.8);
       }
       .animLi{
         animation:animLI 0.3s ease-in-out 1;

@@ -8,7 +8,7 @@ import ProductListElement from './ProductListElement';
 String.prototype.format = function () { return this.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
 
 // PROPIEDADES
-interface SearchProps { text: string; }
+interface SearchProps { text: string; onPush: Function }
 
 const SearchResults: React.FC<SearchProps> = (props: SearchProps) => {
   // CONTEXTO
@@ -27,12 +27,14 @@ const SearchResults: React.FC<SearchProps> = (props: SearchProps) => {
         product.description.format().indexOf(words[wordsIndex]) !== -1 ||
         product.color.format().indexOf(words[wordsIndex]) !== -1 ||
         product.price.toString().format().indexOf(text) !== -1 ||
-        product.tag.format().indexOf(words[wordsIndex]) !== -1 ||
-        product.img.format().indexOf(words[wordsIndex]) !== -1
+        product.tag.join().format().indexOf(words[wordsIndex]) !== -1 ||
+        product.img.format().indexOf(words[wordsIndex]) !== -1 &&
+        product.brand.format().indexOf(words[wordsIndex]) !== -1 &&
+        product.specs.format().indexOf(words[wordsIndex]) !== -1
       ) {
         // AGREGAR PRODUCTO A LA LISTA
         searchList.push(
-          <ProductListElement key={i} text={product.name} search={text} id={product.key} index={i} />
+          <ProductListElement onPush={props.onPush} key={i} text={product.name} search={text} id={product.key} index={i} />
         )
         break;
       }
