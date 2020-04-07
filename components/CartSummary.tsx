@@ -36,7 +36,6 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
   // REFERENCIAS
   const filterList: OrderCart = useCartSearch(cartList, productList);
   const formValues: MutableRefObject<IForms> = useRef(defForm);
-  const refUser: MutableRefObject<userModel | null> = useRef(null);
   const sliderCount: MutableRefObject<number> = useRef(0);
   const promoCode: MutableRefObject<string> = useRef("");
   const slider: RefObject<HTMLDivElement> = useRef(null);
@@ -250,7 +249,7 @@ const CartSummary: React.FC<langPackage.cartPage["summary"]> = (strings: langPac
         }
 
         // AGREGAR DATOS AL USUARIO
-        let userCopy: userModel | null = refUser.current;
+        let userCopy: userModel | null = user;
 
         // VERIFICAR SI EXISTE USUARIO
         if (userCopy) {

@@ -293,7 +293,7 @@ export const setProducts: Function = async (products: product[] | firestore.Docu
 // AGREGAR USUARIO EN CUENTA NUEVA
 export const useUserSet = async (id?: string, data?: userModel) => {
   if (id && data) {
-    db.collection("users").doc(id).set(data);
+    await db.collection("users").doc(id).set(data);
     setUser(data);
   }
 }
@@ -313,6 +313,7 @@ export const useUserGet = async (id: string | undefined) => {
   else if (fireStoreHandler === 0 && id) {
     // LEER DE FIREBASE
     const getUser: firestore.DocumentSnapshot<firestore.DocumentData> = await db.collection("users").doc(id).get();
+
     if (getUser) {
       console.log('%c📖 READ USER FROM FIRESTORE 🔥', 'background:#FFA000; color: #ffff; padding:5px; font-weight:bold; border-radius:5px');
 
