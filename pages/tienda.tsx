@@ -1,61 +1,40 @@
 // ANIMACIÓN, HOOKS Y TIPOS DE DATOS
-import { motion, Variants } from "framer-motion";
-import { NextPage } from "next";
+import { motion } from 'framer-motion'
 
 // CONTEXTO
-import { useContext } from "react";
-import appContext from "../utils/appContext";
+import { useContext } from 'react'
+import { appContext } from 'Ctx'
 
 // COMPONENTES
-import Header from "../components/Header";
-import ShopList from "../components/ShopList";
+import Header from '../components/Header'
+import ShopList from '../components/ShopList'
 
-// CONFIGURACIÓN DE ANIMACIÓN
-let ease: number[] = [0.175, 0.85, 0.42, 0.96];
-let duration: number = 0.5;
-let transition: object = { duration, ease };
+// HOCS Y ANIMACIONES
+import { pageAnimation } from 'utils/HOCs'
+import { rightAnimation, upAnimation } from 'utils/Globals'
 
-// OBJECTOS DE ANIMACIÓN
-const pageAnim: Variants = {
-  exit: { opacity: 0, y: -150, transition },
-  enter: { opacity: 1, y: 0, transition }
-};
+const ShopPage: React.FC = () => {
+	// TEXTO DE PAGINA DE INICIO
+	const strings = useContext(appContext).lang.shopPage
 
-const slideAnim: Variants = {
-  exit: { opacity: 0, x: 200, transition },
-  enter: { opacity: 1, x: 0, transition }
-};
+	return (
+		<>
+			<motion.div variants={upAnimation}>
+				<Header
+					back
+					img='/images/shop/shop.png'
+					href='/'
+					text={strings.header.text}
+					title={strings.header.title}
+					span='MORE SECURITY'
+				/>
+			</motion.div>
 
-const ShopPage: NextPage = () => {
-  // TEXTO DE PAGINA DE INICIO
-  const strings = useContext(appContext.appContext).lang.shopPage;
+			<motion.div variants={rightAnimation}>
+				<ShopList {...strings.shopList} />
+			</motion.div>
+		</>
+	)
+}
 
-  return (
-    <>
-      <motion.div initial="exit" animate="enter" exit="exit"
-        variants={{
-          exit: { transition: { staggerChildren: 0.1 } },
-          enter: { transition: { staggerChildren: 0.1 } }
-        }}
-      >
-        <motion.div variants={pageAnim}>
-          <Header
-            back
-            img={require("../assets/shop.png")}
-            href="/"
-            text={strings.header.text}
-            title={strings.header.title}
-            span="MORE SECURITY"
-          />
-        </motion.div>
-
-        <motion.div variants={slideAnim}>
-          <ShopList {...strings.shopList} />
-        </motion.div>
-
-      </motion.div>
-    </>
-  );
-};
-
-export default ShopPage;
+export default pageAnimation(ShopPage)

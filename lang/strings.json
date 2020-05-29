@@ -1,352 +1,700 @@
 {
-  "es": {
-    "general": {
-      "app": {
-        "name": "iBox Shop®",
-        "description": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
-        "nameCom": "iBox Shop® App (v0.73)",
-        "nameShort": "iBox",
-        "slogan": "Tu comodidad en una caja.",
-        "title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
-        "navDivider": "Aplicación",
-        "shareText": "Entra a esta tienda, te gustara. ✨👌!",
-        "update": {
-          "title": "Nueva actualización",
-          "text": "Hay una nueva actualización disponible, ¿deseas actualizar?",
-          "button": "Recargar"
-        }
-      },
-      "buttons": {
-        "logout": "Cerrar Sesión",
-        "back": "Regresar",
-        "addToCart": "Agregar",
-        "share": "Compartir",
-        "download": "Descargar"
-      },
-      "routes": {
-        "home": "Inicio",
-        "shop": "Tienda",
-        "cart": "Carrito",
-        "account": "Cuenta"
-      },
-      "logout": {
-        "title": "¿Estas seguro?",
-        "text": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
-      }
-    },
-    "placeholders": {
-      "productShadowText_1": "Cargando",
-      "productShadowText_2": "Productos",
-      "searchPlaceholder": "Buscar productos",
-      "searchInput": "Buscar"
-    },
-    "alert": {
-      "confirm": "Aceptar",
-      "cancel": "Cancelar"
-    },
-    "verified": {
-      "alertTitle": "Lo sentimos",
-      "alertText": "Tu cuenta ha sido eliminada, 'No verificada'",
-      "title": "Verifica tu correo",
-      "text": "Ya te enviamos un link para poder seguir utilizando la tienda con tu cuenta.",
-      "button": "Reenviar"
-    },
-    "errorPage": {
-      "title": "¡Ocurrió un error!",
-      "description_1": "Lo sentimos, tenemos un error",
-      "description_2": "en la plataforma 😅, intenta de nuevo más tarde o revisa si la dirección es correcta.",
-      "button": "Regresar"
-    },
-    "indexPage": {
-      "header": {
-        "button": "Ver catálogo",
-        "text": "Entra hoy a la tienda para conocer nuestra variedad de productos, en iBox te facilitamos la vida 😉, compra y te lo llevamos hasta la puerta de tu casa, conoce nuestro catálogo.",
-        "title": "¡Tu tienda de electrónica y accesorios en línea!"
-      },
-      "slider": {
-        "title": "Categorías",
-        "text": "Al pedir tus piezas por mayor, también recibirás descuentos y regalos especiales 🎁. Contamos con servicios de pago en línea o contra entrega para garantizar tu comodidad. 🏍️",
-        "button": "Ver todo",
-        "electroCatTitle": "Electrónica",
-        "electroCatText": "Componentes, integrados y más.",
-        "devicesCatTitle": "Dispositivos",
-        "devicesCatText": "Audio, video, red y smartphones.",
-        "accessCatTitle": "Accesorios",
-        "accessCatText": "Audífonos, cables, protectores."
-      },
-      "middle": {
-        "blob_1": "Conoce más",
-        "blob_2": "de nosotros 💪",
-        "button_1": "Ver Cuenta",
-        "button_2": "Iniciar Sesión",
-        "title": "Únete a la mejor tienda y descubre más",
-        "text": "Únete a iBox de forma gratuita y recibe un regalo mas otros beneficios al crear tu cuenta 🌎. También puedes crear tu cuenta con Facebook, Google o con tu correo electrónico."
-      },
-      "recent": {
-        "title": "Recientes",
-        "text": "¡Conoce nuestros productos más recientes! Si eres de los primeros clientes en comprar nuestros productos más recientes 💰, obtendrás ofertas exclusivas, no esperes más y comienza a comprar.",
-        "button": "Ver más"
-      }
-    },
-    "accountPage": {
-      "title": "Conectate",
-      "text": "Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌",
-      "alreadyAccount": "tienes cuenta?",
-      "confirm_1": "ya",
-      "privacy_1": "Políticas de",
-      "privacy_2": "privacidad",
-      "header": {
-        "title": "Compra más rápido",
-        "text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
-      },
-      "forms": {
-        "forgot": {
-          "title": "Recuperar",
-          "buttonText": "¿Olvidaste tu contraseña?",
-          "helper": "Correo de recuperación",
-          "text": "Escribe el correo al que quieres que enviemos el link de recuperación."
-        },
-        "inputs": {
-          "email": {
-            "field": "Correo electrónico",
-            "helper": "Email de la cuenta"
-          },
-          "user": {
-            "field": "Nombre",
-            "helper": "Nombre de usuario"
-          },
-          "pass": {
-            "field": "Contraseña",
-            "helper": "Clave secreta"
-          }
-        }
-      },
-      "alerts": {
-        "title": "¡Ocurrió un error!",
-        "text_1": "Hay campos vacíos o la información no es correcta, todos los campos son obligatorios.",
-        "text_2": "Un campo tiene un error o faltan datos."
-      },
-      "buttons": {
-        "createAccount": "Crear cuenta",
-        "login": "Iniciar Sesión",
-        "fbLoginText": "Iniciar con Facebook",
-        "gLoginText": "Iniciar con Google"
-      }
-    },
-    "profilePage": {
-      "title": "Mi cuenta",
-      "span": "Cuidamos 💪 tu seguridad",
-      "history": {
-        "title": "Historial de compras",
-        "text": "Aquí se muestran todas las compras que has hecho 🚚 con la aplicación durante los últimos dias y el resumen de pedidos ⭐️.",
-        "empty": "Por el momento no tienes ninguna compra registrada 😅, ve a la tienda, has tu primer pedido y registra tu compra 💲.",
-        "button": "Ver tienda"
-      },
-      "info": {
-        "button": "Actualizar información",
-        "title": "Tu información",
-        "text": "Aquí se muestran tus datos confidenciales ✍️ , verifica siempre tu conexión 📲 a internet  antes de poder editar tus datos.",
-        "confirmUpdate": {
-          "alert": {
-            "title": "Espera un poco",
-            "text": "Tus datos se están actualizando ✍️, espera solo un momento ..."
-          }
-        },
-        "inputs": {
-          "address": {
-            "field": "Dirección",
-            "helper": "Residencia y Departamento o Municipio"
-          },
-          "phone": {
-            "field": "Teléfono",
-            "helper": "Numero de teléfono"
-          },
-          "nit": {
-            "field": "NIT",
-            "helper": "Tu número de nit."
-          }
-        }
-      }
-    },
-    "shopPage": {
-      "header": {
-        "title": "¡Encuentra los mejores productos para ti!",
-        "text": "Suscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis."
-      },
-      "shopList": {
-        "title": "Productos",
-        "text": "Aquí se encuentra un listado de todos los productos en el inventario, también puedes pedirnos cualquier producto 🤝 que desearías ver en la tienda enviando un mensaje en facebook, o en nuestra plataforma."
-      },
-      "productPage": {
-        "header": {
-          "text": "Encontraras muchos mas productos relacionados 🎲 a este utilizando nuestro buscador 🔍, Tip: también puedes buscar por etiquetas 📌."
-        },
-        "description": {
-          "points": "Puntuación: ",
-          "pointsDefault": "Sin puntuaciones",
-          "tags": "Etiquetas: ",
-          "brand": "Marca: ",
-          "color": "Color: "
-        }
-      }
-    },
-    "cartPage": {
-      "header": {
-        "title": "Carrito",
-        "titleExt": "de",
-        "text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento."
-      },
-      "cards": {
-        "total": "Total"
-      },
-      "summary": {
-        "button": "Siguiente",
-        "prevButton": "Anterior",
-        "total": "Precio total: ",
-        "banner": {
-          "title": "Gracias ",
-          "text": "Agradecemos mucho tu compra ❤️, tu eres lo mas importante para nosotros y esperamos que nuestro servicio sea de tu agrado 🙏, en tres días recibirás tus productos, pagas al recibir 😉.",
-          "st": "Atentamente: ",
-          "pd": "Equipo de iBox Shop®."
-        },
-        "alerts": {
-          "title": "¡Ocurrió un error!",
-          "text": "No se pudo procesar tu compra por un error de conexión, intenta de nuevamente."
-        },
-        "notFound": {
-          "title": "Carrito vació",
-          "text": "Lo siento por el momento no hay artículos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automáticas. 📱"
-        },
-        "buy": {
-          "alert": {
-            "title": "Espera un poco",
-            "text": "Te agradecemos por tu compra ❤️, estamos procesando tus datos ✍️ ..."
-          }
-        },
-        "sendForm": {
-          "banner": {
-            "title": "Datos seguros",
-            "text": "Protegemos tus datos bajo HTTPS, tus datos son confidenciales y no los compartimos con nadie."
-          },
-          "button": "Comprar",
-          "info": {
-            "title": "Resumen de Compra",
-            "fields": {
-              "nit": "NIT:",
-              "name": "Nombre:",
-              "email": "Email:",
-              "total": "Por un total de:",
-              "address": "En:"
-            }
-          }
-        },
-        "forms": {
-          "title": "Información de Contacto:",
-          "text": "Solo necesitamos, tu información de envió para confirmar tu compra:",
-          "errors": {
-            "title": "¡Espera un poco!",
-            "text": "Tienes que verificar si tus datos de envió son correctos antes de comprar.",
-            "text_1": "La información del correo es incorrecta, intenta nuevamente.",
-            "text_2": "La información de tu número de teléfono es incorrecta, intenta nuevamente."
-          },
-          "promo": {
-            "title": "¿Tienes un código?",
-            "text": "Si cuentas con algún código de promoción por oferta 📲 o descuento, puedes ingresar tu código aquí solo una ves 😉.",
-            "helper": "¿Tienes un código de promoción?"
-          },
-          "inputs": {
-            "promo": {
-              "field": "Código de promoción",
-              "helper": "Descuentos o promociones"
-            },
-            "name": {
-              "field": "Nombre",
-              "helper": "* Nombre completo"
-            },
-            "email": {
-              "field": "Correo electrónico",
-              "helper": "* Email de facturación"
-            },
-            "address": {
-              "field": "Dirección",
-              "helper": "* Residencia y Departamento o Municipio"
-            },
-            "phone": {
-              "field": "Teléfono",
-              "helper": "* Numero de teléfono"
-            },
-            "nit": {
-              "field": "NIT",
-              "helper": "Dejar vació (C/F)"
-            }
-          }
-        }
-      }
-    },
-    "footer": {
-      "title": "Contacta con nosotros",
-      "text": "Si tienes algún comentario envianos un mensaje en Facebook para hablar con nuestro asistente 🤖, y visita también nuestra página 👍",
-      "blobs": {
-        "contact": "Contacta al área técnica 💻",
-        "email": "cto@ibox.gt"
-      },
-      "buttons": {
-        "request": "Solicitar producto",
-        "comment": "Comentar en Facebook",
-        "sendMsg": "Enviar mensaje personal"
-      },
-      "faq": {
-        "quest_1": "¿No encuentras el producto que buscas en nuestra tienda?",
-        "quest_2": "¿Tienes algún comentario sobre nuestro servicio?",
-        "quest_3": "¿Cualquier otra sugerencia o recomendación que tengas para seguir mejorando nuestra calidad de servicio?"
-      },
-      "rights": {
-        "main": "Hecho con ❤️ en Guatemala 🇬🇹",
-        "reserved": "Todos los derechos reservados iBox Shop®"
-      }
-    },
-    "loading": {
-      "title": "Espera un momento",
-      "text": "Esto solo dura unos segundos, solo estamos verificando y asegurando tu conexión..."
-    },
-    "splash": {
-      "title": "Mejora tu experiencia 🔥",
-      "text": "iBox es la tienda electrónica con el mayor impacto en Guatemala, creada desde cero para mejorar en cada detalle 👌, ayúdanos a mejorar tu experiencia dejándonos tu comentario sobre la tienda. 📲"
-    },
-    "toast": {
-      "online": "De nuevo en línea",
-      "offline": "Sin conexión a internet",
-      "button": "Recargar"
-    },
-    "errors": {
-      "app_deleted": "Fallo la conexión interna, intenta recargar la página.",
-      "app_not_authorized": "Esta aplicación no esta autorizada para iniciar sesión aquí.",
-      "argument_error": "Se envió una solicitud con parámetros incorrectos.",
-      "invalid_api_key": "Las credenciales de la aplicación son incorrectas.",
-      "invalid_user_token": "Parece que tu cuenta se inválido.",
-      "network_request_failed": "Comprueba tu conexión a internet.",
-      "operation_not_allowed": "Se trató de iniciar sesión en proveedor no autorizado.",
-      "requires_recent_login": "Se registró una sesión anterior con el mismo usuario.",
-      "too_many_requests": "Se alcanzó él limite máximo de intentos.",
-      "unauthorized_domain": "Este sitio no está autorizado para iniciar sesión aquí.",
-      "user_disabled": "Este usuario ha sido deshabilitado.",
-      "user_token_expired": "Las credenciales del usuario han expirado.",
-      "web_storage_unsupported": "Tu navegador o dispositivo no soporta el almacenamiento interno.",
-      "account_exists_with_different_credential": "Esta cuenta ya existe y esta registrada con otro método.",
-      "credential_already_in_used": "Las credenciales de esta cuenta ya están en uso.",
-      "email_already_in_use": "Esta dirección de correo electrónico ya está registrado en otra cuenta.",
-      "user_not_found": "No se ha podido encontrar el usuario, intenta nuevamente.",
-      "weak_password": "Tu contraseña debe contener al menos 6 caracteres alfanuméricos.",
-      "invalid_email": "El correo electrónico no es valido.",
-      "wrong_password": "La contraseña no es la correcta, intenta nuevamente.",
-      "invalid_verification_code": "El código introducido no es valido.",
-      "invalid_verification_id": "El ID de verificación no es valido.",
-      "captcha_check_failed": "No se pudo verificar el Captcha, intenta nuevamente.",
-      "invalid_phone_number": "El numero de teléfono no es valido.",
-      "missing_phone_number": "El numero de teléfono es un campo obligatorio.",
-      "quota_exceeded": "Actualmente la cuota es máxima.",
-      "default": "Error desconocido intenta de nuevo."
-    }
-  },
-  "en": {}
+	"es": {
+		"general": {
+			"app": {
+				"name": "iBox Shop®",
+				"description": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
+				"nameCom": "iBox Shop® App (v0.73)",
+				"nameShort": "iBox",
+				"slogan": "Tu comodidad en una caja.",
+				"title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
+				"navDivider": "Aplicación",
+				"shareText": "Entra a esta tienda, te gustara. ✨👌!",
+				"update": {
+					"title": "Nueva actualización",
+					"text": "Hay una nueva actualización disponible, ¿deseas actualizar?",
+					"button": "Recargar"
+				}
+			},
+			"buttons": {
+				"logout": "Cerrar Sesión",
+				"back": "Regresar",
+				"addToCart": "Agregar",
+				"share": "Compartir",
+				"download": "Descargar"
+			},
+			"routes": {
+				"home": "Inicio",
+				"shop": "Tienda",
+				"cart": "Carrito",
+				"account": "Cuenta"
+			},
+			"logout": {
+				"title": "¿Estas seguro?",
+				"text": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
+			}
+		},
+		"placeholders": {
+			"productShadowText_1": "Cargando",
+			"productShadowText_2": "Productos",
+			"searchPlaceholder": "Buscar productos",
+			"searchInput": "Buscar"
+		},
+		"alert": {
+			"confirm": "Aceptar",
+			"cancel": "Cancelar"
+		},
+		"verified": {
+			"alertTitle": "Lo sentimos",
+			"alertText": "Tu cuenta ha sido eliminada, 'No verificada'",
+			"title": "Verifica tu correo",
+			"text": "Ya te enviamos un link para poder seguir utilizando la tienda con tu cuenta.",
+			"button": "Reenviar"
+		},
+		"errorPage": {
+			"title": "¡Ocurrió un error!",
+			"description_1": "Lo sentimos, tenemos un error",
+			"description_2": "en la plataforma 😅, intenta de nuevo más tarde o revisa si la dirección es correcta.",
+			"button": "Regresar"
+		},
+		"indexPage": {
+			"header": {
+				"button": "Ver catálogo",
+				"text": "Entra hoy a la tienda para conocer nuestra variedad de productos, en iBox te facilitamos la vida 😉, compra y te lo llevamos hasta la puerta de tu casa, conoce nuestro catálogo.",
+				"title": "¡Tu tienda de electrónica y accesorios en línea!"
+			},
+			"slider": {
+				"title": "Categorías",
+				"text": "Al pedir tus piezas por mayor, también recibirás descuentos y regalos especiales 🎁. Contamos con servicios de pago en línea o contra entrega para garantizar tu comodidad. 🏍️",
+				"button": "Ver todo",
+				"electroCatTitle": "Electrónica",
+				"electroCatText": "Componentes, integrados y más.",
+				"devicesCatTitle": "Dispositivos",
+				"devicesCatText": "Audio, video, red y smartphones.",
+				"accessCatTitle": "Accesorios",
+				"accessCatText": "Audífonos, cables, protectores."
+			},
+			"middle": {
+				"blob_1": "Conoce más",
+				"blob_2": "de nosotros 💪",
+				"button_1": "Ver Cuenta",
+				"button_2": "Iniciar Sesión",
+				"title": "Únete a la mejor tienda y descubre más",
+				"text": "Únete a iBox de forma gratuita y recibe un regalo mas otros beneficios al crear tu cuenta 🌎. También puedes crear tu cuenta con Facebook, Google o con tu correo electrónico."
+			},
+			"recent": {
+				"title": "Recientes",
+				"text": "¡Conoce nuestros productos más recientes! Si eres de los primeros clientes en comprar nuestros productos más recientes 💰, obtendrás ofertas exclusivas, no esperes más y comienza a comprar.",
+				"button": "Ver más"
+			}
+		},
+		"accountPage": {
+			"title": "Conectate",
+			"text": "Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌",
+			"alreadyAccount": "tienes cuenta?",
+			"confirm_1": "ya",
+			"privacy_1": "Políticas de",
+			"privacy_2": "privacidad",
+			"header": {
+				"title": "Compra más rápido",
+				"text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
+			},
+			"forms": {
+				"forgot": {
+					"title": "Recuperar",
+					"buttonText": "¿Olvidaste tu contraseña?",
+					"helper": "Correo de recuperación",
+					"text": "Escribe el correo al que quieres que enviemos el link de recuperación."
+				},
+				"inputs": {
+					"email": {
+						"field": "Correo electrónico",
+						"helper": "Email de la cuenta"
+					},
+					"user": {
+						"field": "Nombre",
+						"helper": "Nombre de usuario"
+					},
+					"pass": {
+						"field": "Contraseña",
+						"helper": "Clave secreta"
+					}
+				}
+			},
+			"alerts": {
+				"title": "¡Ocurrió un error!",
+				"text_1": "Hay campos vacíos o la información no es correcta, todos los campos son obligatorios.",
+				"text_2": "Un campo tiene un error o faltan datos."
+			},
+			"buttons": {
+				"createAccount": "Crear cuenta",
+				"login": "Iniciar Sesión",
+				"fbLoginText": "Iniciar con Facebook",
+				"gLoginText": "Iniciar con Google"
+			}
+		},
+		"profilePage": {
+			"title": "Mi cuenta",
+			"span": "Cuidamos 💪 tu seguridad",
+			"history": {
+				"title": "Historial de compras",
+				"text": "Aquí se muestran todas las compras que has hecho 🚚 con la aplicación durante los últimos dias y el resumen de pedidos ⭐️.",
+				"empty": "Por el momento no tienes ninguna compra registrada 😅, ve a la tienda, has tu primer pedido y registra tu compra 💲.",
+				"button": "Ver tienda"
+			},
+			"info": {
+				"button": "Actualizar información",
+				"title": "Tu información",
+				"text": "Aquí se muestran tus datos confidenciales ✍️ , verifica siempre tu conexión 📲 a internet  antes de poder editar tus datos.",
+				"confirmUpdate": {
+					"alert": {
+						"title": "Espera un poco",
+						"text": "Tus datos se están actualizando ✍️, espera solo un momento ..."
+					}
+				},
+				"inputs": {
+					"address": {
+						"field": "Dirección",
+						"helper": "Residencia y Departamento o Municipio"
+					},
+					"phone": {
+						"field": "Teléfono",
+						"helper": "Numero de teléfono"
+					},
+					"nit": {
+						"field": "NIT",
+						"helper": "Tu número de nit."
+					}
+				}
+			}
+		},
+		"shopPage": {
+			"header": {
+				"title": "¡Encuentra los mejores productos para ti!",
+				"text": "Suscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis."
+			},
+			"shopList": {
+				"title": "Productos",
+				"text": "Aquí se encuentra un listado de todos los productos en el inventario, también puedes pedirnos cualquier producto 🤝 que desearías ver en la tienda enviando un mensaje en facebook, o en nuestra plataforma."
+			},
+			"productPage": {
+				"header": {
+					"text": "Encontraras muchos mas productos relacionados 🎲 a este utilizando nuestro buscador 🔍, Tip: también puedes buscar por etiquetas 📌."
+				},
+				"description": {
+					"points": "Puntuación: ",
+					"pointsDefault": "Sin puntuaciones",
+					"tags": "Etiquetas: ",
+					"brand": "Marca: ",
+					"color": "Color: "
+				}
+			}
+		},
+		"cartPage": {
+			"header": {
+				"title": "Carrito",
+				"titleExt": "de",
+				"text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento."
+			},
+			"cards": {
+				"total": "Total"
+			},
+			"summary": {
+				"button": "Siguiente",
+				"prevButton": "Anterior",
+				"total": "Precio total: ",
+				"banner": {
+					"title": "Gracias ",
+					"text": "Agradecemos mucho tu compra ❤️, tu eres lo mas importante para nosotros y esperamos que nuestro servicio sea de tu agrado 🙏, en tres días recibirás tus productos, pagas al recibir 😉.",
+					"st": "Atentamente: ",
+					"pd": "Equipo de iBox Shop®."
+				},
+				"alerts": {
+					"title": "¡Ocurrió un error!",
+					"text": "No se pudo procesar tu compra por un error de conexión, intenta de nuevamente."
+				},
+				"notFound": {
+					"title": "Carrito vació",
+					"text": "Lo siento por el momento no hay artículos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automáticas. 📱"
+				},
+				"buy": {
+					"alert": {
+						"title": "Espera un poco",
+						"text": "Te agradecemos por tu compra ❤️, estamos procesando tus datos ✍️ ..."
+					}
+				},
+				"sendForm": {
+					"banner": {
+						"title": "Datos seguros",
+						"text": "Protegemos tus datos bajo HTTPS, tus datos son confidenciales y no los compartimos con nadie."
+					},
+					"button": "Comprar",
+					"info": {
+						"title": "Resumen de Compra",
+						"fields": {
+							"nit": "NIT:",
+							"name": "Nombre:",
+							"email": "Email:",
+							"total": "Por un total de:",
+							"address": "En:"
+						}
+					}
+				},
+				"forms": {
+					"title": "Información de Contacto:",
+					"text": "Solo necesitamos, tu información de envió para confirmar tu compra:",
+					"errors": {
+						"title": "¡Espera un poco!",
+						"text": "Tienes que verificar si tus datos de envió son correctos antes de comprar.",
+						"text_1": "La información del correo es incorrecta, intenta nuevamente.",
+						"text_2": "La información de tu número de teléfono es incorrecta, intenta nuevamente."
+					},
+					"promo": {
+						"title": "¿Tienes un código?",
+						"text": "Si cuentas con algún código de promoción por oferta 📲 o descuento, puedes ingresar tu código aquí solo una ves 😉.",
+						"helper": "¿Tienes un código de promoción?"
+					},
+					"inputs": {
+						"promo": {
+							"field": "Código de promoción",
+							"helper": "Descuentos o promociones"
+						},
+						"name": {
+							"field": "Nombre",
+							"helper": "* Nombre completo"
+						},
+						"email": {
+							"field": "Correo electrónico",
+							"helper": "* Email de facturación"
+						},
+						"address": {
+							"field": "Dirección",
+							"helper": "* Residencia y Departamento o Municipio"
+						},
+						"phone": {
+							"field": "Teléfono",
+							"helper": "* Numero de teléfono"
+						},
+						"nit": {
+							"field": "NIT",
+							"helper": "Dejar vació (C/F)"
+						}
+					}
+				}
+			}
+		},
+		"footer": {
+			"title": "Contacta con nosotros",
+			"text": "Si tienes algún comentario envianos un mensaje en Facebook para hablar con nuestro asistente 🤖, y visita también nuestra página 👍",
+			"blobs": {
+				"contact": "Contacta al área técnica 💻",
+				"email": "cto@ibox.gt"
+			},
+			"buttons": {
+				"request": "Solicitar producto",
+				"comment": "Comentar en Facebook",
+				"sendMsg": "Enviar mensaje personal"
+			},
+			"faq": {
+				"quest_1": "¿No encuentras el producto que buscas en nuestra tienda?",
+				"quest_2": "¿Tienes algún comentario sobre nuestro servicio?",
+				"quest_3": "¿Cualquier otra sugerencia o recomendación que tengas para seguir mejorando nuestra calidad de servicio?"
+			},
+			"rights": {
+				"main": "Hecho con ❤️ en Guatemala 🇬🇹",
+				"reserved": "Todos los derechos reservados iBox Shop®"
+			}
+		},
+		"loading": {
+			"title": "Espera un momento",
+			"text": "Esto solo dura unos segundos, solo estamos verificando y asegurando tu conexión..."
+		},
+		"splash": {
+			"title": "Mejora tu experiencia 🔥",
+			"text": "iBox es la tienda electrónica con el mayor impacto en Guatemala, creada desde cero para mejorar en cada detalle 👌, ayúdanos a mejorar tu experiencia dejándonos tu comentario sobre la tienda. 📲"
+		},
+		"toast": {
+			"online": "De nuevo en línea",
+			"offline": "Sin conexión a internet",
+			"button": "Recargar"
+		},
+		"errors": {
+			"app_deleted": "Fallo la conexión interna, intenta recargar la página.",
+			"app_not_authorized": "Esta aplicación no esta autorizada para iniciar sesión aquí.",
+			"argument_error": "Se envió una solicitud con parámetros incorrectos.",
+			"invalid_api_key": "Las credenciales de la aplicación son incorrectas.",
+			"invalid_user_token": "Parece que tu cuenta se inválido.",
+			"network_request_failed": "Comprueba tu conexión a internet.",
+			"operation_not_allowed": "Se trató de iniciar sesión en proveedor no autorizado.",
+			"requires_recent_login": "Se registró una sesión anterior con el mismo usuario.",
+			"too_many_requests": "Se alcanzó él limite máximo de intentos.",
+			"unauthorized_domain": "Este sitio no está autorizado para iniciar sesión aquí.",
+			"user_disabled": "Este usuario ha sido deshabilitado.",
+			"user_token_expired": "Las credenciales del usuario han expirado.",
+			"web_storage_unsupported": "Tu navegador o dispositivo no soporta el almacenamiento interno.",
+			"account_exists_with_different_credential": "Esta cuenta ya existe y esta registrada con otro método.",
+			"credential_already_in_used": "Las credenciales de esta cuenta ya están en uso.",
+			"email_already_in_use": "Esta dirección de correo electrónico ya está registrado en otra cuenta.",
+			"user_not_found": "No se ha podido encontrar el usuario, intenta nuevamente.",
+			"weak_password": "Tu contraseña debe contener al menos 6 caracteres alfanuméricos.",
+			"invalid_email": "El correo electrónico no es valido.",
+			"wrong_password": "La contraseña no es la correcta, intenta nuevamente.",
+			"invalid_verification_code": "El código introducido no es valido.",
+			"invalid_verification_id": "El ID de verificación no es valido.",
+			"captcha_check_failed": "No se pudo verificar el Captcha, intenta nuevamente.",
+			"invalid_phone_number": "El numero de teléfono no es valido.",
+			"missing_phone_number": "El numero de teléfono es un campo obligatorio.",
+			"quota_exceeded": "Actualmente la cuota es máxima.",
+			"defaultVal": "Error desconocido intenta de nuevo."
+		}
+	},
+	"en": {
+		"general": {
+			"app": {
+				"name": "iBox Shop®",
+				"description": "Somos una empresa dedicada a la venta de accesorios 📱 y electrónica en tiendas online. Entra y conoce nuestra amplia gama de productos para ti 🔥.",
+				"nameCom": "iBox Shop® App (v0.73)",
+				"nameShort": "iBox",
+				"slogan": "Tu comodidad en una caja.",
+				"title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
+				"navDivider": "Aplicación",
+				"shareText": "Entra a esta tienda, te gustara. ✨👌!",
+				"update": {
+					"title": "Nueva actualización",
+					"text": "Hay una nueva actualización disponible, ¿deseas actualizar?",
+					"button": "Recargar"
+				}
+			},
+			"buttons": {
+				"logout": "Cerrar Sesión",
+				"back": "Regresar",
+				"addToCart": "Agregar",
+				"share": "Compartir",
+				"download": "Descargar"
+			},
+			"routes": {
+				"home": "Inicio",
+				"shop": "Tienda",
+				"cart": "Carrito",
+				"account": "Cuenta"
+			},
+			"logout": {
+				"title": "¿Estas seguro?",
+				"text": "¿Realmente quieres cerrar sesión de tu cuenta en este dispositivo?"
+			}
+		},
+		"placeholders": {
+			"productShadowText_1": "Cargando",
+			"productShadowText_2": "Productos",
+			"searchPlaceholder": "Buscar productos",
+			"searchInput": "Buscar"
+		},
+		"alert": {
+			"confirm": "Aceptar",
+			"cancel": "Cancelar"
+		},
+		"verified": {
+			"alertTitle": "Lo sentimos",
+			"alertText": "Tu cuenta ha sido eliminada, 'No verificada'",
+			"title": "Verifica tu correo",
+			"text": "Ya te enviamos un link para poder seguir utilizando la tienda con tu cuenta.",
+			"button": "Reenviar"
+		},
+		"errorPage": {
+			"title": "¡Ocurrió un error!",
+			"description_1": "Lo sentimos, tenemos un error",
+			"description_2": "en la plataforma 😅, intenta de nuevo más tarde o revisa si la dirección es correcta.",
+			"button": "Regresar"
+		},
+		"indexPage": {
+			"header": {
+				"button": "Ver catálogo",
+				"text": "Entra hoy a la tienda para conocer nuestra variedad de productos, en iBox te facilitamos la vida 😉, compra y te lo llevamos hasta la puerta de tu casa, conoce nuestro catálogo.",
+				"title": "¡Tu tienda de electrónica y accesorios en línea!"
+			},
+			"slider": {
+				"title": "Categorías",
+				"text": "Al pedir tus piezas por mayor, también recibirás descuentos y regalos especiales 🎁. Contamos con servicios de pago en línea o contra entrega para garantizar tu comodidad. 🏍️",
+				"button": "Ver todo",
+				"electroCatTitle": "Electrónica",
+				"electroCatText": "Componentes, integrados y más.",
+				"devicesCatTitle": "Dispositivos",
+				"devicesCatText": "Audio, video, red y smartphones.",
+				"accessCatTitle": "Accesorios",
+				"accessCatText": "Audífonos, cables, protectores."
+			},
+			"middle": {
+				"blob_1": "Conoce más",
+				"blob_2": "de nosotros 💪",
+				"button_1": "Ver Cuenta",
+				"button_2": "Iniciar Sesión",
+				"title": "Únete a la mejor tienda y descubre más",
+				"text": "Únete a iBox de forma gratuita y recibe un regalo mas otros beneficios al crear tu cuenta 🌎. También puedes crear tu cuenta con Facebook, Google o con tu correo electrónico."
+			},
+			"recent": {
+				"title": "Recientes",
+				"text": "¡Conoce nuestros productos más recientes! Si eres de los primeros clientes en comprar nuestros productos más recientes 💰, obtendrás ofertas exclusivas, no esperes más y comienza a comprar.",
+				"button": "Ver más"
+			}
+		},
+		"accountPage": {
+			"title": "Conectate",
+			"text": "Registrate de forma gratuita, puedes utilizar el método que prefieras para conectarte, tener cuenta tiene muchos beneficios. 👌",
+			"alreadyAccount": "tienes cuenta?",
+			"confirm_1": "ya",
+			"privacy_1": "Políticas de",
+			"privacy_2": "privacidad",
+			"header": {
+				"title": "Compra más rápido",
+				"text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
+			},
+			"forms": {
+				"forgot": {
+					"title": "Recuperar",
+					"buttonText": "¿Olvidaste tu contraseña?",
+					"helper": "Correo de recuperación",
+					"text": "Escribe el correo al que quieres que enviemos el link de recuperación."
+				},
+				"inputs": {
+					"email": {
+						"field": "Correo electrónico",
+						"helper": "Email de la cuenta"
+					},
+					"user": {
+						"field": "Nombre",
+						"helper": "Nombre de usuario"
+					},
+					"pass": {
+						"field": "Contraseña",
+						"helper": "Clave secreta"
+					}
+				}
+			},
+			"alerts": {
+				"title": "¡Ocurrió un error!",
+				"text_1": "Hay campos vacíos o la información no es correcta, todos los campos son obligatorios.",
+				"text_2": "Un campo tiene un error o faltan datos."
+			},
+			"buttons": {
+				"createAccount": "Crear cuenta",
+				"login": "Iniciar Sesión",
+				"fbLoginText": "Iniciar con Facebook",
+				"gLoginText": "Iniciar con Google"
+			}
+		},
+		"profilePage": {
+			"title": "Mi cuenta",
+			"span": "Cuidamos 💪 tu seguridad",
+			"history": {
+				"title": "Historial de compras",
+				"text": "Aquí se muestran todas las compras que has hecho 🚚 con la aplicación durante los últimos dias y el resumen de pedidos ⭐️.",
+				"empty": "Por el momento no tienes ninguna compra registrada 😅, ve a la tienda, has tu primer pedido y registra tu compra 💲.",
+				"button": "Ver tienda"
+			},
+			"info": {
+				"button": "Actualizar información",
+				"title": "Tu información",
+				"text": "Aquí se muestran tus datos confidenciales ✍️ , verifica siempre tu conexión 📲 a internet  antes de poder editar tus datos.",
+				"confirmUpdate": {
+					"alert": {
+						"title": "Espera un poco",
+						"text": "Tus datos se están actualizando ✍️, espera solo un momento ..."
+					}
+				},
+				"inputs": {
+					"address": {
+						"field": "Dirección",
+						"helper": "Residencia y Departamento o Municipio"
+					},
+					"phone": {
+						"field": "Teléfono",
+						"helper": "Numero de teléfono"
+					},
+					"nit": {
+						"field": "NIT",
+						"helper": "Tu número de nit."
+					}
+				}
+			}
+		},
+		"shopPage": {
+			"header": {
+				"title": "¡Encuentra los mejores productos para ti!",
+				"text": "Suscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis."
+			},
+			"shopList": {
+				"title": "Productos",
+				"text": "Aquí se encuentra un listado de todos los productos en el inventario, también puedes pedirnos cualquier producto 🤝 que desearías ver en la tienda enviando un mensaje en facebook, o en nuestra plataforma."
+			},
+			"productPage": {
+				"header": {
+					"text": "Encontraras muchos mas productos relacionados 🎲 a este utilizando nuestro buscador 🔍, Tip: también puedes buscar por etiquetas 📌."
+				},
+				"description": {
+					"points": "Puntuación: ",
+					"pointsDefault": "Sin puntuaciones",
+					"tags": "Etiquetas: ",
+					"brand": "Marca: ",
+					"color": "Color: "
+				}
+			}
+		},
+		"cartPage": {
+			"header": {
+				"title": "Carrito",
+				"titleExt": "de",
+				"text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento."
+			},
+			"cards": {
+				"total": "Total"
+			},
+			"summary": {
+				"button": "Siguiente",
+				"prevButton": "Anterior",
+				"total": "Precio total: ",
+				"banner": {
+					"title": "Gracias ",
+					"text": "Agradecemos mucho tu compra ❤️, tu eres lo mas importante para nosotros y esperamos que nuestro servicio sea de tu agrado 🙏, en tres días recibirás tus productos, pagas al recibir 😉.",
+					"st": "Atentamente: ",
+					"pd": "Equipo de iBox Shop®."
+				},
+				"alerts": {
+					"title": "¡Ocurrió un error!",
+					"text": "No se pudo procesar tu compra por un error de conexión, intenta de nuevamente."
+				},
+				"notFound": {
+					"title": "Carrito vació",
+					"text": "Lo siento por el momento no hay artículos en tu carrito 😅, visita la tienda y agrega uno, recuerda que si tienes una cuenta las compras se hacen automáticas. 📱"
+				},
+				"buy": {
+					"alert": {
+						"title": "Espera un poco",
+						"text": "Te agradecemos por tu compra ❤️, estamos procesando tus datos ✍️ ..."
+					}
+				},
+				"sendForm": {
+					"banner": {
+						"title": "Datos seguros",
+						"text": "Protegemos tus datos bajo HTTPS, tus datos son confidenciales y no los compartimos con nadie."
+					},
+					"button": "Comprar",
+					"info": {
+						"title": "Resumen de Compra",
+						"fields": {
+							"nit": "NIT:",
+							"name": "Nombre:",
+							"email": "Email:",
+							"total": "Por un total de:",
+							"address": "En:"
+						}
+					}
+				},
+				"forms": {
+					"title": "Información de Contacto:",
+					"text": "Solo necesitamos, tu información de envió para confirmar tu compra:",
+					"errors": {
+						"title": "¡Espera un poco!",
+						"text": "Tienes que verificar si tus datos de envió son correctos antes de comprar.",
+						"text_1": "La información del correo es incorrecta, intenta nuevamente.",
+						"text_2": "La información de tu número de teléfono es incorrecta, intenta nuevamente."
+					},
+					"promo": {
+						"title": "¿Tienes un código?",
+						"text": "Si cuentas con algún código de promoción por oferta 📲 o descuento, puedes ingresar tu código aquí solo una ves 😉.",
+						"helper": "¿Tienes un código de promoción?"
+					},
+					"inputs": {
+						"promo": {
+							"field": "Código de promoción",
+							"helper": "Descuentos o promociones"
+						},
+						"name": {
+							"field": "Nombre",
+							"helper": "* Nombre completo"
+						},
+						"email": {
+							"field": "Correo electrónico",
+							"helper": "* Email de facturación"
+						},
+						"address": {
+							"field": "Dirección",
+							"helper": "* Residencia y Departamento o Municipio"
+						},
+						"phone": {
+							"field": "Teléfono",
+							"helper": "* Numero de teléfono"
+						},
+						"nit": {
+							"field": "NIT",
+							"helper": "Dejar vació (C/F)"
+						}
+					}
+				}
+			}
+		},
+		"footer": {
+			"title": "Contacta con nosotros",
+			"text": "Si tienes algún comentario envianos un mensaje en Facebook para hablar con nuestro asistente 🤖, y visita también nuestra página 👍",
+			"blobs": {
+				"contact": "Contacta al área técnica 💻",
+				"email": "cto@ibox.gt"
+			},
+			"buttons": {
+				"request": "Solicitar producto",
+				"comment": "Comentar en Facebook",
+				"sendMsg": "Enviar mensaje personal"
+			},
+			"faq": {
+				"quest_1": "¿No encuentras el producto que buscas en nuestra tienda?",
+				"quest_2": "¿Tienes algún comentario sobre nuestro servicio?",
+				"quest_3": "¿Cualquier otra sugerencia o recomendación que tengas para seguir mejorando nuestra calidad de servicio?"
+			},
+			"rights": {
+				"main": "Hecho con ❤️ en Guatemala 🇬🇹",
+				"reserved": "Todos los derechos reservados iBox Shop®"
+			}
+		},
+		"loading": {
+			"title": "Espera un momento",
+			"text": "Esto solo dura unos segundos, solo estamos verificando y asegurando tu conexión..."
+		},
+		"splash": {
+			"title": "Mejora tu experiencia 🔥",
+			"text": "iBox es la tienda electrónica con el mayor impacto en Guatemala, creada desde cero para mejorar en cada detalle 👌, ayúdanos a mejorar tu experiencia dejándonos tu comentario sobre la tienda. 📲"
+		},
+		"toast": {
+			"online": "De nuevo en línea",
+			"offline": "Sin conexión a internet",
+			"button": "Recargar"
+		},
+		"errors": {
+			"app_deleted": "Fallo la conexión interna, intenta recargar la página.",
+			"app_not_authorized": "Esta aplicación no esta autorizada para iniciar sesión aquí.",
+			"argument_error": "Se envió una solicitud con parámetros incorrectos.",
+			"invalid_api_key": "Las credenciales de la aplicación son incorrectas.",
+			"invalid_user_token": "Parece que tu cuenta se inválido.",
+			"network_request_failed": "Comprueba tu conexión a internet.",
+			"operation_not_allowed": "Se trató de iniciar sesión en proveedor no autorizado.",
+			"requires_recent_login": "Se registró una sesión anterior con el mismo usuario.",
+			"too_many_requests": "Se alcanzó él limite máximo de intentos.",
+			"unauthorized_domain": "Este sitio no está autorizado para iniciar sesión aquí.",
+			"user_disabled": "Este usuario ha sido deshabilitado.",
+			"user_token_expired": "Las credenciales del usuario han expirado.",
+			"web_storage_unsupported": "Tu navegador o dispositivo no soporta el almacenamiento interno.",
+			"account_exists_with_different_credential": "Esta cuenta ya existe y esta registrada con otro método.",
+			"credential_already_in_used": "Las credenciales de esta cuenta ya están en uso.",
+			"email_already_in_use": "Esta dirección de correo electrónico ya está registrado en otra cuenta.",
+			"user_not_found": "No se ha podido encontrar el usuario, intenta nuevamente.",
+			"weak_password": "Tu contraseña debe contener al menos 6 caracteres alfanuméricos.",
+			"invalid_email": "El correo electrónico no es valido.",
+			"wrong_password": "La contraseña no es la correcta, intenta nuevamente.",
+			"invalid_verification_code": "El código introducido no es valido.",
+			"invalid_verification_id": "El ID de verificación no es valido.",
+			"captcha_check_failed": "No se pudo verificar el Captcha, intenta nuevamente.",
+			"invalid_phone_number": "El numero de teléfono no es valido.",
+			"missing_phone_number": "El numero de teléfono es un campo obligatorio.",
+			"quota_exceeded": "Actualmente la cuota es máxima.",
+			"defaultVal": "Error desconocido intenta de nuevo."
+		}
+	}
 }

@@ -1,13 +1,15 @@
 // TIPOS DE DATOS Y CONTEXTO
-import { FC, useContext } from "react";
-import appContext from "../utils/appContext";
+import { FC, useContext } from 'react';
+import { appContext } from 'Ctx';
 
 // NAVEGACIÓN
-import Link from "next/link";
+import Link from 'next/link';
 
-const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexPage["middle"]) => {
+const Middle: FC<langPackage.indexPage['middle']> = (
+  strings: langPackage.indexPage['middle']
+) => {
   // OBTENER USUARIO DEL CONTEXTO
-  const { user } = useContext(appContext.appContext);
+  const { user } = useContext(appContext);
 
   return (
     <div className="middle">
@@ -44,8 +46,11 @@ const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexP
         <p>{strings.text}</p>
 
         <Link href="/cuenta" passHref scroll={false}>
-          <a className="btn waves white waves-dark" title={user ? strings.button_1 : strings.button_2}>
-            <i className="material-icons">person</i>{" "}
+          <a
+            className="btn waves white waves-dark"
+            title={user ? strings.button_1 : strings.button_2}
+          >
+            <i className="material-icons">person</i>{' '}
             {user ? strings.button_1 : strings.button_2}
           </a>
         </Link>
@@ -66,13 +71,13 @@ const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexP
           color: var(--backgrounds);
           display: block;
         }
-        #mWave{
-          overflow:hidden;
-          width:100%;
-          padding:0;
-          margin:0;
+        #mWave {
+          overflow: hidden;
+          width: 100%;
+          padding: 0;
+          margin: 0;
         }
-        #mWave > svg{
+        #mWave > svg {
           width: calc(100% + 100px);
           margin-left: -100px;
           margin-bottom: -5px;
@@ -83,8 +88,8 @@ const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexP
         }
         .middle > div h2 i {
           margin-left: -2px;
-          position:relative;
-          top:3px;
+          position: relative;
+          top: 3px;
         }
 
         .middle > #showInf {
@@ -114,36 +119,36 @@ const Middle: FC<langPackage.indexPage["middle"]> = (strings: langPackage.indexP
 
         @media screen and (max-width: 355px) {
           .middle > #showInf {
-            top:-3px;
+            top: -3px;
             left: 10px;
           }
           .middle > #showInf > svg {
             transform: scale(1.7, 1.1);
           }
           .middle > div h2 {
-            line-height:25px;
+            line-height: 25px;
           }
         }
-        @media screen and (min-width:445px){
+        @media screen and (min-width: 445px) {
           .middle > #showInf > svg {
             transform: scale(2, 1.4);
           }
           .middle > #showInf {
-            top:10px;
+            top: 10px;
           }
-          #blobText{
-            left:30px;
-          }
-        }
-        @media screen and (min-width:460px){
-          .middle > #showInf{
-            top:8px;
-            left:-5%;
+          #blobText {
+            left: 30px;
           }
         }
-        @media screen and (min-width:545px){
-          .middle > #showInf{
-            top:15px;
+        @media screen and (min-width: 460px) {
+          .middle > #showInf {
+            top: 8px;
+            left: -5%;
+          }
+        }
+        @media screen and (min-width: 545px) {
+          .middle > #showInf {
+            top: 15px;
           }
         }
       `}</style>

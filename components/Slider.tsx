@@ -1,62 +1,62 @@
 // NAVEGACIÓN
-import Link from "next/link";
+import Link from 'next/link'
 
-const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.indexPage["slider"]) => {
+const Slider: React.FC<ILangIndexPage['slider']> = (strings: ILangIndexPage['slider']) => {
 	return (
-		<div className="mainSlide">
-			<div id="slideTitle">
+		<div className='mainSlide'>
+			<div id='slideTitle'>
 				<h2>
-					{strings.title} <i className="material-icons">widgets</i>
+					{strings.title} <i className='material-icons'>widgets</i>
 				</h2>
 				<p>{strings.text}</p>
 			</div>
 
-			<div className="slider">
+			<div className='slider'>
 				<ul>
-					<li className="green">
-						<Link href="/electronica" passHref scroll={false}>
-							<a className="catContent waves" title={strings.electroCatTitle}>
-								<div className="cardBackground"></div>
-								<div className="catTitle">
+					<li className='green'>
+						<Link href='/electronica' passHref scroll={false}>
+							<a className='catContent waves' title={strings.electroCatTitle}>
+								<div className='cardBackground' />
+								<div className='catTitle'>
 									<h3>{strings.electroCatTitle}</h3>
 									<p>{strings.electroCatText}</p>
 								</div>
-								<i className="material-icons">memory</i>
+								<i className='material-icons'>memory</i>
 							</a>
 						</Link>
 					</li>
 
-					<li className="red">
-						<Link href="/dispositivos" passHref scroll={false}>
-							<a className="catContent waves" title={strings.devicesCatTitle}>
-								<div className="cardBackground"></div>
-								<div className="catTitle">
+					<li className='red'>
+						<Link href='/dispositivos' passHref scroll={false}>
+							<a className='catContent waves' title={strings.devicesCatTitle}>
+								<div className='cardBackground' />
+								<div className='catTitle'>
 									<h3>{strings.devicesCatTitle}</h3>
 									<p>{strings.devicesCatText}</p>
 								</div>
-								<i className="material-icons">phonelink_ring</i>
+								<i className='material-icons'>phonelink_ring</i>
 							</a>
 						</Link>
 					</li>
 
-					<li className="five">
-						<Link href="/accesorios" passHref scroll={false}>
-							<a className="catContent waves" title={strings.accessCatTitle}>
-								<div className="cardBackground"></div>
-								<div className="catTitle">
+					<li className='five'>
+						<Link href='/accesorios' passHref scroll={false}>
+							<a className='catContent waves' title={strings.accessCatTitle}>
+								<div className='cardBackground' />
+								<div className='catTitle'>
 									<h3>{strings.accessCatTitle}</h3>
 									<p>{strings.accessCatText}</p>
 								</div>
-								<i className="material-icons">headset</i>
+								<i className='material-icons'>headset</i>
 							</a>
 						</Link>
 					</li>
 				</ul>
 			</div>
 
-			<Link href="/tienda" passHref scroll={false}>
-				<a className="waves waves-dark seeMore right" title={strings.button}>
-					{strings.button} <i className="material-icons">arrow_forward</i>
+			<Link href='/tienda' passHref scroll={false}>
+				<a className='waves waves-dark seeMore right' title={strings.button}>
+					{strings.button} <i className='material-icons'>arrow_forward</i>
 				</a>
 			</Link>
 
@@ -141,7 +141,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 						padding:18px 20px;
 				}
 				.slider ul li:nth-child(1) .catContent  i{
-					font-size:4.5em;	
+					font-size:4.5em;
 				}
 				@media screen and (max-width:355px){
 					.mainSlide > .seeMore{
@@ -173,7 +173,7 @@ const Slider: React.FC<langPackage.indexPage["slider"]> = (strings: langPackage.
 				}
 	   		`}</style>
 		</div>
-	);
-};
+	)
+}
 
-export default Slider;
+export default Slider
