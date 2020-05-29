@@ -1,6 +1,6 @@
 // TIPOS DE DATOS Y HOOKS
 import { useState, FC, Dispatch, SetStateAction, useContext } from 'react'
-import { useInterval } from '../utils/Hooks'
+import { useInterval } from 'Hooks'
 import { appContext } from 'Ctx'
 
 // VARIABLES INICIALES DE ANIMACIÓN
