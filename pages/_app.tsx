@@ -39,11 +39,11 @@ const iBoxApp = ({ Component, pageProps, router }: AppProps) => {
 
 			// MOSTRAR ALERTA
 			showAlert({
-				type: 'alert',
+				type: 'window',
 				fixed: true,
 				title: 'Estamos trabajando',
 				body:
-					'Hola agradecemos mucho tu visita ❤️, aún estamos trabajando en la aplicación para escritorio 💻 pero puedes probarla desde tu smartphone 📱',
+					'Hola agradecemos mucho tu visita ❤️, aún estamos trabajando 💻 en la aplicación para escritorio pero puedes probarla desde tu smartphone 📱, visita la tienda ahora!',
 			})
 		}
 	}, [])
