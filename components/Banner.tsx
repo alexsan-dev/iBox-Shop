@@ -17,7 +17,7 @@ const Banner: React.FC<Props> = (props: Props) => {
 	return (
 		<div className='banner'>
 			<div>
-				<img src='./images/logo.png' alt='Logo Banner' />
+				<img src='/images/general/logo.png' alt='Logo Banner' />
 				<div>
 					<h2 id='banTitle'>{lang.general.app.name}</h2>
 					<p>{lang.general.app.slogan}</p>

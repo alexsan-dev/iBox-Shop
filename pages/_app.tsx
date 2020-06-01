@@ -16,6 +16,19 @@ const iBoxApp = ({ Component, pageProps, router }: AppProps) => {
 	// ACTUALIZAR APP
 	useEffect(() => {
 		updateApp()
+
+		const splash: HTMLDivElement | null = document.getElementById('splash') as HTMLDivElement
+		// OCULTAR SPLASH LUEGO DE 1500MS
+		window.onload = () => {
+			setTimeout(() => {
+				if (splash) {
+					splash.style.opacity = '0'
+					setTimeout(() => {
+						if (splash) splash.style.display = 'none'
+					}, 300)
+				} else console.log('Run on dev mode')
+			}, 1500)
+		}
 	}, [])
 
 	// COMPONENTE

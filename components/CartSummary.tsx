@@ -25,6 +25,8 @@ import CartForm from './CartForm'
 import CartBill from './CartBill'
 import Banner from './Banner'
 import Input from './Input'
+
+// HOOKS
 import { useUserSet } from 'Hooks'
 
 // CONTADOR GLOBAL
@@ -402,7 +404,7 @@ const CartSummary: React.FC<ILangCartPage['summary']> = (strings: ILangCartPage[
 						{strings.notFound.title} <i className='material-icons'>remove_shopping_cart</i>
 					</h2>
 					<p>{strings.notFound.text}</p>
-					<img src='/images/error/error.png' alt='EmptyCart' />
+					<img src='/images/general/error.png' alt='EmptyCart' />
 				</div>
 			)}
 			<style jsx>{`

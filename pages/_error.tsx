@@ -31,7 +31,7 @@ const ErrorPage = () => {
 						</a>
 					</Link>
 				</div>
-				<img src='/images/error/error.png' />
+				<img src='/images/general/error.png' />
 
 				<style jsx>{`
 					#errorPage {

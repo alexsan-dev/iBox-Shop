@@ -1,5 +1,5 @@
 // CONTEXTO Y HOOKS
-import { useContext, useEffect, RefObject, useRef } from 'react'
+import { useContext} from 'react'
 import { appContext } from 'Ctx'
 
 // MOSTRAR SOLO EN MODO DE PRODUCCIÓN
@@ -9,25 +9,8 @@ const Splash: React.FC = () => {
 	// CONTEXTO DEL LENGUAJE
 	const { splash } = useContext(appContext).lang
 
-	// REFERENCIAS
-	const splashRef: RefObject<HTMLDivElement> = useRef(null)
-
-	useEffect(() => {
-		// OCULTAR SPLASH LUEGO DE 1500MS
-		window.onload = () => {
-			setTimeout(() => {
-				if (splashRef.current) {
-					splashRef.current.style.opacity = '0'
-					setTimeout(() => {
-						if (splashRef.current) splashRef.current.style.display = 'none'
-					}, 300)
-				} else console.log('Run on dev mode')
-			}, 1500)
-		}
-	}, [])
-
 	return (
-		<div id='splash' ref={splashRef}>
+		<div id='splash'>
 			<img src='/images/general/icon.png' alt='Logo' />
 
 			<div>
