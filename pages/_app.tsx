@@ -6,7 +6,7 @@ import { AppProps } from 'next/app'
 
 // ANIMACIÓN Y HOOKS
 import { AnimatePresence } from 'framer-motion'
-import { updateApp } from 'Tools'
+import { updateApp, showAlert } from 'Tools'
 
 // COMPONENTES
 import Layout from 'layout/Layout'
@@ -18,18 +18,33 @@ const iBoxApp = ({ Component, pageProps, router }: AppProps) => {
 		updateApp()
 
 		// OCULTAR SPLASH LUEGO DE 1500MS
-		window.onload = () => {
-			if (window.innerWidth < 550) {
-				const splash: HTMLDivElement | null = document.getElementById('splash') as HTMLDivElement
-				setTimeout(() => {
-					if (splash) {
-						splash.style.opacity = '0'
-						setTimeout(() => {
-							if (splash) splash.style.display = 'none'
-						}, 300)
-					} else console.log('Run on dev mode')
-				}, 1500)
-			}
+		const splash: HTMLDivElement | null = document.getElementById('splash') as HTMLDivElement
+
+		// QUITAR SPLASH PARA SMARTPHONE
+		if (window.innerWidth < 550) {
+			setTimeout(() => {
+				if (splash) {
+					splash.style.opacity = '0'
+					setTimeout(() => {
+						if (splash) splash.style.display = 'none'
+					}, 300)
+				} else console.log('Run on dev mode')
+			}, 1500)
+		}
+
+		// ALERTA PARA DESKTOP
+		else {
+			// BAJAR SPLASH
+			if (splash) splash.style.zIndex = '99'
+
+			// MOSTRAR ALERTA
+			showAlert({
+				type: 'alert',
+				fixed: true,
+				title: 'Estamos trabajando',
+				body:
+					'Hola agradecemos mucho tu visita, aún estamos trabajando en la aplicación para escritorio pero puedes probarla desde tu smartphone',
+			})
 		}
 	}, [])
 
