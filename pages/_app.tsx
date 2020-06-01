@@ -43,7 +43,7 @@ const iBoxApp = ({ Component, pageProps, router }: AppProps) => {
 				fixed: true,
 				title: 'Estamos trabajando',
 				body:
-					'Hola agradecemos mucho tu visita, aún estamos trabajando en la aplicación para escritorio pero puedes probarla desde tu smartphone',
+					'Hola agradecemos mucho tu visita ❤️, aún estamos trabajando en la aplicación para escritorio 💻 pero puedes probarla desde tu smartphone 📱',
 			})
 		}
 	}, [])

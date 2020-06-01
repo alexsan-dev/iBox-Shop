@@ -178,7 +178,7 @@ const Layout: FC<Props> = (props: Props) => {
 					position: fixed;
 					width: 100%;
 					top: 0;
-					z-index: 100;
+					z-index: 98;
 					background: var(--backgrounds);
 				}
 
