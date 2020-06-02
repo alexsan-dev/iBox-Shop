@@ -1,5 +1,9 @@
 // ANIMACIÓN, HOOKS Y TIPOS DE DATOS
 import { motion } from 'framer-motion'
+import { NextPageContext } from 'next'
+
+// HEAD
+import Head from 'next/head'
 
 // CONTEXTO
 import { useContext } from 'react'
@@ -8,6 +12,7 @@ import { appContext } from 'Ctx'
 // COMPONENTES
 import Header from 'components/Header'
 import ShopList from 'components/ShopList'
+import Meta from 'components/Meta'
 
 // HOCS Y ANIMACIONES
 import { pageAnimation } from 'utils/HOCs'
@@ -19,6 +24,21 @@ const ShopPage: React.FC = () => {
 
 	return (
 		<>
+			<Head>
+				<title>{strings.header.docTitle}</title>
+				<Meta
+					title={strings.header.docTitle}
+					desc={strings.header.description}
+					banner='https://ibox.gt/images/general/banner.jpg'
+					keys={[
+						'accesorios',
+						'compras en linea',
+						'tiendas en linea',
+						'venta de celulares',
+						'ibox',
+					]}
+				/>
+			</Head>
 			<motion.div variants={upAnimation}>
 				<Header
 					back
@@ -37,4 +57,11 @@ const ShopPage: React.FC = () => {
 	)
 }
 
-export default pageAnimation(ShopPage)
+const initialProps = async ({ res }: NextPageContext) => {
+	// CONFIGURAR SPR VERCEL
+	if (res) res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+
+	return {}
+}
+
+export default pageAnimation(ShopPage, initialProps)

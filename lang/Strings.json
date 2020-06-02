@@ -96,6 +96,8 @@
 			"privacy_1": "Políticas de",
 			"privacy_2": "privacidad",
 			"header": {
+				"docTitle": "iBox Shop - Compra más rápido con una cuenta",
+				"description": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono 😁, recuerda activar las notificaciones 👌",
 				"title": "Compra más rápido",
 				"text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
 			},
@@ -170,6 +172,8 @@
 		},
 		"shopPage": {
 			"header": {
+				"docTitle": "iBox Shop - ¡Encuentra los mejores productos para ti!",
+				"description": "Actualizamos constantemente nuestra tienda con cientos de productos para ti ⭐️, sino encuentras un producto puedes solicitarlo 🤝",
 				"title": "¡Encuentra los mejores productos para ti!",
 				"text": "Suscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis."
 			},
@@ -183,6 +187,7 @@
 				},
 				"description": {
 					"points": "Puntuación: ",
+					"code": "Código: ",
 					"pointsDefault": "Sin puntuaciones",
 					"tags": "Etiquetas: ",
 					"brand": "Marca: ",
@@ -192,6 +197,8 @@
 		},
 		"cartPage": {
 			"header": {
+				"docTitle": "iBox Shop - Guarda tus productos en el carrito",
+				"description": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento, tu carrito se quedara guardado automáticamente.",
 				"title": "Carrito",
 				"titleExt": "de",
 				"text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento."
@@ -445,6 +452,8 @@
 			"privacy_1": "Políticas de",
 			"privacy_2": "privacidad",
 			"header": {
+				"docTitle": "iBox Shop - Compra más rápido con una cuenta",
+				"description": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono 😁, recuerda activar las notificaciones 👌",
 				"title": "Compra más rápido",
 				"text": "En iBox puedes comprar sin registrarte pero te perderás de nuestras ofertas, también puedes registrarte con tu número de teléfono. 😁"
 			},
@@ -519,6 +528,8 @@
 		},
 		"shopPage": {
 			"header": {
+				"docTitle": "iBox Shop - ¡Encuentra los mejores productos para ti!",
+				"description": "Actualizamos constantemente nuestra tienda con cientos de productos para ti ⭐️, sino encuentras un producto puedes solicitarlo 🤝",
 				"title": "¡Encuentra los mejores productos para ti!",
 				"text": "Suscribete a nuestro catálogo semanal ⭐️, donde conocerás los productos más recientes publicados de la semana, ofertas, descuentos y también recibirás notificaciones gratis."
 			},
@@ -532,6 +543,7 @@
 				},
 				"description": {
 					"points": "Puntuación: ",
+					"code": "Código: ",
 					"pointsDefault": "Sin puntuaciones",
 					"tags": "Etiquetas: ",
 					"brand": "Marca: ",
@@ -541,6 +553,8 @@
 		},
 		"cartPage": {
 			"header": {
+				"docTitle": "iBox Shop - Guarda tus productos en el carrito",
+				"description": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento, tu carrito se quedara guardado automáticamente.",
 				"title": "Carrito",
 				"titleExt": "de",
 				"text": "Recuerda que trabajamos con cargo expreso 🚚, si confirmas la compra, 💲 pagas al recibir. Siempre puedes cancelar tu pedido en cualquier momento."

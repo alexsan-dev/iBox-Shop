@@ -1,11 +1,15 @@
 // CONTENEDORES DE ANIMACIÓN Y HOOKS
 import { motion } from 'framer-motion'
+import Head from 'next/head'
 import { useContext, FC } from 'react'
 
-// COMPONENTES Y CONTEXTO
+// CONTEXTO
 import { appContext } from 'Ctx'
+
+//  COMPONENTES
 import Header from './Header'
 import Forms from './Forms'
+import Meta from './Meta'
 
 // HOCS Y ANIMACIONES
 import { pageAnimation } from 'utils/HOCs'
@@ -13,20 +17,33 @@ import { upAnimation, rightAnimation } from 'utils/Globals'
 
 const Logins: FC = () => {
 	// CONTEXTO Y MENSAJES DE ERROR
-	const langs: ILangPackage = useContext(appContext).lang
-	const str = langs.accountPage
-	const errors = langs.errors
+	const { accountPage, errors } = useContext(appContext).lang
 
 	return (
 		<>
+			<Head>
+				<title>{accountPage.header.docTitle}</title>
+				<Meta
+					title={accountPage.header.docTitle}
+					desc={accountPage.header.description}
+					banner='https://ibox.gt/images/general/banner.jpg'
+					keys={[
+						'accesorios',
+						'compras en linea',
+						'tiendas en linea',
+						'venta de celulares',
+						'ibox',
+					]}
+				/>
+			</Head>
 			<motion.div variants={upAnimation}>
 				<Header
 					title={
 						<>
-							{str.header.title} <i className='material-icons'>flash_on</i>
+							{accountPage.header.title} <i className='material-icons'>flash_on</i>
 						</>
 					}
-					text={str.header.text}
+					text={accountPage.header.text}
 					img='/images/account/account.png'
 					href='/'
 					back
@@ -35,7 +52,7 @@ const Logins: FC = () => {
 			</motion.div>
 
 			<motion.div variants={rightAnimation}>
-				<Forms strings={str} errorLangPackage={errors} />
+				<Forms strings={accountPage} errorLangPackage={errors} />
 			</motion.div>
 		</>
 	)

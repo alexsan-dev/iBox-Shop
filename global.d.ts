@@ -127,7 +127,6 @@ interface ILangPackage {
 	errors: ILangErrors;
 }
 
-
 interface ILangGeneral {
 	app: {
 		name: string;
@@ -223,6 +222,8 @@ interface ILangAccountPage {
 	privacy_1: string;
 	privacy_2: string;
 	header: {
+		docTitle: string;
+		description: string;
 		title: string;
 		text: string;
 	};
@@ -279,6 +280,8 @@ interface ILangProfilePage {
 };
 interface ILangShopPage {
 	header: {
+		docTitle: string;
+		description: string;
 		title: string;
 		text: string;
 	};
@@ -292,6 +295,7 @@ interface ILangShopPage {
 		};
 		description: {
 			pointsDefault: string;
+			code: string;
 			points: string;
 			tags: string;
 			brand: string;
@@ -301,6 +305,8 @@ interface ILangShopPage {
 };
 interface ILangCartPage {
 	header: {
+		docTitle: string;
+		description: string;
 		title: string;
 		titleExt: string;
 		text: string;

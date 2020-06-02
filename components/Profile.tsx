@@ -2,6 +2,9 @@
 import { useState, SetStateAction, Dispatch, useContext, useEffect, FC } from 'react'
 import { firestore } from 'firebase'
 
+// NEXT
+import Head from 'next/head'
+
 // HOOKS Y ANIMACIÓN
 import { defUserData, useUserSet } from 'Hooks'
 import { showAlert } from 'Tools'
@@ -72,6 +75,9 @@ const Profile: FC = () => {
 
 	return (
 		<>
+			<Head>
+				<title>{`iBox Shop - ${user?.displayName}`}</title>
+			</Head>
 			<motion.div variants={upAnimation}>
 				<ProfileHeader user={state.userData || defUserData} title={str.title} span={str.span} />
 			</motion.div>

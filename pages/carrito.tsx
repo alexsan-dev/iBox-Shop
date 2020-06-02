@@ -1,11 +1,14 @@
 // ANIMACIÓN, HOOKS Y TIPOS DE DATOS
 import { motion } from 'framer-motion'
+import { NextPageContext } from 'next'
+import Head from 'next/head'
 
 // CONTEXTO
 import { useContext } from 'react'
 import { appContext } from 'Ctx'
 
 // COMPONENTES
+import Meta from 'components/Meta'
 import Header from 'components/Header'
 import CartSummary from 'components/CartSummary'
 
@@ -16,23 +19,39 @@ import { upAnimation, rightAnimation } from 'utils/Globals'
 // COMPONENTE
 const CartPage: React.FC = () => {
 	// TEXTO DE PAGINA DE INICIO Y USUARIO
-	const strings = useContext(appContext).lang.cartPage
-	const { user } = useContext(appContext)
+	const { user, lang } = useContext(appContext)
 
 	return (
 		<>
+			<Head>
+				<title>{lang.cartPage.header.docTitle}</title>
+				<Meta
+					title={lang.cartPage.header.docTitle}
+					desc={lang.cartPage.header.description}
+					banner='https://ibox.gt/images/general/banner.jpg'
+					keys={[
+						'accesorios',
+						'compras en linea',
+						'tiendas en linea',
+						'venta de celulares',
+						'ibox',
+					]}
+				/>
+			</Head>
 			<motion.div variants={upAnimation}>
 				<Header
 					back
 					href='/'
 					img='/images/shop/cart.png'
 					span={'BEST DELIVERY'}
-					text={strings.header.text}
+					text={lang.cartPage.header.text}
 					title={
 						<>
-							{strings.header.title +
+							{lang.cartPage.header.title +
 								' ' +
-								(user ? strings.header.titleExt + ' ' + user.displayName?.split(' ')[0] : '') +
+								(user
+									? lang.cartPage.header.titleExt + ' ' + user.displayName?.split(' ')[0]
+									: '') +
 								' '}
 							<i className='material-icons'>local_shipping</i>
 						</>
@@ -41,10 +60,17 @@ const CartPage: React.FC = () => {
 			</motion.div>
 
 			<motion.div variants={rightAnimation}>
-				<CartSummary {...strings.summary} />
+				<CartSummary {...lang.cartPage.summary} />
 			</motion.div>
 		</>
 	)
 }
 
-export default pageAnimation(CartPage)
+const initialProps = async ({ res }: NextPageContext) => {
+	// CONFIGURAR SPR VERCEL
+	if (res) res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+
+	return {}
+}
+
+export default pageAnimation(CartPage, initialProps)

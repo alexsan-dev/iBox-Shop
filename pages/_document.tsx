@@ -6,7 +6,6 @@ import { langContext } from 'Ctx'
 
 // JSON DE LENGUAJE Y META TAGS
 import Langs from 'Strings'
-import Meta from 'components/Meta'
 
 // PROPIEDADES
 interface DocProps {
@@ -38,16 +37,26 @@ class IBoxDoc extends Document<DocProps> {
 	render() {
 		return (
 			<Html lang={this.props.langCode}>
-				<head
-					dangerouslySetInnerHTML={{
-						__html: '<!-- Creado por Alex Santos ceo@ibox.gt -->',
-					}}
-				/>
 				<Head>
-					<Meta
-						title={this.props.lang.general.app.title}
-						desc={this.props.lang.general.app.description}
-					/>
+					<meta name='author' content='Alex Santos | iBox Shop®' />
+					<meta name='Robots' content='follow' />
+					<meta name='theme-color' content='rgb(47, 109, 153)' />
+					<meta name='msapplication-TileColor' content='rgb(47, 109, 153)' />
+					<meta name='MobileOptimized' content='yes' />
+					<meta name='HandheldFriendly' content='yes' />
+					<meta name='mobile-web-app-capable' content='yes' />
+					<meta name='apple-mobile-web-app-capable' content='yes' />
+					<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
+					<link rel='apple-touch-icon' href='/favicon.ico' />
+					<link rel='shortcut icon' href='/favicon.ico' />
+					<link rel='favicon' href='/favicon.ico' />
+					<link rel='manifest' href='/manifest.json' />
+					<meta property='og:type' content='website' />
+					<meta property='fb:app_id' content='573715776764507' />
+					<meta name='twitter:card' content='summary_large_image' />
+					<meta name='twitter:site' content='@https://ibox.gt' />
+					<meta name='twitter:creator' content='@iBox' />
+					<meta property='og:url' content='https://ibox.gt' />
 				</Head>
 				<body>
 					<langContext.Provider value={{ lang: this.props.lang }}>

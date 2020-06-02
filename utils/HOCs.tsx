@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion'
-import { NextPage } from 'next'
+import { NextPage, NextPageContext } from 'next'
 
-const pageAnimation = (Page: React.FC) => {
-	const gPage: NextPage = () => {
+// tslint:disable-next-line: only-arrow-functions
+function pageAnimation<T = any>(
+	Page: React.FC<T>,
+	initialProps?: (context: NextPageContext) => T | Promise<T>
+) {
+	const gPage: NextPage<T> = (props: T) => {
 		return (
 			<motion.div
 				initial='exit'
@@ -12,10 +16,13 @@ const pageAnimation = (Page: React.FC) => {
 					exit: { transition: { staggerChildren: 0.1 } },
 					enter: { transition: { staggerChildren: 0.1 } },
 				}}>
-				<Page />
+				<Page {...props} />
 			</motion.div>
 		)
 	}
+
+	// INITIAL PROPS
+	if (initialProps) gPage.getInitialProps = initialProps
 
 	return gPage
 }

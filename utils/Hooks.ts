@@ -212,6 +212,17 @@ export const useGetAllProducts = async (
 	return products
 }
 
+// LEER DOCUMENTO
+export const queryProduct = async (key: string) => {
+	// OBTENER REFERENCIA
+	const fireDoc: firestore.DocumentReference<firestore.DocumentData> = db
+		.collection('products')
+		.doc(key)
+
+	// RETORNAR DOCUMENTO
+	return fireDoc.get()
+}
+
 // =============== USUARIOS ===============
 // USUARIO POR DEFECTO
 export const defUserData: userModel = {
