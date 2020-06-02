@@ -40,7 +40,7 @@ export const useInterval = (callback: any, delay: number) => {
 
 // OBTENER DATOS DE FIRESTORE
 // AGREGAR USUARIO EN CUENTA NUEVA
-export const useUserSet = async (id?: string, data?: userModel) => {
+export const useUserSet = async (id?: string, data?: IUser) => {
 	if (id && data) {
 		await db.collection('users').doc(id).set(data)
 		setUser(data)
@@ -49,8 +49,8 @@ export const useUserSet = async (id?: string, data?: userModel) => {
 
 // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
 export const useUserGet = async (id: string | undefined) => {
-	const user: user[] = await iLocalDB.users.toArray()
-	let resUser: userModel | null | undefined = null
+	const user: IUserDB[] = await iLocalDB.users.toArray()
+	let resUser: IUser | null = null
 
 	// VERIFICAR USUARIO LOCAL
 	if (user[0] && fireStoreHandler === 0) {
@@ -60,10 +60,10 @@ export const useUserGet = async (id: string | undefined) => {
 		fireStoreHandler++
 	} else if (fireStoreHandler === 0 && id) {
 		// LEER DE FIREBASE
-		const getUser: firestore.DocumentSnapshot<firestore.DocumentData> = await db
+		const getUser: firestore.DocumentSnapshot<IUser> = (await db
 			.collection('users')
 			.doc(id)
-			.get()
+			.get()) as firestore.DocumentSnapshot<IUser>
 
 		if (getUser) {
 			console.log(
@@ -72,11 +72,10 @@ export const useUserGet = async (id: string | undefined) => {
 			)
 
 			// GUARDAR EN LOCAL
-			await setUser(getUser.data())
+			await setUser(getUser.data() || null)
 
 			// RETORNAR USUARIO
-			// @ts-ignore
-			resUser = getUser.data()
+			resUser = getUser.data() || null
 			fireStoreHandler++
 		} else resUser = null
 	}
@@ -88,31 +87,46 @@ export const useUserGet = async (id: string | undefined) => {
 
 // =============== PRODUCTOS ===============
 // OBTENER LISTADO DE PRODUCTOS DE FIRESTORE O LOCAL
+export const defProduct: IProduct = {
+	color: '',
+	description: '',
+	name: '',
+	price: 0,
+	tag: [''],
+	key: '',
+	img: '',
+	brand: '',
+	specs: '',
+	points: {
+		pid: '',
+		points: [0],
+		comments: [''],
+	},
+}
+
 export const useGetAllProducts = async (
-	onDataUpdate?: (comments: product[] | firestore.DocumentData[] | firestore.DocumentData) => any
+	onDataUpdate?: (products: IProduct[] | undefined) => any
 ) => {
 	// OBTENER DATOS LOCALES
-	let products: product[] | firestore.DocumentData[] = []
-	const localData: productList[] = await iLocalDB.productList.toArray()
+	let products: IProduct[] | undefined
+	const localData: IProductDB[] = await iLocalDB.products.toArray()
 
 	// INSERTAR COMENTARIOS EN PRODUCTOS
-	const insertOnProducts = (
-		productList: product[] | firestore.DocumentData[],
-		commentList: firestore.DocumentData[] | productPoints[]
-	) => {
+	const insertOnProducts = (productList: IProduct[] | undefined, commentList: IProductPoints[]) => {
 		// VARIABLES TEMPORALES
-		const tempProducts: product[] | firestore.DocumentData[] = productList
-		const tempComments: firestore.DocumentData[] | productPoints[] = commentList
+		const tempProducts: IProduct[] | undefined = productList
+		const tempComments: IProductPoints[] = commentList
 
 		// RECORRER PRODUCTOS Y COMENTARIOS
-		for (let i = 0; i < tempProducts.length; i++) {
-			// VARIABLE POR DEFAULT
-			tempProducts[i].points = { points: [0], pid: tempProducts[i].key, comments: [''] }
-			for (let j = 0; j < tempComments.length; j++) {
-				// ASIGNAR COMENTARIOS RESPECTIVOS
-				if (tempProducts[i].key === tempComments[j].pid) tempProducts[i].points = tempComments[j]
+		if (tempProducts)
+			for (let i = 0; i < tempProducts.length; i++) {
+				// VARIABLE POR DEFAULT
+				tempProducts[i].points = { points: [0], pid: tempProducts[i].key, comments: [''] }
+				for (let j = 0; j < tempComments.length; j++) {
+					// ASIGNAR COMENTARIOS RESPECTIVOS
+					if (tempProducts[i].key === tempComments[j].pid) tempProducts[i].points = tempComments[j]
+				}
 			}
-		}
 
 		// RETORNAR VARIABLE TEMPORAL
 		return tempProducts
@@ -122,12 +136,12 @@ export const useGetAllProducts = async (
 	if (window.navigator.onLine && dbHandler === 0)
 		setTimeout(async () => {
 			// CREAR CONEXIÓN
-			const firestoreData: firestore.CollectionReference<firestore.DocumentData> = await db.collection(
+			const firestoreData: firestore.CollectionReference<IProduct> = db.collection(
 				'products'
-			)
-			const commentList: firestore.CollectionReference<firestore.DocumentData> = await db.collection(
+			) as firestore.CollectionReference<IProduct>
+			const commentList: firestore.CollectionReference<IProductPoints> = db.collection(
 				'points'
-			)
+			) as firestore.CollectionReference<IProductPoints>
 
 			// DETECTAR CAMBIOS
 			firestoreData.onSnapshot(async (nData: firestore.QuerySnapshot) => {
@@ -137,37 +151,31 @@ export const useGetAllProducts = async (
 				)
 
 				// OBTENER NUEVOS DATOS
-				const newData: firestore.DocumentData[] = nData.docs.map((doc: firestore.DocumentData) =>
-					doc.data()
-				)
+				const newData: IProduct[] = nData.docs.map((doc) => doc.data()) as IProduct[]
 				const commentS = await commentList.get()
 
 				// CREAR NUEVA LISTA
-				products = newData.map((doc: firestore.DocumentData) => doc)
-				const nsComments: product[] | firestore.DocumentData[] = insertOnProducts(
+				products = newData
+				const insertedComments: IProduct[] | undefined = insertOnProducts(
 					products,
-					commentS.docs.map((cms: firestore.QueryDocumentSnapshot<firestore.DocumentData>) =>
-						cms.data()
-					)
+					commentS.docs.map((cms) => cms.data())
 				)
 
 				// AGREGAR A BASE LOCAL Y ENVIAR
-				await setProducts(nsComments)
-				if (onDataUpdate) onDataUpdate(nsComments)
+				if (insertedComments) await setProducts(insertedComments)
+				if (onDataUpdate) onDataUpdate(insertedComments)
 			})
 
 			// DETECTAR CAMBIOS EN COMENTARIOS
 			commentList.onSnapshot(async (nComment: firestore.QuerySnapshot) => {
-				const newData: firestore.DocumentData[] = nComment.docs.map((doc: firestore.DocumentData) =>
-					doc.data()
-				)
-				const nsComments: product[] | firestore.DocumentData = insertOnProducts(products, newData)
+				const newData: IProductPoints[] = nComment.docs.map((doc) => doc.data()) as IProductPoints[]
+				const insertedComments: IProduct[] | undefined = insertOnProducts(products, newData)
 
 				// ACTUALIZAR CAMBIOS LOCALES
-				await setProducts(nsComments)
+				if (insertedComments) await setProducts(insertedComments)
 
 				// ACTUALIZAR ESTADO
-				if (onDataUpdate) onDataUpdate(nsComments)
+				if (onDataUpdate) onDataUpdate(insertedComments)
 			})
 
 			// LIMITAR PETICIONES
@@ -175,9 +183,9 @@ export const useGetAllProducts = async (
 		}, 1000)
 
 	// SI EXISTEN DEVOLVER DATOS LOCALES
-	if (localData[0]) {
+	if (localData) {
 		console.log('read products from localDB')
-		products = localData[0].products
+		products = localData.map((prd: IProductDB) => ({ ...prd.product }))
 	}
 
 	// SINO DEVOLVER DE FIREBASE
@@ -188,24 +196,23 @@ export const useGetAllProducts = async (
 		)
 
 		// CREAR NUEVA LISTA
-		const firestoreData: firestore.QuerySnapshot<firestore.DocumentData> = await db
+		const firestoreData: firestore.QuerySnapshot<IProduct> = (await db
 			.collection('products')
-			.get()
-		const commentList: firestore.QuerySnapshot<firestore.DocumentData> = await db
+			.get()) as firestore.QuerySnapshot<IProduct>
+
+		const commentList: firestore.QuerySnapshot<IProductPoints> = (await db
 			.collection('points')
-			.get()
+			.get()) as firestore.QuerySnapshot<IProductPoints>
 
 		// AGREGAR A LOS PRODUCTOS
-		firestoreData.forEach((doc: firestore.DocumentData) => products.push(doc.data()))
+		firestoreData.forEach((doc) => products?.push(doc.data()))
 
 		// AGREGAR A BASE LOCAL Y ENVIAR
 		await setProducts(
 			insertOnProducts(
 				products,
-				commentList.docs.map((cms: firestore.QueryDocumentSnapshot<firestore.DocumentData>) =>
-					cms.data()
-				)
-			)
+				commentList.docs.map((cms) => cms.data())
+			) || [defProduct]
 		)
 		localDBHandler++
 	}
@@ -215,9 +222,9 @@ export const useGetAllProducts = async (
 // LEER DOCUMENTO
 export const queryProduct = async (key: string) => {
 	// OBTENER REFERENCIA
-	const fireDoc: firestore.DocumentReference<firestore.DocumentData> = db
+	const fireDoc: firestore.DocumentReference<IProduct> = db
 		.collection('products')
-		.doc(key)
+		.doc(key) as firestore.DocumentReference<IProduct>
 
 	// RETORNAR DOCUMENTO
 	return fireDoc.get()
@@ -225,7 +232,7 @@ export const queryProduct = async (key: string) => {
 
 // =============== USUARIOS ===============
 // USUARIO POR DEFECTO
-export const defUserData: userModel = {
+export const defUserData: IUser = {
 	displayName: '',
 	email: '',
 	provider: '',
@@ -335,7 +342,7 @@ export const useLogin = async (data: LoginType) => {
 
 		// SI EXISTEN ASIGNAR DATOS INICIALES
 		if (credentials) {
-			const userData: userModel = {
+			const userData: IUser = {
 				displayName: data.name || null,
 				email: data.email || null,
 				provider: credentials.user?.providerData[0]?.providerId,

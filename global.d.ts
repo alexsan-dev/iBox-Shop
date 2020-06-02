@@ -8,7 +8,11 @@ interface Navigator {
 	share: (data?: ShareData) => Promise<void>;
 }
 
-interface OrderCart { sum: number; productsFilter: Array<product | firestore.DocumentData>; multArry: number[] }
+interface OrderCart {
+	sum: number;
+	productsFilter: IProduct[] | [];
+	multArry: number[]
+}
 
 // TIPOS E INTERFACES
 interface IForms {
@@ -20,22 +24,22 @@ interface IForms {
 	wa?: boolean
 }
 
-interface productList {
-	id?: number;
-	products: product[] | any;
+interface IProductDB {
+	id?: string;
+	product: IProduct | any;
 }
 
 interface String {
 	format(): string;
 }
 
-interface productPoints {
+interface IProductPoints {
 	pid: string;
 	points: number[];
 	comments: string[];
 }
 
-interface product {
+interface IProduct {
 	color: string;
 	description: string;
 	name: string;
@@ -45,12 +49,12 @@ interface product {
 	img: string;
 	brand: string;
 	specs: string;
-	points: productPoints;
+	points: IProductPoints;
 }
 
-interface user {
+interface IUserDB {
 	id?: number;
-	user: userModel | any;
+	user: IUser | null;
 }
 
 interface IPromoCodes {
@@ -58,7 +62,7 @@ interface IPromoCodes {
 	price: number | string;
 }
 
-interface userModel {
+interface IUser {
 	provider?: string | null;
 	displayName: string | null;
 	email: string | null;

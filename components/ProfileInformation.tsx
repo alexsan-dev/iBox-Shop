@@ -1,6 +1,5 @@
 // HOOKS Y TIPOS
 import { RefObject, useRef, useEffect, MutableRefObject, MouseEvent } from 'react'
-import { firestore } from 'firebase'
 
 // COMPONENTES
 import Input from './Input'
@@ -8,7 +7,7 @@ import Input from './Input'
 //  PROPIEDADES
 interface InfoProps {
 	updateCall: (form: IForms | null, btn: HTMLButtonElement) => any
-	user: userModel | firestore.DocumentData
+	user: IUser | null
 	strings: ILangProfilePage['info']
 }
 
@@ -16,11 +15,11 @@ interface InfoProps {
 const ProfileInformation: React.FC<InfoProps> = (props: InfoProps) => {
 	// REFERENCIAS
 	const defForm: IForms = {
-		displayName: props.user.displayName || '',
-		email: props.user.email || '',
-		address: props.user.address,
-		phone: props.user.phone?.toString(),
-		nit: props.user.nit,
+		displayName: props.user?.displayName || '',
+		email: props.user?.email || '',
+		address: props.user?.address || '',
+		phone: props.user?.phone || 0,
+		nit: props.user?.nit || '',
 	}
 	const values: RefObject<IForms> = useRef(defForm)
 	const updateBtn: RefObject<HTMLButtonElement> = useRef(null)
@@ -48,14 +47,11 @@ const ProfileInformation: React.FC<InfoProps> = (props: InfoProps) => {
 	}
 
 	// VERIFICAR DATOS NUEVOS
-	const verifyUpdate = (
-		defValue: IForms | userModel | firestore.DocumentData,
-		newValue: IForms
-	) => {
+	const verifyUpdate = (defValue: IForms | IUser | null, newValue: IForms) => {
 		return (
-			defValue.address === newValue.address &&
-			defValue.phone === newValue.phone &&
-			defValue.nit === newValue.nit
+			defValue?.address === newValue.address &&
+			defValue?.phone === newValue.phone &&
+			defValue?.nit === newValue.nit
 		)
 	}
 
@@ -95,7 +91,7 @@ const ProfileInformation: React.FC<InfoProps> = (props: InfoProps) => {
 					value={saveToForm}
 					helper={props.strings.inputs.address.helper}
 					icon='directions'
-					defValue={props.user.address}
+					defValue={props.user?.address}
 				/>
 				<Input
 					type='number'
@@ -104,7 +100,7 @@ const ProfileInformation: React.FC<InfoProps> = (props: InfoProps) => {
 					value={saveToForm}
 					helper={props.strings.inputs.phone.helper}
 					icon='phone'
-					defValue={props.user.phone?.toString()}
+					defValue={props.user?.phone}
 					maxLength={8}
 				/>
 				<Input
@@ -114,7 +110,7 @@ const ProfileInformation: React.FC<InfoProps> = (props: InfoProps) => {
 					value={saveToForm}
 					helper={props.strings.inputs.nit.helper}
 					icon='fiber_pin'
-					defValue={props.user.nit}
+					defValue={props.user?.nit}
 				/>
 			</form>
 			<div id='updateSection'>

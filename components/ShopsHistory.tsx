@@ -1,5 +1,4 @@
 // TIPOS Y HOOKS
-import { firestore } from 'firebase'
 import { useCartSearch } from 'Tools'
 import { useContext } from 'react'
 
@@ -10,7 +9,7 @@ import HistoryElement from './HistoryElement'
 
 // PROPIEDADES
 interface HistoryProps {
-	user: userModel | null | firestore.DocumentData
+	user: IUser | null
 	strings: ILangProfilePage['history']
 }
 
@@ -22,8 +21,9 @@ const ShopsHistory: React.FC<HistoryProps> = (props: HistoryProps) => {
 	const elementList: JSX.Element[] = []
 
 	// OBTENER DATOS DE COMPRA
-	if (props.user?.history) {
-		const history = props.user.history
+	if (props.user?.history && productList) {
+		const history = props.user?.history
+
 		history.forEach((currentHistory: { cartList: string[]; date: string }, i: number) => {
 			// LISTA DE COMPRAS
 			const cartList: string[] = currentHistory.cartList
@@ -32,16 +32,17 @@ const ShopsHistory: React.FC<HistoryProps> = (props: HistoryProps) => {
 			const userShops: OrderCart = useCartSearch(cartList, productList)
 
 			// RECORRER LISTA
-			userShops.productsFilter.forEach((product: product | firestore.DocumentData) =>
-				elementList.push(
-					<HistoryElement
-						key={i}
-						name={product.name}
-						cant={userShops.multArry[i]}
-						date={currentHistory.date}
-					/>
+			if (userShops.productsFilter.length > 0)
+				userShops.productsFilter?.forEach((product: IProduct) =>
+					elementList.push(
+						<HistoryElement
+							key={i}
+							name={product.name}
+							cant={userShops.multArry[i]}
+							date={currentHistory.date}
+						/>
+					)
 				)
-			)
 		})
 	}
 

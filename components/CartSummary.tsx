@@ -298,7 +298,7 @@ const CartSummary: React.FC<ILangCartPage['summary']> = (strings: ILangCartPage[
 					}
 
 					// AGREGAR DATOS AL USUARIO
-					const userCopy: userModel | null = user
+					const userCopy: IUser | null = user
 
 					// VERIFICAR SI EXISTE USUARIO
 					if (userCopy) {

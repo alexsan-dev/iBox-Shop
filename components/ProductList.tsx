@@ -1,6 +1,5 @@
 // TIPOS DE DATOS, HOOKS
 import { useContext } from 'react'
-import { firestore } from 'firebase'
 
 // COMPONENTES
 import Card from './ProductCard'
@@ -19,10 +18,10 @@ const ProductList: React.FC<Props> = (props: Props) => {
 	const { productList } = useContext(appContext)
 
 	// ACTUALIZAR EL ESTADO
-	if (productList.length > 0)
+	if (productList)
 		products = productList
 			.reverse()
-			.map((data: product | firestore.DocumentData, i: number) => (
+			.map((data: IProduct, i: number) => (
 				<Card
 					key={i}
 					title={data.name}

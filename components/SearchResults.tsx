@@ -28,7 +28,7 @@ const SearchResults: React.FC<SearchProps> = (props: SearchProps) => {
 
 	// FILTRAR BÚSQUEDA
 	if (text.length > 0)
-		productList.forEach((product: product, i: number) => {
+		productList.forEach((product: IProduct, i: number) => {
 			const words: string[] = text.split(' ')
 			for (let wordsIndex = 0; wordsIndex < words.length; wordsIndex++) {
 				// FORMATEAR ENTRADA Y BUSCAR

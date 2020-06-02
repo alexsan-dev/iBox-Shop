@@ -15,11 +15,11 @@ const langContext: React.Context<LangContext> = React.createContext(defaultLangC
 // HOC GENERAL DE LA APLICACIÓN
 interface AppContext {
 	lang: ILangPackage
-	user: userModel | null
 	theme: string
-	addToCartEvent: (key: string, mode: boolean, reset?: boolean) => any
 	cartList: string[]
-	productList: product[] | []
+	user: IUser | null
+	productList: IProduct[] | undefined
+	addToCartEvent: (key: string, mode: boolean, reset?: boolean) => any
 }
 const defaultAppContext: AppContext = {
 	lang: LangsPackages.es,

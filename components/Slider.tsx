@@ -76,7 +76,7 @@ const Slider: React.FC<ILangIndexPage['slider']> = (strings: ILangIndexPage['sli
 				.slider{
 					position:relative;
 					width:100%;
-					overflow:scroll;
+					overflow-x:scroll;
 					padding:20px 0px 0px 40px;
 					z-index:3;
 				}
@@ -84,7 +84,6 @@ const Slider: React.FC<ILangIndexPage['slider']> = (strings: ILangIndexPage['sli
 					position:relative;
 					margin-left:-20px;
 					width:740px;
-					overflow-x:scroll;
 					list-style:none;
 				}
 				.slider ul li{

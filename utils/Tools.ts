@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
 // INSTANCIA DE FIREBASE Y BASE DE DATOS LOCAL
-import { firestore } from 'firebase'
 import firebase from 'keys/firebase'
 
 // FIREBASE AUTH, FIREBASE FIRESTORE, FIREBASE CLOUD MESSAGING, CLOUD FUNCTIONS
@@ -269,22 +268,14 @@ export const requestPush = async () => {
 }
 
 // =============== CARRITO ===============
-interface OrderCart {
-	sum: number
-	productsFilter: (product | firestore.DocumentData)[]
-	multArry: number[]
-}
-export const useCartSearch = (
-	cartList: string[],
-	productList: (product | firestore.DocumentData)[]
-) => {
+export const useCartSearch = (cartList: string[], productList: IProduct[] | undefined) => {
 	// DECLARAR ARRAY DE CARDS
-	const productsFilter: (product | firestore.DocumentData)[] = []
+	const productsFilter: IProduct[] | [] = new Array()
 	const multArry: number[] = []
 	let sum: number = 0
 
 	// BUSCAR POR CLAVE
-	productList.reverse().forEach((product: product | firestore.DocumentData) => {
+	productList?.reverse().forEach((product: IProduct) => {
 		// DECLARAR MULTIPLICIDAD
 		let firstAdded: boolean = false
 		let mult: number = 0
@@ -306,6 +297,7 @@ export const useCartSearch = (
 		// CREAR LISTA DE MULTIPLICIDAD
 		if (mult !== 0) multArry.push(mult)
 	})
+
 	const resData: OrderCart = { sum, productsFilter, multArry }
 	return resData
 }

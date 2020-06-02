@@ -1,18 +1,17 @@
-import { firestore } from 'firebase'
 import Dexie from 'dexie'
 
 export class LocalDB extends Dexie {
 	// DECLARAR TABLAS
-	users: Dexie.Table<user, number>
-	productList: Dexie.Table<productList, number>
+	users: Dexie.Table<IUserDB, number>
+	products: Dexie.Table<IProductDB, string>
 
 	constructor() {
 		super('localDB')
-		this.version(1).stores({ users: 'id, user', productList: 'id, products' })
+		this.version(1).stores({ users: 'id, user', products: 'id, product' })
 
 		// TABLA USUARIOS Y PRODUCTOS
 		this.users = this.table('users')
-		this.productList = this.table('productList')
+		this.products = this.table('products')
 	}
 }
 
@@ -23,9 +22,8 @@ export const iLocalDB = new LocalDB()
 export const clearUser = async () => iLocalDB.users.clear()
 
 // AGREGAR USUARIO A LOCAL
-export const setUser = async (user: userModel | firestore.DocumentData | undefined) =>
-	iLocalDB.users.put({ id: 1, user })
+export const setUser = async (user: IUser | null) => iLocalDB.users.put({ id: 1, user })
 
 // AGREGAR PRODUCTOS AL LOCAL
-export const setProducts = async (products: product[] | firestore.DocumentData | undefined) =>
-	iLocalDB.productList.put({ id: 1, products })
+export const setProducts = async (products: IProduct[]) =>
+	iLocalDB.products.bulkPut(products?.map((product: IProduct) => ({ id: product.key, product })))

@@ -29,42 +29,58 @@ interface Props {
 	children: any
 }
 interface AppState {
-	user: null | userModel
+	user: null | IUser
 	cartList: string[]
-	productList: product[] | []
+	productList: IProduct[] | undefined
 }
 
 // VARIABLES GLOBALES
 let topBar: any
+const defaultUser: AppState = { user: null, productList: [], cartList: [] }
 
 const Layout: FC<Props> = (props: Props) => {
 	// EFECTO DE RIPPLES
 	useRipples()
 
-	// ESTADOS Y CONTEXTO DEL COMPONENTE
+	// CONTEXTO DEL COMPONENTE
 	const { lang } = useContext(langContext)
-	const defaultUser: AppState = { user: null, productList: [], cartList: [] }
-	const stateUser: MutableRefObject<userModel | null> = useRef(null)
-	const stateProductList: MutableRefObject<product[] | []> = useRef([])
-	const cartList: MutableRefObject<string[]> = useRef([])
-	const [state, setState]: [AppState, Dispatch<SetStateAction<AppState>>] = useState(defaultUser)
+
+	// REFERENCIAS
 	topBar = useRef(null)
+	const cartList: MutableRefObject<string[]> = useRef([])
+	const stateUser: MutableRefObject<IUser | null> = useRef(null)
+	const stateProductList: MutableRefObject<IProduct[] | undefined> = useRef()
+
+	// ESTADO
+	const [state, setState]: [AppState, Dispatch<SetStateAction<AppState>>] = useState(defaultUser)
 
 	// AGREGAR AL CARRITO CONTEXTO
 	const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) => {
+		// VERIFICAR EL MODO ELIMINAR/AGREGAR
 		if (mode) cartList.current.push(key)
 		else {
+			// BUSCAR LLAVE
 			const rIndex = cartList.current.indexOf(key)
 			if (rIndex > -1) cartList.current.splice(rIndex, 1)
 		}
+
+		// GUARDAR LLAVE
 		window.localStorage.setItem('cart', cartList.current.join())
+
+		// ACTUALIZAR TOPBAR
 		if (topBar.current) topBar.current.callRender(cartList.current.length)
+
+		/// REINICIAR CARRITO
 		if (reset) {
-			window.localStorage.setItem('cart', '')
+			// GUARDAR ESTADO
 			cartList.current = []
+			window.localStorage.setItem('cart', '')
+
+			// ACTUALIZAR TOPBAR
 			topBar.current.callRender(0)
 		}
 
+		// ACTUALIZAR ESTADO
 		setState({
 			user: stateUser.current || null,
 			cartList: cartList.current,
@@ -76,7 +92,10 @@ const Layout: FC<Props> = (props: Props) => {
 	useAuth((getUser: User | null) => {
 		// LIMPIAR USUARIO
 		if (!getUser) {
+			// GUARDAR REFERENCIA
 			stateUser.current = getUser
+
+			// ACTUALIZAR ESTADO
 			setState({
 				user: getUser,
 				cartList: cartList.current,
@@ -87,8 +106,12 @@ const Layout: FC<Props> = (props: Props) => {
 
 		// OBTENER USUARIO COMPLETO
 		useUserGet(getUser.uid).then((nUser) => {
+			// VERIFICAR SI EXISTEN DATOS
 			if (nUser) {
+				// GUARDAR REFERENCIA
 				stateUser.current = nUser
+
+				// ACTUALIZAR ESTADO
 				setState({
 					user: nUser,
 					cartList: cartList.current,
@@ -123,8 +146,11 @@ const Layout: FC<Props> = (props: Props) => {
 		requestPush()
 
 		// OBTENER PRODUCTOS
-		const saveProducts = (products: product[]) => {
+		const saveProducts = (products: IProduct[] | undefined) => {
+			// GUARDAR EN REFERENCIA
 			stateProductList.current = products
+
+			// ACTUALIZAR ESTADO
 			setState({
 				user: stateUser.current || null,
 				cartList: cartList.current,
@@ -132,27 +158,36 @@ const Layout: FC<Props> = (props: Props) => {
 			})
 		}
 
-		// LEER DE LA DB
-		// @ts-ignore
+		// GUARDAR PRODUCTOS
 		useGetAllProducts(saveProducts).then(saveProducts)
 
 		// ASIGNAR CARRITO ACTUAL
 		setTimeout(
 			() => {
+				// LEER CARRITO
 				const cartListLS = window.localStorage.getItem('cart')
+
+				// VERIFICAR SI EXISTE Y GUARDAR
 				if (cartListLS && cartListLS?.length > 1)
 					cartList.current = window.localStorage.getItem('cart')?.split(',') || []
+
+				// ACTUALIZAR TOPBAR
 				topBar.current.callRender(cartList.current.length)
+
+				// ACTUALIZAR ESTADO
 				setState({
 					user: stateUser.current || null,
 					cartList: cartList.current,
 					productList: stateProductList.current,
 				})
 			},
+
+			// TIEMPO DE ESPERA EN MODO DE PRODUCCIÓN
 			process.env.NODE_ENV === 'development' ? 0 : 2000
 		)
 	}, [])
 
+	// COMPONENTE
 	return (
 		<>
 			<appContext.Provider

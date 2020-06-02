@@ -1,7 +1,6 @@
 // PROPIEDADES
-import { firestore } from 'firebase'
 interface Props {
-	user: userModel | firestore.DocumentData
+	user: IUser | null
 	title: string
 	span: string
 }
@@ -23,9 +22,9 @@ const ProfileHeader: React.FC<Props> = (props: Props) => {
 			<div id='info'>
 				<div>
 					<h1>{props.title}</h1>
-					<h2>{props.user.displayName}</h2>
+					<h2>{props.user?.displayName}</h2>
 					<span>
-						<i className='material-icons'>email</i> {props.user.email}
+						<i className='material-icons'>email</i> {props.user?.email}
 					</span>
 				</div>
 

@@ -1,6 +1,5 @@
 // HOOKS Y TIPOS
 import { useContext, useRef, MutableRefObject } from 'react'
-import { firestore } from 'firebase'
 
 // ROUTER Y HEAD
 import { useRouter, NextRouter } from 'next/router'
@@ -27,7 +26,7 @@ import { queryProduct } from 'Hooks'
 
 // PROPIEDADES
 interface ProductProps {
-	product: product | firestore.DocumentData | undefined
+	product: IProduct | undefined
 }
 
 const Post: React.FC<ProductProps> = (props: ProductProps) => {
@@ -39,10 +38,8 @@ const Post: React.FC<ProductProps> = (props: ProductProps) => {
 	const { pid } = router.query
 
 	// BUSCAR EN LISTA DE PRODUCTOS
-	const product: MutableRefObject<product | firestore.DocumentData | undefined> = useRef(
-		props.product
-	)
-	productList.forEach((nProduct: product) =>
+	const product: MutableRefObject<IProduct | undefined> = useRef(props.product)
+	productList?.forEach((nProduct: IProduct) =>
 		nProduct.key === pid ? (product.current = nProduct) : null
 	)
 
@@ -283,7 +280,7 @@ const initialProps = async ({ res, req }: NextPageContext) => {
 	const param: string = req?.url?.substr(req?.url?.lastIndexOf('/') + 1) || ''
 
 	// PEDIR DOCUMENTO
-	let product: product | firestore.DocumentData | undefined
+	let product: IProduct | undefined
 	if (param.length > 10) product = (await queryProduct(param)).data()
 
 	const pageProps: ProductProps = { product }

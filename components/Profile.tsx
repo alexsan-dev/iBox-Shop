@@ -1,6 +1,5 @@
 // TIPOS DE DATOS
 import { useState, SetStateAction, Dispatch, useContext, useEffect, FC } from 'react'
-import { firestore } from 'firebase'
 
 // NEXT
 import Head from 'next/head'
@@ -24,7 +23,7 @@ import { leftAnimation, upAnimation, rightAnimation } from 'utils/Globals'
 
 // ESTADO INICIAL E INTERFACES
 interface IState {
-	userData: userModel | null | undefined | firestore.DocumentData
+	userData: IUser | null
 }
 const defState: IState = { userData: defUserData }
 
@@ -44,7 +43,7 @@ const Profile: FC = () => {
 		})
 
 		// @ts-ignore
-		const userCopy: userModel | null = state.userData
+		const userCopy: IUser | null = state.userData
 		if (userCopy) {
 			userCopy.address = values?.address || ''
 			userCopy.phone = values?.phone || 0
