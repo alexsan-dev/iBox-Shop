@@ -85,6 +85,7 @@ const Post: React.FC<ProductProps> = (props: ProductProps) => {
 					<Head>
 						<title>{product.current.name}</title>
 						<Meta
+							url={`tienda/${product.current.key}`}
 							title={product.current.name}
 							desc={product.current.description}
 							banner={product.current.img}

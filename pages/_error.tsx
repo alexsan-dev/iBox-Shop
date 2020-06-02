@@ -28,6 +28,7 @@ const ErrorPage = () => {
 			<Head>
 				<title>{str.title}</title>
 				<Meta
+					url={window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)}
 					title={str.title}
 					desc={str.description_1 + ' ' + str.description_2}
 					banner='https://www.ibox.gt/images/general/banner.jpg'

@@ -54,9 +54,7 @@ class IBoxDoc extends Document<DocProps> {
 					<meta property='og:type' content='website' />
 					<meta property='fb:app_id' content='573715776764507' />
 					<meta name='twitter:card' content='summary_large_image' />
-					<meta name='twitter:site' content='@https://www.ibox.gt' />
 					<meta name='twitter:creator' content='@iBox' />
-					<meta property='og:url' content='https://www.ibox.gt' />
 				</Head>
 				<body>
 					<langContext.Provider value={{ lang: this.props.lang }}>

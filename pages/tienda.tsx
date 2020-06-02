@@ -27,6 +27,7 @@ const ShopPage: React.FC = () => {
 			<Head>
 				<title>{strings.header.docTitle}</title>
 				<Meta
+					url='tienda'
 					title={strings.header.docTitle}
 					desc={strings.header.description}
 					banner='https://www.ibox.gt/images/general/banner.jpg'

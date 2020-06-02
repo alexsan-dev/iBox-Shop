@@ -26,6 +26,7 @@ const CartPage: React.FC = () => {
 			<Head>
 				<title>{lang.cartPage.header.docTitle}</title>
 				<Meta
+					url='carrito'
 					title={lang.cartPage.header.docTitle}
 					desc={lang.cartPage.header.description}
 					banner='https://www.ibox.gt/images/general/banner.jpg'

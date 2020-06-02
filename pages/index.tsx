@@ -29,6 +29,7 @@ const Index: React.FC = () => {
 			<Head>
 				<title>{general.app.title}</title>
 				<Meta
+					url=''
 					title={general.app.title}
 					desc={general.app.description}
 					banner='https://www.ibox.gt/images/general/banner.jpg'

@@ -4,6 +4,7 @@ interface Props {
 	desc: string
 	keys: string[]
 	banner: string
+	url: string
 }
 
 const Meta: React.FC<Props> = (props: Props) => {
@@ -21,6 +22,8 @@ const Meta: React.FC<Props> = (props: Props) => {
 			<meta name='twitter:title' content={props.title} />
 			<meta name='twitter:description' content={props.desc} />
 			<meta name='twitter:image' content={props.banner} />
+			<meta name='twitter:site' content={`@https://www.ibox.gt/${props.url}`} />
+			<meta property='og:url' content={`https://www.ibox.gt/${props.url}`} />
 		</>
 	)
 }

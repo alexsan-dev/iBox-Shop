@@ -24,6 +24,7 @@ const Logins: FC = () => {
 			<Head>
 				<title>{accountPage.header.docTitle}</title>
 				<Meta
+					url='cuenta'
 					title={accountPage.header.docTitle}
 					desc={accountPage.header.description}
 					banner='https://www.ibox.gt/images/general/banner.jpg'
