@@ -276,6 +276,7 @@ export const useCartSearch = (cartList: string[], productList: IProduct[] | unde
 
 	// BUSCAR POR CLAVE
 	if (productList) {
+		// REASIGNAR PRODUCTS
 		productsFilter = []
 
 		productList?.reverse().forEach((product: IProduct) => {
@@ -289,8 +290,7 @@ export const useCartSearch = (cartList: string[], productList: IProduct[] | unde
 			// CREAR LISTA DE CARDS
 			cartList?.forEach((keyID: string) => {
 				if (product.key.trim() === keyID && !firstAdded) {
-					// @ts-ignore
-					productsFilter.push(product)
+					productsFilter?.push(product)
 
 					// SALIR Y AGREGAR A LA SUMA TOTAL
 					firstAdded = true
