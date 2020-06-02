@@ -26,7 +26,7 @@ const Logins: FC = () => {
 				<Meta
 					title={accountPage.header.docTitle}
 					desc={accountPage.header.description}
-					banner='https://ibox.gt/images/general/banner.jpg'
+					banner='https://www.ibox.gt/images/general/banner.jpg'
 					keys={[
 						'accesorios',
 						'compras en linea',

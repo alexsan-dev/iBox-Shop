@@ -28,7 +28,7 @@ const CartPage: React.FC = () => {
 				<Meta
 					title={lang.cartPage.header.docTitle}
 					desc={lang.cartPage.header.description}
-					banner='https://ibox.gt/images/general/banner.jpg'
+					banner='https://www.ibox.gt/images/general/banner.jpg'
 					keys={[
 						'accesorios',
 						'compras en linea',

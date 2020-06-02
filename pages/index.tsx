@@ -31,7 +31,7 @@ const Index: React.FC = () => {
 				<Meta
 					title={general.app.title}
 					desc={general.app.description}
-					banner='https://ibox.gt/images/general/banner.jpg'
+					banner='https://www.ibox.gt/images/general/banner.jpg'
 					keys={[
 						'accesorios',
 						'compras en linea',

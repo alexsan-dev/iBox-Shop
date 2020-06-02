@@ -30,7 +30,7 @@ const ErrorPage = () => {
 				<Meta
 					title={str.title}
 					desc={str.description_1 + ' ' + str.description_2}
-					banner='https://ibox.gt/images/general/banner.jpg'
+					banner='https://www.ibox.gt/images/general/banner.jpg'
 					keys={[
 						'accesorios',
 						'compras en linea',
