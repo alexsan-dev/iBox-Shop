@@ -10,7 +10,7 @@ interface Navigator {
 
 interface OrderCart {
 	sum: number;
-	productsFilter: IProduct[] | [];
+	productsFilter: IProduct[] | null;
 	multArry: number[]
 }
 

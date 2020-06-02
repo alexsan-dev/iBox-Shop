@@ -32,7 +32,7 @@ const ShopsHistory: React.FC<HistoryProps> = (props: HistoryProps) => {
 			const userShops: OrderCart = useCartSearch(cartList, productList)
 
 			// RECORRER LISTA
-			if (userShops.productsFilter.length > 0)
+			if (userShops.productsFilter)
 				userShops.productsFilter?.forEach((product: IProduct) =>
 					elementList.push(
 						<HistoryElement

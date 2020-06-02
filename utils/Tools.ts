@@ -270,33 +270,38 @@ export const requestPush = async () => {
 // =============== CARRITO ===============
 export const useCartSearch = (cartList: string[], productList: IProduct[] | undefined) => {
 	// DECLARAR ARRAY DE CARDS
-	const productsFilter: IProduct[] | [] = new Array()
+	let productsFilter: IProduct[] | null = null
 	const multArry: number[] = []
 	let sum: number = 0
 
 	// BUSCAR POR CLAVE
-	productList?.reverse().forEach((product: IProduct) => {
-		// DECLARAR MULTIPLICIDAD
-		let firstAdded: boolean = false
-		let mult: number = 0
+	if (productList) {
+		productsFilter = []
 
-		// AGREGAR MULTIPLICIDAD
-		cartList?.forEach((keyID: string) => (product.key.trim() === keyID ? mult++ : null))
+		productList?.reverse().forEach((product: IProduct) => {
+			// DECLARAR MULTIPLICIDAD
+			let firstAdded: boolean = false
+			let mult: number = 0
 
-		// CREAR LISTA DE CARDS
-		cartList?.forEach((keyID: string) => {
-			if (product.key.trim() === keyID && !firstAdded) {
-				productsFilter.push(product)
+			// AGREGAR MULTIPLICIDAD
+			cartList?.forEach((keyID: string) => (product.key.trim() === keyID ? mult++ : null))
 
-				// SALIR Y AGREGAR A LA SUMA TOTAL
-				firstAdded = true
-				sum += product.price * mult
-			}
+			// CREAR LISTA DE CARDS
+			cartList?.forEach((keyID: string) => {
+				if (product.key.trim() === keyID && !firstAdded) {
+					// @ts-ignore
+					productsFilter.push(product)
+
+					// SALIR Y AGREGAR A LA SUMA TOTAL
+					firstAdded = true
+					sum += product.price * mult
+				}
+			})
+
+			// CREAR LISTA DE MULTIPLICIDAD
+			if (mult !== 0) multArry.push(mult)
 		})
-
-		// CREAR LISTA DE MULTIPLICIDAD
-		if (mult !== 0) multArry.push(mult)
-	})
+	}
 
 	const resData: OrderCart = { sum, productsFilter, multArry }
 	return resData
