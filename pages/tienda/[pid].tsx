@@ -283,7 +283,8 @@ const initialProps = async ({ res, req }: NextPageContext) => {
 	const param: string = req?.url?.substr(req?.url?.lastIndexOf('/') + 1) || ''
 
 	// PEDIR DOCUMENTO
-	const product = (await queryProduct(param)).data()
+	let product: product | firestore.DocumentData | undefined
+	if (param.length > 10) product = (await queryProduct(param)).data()
 
 	const pageProps: ProductProps = { product }
 
