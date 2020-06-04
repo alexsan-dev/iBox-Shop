@@ -24,6 +24,7 @@ const Meta: React.FC<Props> = (props: Props) => {
 			<meta name='twitter:image' content={props.banner} />
 			<meta name='twitter:site' content={`@https://www.ibox.gt/${props.url}`} />
 			<meta property='og:url' content={`https://www.ibox.gt/${props.url}`} />
+			<link rel='canonical' href={`https://www.ibox.gt/${props.url}`} />
 		</>
 	)
 }
