@@ -16,7 +16,8 @@ export const useProducts = (callBack: (roducts: IProduct[] | undefined) => any) 
 // HOOK DE FCM
 export const usePush = () =>
 	useEffect(() => {
-		setTimeout(() => {
-			import('utils/FCM').then(({ requestPush }) => requestPush())
-		}, 10000)
+		if (process.env.NODE_ENV === 'production')
+			setTimeout(() => {
+				import('utils/FCM').then(({ requestPush }) => requestPush())
+			}, 10000)
 	}, [])

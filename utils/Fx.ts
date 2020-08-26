@@ -49,3 +49,31 @@ export const ripples = () => {
 		}
 	}, 10)
 }
+
+// CONECTADO CON SERVICE WORKER
+export const updatePrompt = (addBtn: HTMLButtonElement | null) => {
+	let deferredPrompt: Event | null
+
+	// BOTÓN DE INSTALAR ( SERVICE WORKER )
+	if (addBtn) {
+		addBtn.style.display = 'none'
+		window.addEventListener('beforeinstallprompt', (e) => {
+			e.preventDefault()
+			deferredPrompt = e
+			addBtn.style.display = 'flex'
+			addBtn.addEventListener('click', () => {
+				addBtn.style.display = 'none'
+				if (deferredPrompt) {
+					// @ts-ignore
+					deferredPrompt.prompt()
+					// @ts-ignore
+					deferredPrompt.userChoice.then((choiceResult) => {
+						if (choiceResult.outcome === 'accepted') console.log('User accepted app prompt')
+						else console.log('User dismissed the app prompt')
+						deferredPrompt = null
+					})
+				}
+			})
+		})
+	}
+}

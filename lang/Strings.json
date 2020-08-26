@@ -9,7 +9,11 @@
 				"slogan": "Tu comodidad en una caja.",
 				"title": "iBox Shop - ¡Tienda en línea de accesorios y electrónica!",
 				"navDivider": "Aplicación",
-				"shareText": "Entra a esta tienda, te gustara. ✨👌!",
+				"share": {
+					"name": "iBox Shop® - Compra ahora",
+					"shareText": "Entra a esta tienda, te gustara. ✨👌!",
+					"shareTextAlt": "URL copiada exitosamente"
+				},
 				"update": {
 					"title": "Nueva actualización",
 					"text": "Hay una nueva actualización disponible, ¿deseas actualizar?",

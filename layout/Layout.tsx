@@ -1,5 +1,5 @@
 // TIPOS DE DATOS Y HOOKS
-import { useContext, useState, Dispatch, SetStateAction, FC, useRef } from 'react'
+import { useContext, useState, Dispatch, SetStateAction, FC, useRef, memo } from 'react'
 
 // VARIABLES GLOBALES ( LENGUAJE, TEMA, USUARIO )
 import { langContext, appContext } from 'Ctx'
@@ -23,10 +23,10 @@ import { AlertTemplate } from 'components/Alert'
 import { ToastTemplate } from 'components/Toast'
 
 // INTERFACES PARA LAS PROPIEDADES Y PROVIDER GLOBAL
-interface Props {
+interface LayoutProps {
 	children: any
 }
-interface AppState {
+interface LayoutState {
 	user: UserData | null
 	cartList: string[]
 	productList: IProduct[] | undefined
@@ -34,14 +34,16 @@ interface AppState {
 
 // VARIABLES GLOBALES
 const emptyAlert = () => null
-const defaultState: AppState = { user: null, productList: [], cartList: [] }
+const defaultState: LayoutState = { user: null, productList: [], cartList: [] }
 
-const Layout: FC<Props> = (props: Props) => {
+const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 	// CONTEXTO DEL COMPONENTE
 	const { lang } = useContext(langContext)
 
 	// ESTADO
-	const [state, setState]: [AppState, Dispatch<SetStateAction<AppState>>] = useState(defaultState)
+	const [contextState, setState]: [LayoutState, Dispatch<SetStateAction<LayoutState>>] = useState(
+		defaultState
+	)
 
 	// REFERENCIAS
 	const topBar: any = useRef(null)
@@ -49,7 +51,7 @@ const Layout: FC<Props> = (props: Props) => {
 	// AGREGAR AL CARRITO
 	const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) =>
 		handleCart(
-			state.cartList,
+			contextState.cartList,
 			(length: number) => (topBar.current ? topBar.current.callRender(length) : null),
 			key,
 			mode,
@@ -57,11 +59,14 @@ const Layout: FC<Props> = (props: Props) => {
 		)
 
 	// DETECTAR CAMBIOS EN EL INICIÓ DE SESIÓN
-	useAuth((user: firebase.User | null) =>
-		getUser(user?.uid || '').then((fullUserData: UserData | null) =>
-			setState((prevState: AppState) => ({ ...prevState, user: fullUserData }))
-		)
-	)
+	useAuth((user: firebase.User | null) => {
+		// SI EXISTE USUARIO LEER DE FIRESTORE
+		if (user)
+			getUser(user?.uid || '').then((fullUserData: UserData | null) =>
+				setState((prevState: LayoutState) => ({ ...prevState, user: fullUserData }))
+			)
+		else setState((prevState: LayoutState) => ({ ...prevState, user }))
+	}, true)
 
 	// UTILIZAR RIPPLES
 	useRipples()
@@ -74,12 +79,12 @@ const Layout: FC<Props> = (props: Props) => {
 
 	// LEER CARRITO
 	useCart(topBar, (cartItems: string[]) =>
-		setState((prevState: AppState) => ({ ...prevState, cartList: cartItems }))
+		setState((prevState: LayoutState) => ({ ...prevState, cartList: cartItems }))
 	)
 
 	// LEER PRODUCTOS
 	useProducts((productList: IProduct[] | undefined) =>
-		setState((prevState: AppState) => ({ ...prevState, productList }))
+		setState((prevState: LayoutState) => ({ ...prevState, productList }))
 	)
 
 	// COMPONENTE
@@ -89,14 +94,14 @@ const Layout: FC<Props> = (props: Props) => {
 				value={{
 					lang,
 					theme: 'light',
-					user: state.user,
+					user: contextState.user,
 					addToCartEvent,
-					cartList: state.cartList || [],
-					productList: state.productList,
+					cartList: contextState.cartList || [],
+					productList: contextState.productList,
 				}}>
 				<nav>
 					<TopBar ref={topBar} placeHolder={lang.placeholders.searchPlaceholder} />
-					<Drawer strings={lang.general} user={state.user} />
+					<Drawer strings={lang.general} user={contextState.user} />
 				</nav>
 				<main>{props.children}</main>
 				<AlertTemplate ref={(AlertRef) => (window.Alert = AlertRef?.show || emptyAlert)} />
@@ -127,4 +132,4 @@ const Layout: FC<Props> = (props: Props) => {
 		</>
 	)
 }
-export default Layout
+export default memo(Layout)

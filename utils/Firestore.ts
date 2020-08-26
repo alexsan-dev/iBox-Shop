@@ -189,3 +189,5 @@ export const getUser = async (id: string | undefined) => {
 	else resUser = null
 	return resUser
 }
+
+export const resetFirestore = (handlerValue: number) => (fireStoreHandler = handlerValue)

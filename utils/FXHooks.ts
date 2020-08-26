@@ -68,3 +68,33 @@ export const useRipples = () =>
 	useEffect(() => {
 		import('utils/Fx').then(({ ripples }) => ripples())
 	}, [])
+
+// HOO DE ROUTAS ACTIVAS
+export const useActiveRoutes = (drawerToggle: HTMLInputElement | null) => {
+	useEffect(() => {
+		import('next/router').then((Router) => {
+			import('utils/Events').then(({ setActiveRoutes }) => {
+				// SELECCIONAR TODOS LOS BOTÓNES DE PAGINA
+				const routes: NodeListOf<HTMLAnchorElement> | null = document.querySelectorAll(
+					'.routes'
+				) as NodeListOf<HTMLAnchorElement>
+				const setActive = (url: string) => setActiveRoutes(routes, url, drawerToggle)
+
+				// SELECCIONAR CUAL ES LA PAGINA ACTUAL
+				Router.default.events.on('routeChangeComplete', setActive)
+				setActive(Router.default.pathname)
+			})
+		})
+	}, [])
+}
+
+// USAR EVENTO DE SWIPE
+export const useSwipeDrawer = (
+	drawerToggle: HTMLInputElement | null,
+	hook: HTMLDivElement | null,
+	drawer: HTMLDivElement | null
+) => {
+	useEffect(() => {
+		import('utils/Events').then(({ swipeDrawer }) => swipeDrawer(drawerToggle, hook, drawer))
+	}, [])
+}

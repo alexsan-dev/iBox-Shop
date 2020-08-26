@@ -1,152 +1,57 @@
-// TIPOS DE DATOS Y HOOKS
-import { useEffect, useContext } from 'react'
-import { showAlert } from 'Tools'
-import { useLogout } from 'Hooks'
+// HOOKS
+import { useContext, RefObject, useRef, memo } from 'react'
 
-// NAVEGACIÓN Y ALERTAS
-import Router from 'next/router'
+// NAVEGACIÓN
 import Link from 'next/link'
+
+// CONTEXTO
 import { appContext } from 'Ctx'
 
+// HERRAMIENTAS DE APP
+import { updatePrompt } from 'utils/Fx'
+
+// HOOKS Y EVENTOS
+import { logoutEvent, shareEvent } from 'utils/Events'
+import { useActiveRoutes, useSwipeDrawer } from 'utils/FXHooks'
+
 // PROPIEDADES
-interface Props {
+interface DrawerProps {
 	user: UserData | null
 	strings: ILangGeneral
 }
 
-// ESTADOS Y VARIABLES GLOBALES
-let shareCount: number = 0
-let x0: number = 0
-let x01: number = 0
-let deferredPrompt: Event | null
-let hideDrawer: () => any
-
-const Drawer: React.FC<Props> = (props: Props) => {
+const Drawer: React.FC<DrawerProps> = (props: DrawerProps) => {
+	// CONTEXTO
 	const { addToCartEvent } = useContext(appContext)
 
-	// OCULTAR DRAWER AL CERRAR SESIÓN
-	const logout = () => {
-		hideDrawer()
-		showAlert({
-			type: 'confirm',
-			body: props.strings.logout.text,
-			title: props.strings.logout.title,
-			onConfirm: () => {
-				addToCartEvent('', true, true)
-				useLogout()
-			},
-		})
-	}
+	// REFERENCIAS
+	const drawerToggle: RefObject<HTMLInputElement> = useRef(null)
+	const addBtn: RefObject<HTMLButtonElement> = useRef(null)
+	const drawer: RefObject<HTMLDivElement> = useRef(null)
+	const hook: RefObject<HTMLDivElement> = useRef(null)
 
-	useEffect(() => {
-		// SELECCIONAR TODOS LOS BOTÓNES DE PAGINA, EL INPUT DE MOSTRAR Y OCULTAR, BOTÓN DE COMPARTIR Y BOTÓN DE INSTALAR
-		const routes: NodeListOf<HTMLAnchorElement> | null = document.querySelectorAll(
-			'.routes'
-		) as NodeListOf<HTMLAnchorElement>
-		const drawerToggle: HTMLInputElement | null = document.getElementById(
-			'drawer-toggle'
-		) as HTMLInputElement
-		const shareBtn: HTMLButtonElement | null = document.querySelector(
-			'.shareBtn'
-		) as HTMLButtonElement
-		const addBtn: HTMLButtonElement | null = document.querySelector(
-			'.add-button'
-		) as HTMLButtonElement
-		const hook: HTMLDivElement | null = document.getElementById('sideHook') as HTMLDivElement
-		const drawer: HTMLDivElement | null = document.getElementById('drawer') as HTMLDivElement
+	// OCULTAR DRAWER
+	const hideDrawer = () => (drawerToggle.current ? (drawerToggle.current.checked = false) : null)
 
-		// OCULTAR DRAWER
-		hideDrawer = () => (drawerToggle ? (drawerToggle.checked = false) : null)
+	// EVENTOS
+	const logout = () => logoutEvent(hideDrawer, addToCartEvent, props.strings.logout)
+	const share = () => shareEvent(props.strings.app.share)
 
-		// AGREGAR UNA CLASE "BLUE" A LAS PESTAÑAS ACTIVAS EN EL MENU
-		const setActive = (url: string) => {
-			setTimeout(() => {
-				Array.prototype.forEach.call(routes, (b: HTMLAnchorElement | null) => {
-					if (b) {
-						const route: string | undefined = b.textContent?.split(' ')[1].toLowerCase()
-						b.classList.remove('blue')
-						b.classList.add('white')
-						if (url.substr(1) === route) {
-							b.classList.remove('white')
-							b.classList.add('blue')
-						}
-						if (url.substr(1) === '' && routes) {
-							routes[0].classList.remove('white')
-							routes[0].classList.add('blue')
-						}
-					}
-				})
-			}, 600)
-			setTimeout(() => {
-				if (drawerToggle) drawerToggle.checked = false
-			}, 300)
-		}
+	// FUNCIÓN DE SWIPE PARA DRAWER
+	useSwipeDrawer(drawerToggle.current, hook.current, drawer.current)
 
-		// SELECCIONAR CUAL ES LA PAGINA ACTUAL
-		Router.events.on('routeChangeComplete', setActive)
-		setActive(Router.pathname)
+	// ROUTER LISTENER
+	useActiveRoutes(drawerToggle.current)
 
-		// BOTÓN DE COMPARTIR CON SHARE API
-		if (navigator.share && shareCount === 0) {
-			if (shareBtn) {
-				shareBtn.addEventListener('click', () => {
-					navigator
-						.share({
-							title: props.strings.app.name,
-							text: props.strings.app.shareText,
-							url: window.location.origin,
-						})
-						.then(() => console.log('Successfully share'))
-						.catch((error: Error) => console.log('Error sharing', error))
-				})
-				shareCount++
-			}
-		} else if (shareBtn) shareBtn.style.display = 'none'
-
-		// BOTÓN DE INSTALAR ( SERVICE WORKER )
-		if (addBtn) {
-			addBtn.style.display = 'none'
-			window.addEventListener('beforeinstallprompt', (e) => {
-				e.preventDefault()
-				deferredPrompt = e
-				addBtn.style.display = 'flex'
-				addBtn.addEventListener('click', () => {
-					addBtn.style.display = 'none'
-					if (deferredPrompt) {
-						// @ts-ignore
-						deferredPrompt.prompt()
-						// @ts-ignore
-						deferredPrompt.userChoice.then((choiceResult) => {
-							if (choiceResult.outcome === 'accepted') console.log('User accepted app prompt')
-							else console.log('User dismissed the app prompt')
-							deferredPrompt = null
-						})
-					}
-				})
-			})
-		}
-
-		// ABRIR  DRAWER AL DESLIZAR EL HOOK
-		hook.addEventListener('touchstart', (e: TouchEvent) => (x0 = e.changedTouches[0].clientX))
-		hook.addEventListener('touchend', (e: TouchEvent) => {
-			if (e.changedTouches[0].clientX - x0 > 60 && drawerToggle) drawerToggle.checked = true
-			x0 = 0
-		})
-
-		// CERRAR DRAWER AL DESLIZAR EL DRAWER
-		drawer.addEventListener('touchstart', (e: TouchEvent) => (x01 = e.changedTouches[0].clientX))
-		drawer.addEventListener('touchend', (e: TouchEvent) => {
-			if (e.changedTouches[0].clientX - x01 < -100 && drawerToggle) drawerToggle.checked = false
-			x01 = 0
-		})
-	}, [])
+	// BOTÓN DE INSTALAR APP
+	updatePrompt(addBtn.current)
 
 	return (
 		<>
-			<input type='checkbox' id='drawer-toggle' name='drawer-toggle' />
+			<input type='checkbox' id='drawer-toggle' name='drawer-toggle' ref={drawerToggle} />
 			<label htmlFor='drawer-toggle' className='drawerShadow sbf' />
 
-			<div id='drawer'>
+			<div id='drawer' ref={drawer}>
 				<div id='drawerHead'>
 					<span>{props.strings.app.nameCom}</span>
 					<p>{props.strings.app.slogan}</p>
@@ -192,34 +97,30 @@ const Drawer: React.FC<Props> = (props: Props) => {
 						</li>
 					)}
 					<li>
-						<button className='white waves waves-dark shareBtn btn'>
+						<button onClick={share} className='white waves waves-dark btn'>
 							<i className='material-icons'>share</i> {props.strings.buttons.share}
 						</button>
 					</li>
 					<li>
-						<button className='white waves waves-dark add-button btn'>
+						<button ref={addBtn} className='white waves waves-dark btn'>
 							<i className='material-icons'>arrow_downward</i> {props.strings.buttons.download}
 						</button>
 					</li>
 				</ul>
 			</div>
-			<div id='sideHook' />
-
+			<div id='sideHook' ref={hook} />
 			<style jsx>{`
 				#drawer-toggle {
 					display: none;
 				}
-
 				#drawer-toggle:checked ~ #drawer {
 					transform: translateX(0);
 				}
-
 				#drawer-toggle:checked ~ .sbf {
 					transition: opacity 0.3s ease-in-out, transform 0s linear 0s;
 					opacity: 1;
 					transform: scale(1);
 				}
-
 				#drawer {
 					transform: translateX(-105%);
 					position: fixed;
@@ -233,7 +134,6 @@ const Drawer: React.FC<Props> = (props: Props) => {
 					list-style: none;
 					transition: transform 0.3s ease-in-out;
 				}
-
 				.drawerShadow {
 					opacity: 0;
 					position: absolute;
@@ -246,48 +146,39 @@ const Drawer: React.FC<Props> = (props: Props) => {
 					transform: scale(0);
 					transition: opacity 0.3s ease-in-out, transform 0s linear 0.3s;
 				}
-
 				#drawer > #drawerHead {
 					padding: 25px;
 				}
-
 				#drawer > #drawerHead > span {
 					font-size: 1.2em;
 					color: var(--text);
 					font-weight: 500;
 				}
-
 				#drawer > #drawerHead > p {
 					font-size: 0.85em;
 					color: var(--paragraph);
 				}
-
 				#drawer > ul {
 					padding: 0 10px;
 				}
-
 				#drawer > ul li {
 					width: 100%;
 				}
-
 				#drawer > ul li button,
 				#drawer > ul li a {
 					color: var(--paragraph);
 					font-size: 14px;
 					width: 100%;
 				}
-
 				#drawer > ul li button i,
 				#drawer > ul li a i {
 					margin-right: 20px;
 					margin-top: -1px;
 				}
-
 				#drawer > ul li button.blue,
 				#drawer > ul li a.blue {
 					color: var(--primary);
 				}
-
 				#drawer > ul li button:after,
 				#drawer > ul li a:after {
 					content: '';
@@ -299,7 +190,6 @@ const Drawer: React.FC<Props> = (props: Props) => {
 					background: rgba(255, 255, 255, 0.85);
 					z-index: -2;
 				}
-
 				#drawer > .dividerTitle {
 					color: var(--disable);
 					margin: 25px 20px 12px 20px;
@@ -307,7 +197,6 @@ const Drawer: React.FC<Props> = (props: Props) => {
 					display: block;
 					font-weight: 450;
 				}
-
 				#sideHook {
 					position: fixed;
 					top: 0;
@@ -316,7 +205,6 @@ const Drawer: React.FC<Props> = (props: Props) => {
 					width: 30px;
 					z-index: 1;
 				}
-
 				@media screen and (max-width: 355px) {
 					#drawer {
 						width: 260px;
@@ -327,4 +215,4 @@ const Drawer: React.FC<Props> = (props: Props) => {
 	)
 }
 
-export default Drawer
+export default memo(Drawer)
