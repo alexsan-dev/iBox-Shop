@@ -3,17 +3,15 @@ import { motion } from 'framer-motion'
 import { NextPageContext } from 'next'
 import Head from 'next/head'
 
-// CONTEXTO
+// CONTEXTO Y REACT
 import { useContext } from 'react'
 import { appContext } from 'Ctx'
 
 // COMPONENTES
 import Header from 'components/Header'
 import Slider from 'components/Slider'
-
 import Recent from 'components/Recents'
 import Middle from 'components/Middle'
-
 import Meta from 'components/Meta'
 
 // HOCS Y ANIMACIONES

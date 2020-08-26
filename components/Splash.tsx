@@ -1,5 +1,5 @@
 // CONTEXTO Y HOOKS
-import { useContext} from 'react'
+import { useContext } from 'react'
 import { appContext } from 'Ctx'
 
 // MOSTRAR SOLO EN MODO DE PRODUCCIÓN

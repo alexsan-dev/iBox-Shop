@@ -21,15 +21,19 @@ import TopBar from './Topbar'
 import Drawer from './Drawer'
 
 // HOOKS Y TOOLS
-import { useRipples, showToast, requestPush } from 'Tools'
+import { useRipples } from 'utils/Fx'
+import { showToast, requestPush } from 'Tools'
 import { useAuth, useUserGet, useGetAllProducts } from 'Hooks'
+
+// ALERTAS
+import { AlertTemplate } from 'components/Alert'
 
 // INTERFACES PARA LAS PROPIEDADES Y PROVIDER GLOBAL
 interface Props {
 	children: any
 }
 interface AppState {
-	user: null | IUser
+	user: IUser | null
 	cartList: string[]
 	productList: IProduct[] | undefined
 }
@@ -187,6 +191,9 @@ const Layout: FC<Props> = (props: Props) => {
 		)
 	}, [])
 
+	// ALERTA VACIA
+	const emptyAlert = () => null
+
 	// COMPONENTE
 	return (
 		<>
@@ -204,6 +211,7 @@ const Layout: FC<Props> = (props: Props) => {
 					<Drawer strings={lang.general} user={state.user} />
 				</nav>
 				<main>{props.children}</main>
+				<AlertTemplate ref={(AlertRef) => (window.Alert = AlertRef?.show || emptyAlert)} />
 			</appContext.Provider>
 
 			<Footer {...lang.footer} />
@@ -216,11 +224,9 @@ const Layout: FC<Props> = (props: Props) => {
 					z-index: 98;
 					background: var(--backgrounds);
 				}
-
 				main {
 					overflow: hidden;
 				}
-
 				@media screen and (min-width: 460px) {
 					main {
 						width: 90%;

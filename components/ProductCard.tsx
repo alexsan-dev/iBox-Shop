@@ -2,6 +2,7 @@
 import { FC, useContext, RefObject, useRef } from 'react'
 import { appContext } from 'Ctx'
 
+// NAVEGACIÓN
 import Link from 'next/link'
 
 const Card: FC<CardProps> = (props: CardProps) => {
@@ -86,7 +87,6 @@ const Card: FC<CardProps> = (props: CardProps) => {
 					height: 100%;
 					object-fit: cover;
 				}
-
 				.card .card-head .headShadow {
 					position: absolute;
 					top: 0;

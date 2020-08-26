@@ -1,12 +1,14 @@
-// NAVEGACIÓN
-import Link from 'next/link'
-import { useRouter, NextRouter } from 'next/router'
+// REACT Y  CONTEXTO
 import { useContext } from 'react'
 import { appContext } from 'Ctx'
 
+// NAVEGACIÓN
+import Link from 'next/link'
+import { useRouter, NextRouter } from 'next/router'
+
 // PROPIEDADES
-interface Props {
-	title: string | any
+interface HeaderProps {
+	title: string | JSX.Element
 	text: string
 	span?: string
 	href: string
@@ -16,7 +18,7 @@ interface Props {
 	back?: boolean
 }
 
-const Header: React.FC<Props> = (props: Props) => {
+const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 	// ROUTER
 	const router: NextRouter = useRouter()
 

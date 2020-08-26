@@ -4,6 +4,8 @@ import { useContext } from 'react'
 // COMPONENTES
 import Card from './ProductCard'
 import CardShadow from './ProductCardPlaceholder'
+
+// CONTEXTO
 import { appContext } from 'Ctx'
 
 // VARIABLES GLOBALES

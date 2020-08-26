@@ -1,25 +1,26 @@
-// TIPOS DE DATOS Y HOOKS
+// TIPOS DE DATOS
 import { useState, FC, Dispatch, SetStateAction, useContext } from 'react'
-import { useInterval } from 'Hooks'
+
+// HOOKS Y CONTEXTO
+import { useInterval } from 'HooksAux'
 import { appContext } from 'Ctx'
 
 // VARIABLES INICIALES DE ANIMACIÓN
-interface Bars {
+interface BarRandoms {
 	r1: number
 	r2: number
 	r3: number
 }
-const defaultBars: Bars = { r1: 0, r2: 0, r3: 0 }
-
 // VARIABLES GLOBALES
 const time: number = 600
+const defaultBars: BarRandoms = { r1: 0, r2: 0, r3: 0 }
 
 const CardShadow: FC = () => {
 	// CONTEXTO
 	const strings = useContext(appContext).lang.placeholders
 
 	// ESTADO INICIAL DEL COMPONENTE
-	const [bars, setBars]: [Bars, Dispatch<SetStateAction<Bars>>] = useState(defaultBars)
+	const [bars, setBars]: [BarRandoms, Dispatch<SetStateAction<BarRandoms>>] = useState(defaultBars)
 
 	// OBTENER NÚMEROS ALEATORIOS CADA *TIME*
 	useInterval(

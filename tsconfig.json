@@ -3,30 +3,15 @@
 		"baseUrl": ".",
 		"target": "es5",
 		"paths": {
-			"Ctx": [
-				"context/appContext"
-			],
-			"Tools": [
-				"utils/Tools"
-			],
-			"Hooks": [
-				"utils/Hooks"
-			],
-			"IndexDB": [
-				"utils/IndexDB"
-			],
-			"Global": [
-				"utils/Global"
-			],
-			"Strings": [
-				"lang/Strings.json"
-			]
+			"Ctx": ["context/appContext"],
+			"Tools": ["utils/Tools"],
+			"Hooks": ["utils/Hooks"],
+			"HooksAux": ["utils/HooksAux"],
+			"IndexDB": ["utils/IndexDB"],
+			"Global": ["utils/Global"],
+			"Strings": ["lang/Strings.json"]
 		},
-		"lib": [
-			"dom",
-			"dom.iterable",
-			"esnext"
-		],
+		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
@@ -41,12 +26,6 @@
 		"isolatedModules": true,
 		"jsx": "preserve"
 	},
-	"exclude": [
-		"node_modules"
-	],
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx"
-	]
+	"exclude": ["node_modules"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

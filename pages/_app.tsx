@@ -6,7 +6,7 @@ import { AppProps } from 'next/app'
 
 // ANIMACIÓN Y HOOKS
 import { AnimatePresence } from 'framer-motion'
-import { updateApp, showAlert } from 'Tools'
+import { updateApp } from 'Tools'
 
 // COMPONENTES
 import Layout from 'layout/Layout'
@@ -38,7 +38,7 @@ const iBoxApp = ({ Component, pageProps, router }: AppProps) => {
 			if (splash) splash.style.zIndex = '99'
 
 			// MOSTRAR ALERTA
-			showAlert({
+			window.Alert({
 				type: 'window',
 				fixed: true,
 				title: 'Estamos trabajando',

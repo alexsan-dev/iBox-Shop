@@ -1,5 +1,5 @@
 // PROPIEDADES
-interface Props {
+interface MetaProps {
 	title: string
 	desc: string
 	keys: string[]
@@ -7,7 +7,7 @@ interface Props {
 	url: string
 }
 
-const Meta: React.FC<Props> = (props: Props) => {
+const Meta: React.FC<MetaProps> = (props: MetaProps) => {
 	return (
 		<>
 			<meta name='application-name' content={props.title} />

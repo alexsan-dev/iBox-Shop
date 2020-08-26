@@ -87,7 +87,6 @@ const Middle: FC<ILangIndexPage['middle']> = (strings: ILangIndexPage['middle'])
 					position: relative;
 					top: 3px;
 				}
-
 				.middle > #showInf {
 					position: absolute;
 					top: 2px;
@@ -112,7 +111,6 @@ const Middle: FC<ILangIndexPage['middle']> = (strings: ILangIndexPage['middle'])
 					color: var(--secondary);
 					position: relative;
 				}
-
 				@media screen and (max-width: 355px) {
 					.middle > #showInf {
 						top: -3px;
