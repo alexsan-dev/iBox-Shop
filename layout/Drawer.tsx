@@ -222,11 +222,11 @@ const Drawer: React.FC<Props> = (props: Props) => {
 
 				#drawer {
 					transform: translateX(-105%);
-					position: absolute;
+					position: fixed;
 					top: 0;
 					left: 0;
 					width: 300px;
-					height: 100vh;
+					height: 100%;
 					background: var(--backgrounds);
 					z-index: 2;
 					box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);

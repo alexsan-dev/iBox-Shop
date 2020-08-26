@@ -1,23 +1,24 @@
 const withOffline = require('next-offline')
+const paths = require('tsconfig-paths-webpack-plugin')
 
 module.exports = withOffline({
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
 			use: {
-				loader: "url-loader",
+				loader: 'url-loader',
 				options: {
-					limit: 100000
-				}
-			}
-		});
+					limit: 100000,
+				},
+			},
+		})
+
+		config.resolve.plugins = [new paths()]
 
 		return config
 	},
 	workboxOpts: {
-		swDest: process.env.NEXT_EXPORT
-			? 'service-worker.js'
-			: 'static/service-worker.js',
+		swDest: process.env.NEXT_EXPORT ? 'service-worker.js' : 'static/service-worker.js',
 		runtimeCaching: [
 			{
 				urlPattern: /^https?.*/,
@@ -25,9 +26,9 @@ module.exports = withOffline({
 				options: {
 					cacheName: 'offlineCache',
 					expiration: {
-						maxEntries: 200
-					}
-				}
+						maxEntries: 200,
+					},
+				},
 			},
 			{
 				urlPattern: /\.(?:png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -35,8 +36,8 @@ module.exports = withOffline({
 				options: {
 					cacheName: 'assets',
 				},
-			}
-		]
+			},
+		],
 	},
 	experimental: {
 		async rewrites() {
@@ -48,6 +49,6 @@ module.exports = withOffline({
 			]
 		},
 	},
-	distDir: "build",
+	distDir: 'build',
 	poweredByHeader: false,
-});
+})

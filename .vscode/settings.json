@@ -9,5 +9,6 @@
     "statechange",
     "topbar",
     "updatefound"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
