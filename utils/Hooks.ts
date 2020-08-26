@@ -40,7 +40,7 @@ export const useInterval = (callback: any, delay: number) => {
 
 // OBTENER DATOS DE FIRESTORE
 // AGREGAR USUARIO EN CUENTA NUEVA
-export const useUserSet = async (id?: string, data?: IUser) => {
+export const useUserSet = async (id?: string, data?: UserData) => {
 	if (id && data) {
 		await db.collection('users').doc(id).set(data)
 		setUser(data)
@@ -50,7 +50,7 @@ export const useUserSet = async (id?: string, data?: IUser) => {
 // OBTENER USUARIOS DE FIRESTORE O CARGAR LA VERSION LOCAL
 export const useUserGet = async (id: string | undefined) => {
 	const user: IUserDB[] = await iLocalDB.users.toArray()
-	let resUser: IUser | null = null
+	let resUser: UserData | null = null
 
 	// VERIFICAR USUARIO LOCAL
 	if (user[0] && fireStoreHandler === 0) {
@@ -60,10 +60,10 @@ export const useUserGet = async (id: string | undefined) => {
 		fireStoreHandler++
 	} else if (fireStoreHandler === 0 && id) {
 		// LEER DE FIREBASE
-		const getUser: firestore.DocumentSnapshot<IUser> = (await db
+		const getUser: firestore.DocumentSnapshot<UserData> = (await db
 			.collection('users')
 			.doc(id)
-			.get()) as firestore.DocumentSnapshot<IUser>
+			.get()) as firestore.DocumentSnapshot<UserData>
 
 		if (getUser) {
 			console.log(
@@ -232,7 +232,7 @@ export const queryProduct = async (key: string) => {
 
 // =============== USUARIOS ===============
 // USUARIO POR DEFECTO
-export const defUserData: IUser = {
+export const defUserData: UserData = {
 	displayName: '',
 	email: '',
 	provider: '',
@@ -342,7 +342,7 @@ export const useLogin = async (data: LoginType) => {
 
 		// SI EXISTEN ASIGNAR DATOS INICIALES
 		if (credentials) {
-			const userData: IUser = {
+			const userData: UserData = {
 				displayName: data.name || null,
 				email: data.email || null,
 				provider: credentials.user?.providerData[0]?.providerId,

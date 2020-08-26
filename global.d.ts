@@ -54,7 +54,7 @@ interface IProduct {
 
 interface IUserDB {
 	id?: number;
-	user: IUser | null;
+	user: UserData | null;
 }
 
 interface IPromoCodes {
@@ -62,7 +62,7 @@ interface IPromoCodes {
 	price: number | string;
 }
 
-interface IUser {
+interface UserData {
 	provider?: string | null;
 	displayName: string | null;
 	email: string | null;

@@ -22,7 +22,7 @@ export const iLocalDB = new LocalDB()
 export const clearUser = async () => iLocalDB.users.clear()
 
 // AGREGAR USUARIO A LOCAL
-export const setUser = async (user: IUser | null) => iLocalDB.users.put({ id: 1, user })
+export const setUser = async (user: UserData | null) => iLocalDB.users.put({ id: 1, user })
 
 // AGREGAR PRODUCTOS AL LOCAL
 export const setProducts = async (products: IProduct[]) =>

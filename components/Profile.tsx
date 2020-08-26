@@ -23,7 +23,7 @@ import { leftAnimation, upAnimation, rightAnimation } from 'utils/Globals'
 
 // ESTADO INICIAL E INTERFACES
 interface IState {
-	userData: IUser | null
+	userData: UserData | null
 }
 const defState: IState = { userData: defUserData }
 
@@ -43,7 +43,7 @@ const Profile: FC = () => {
 		})
 
 		// @ts-ignore
-		const userCopy: IUser | null = state.userData
+		const userCopy: UserData | null = state.userData
 		if (userCopy) {
 			userCopy.address = values?.address || ''
 			userCopy.phone = values?.phone || 0

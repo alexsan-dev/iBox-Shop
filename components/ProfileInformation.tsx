@@ -7,7 +7,7 @@ import Input from './Input'
 //  PROPIEDADES
 interface InfoProps {
 	updateCall: (form: IForms | null, btn: HTMLButtonElement) => any
-	user: IUser | null
+	user: UserData | null
 	strings: ILangProfilePage['info']
 }
 
@@ -47,7 +47,7 @@ const ProfileInformation: React.FC<InfoProps> = (props: InfoProps) => {
 	}
 
 	// VERIFICAR DATOS NUEVOS
-	const verifyUpdate = (defValue: IForms | IUser | null, newValue: IForms) => {
+	const verifyUpdate = (defValue: IForms | UserData | null, newValue: IForms) => {
 		return (
 			defValue?.address === newValue.address &&
 			defValue?.phone === newValue.phone &&

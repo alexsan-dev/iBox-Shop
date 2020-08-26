@@ -1,198 +1,86 @@
 // TIPOS DE DATOS Y HOOKS
-import {
-	useEffect,
-	useContext,
-	useState,
-	Dispatch,
-	SetStateAction,
-	FC,
-	useRef,
-	MutableRefObject,
-} from 'react'
-
-import { User } from 'firebase'
+import { useContext, useState, Dispatch, SetStateAction, FC, useRef } from 'react'
 
 // VARIABLES GLOBALES ( LENGUAJE, TEMA, USUARIO )
 import { langContext, appContext } from 'Ctx'
 
-// COMPONENTES, ALERTAS Y LAYOUTS
+// COMPONENTES Y LAYOUTS
 import Footer from './Footer'
 import TopBar from './Topbar'
 import Drawer from './Drawer'
 
-// HOOKS Y TOOLS
-import { useRipples } from 'utils/Fx'
-import { showToast, requestPush } from 'Tools'
-import { useAuth, useUserGet, useGetAllProducts } from 'Hooks'
+// AUTH Y FIRESTORE
+import { useAuth } from 'utils/Auth'
+import { getUser } from 'utils/Firestore'
+import { handleCart } from 'utils/Cart'
+
+// HOOKS
+import { useProducts, usePush } from 'utils/DataHooks'
+import { useNetwork, useCart, useRipples } from 'utils/FXHooks'
 
 // ALERTAS
 import { AlertTemplate } from 'components/Alert'
+import { ToastTemplate } from 'components/Toast'
 
 // INTERFACES PARA LAS PROPIEDADES Y PROVIDER GLOBAL
 interface Props {
 	children: any
 }
 interface AppState {
-	user: IUser | null
+	user: UserData | null
 	cartList: string[]
 	productList: IProduct[] | undefined
 }
 
 // VARIABLES GLOBALES
-let topBar: any
-const defaultUser: AppState = { user: null, productList: [], cartList: [] }
+const emptyAlert = () => null
+const defaultState: AppState = { user: null, productList: [], cartList: [] }
 
 const Layout: FC<Props> = (props: Props) => {
-	// EFECTO DE RIPPLES
-	useRipples()
-
 	// CONTEXTO DEL COMPONENTE
 	const { lang } = useContext(langContext)
 
-	// REFERENCIAS
-	topBar = useRef(null)
-	const cartList: MutableRefObject<string[]> = useRef([])
-	const stateUser: MutableRefObject<IUser | null> = useRef(null)
-	const stateProductList: MutableRefObject<IProduct[] | undefined> = useRef()
-
 	// ESTADO
-	const [state, setState]: [AppState, Dispatch<SetStateAction<AppState>>] = useState(defaultUser)
+	const [state, setState]: [AppState, Dispatch<SetStateAction<AppState>>] = useState(defaultState)
 
-	// AGREGAR AL CARRITO CONTEXTO
-	const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) => {
-		// VERIFICAR EL MODO ELIMINAR/AGREGAR
-		if (mode) cartList.current.push(key)
-		else {
-			// BUSCAR LLAVE
-			const rIndex = cartList.current.indexOf(key)
-			if (rIndex > -1) cartList.current.splice(rIndex, 1)
-		}
+	// REFERENCIAS
+	const topBar: any = useRef(null)
 
-		// GUARDAR LLAVE
-		window.localStorage.setItem('cart', cartList.current.join())
-
-		// ACTUALIZAR TOPBAR
-		if (topBar.current) topBar.current.callRender(cartList.current.length)
-
-		/// REINICIAR CARRITO
-		if (reset) {
-			// GUARDAR ESTADO
-			cartList.current = []
-			window.localStorage.setItem('cart', '')
-
-			// ACTUALIZAR TOPBAR
-			topBar.current.callRender(0)
-		}
-
-		// ACTUALIZAR ESTADO
-		setState({
-			user: stateUser.current || null,
-			cartList: cartList.current,
-			productList: stateProductList.current,
-		})
-	}
+	// AGREGAR AL CARRITO
+	const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) =>
+		handleCart(
+			state.cartList,
+			(length: number) => (topBar.current ? topBar.current.callRender(length) : null),
+			key,
+			mode,
+			reset
+		)
 
 	// DETECTAR CAMBIOS EN EL INICIÓ DE SESIÓN
-	useAuth((getUser: User | null) => {
-		// LIMPIAR USUARIO
-		if (!getUser) {
-			// GUARDAR REFERENCIA
-			stateUser.current = getUser
-
-			// ACTUALIZAR ESTADO
-			setState({
-				user: getUser,
-				cartList: cartList.current,
-				productList: stateProductList.current,
-			})
-			return 0
-		}
-
-		// OBTENER USUARIO COMPLETO
-		useUserGet(getUser.uid).then((nUser) => {
-			// VERIFICAR SI EXISTEN DATOS
-			if (nUser) {
-				// GUARDAR REFERENCIA
-				stateUser.current = nUser
-
-				// ACTUALIZAR ESTADO
-				setState({
-					user: nUser,
-					cartList: cartList.current,
-					productList: stateProductList.current,
-				})
-			}
-		})
-	})
-
-	useEffect(() => {
-		// ESTADO DE CONEXIÓN
-		const online = navigator.onLine
-
-		// ALERTA DE OFFLINE
-		const offlineToast = () =>
-			showToast({
-				text: lang.toast.offline,
-				fixed: true,
-				actionText: lang.toast.button,
-				action: () => window.location.reload(),
-			})
-
-		// MOSTRAR ALERTA CUANDO RECUPERO LA CONEXIÓN
-		window.addEventListener('online', () => showToast({ text: lang.toast.online }))
-		// MOSTRAR ALERTA CUANDO PERDIÓ LA CONEXIÓN
-		window.addEventListener('offline', offlineToast)
-
-		// DETECTAR CONEXIÓN AL ENTRAR
-		if (!online) offlineToast()
-
-		// PEDIR PERMISO PARA NOTIFICAR
-		requestPush()
-
-		// OBTENER PRODUCTOS
-		const saveProducts = (products: IProduct[] | undefined) => {
-			// GUARDAR EN REFERENCIA
-			stateProductList.current = products
-
-			// ACTUALIZAR ESTADO
-			setState({
-				user: stateUser.current || null,
-				cartList: cartList.current,
-				productList: stateProductList.current,
-			})
-		}
-
-		// GUARDAR PRODUCTOS
-		useGetAllProducts(saveProducts).then(saveProducts)
-
-		// ASIGNAR CARRITO ACTUAL
-		setTimeout(
-			() => {
-				// LEER CARRITO
-				const cartListLS = window.localStorage.getItem('cart')
-
-				// VERIFICAR SI EXISTE Y GUARDAR
-				if (cartListLS && cartListLS?.length > 1)
-					cartList.current = window.localStorage.getItem('cart')?.split(',') || []
-
-				// ACTUALIZAR TOPBAR
-				topBar.current.callRender(cartList.current.length)
-
-				// ACTUALIZAR ESTADO
-				setState({
-					user: stateUser.current || null,
-					cartList: cartList.current,
-					productList: stateProductList.current,
-				})
-			},
-
-			// TIEMPO DE ESPERA EN MODO DE PRODUCCIÓN
-			process.env.NODE_ENV === 'development' ? 0 : 2000
+	useAuth((user: firebase.User | null) =>
+		getUser(user?.uid || '').then((fullUserData: UserData | null) =>
+			setState((prevState: AppState) => ({ ...prevState, user: fullUserData }))
 		)
-	}, [])
+	)
 
-	// ALERTA VACIA
-	const emptyAlert = () => null
+	// UTILIZAR RIPPLES
+	useRipples()
+
+	// PEDIR PERMISO PARA NOTIFICAR
+	usePush()
+
+	// VERIFICAR CONEXIÓN
+	useNetwork(lang.toast)
+
+	// LEER CARRITO
+	useCart(topBar, (cartItems: string[]) =>
+		setState((prevState: AppState) => ({ ...prevState, cartList: cartItems }))
+	)
+
+	// LEER PRODUCTOS
+	useProducts((productList: IProduct[] | undefined) =>
+		setState((prevState: AppState) => ({ ...prevState, productList }))
+	)
 
 	// COMPONENTE
 	return (
@@ -212,6 +100,7 @@ const Layout: FC<Props> = (props: Props) => {
 				</nav>
 				<main>{props.children}</main>
 				<AlertTemplate ref={(AlertRef) => (window.Alert = AlertRef?.show || emptyAlert)} />
+				<ToastTemplate ref={(ToastRef) => (window.Toast = ToastRef?.show || emptyAlert)} />
 			</appContext.Provider>
 
 			<Footer {...lang.footer} />

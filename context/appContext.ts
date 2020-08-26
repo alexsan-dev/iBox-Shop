@@ -17,7 +17,7 @@ interface AppContext {
 	lang: ILangPackage
 	theme: string
 	cartList: string[]
-	user: IUser | null
+	user: UserData | null
 	productList: IProduct[] | undefined
 	addToCartEvent: (key: string, mode: boolean, reset?: boolean) => any
 }

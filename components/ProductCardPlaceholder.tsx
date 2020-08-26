@@ -2,7 +2,7 @@
 import { useState, FC, Dispatch, SetStateAction, useContext } from 'react'
 
 // HOOKS Y CONTEXTO
-import { useInterval } from 'HooksAux'
+import { useInterval } from 'utils/FXHooks'
 import { appContext } from 'Ctx'
 
 // VARIABLES INICIALES DE ANIMACIÓN

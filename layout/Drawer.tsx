@@ -10,7 +10,7 @@ import { appContext } from 'Ctx'
 
 // PROPIEDADES
 interface Props {
-	user: IUser | null
+	user: UserData | null
 	strings: ILangGeneral
 }
 

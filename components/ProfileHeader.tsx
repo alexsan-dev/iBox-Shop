@@ -1,6 +1,6 @@
 // PROPIEDADES
 interface Props {
-	user: IUser | null
+	user: UserData | null
 	title: string
 	span: string
 }

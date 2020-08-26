@@ -9,7 +9,7 @@ import HistoryElement from './HistoryElement'
 
 // PROPIEDADES
 interface HistoryProps {
-	user: IUser | null
+	user: UserData | null
 	strings: ILangProfilePage['history']
 }
 

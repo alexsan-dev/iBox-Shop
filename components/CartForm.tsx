@@ -29,7 +29,7 @@ const CartForm: React.FC<FormProps> = (props: FormProps) => {
 		nit: 'C/F',
 	}
 	const form: MutableRefObject<IForms> = useRef(defForm)
-	const refUser: MutableRefObject<IUser> = useRef(defUserData)
+	const refUser: MutableRefObject<UserData> = useRef(defUserData)
 
 	// GUARDAR DATOS DE LOS INPUTS
 	const saveToForm = (data: InputGetProps) => {

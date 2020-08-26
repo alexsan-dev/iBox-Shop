@@ -1,6 +1,5 @@
-import firebase from "firebase/app";
-import Key from "./key.json";
-import "firebase/auth";
+import firebase from 'firebase/app'
+import Key from './key.json'
 
-if (!firebase.apps.length) firebase.initializeApp(Key);
-export default firebase;
+if (!firebase.apps.length) firebase.initializeApp(Key)
+export default firebase
