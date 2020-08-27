@@ -103,7 +103,11 @@ export const swipeDrawer = (
 
 	// CERRAR DRAWER AL DESLIZAR EL DRAWER
 	if (drawer) {
-		drawer.addEventListener('touchstart', (e: TouchEvent) => (x01 = e.changedTouches[0].clientX))
+		drawer.addEventListener(
+			'touchstart',
+			(e: TouchEvent) => (x01 = e.changedTouches[0].clientX),
+			options
+		)
 		drawer.addEventListener(
 			'touchend',
 			(e: TouchEvent) => {
