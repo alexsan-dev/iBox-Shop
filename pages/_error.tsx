@@ -1,6 +1,5 @@
 // HOOKS Y TIPOS DE DATOS
 import React, { useContext, useEffect } from 'react'
-import { useGetAllProducts } from 'Hooks'
 import { NextApiResponse } from 'next'
 import Head from 'next/head'
 
@@ -17,11 +16,6 @@ import Meta from 'components/Meta'
 const ErrorPage = () => {
 	// TEXTOS DE PAGINA DE ERROR
 	const str = useContext(appContext).lang.errorPage
-
-	// DESCARGAR PRODUCTOS
-	useEffect(() => {
-		useGetAllProducts()
-	}, [])
 
 	return (
 		<>
