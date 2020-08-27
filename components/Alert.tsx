@@ -34,6 +34,14 @@ const defState: InternalState = {
 	title: '',
 	body: '',
 	open: false,
+	onHide: undefined,
+	onConfirm: undefined,
+	confirmText: undefined,
+	cancelText: undefined,
+	confirmBtn: undefined,
+	cancelBtn: undefined,
+	customElements: undefined,
+	fixed: undefined,
 }
 
 // TEMPLATE
@@ -54,12 +62,13 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 	public show(props: AlertProps | string) {
 		if (typeof props === 'string')
 			this.setState({
+				...defState,
 				type: 'alert',
 				title: '',
 				body: props,
 				open: true,
 			})
-		else this.setState({ ...props, open: true })
+		else this.setState({ ...defState, ...props, open: true })
 	}
 
 	// OCULTAR
@@ -152,7 +161,7 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 						color: #333;
 						font-size: 2em;
 						margin-bottom: 10px;
-						font-weight: 500;
+						font-weight: bold;
 					}
 					.alertContent > p {
 						color: #333;

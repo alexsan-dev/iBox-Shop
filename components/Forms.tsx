@@ -83,17 +83,24 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 			inputRefs.current.displayName,
 			inputRefs.current.pass,
 			props.strings.alerts.title,
+			props.strings.forms.alerts.loading,
 			props.errorLangPackage,
 			props.strings.alerts.text_2
 		)
 
 	// INICIAR SESIÓN CON GOOGLE
 	const gLog = (ev: MouseEvent<HTMLButtonElement>) =>
-		signInEvent(ev, props.strings.alerts.title, 'g')
+		signInEvent(ev, refreshApp, props.strings.alerts.title, 'g', props.strings.forms.alerts.loading)
 
 	// INICIAR SESIÓN CON FACEBOOK
 	const fbLog = (ev: MouseEvent<HTMLButtonElement>) =>
-		signInEvent(ev, props.strings.alerts.title, 'fb')
+		signInEvent(
+			ev,
+			refreshApp,
+			props.strings.alerts.title,
+			'fb',
+			props.strings.forms.alerts.loading
+		)
 
 	// ACTUALIZAR ESTADO ( NUEVA CUENTA / CUENTA EXISTENTE )
 	const regSwitch = () => setAccount({ switchC: !accountState.switchC })

@@ -77,9 +77,18 @@ const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 		(user: firebase.User | null) => {
 			// SI EXISTE USUARIO LEER DE FIRESTORE
 			if (user)
-				getUser(user?.uid || '').then((fullUserData: UserData | null) =>
+				getUser(user?.uid || '').then((fullUserData: UserData | null) => {
+					// ALERTA DE BIENVENIDA
+					const emojis = ['💪', '✨', '⭐️', '❤️', '🔥']
+					if (process.browser && fullUserData?.displayName)
+						window.Toast(
+							`${lang.general.app.greeting} ${fullUserData.displayName} ${
+								emojis[parseInt((Math.random() * emojis.length).toString(), 10)]
+							}`
+						)
+
 					setState((prevState: LayoutState) => ({ ...prevState, user: fullUserData }))
-				)
+				})
 			else setState((prevState: LayoutState) => ({ ...prevState, user }))
 		},
 		true,
@@ -128,10 +137,7 @@ const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 					cancelText='Cancelar'
 					ref={(AlertRef) => (window.Alert = AlertRef?.show || emptyAlert)}
 				/>
-				<ToastTemplate
-					confirmText='Aceptar'
-					ref={(ToastRef) => (window.Toast = ToastRef?.show || emptyAlert)}
-				/>
+				<ToastTemplate ref={(ToastRef) => (window.Toast = ToastRef?.show || emptyAlert)} />
 			</appContext.Provider>
 
 			<Footer {...lang.footer} />

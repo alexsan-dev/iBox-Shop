@@ -121,10 +121,19 @@ export const swipeDrawer = (
 }
 
 // EVENTO DE INICIO DE SESIÓN
-export const signInEvent = (e: MouseEvent<HTMLButtonElement>, title: string, type: string) => {
+export const signInEvent = (
+	e: MouseEvent<HTMLButtonElement>,
+	callback: (refresh: boolean) => any,
+	title: string,
+	type: string,
+	loading: string
+) => {
 	// INHABILITAR BOTON
 	const btn: HTMLButtonElement = e.target as HTMLButtonElement
 	btn.style.pointerEvents = 'none'
+
+	// ALERTA DE CARGANDO
+	window.Toast(loading)
 
 	// HABILITAR BOTON
 	const enableBtn = () => (btn.style.pointerEvents = 'unset')
@@ -135,6 +144,7 @@ export const signInEvent = (e: MouseEvent<HTMLButtonElement>, title: string, typ
 			useLogin({
 				type,
 				onSuccess: () => {
+					callback(true)
 					Router.default.push('/tienda')
 					enableBtn()
 				},
@@ -142,6 +152,8 @@ export const signInEvent = (e: MouseEvent<HTMLButtonElement>, title: string, typ
 				window.Alert({
 					onHide: enableBtn,
 					title,
+					confirmText: undefined,
+					customElements: undefined,
 					body: body.code,
 					type: 'error',
 				})
@@ -159,6 +171,7 @@ export const emailSignInEvent = (
 	name: string,
 	pass: string,
 	title: string,
+	loading: string,
 	errPackage: ILangErrors,
 	errBody: string
 ) => {
@@ -166,6 +179,9 @@ export const emailSignInEvent = (
 	const btn: HTMLButtonElement = e.target as HTMLButtonElement
 	btn.style.pointerEvents = 'none'
 	e.preventDefault()
+
+	// ALERTA DE CARGANDO
+	window.Toast(loading)
 
 	import('next/router').then((Router) => {
 		import('utils/Auth').then(async ({ useLogin }) => {
@@ -195,7 +211,7 @@ export const emailSignInEvent = (
 			// VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
 			else
 				window.Alert({
-					title: title,
+					title,
 					body: errBody,
 					type: 'error',
 					onHide: () => (btn.style.pointerEvents = 'unset'),

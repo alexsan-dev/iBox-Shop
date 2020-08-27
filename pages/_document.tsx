@@ -18,19 +18,11 @@ class IBoxDoc extends Document<DocProps> {
 		// OBTENER PROPIEDADES INICIALES
 		const initialProps = await Document.getInitialProps(ctx)
 
-		// OBTENER CÓDIGO DEL LENGUAJE EN EL SERVIDOR O CLIENTE
-		const lang: string | undefined = ctx.req
-			? ctx.req.headers['accept-language']?.substr(0, 2)
-			: process.browser
-			? navigator.language.substr(0, 2)
-			: 'es'
-
 		// ASIGNAR EL CÓDIGO DEL LENGUAJE AL OBJETO JSON DE LOS TEXTOS
 		return {
 			...initialProps,
-			// @ts-ignore
-			lang: lang ? Langs[lang] : Langs.es,
-			langCode: lang || 'es',
+			lang: Langs.es,
+			langCode: 'es',
 		}
 	}
 

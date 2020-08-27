@@ -40,7 +40,7 @@ const ForgotAlert = (
 					window.Alert({
 						title: errTitle,
 						body: useAuthError(err.code, errPackage),
-						type: 'confirm',
+						type: 'error',
 					})
 				)
 			})

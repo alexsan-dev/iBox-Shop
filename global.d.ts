@@ -139,7 +139,13 @@ interface ILangGeneral {
 		nameShort: string
 		slogan: string
 		title: string
+		greeting: string
 		navDivider: string
+		update: {
+			title: string
+			text: string
+			button: string
+		}
 		share: {
 			shareText: string
 			shareTextAlt: string
@@ -241,6 +247,9 @@ interface ILangAccountPage {
 			helper: string
 			text: string
 			buttonText: string
+		}
+		alerts:{
+			loading: string
 		}
 		inputs: {
 			email: inputFields
