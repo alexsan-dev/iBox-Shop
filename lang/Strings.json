@@ -330,6 +330,7 @@
 			"button": "Recargar"
 		},
 		"errors": {
+			"popup_closed_by_user": "Cerraste la ventana de login, intenta nuevamente",
 			"app_deleted": "Fallo la conexión interna, intenta recargar la página.",
 			"app_not_authorized": "Esta aplicación no esta autorizada para iniciar sesión aquí.",
 			"argument_error": "Se envió una solicitud con parámetros incorrectos.",
