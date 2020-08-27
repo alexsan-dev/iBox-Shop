@@ -112,6 +112,7 @@ export const useUpdateAlert = () =>
 			})
 	})
 
+// HOOK DE SPLASH SCREEN EN PROD MODE
 export const useSplash = () =>
 	useEffect(() => {
 		// OCULTAR SPLASH LUEGO DE 1500MS
