@@ -1,16 +1,12 @@
-import { useContext } from 'react'
+// CONTEXTO
+import { useContext, memo } from 'react'
 import { appContext } from 'Ctx'
 
 // COMPONENTES
 import ProductListElement from './ProductListElement'
 
-// PROTOTIPO
-String.prototype.format = function () {
-	return this.trim()
-		.toLowerCase()
-		.normalize('NFD')
-		.replace(/[\u0300-\u036f]/g, '')
-}
+// PROTOTIPOS
+import 'utils/Prototypes'
 
 // PROPIEDADES
 interface SearchProps {
@@ -62,4 +58,4 @@ const SearchResults: React.FC<SearchProps> = (props: SearchProps) => {
 	return <ul>{searchList}</ul>
 }
 
-export default SearchResults
+export default memo(SearchResults)

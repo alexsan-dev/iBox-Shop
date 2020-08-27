@@ -20,7 +20,7 @@ import Header from 'components/Header'
 import Meta from 'components/Meta'
 
 // HOCS Y ANIMACIONES
-import { pageAnimation } from 'utils/HOCs'
+import { withAnimations } from 'components/HOCs'
 import { upAnimation } from 'utils/Globals'
 import { queryProduct } from 'Hooks'
 
@@ -288,4 +288,4 @@ const initialProps = async ({ res, req }: NextPageContext) => {
 	return pageProps
 }
 
-export default pageAnimation<ProductProps>(Post, initialProps)
+export default withAnimations<ProductProps>(Post, initialProps)

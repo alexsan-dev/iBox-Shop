@@ -1,6 +1,5 @@
 // ANIMACIÓN, HOOKS Y TIPOS DE DATOS
 import { motion } from 'framer-motion'
-import { NextPageContext } from 'next'
 import Head from 'next/head'
 
 // CONTEXTO Y REACT
@@ -15,7 +14,7 @@ import Middle from 'components/Middle'
 import Meta from 'components/Meta'
 
 // HOCS Y ANIMACIONES
-import { pageAnimation } from 'utils/HOCs'
+import { withAnimations } from 'components/HOCs'
 import { leftAnimation, upAnimation, rightAnimation } from 'utils/Globals'
 
 const Index: React.FC = () => {
@@ -66,11 +65,4 @@ const Index: React.FC = () => {
 	)
 }
 
-const initialProps = async ({ res }: NextPageContext) => {
-	// CONFIGURAR SPR VERCEL
-	if (res) res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
-
-	return {}
-}
-
-export default pageAnimation(Index, initialProps)
+export default withAnimations(Index)

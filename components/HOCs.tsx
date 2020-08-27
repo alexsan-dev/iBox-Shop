@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { NextPage, NextPageContext } from 'next'
 
 // tslint:disable-next-line: only-arrow-functions
-function pageAnimation<T = any>(
+function withAnimations<T = any>(
 	Page: React.FC<T>,
 	initialProps?: (context: NextPageContext) => T | Promise<T>
 ) {
@@ -27,4 +27,4 @@ function pageAnimation<T = any>(
 	return gPage
 }
 
-export { pageAnimation }
+export { withAnimations }

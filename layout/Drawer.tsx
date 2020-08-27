@@ -1,5 +1,5 @@
 // HOOKS
-import { useContext, RefObject, useRef, memo } from 'react'
+import { useContext, RefObject, useRef, memo, useEffect } from 'react'
 
 // NAVEGACIÓN
 import Link from 'next/link'
@@ -8,11 +8,11 @@ import Link from 'next/link'
 import { appContext } from 'Ctx'
 
 // HERRAMIENTAS DE APP
-import { updatePrompt } from 'utils/Fx'
+import { installPrompt } from 'utils/Fx'
 
 // HOOKS Y EVENTOS
-import { logoutEvent, shareEvent } from 'utils/Events'
-import { useActiveRoutes, useSwipeDrawer } from 'utils/FXHooks'
+import { useActiveRoutes } from 'utils/FXHooks'
+import { logoutEvent, shareEvent, swipeDrawer } from 'utils/Events'
 
 // PROPIEDADES
 interface DrawerProps {
@@ -38,13 +38,15 @@ const Drawer: React.FC<DrawerProps> = (props: DrawerProps) => {
 	const share = () => shareEvent(props.strings.app.share)
 
 	// FUNCIÓN DE SWIPE PARA DRAWER
-	useSwipeDrawer(drawerToggle.current, hook.current, drawer.current)
+	useEffect(() => {
+		swipeDrawer(drawerToggle.current, hook.current, drawer.current)
+	}, [])
 
 	// ROUTER LISTENER
 	useActiveRoutes(drawerToggle.current)
 
 	// BOTÓN DE INSTALAR APP
-	updatePrompt(addBtn.current)
+	installPrompt(addBtn.current)
 
 	return (
 		<>

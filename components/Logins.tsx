@@ -12,7 +12,7 @@ import Forms from './Forms'
 import Meta from './Meta'
 
 // HOCS Y ANIMACIONES
-import { pageAnimation } from 'utils/HOCs'
+import { withAnimations } from 'components/HOCs'
 import { upAnimation, rightAnimation } from 'utils/Globals'
 
 const Logins: FC = () => {
@@ -58,4 +58,4 @@ const Logins: FC = () => {
 		</>
 	)
 }
-export default pageAnimation(Logins)
+export default withAnimations(Logins)

@@ -51,7 +51,7 @@ export const ripples = () => {
 }
 
 // CONECTADO CON SERVICE WORKER
-export const updatePrompt = (addBtn: HTMLButtonElement | null) => {
+export const installPrompt = (addBtn: HTMLButtonElement | null) => {
 	let deferredPrompt: Event | null
 
 	// BOTÓN DE INSTALAR ( SERVICE WORKER )

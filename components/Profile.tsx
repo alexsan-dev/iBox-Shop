@@ -18,7 +18,7 @@ import ProfileInformation from './ProfileInformation'
 import ShopsHistory from './ShopsHistory'
 
 // HOCS Y ANIMACIONES
-import { pageAnimation } from 'utils/HOCs'
+import { withAnimations } from 'components/HOCs'
 import { leftAnimation, upAnimation, rightAnimation } from 'utils/Globals'
 
 // ESTADO INICIAL E INTERFACES
@@ -96,4 +96,4 @@ const Profile: FC = () => {
 	)
 }
 
-export default pageAnimation(Profile)
+export default withAnimations(Profile)

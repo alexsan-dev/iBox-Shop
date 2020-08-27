@@ -1,54 +1,23 @@
-// REACT
-import { useEffect } from 'react'
-
 // NEXT
 import { AppProps } from 'next/app'
 
 // ANIMACIÓN Y HOOKS
 import { AnimatePresence } from 'framer-motion'
-import { updateApp } from 'Tools'
 
 // COMPONENTES
 import Layout from 'layout/Layout'
 import Splash from 'components/Splash'
 
+// HOOKS
+import { useUpdateAlert, useSplash } from 'utils/FXHooks'
+
 const iBoxApp = ({ Component, pageProps, router }: AppProps) => {
 	// ACTUALIZAR APP
-	useEffect(() => {
-		updateApp()
+	useUpdateAlert()
 
-		// OCULTAR SPLASH LUEGO DE 1500MS
-		const splash: HTMLDivElement | null = document.getElementById('splash') as HTMLDivElement
+	// USAR SPLASH SCREEN
+	useSplash()
 
-		// QUITAR SPLASH PARA SMARTPHONE
-		if (window.innerWidth < 550) {
-			setTimeout(() => {
-				if (splash) {
-					splash.style.opacity = '0'
-					setTimeout(() => {
-						if (splash) splash.style.display = 'none'
-					}, 300)
-				} else console.log('Run on dev mode')
-			}, 1500)
-		}
-
-		// ALERTA PARA DESKTOP
-		else {
-			// BAJAR SPLASH
-			if (splash) splash.style.zIndex = '99'
-
-			// MOSTRAR ALERTA
-			window.Alert({
-				type: 'window',
-				fixed: true,
-				title: 'Estamos trabajando',
-				body:
-					'Hola agradecemos mucho tu visita ❤️, aún estamos trabajando 💻 en la aplicación para escritorio pero puedes probarla desde tu smartphone 📱, visita la tienda ahora!',
-			})
-		}
-	}, [])
-
-	// COMPONENTE
 	return (
 		<>
 			<Layout>

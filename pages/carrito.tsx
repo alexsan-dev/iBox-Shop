@@ -13,7 +13,7 @@ import Header from 'components/Header'
 import CartSummary from 'components/CartSummary'
 
 // HOCS Y ANIMACIONES
-import { pageAnimation } from 'utils/HOCs'
+import { withAnimations } from 'components/HOCs'
 import { upAnimation, rightAnimation } from 'utils/Globals'
 
 // COMPONENTE
@@ -74,4 +74,4 @@ const initialProps = async ({ res }: NextPageContext) => {
 	return {}
 }
 
-export default pageAnimation(CartPage, initialProps)
+export default withAnimations(CartPage, initialProps)

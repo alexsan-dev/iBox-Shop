@@ -15,7 +15,7 @@ import ShopList from 'components/ShopList'
 import Meta from 'components/Meta'
 
 // HOCS Y ANIMACIONES
-import { pageAnimation } from 'utils/HOCs'
+import { withAnimations } from 'components/HOCs'
 import { rightAnimation, upAnimation } from 'utils/Globals'
 
 const ShopPage: React.FC = () => {
@@ -65,4 +65,4 @@ const initialProps = async ({ res }: NextPageContext) => {
 	return {}
 }
 
-export default pageAnimation(ShopPage, initialProps)
+export default withAnimations(ShopPage, initialProps)

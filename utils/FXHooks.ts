@@ -19,7 +19,7 @@ export const useInterval = (callback: any, delay: number) => {
 	}, [delay])
 }
 
-// HOOK DE CONEXION
+// HOOK DE CONEXIÓN
 export const useNetwork = (texts: ILangPackage['toast']) =>
 	useEffect(() => {
 		// ESTADO DE CONEXIÓN
@@ -69,7 +69,7 @@ export const useRipples = () =>
 		import('utils/Fx').then(({ ripples }) => ripples())
 	}, [])
 
-// HOO DE ROUTAS ACTIVAS
+// HOO DE RUTAS ACTIVAS
 export const useActiveRoutes = (drawerToggle: HTMLInputElement | null) => {
 	useEffect(() => {
 		import('next/router').then((Router) => {
@@ -88,13 +88,57 @@ export const useActiveRoutes = (drawerToggle: HTMLInputElement | null) => {
 	}, [])
 }
 
-// USAR EVENTO DE SWIPE
-export const useSwipeDrawer = (
-	drawerToggle: HTMLInputElement | null,
-	hook: HTMLDivElement | null,
-	drawer: HTMLDivElement | null
-) => {
+// ALERTA DE ACTUALIZACIÓN
+export const useUpdateAlert = () =>
+	window.navigator.serviceWorker
+		.getRegistration()
+		.then((reg: ServiceWorkerRegistration | undefined) => {
+			reg?.addEventListener('updatefound', () => {
+				const worker = reg.installing
+				worker?.addEventListener('statechange', () => {
+					if (worker.state === 'installed') {
+						window.Alert({
+							type: 'confirm',
+							body: 'Hay una nueva actualización disponible, ¿deseas actualizar?',
+							title: 'Nueva actualización',
+							confirmText: 'Recargar',
+							onConfirm: () => window.location.reload(),
+						})
+						worker.postMessage({ type: 'SKIP_WAITING' })
+					}
+				})
+			})
+		})
+
+export const useSplash = () =>
 	useEffect(() => {
-		import('utils/Events').then(({ swipeDrawer }) => swipeDrawer(drawerToggle, hook, drawer))
+		// OCULTAR SPLASH LUEGO DE 1500MS
+		const splash: HTMLDivElement | null = document.getElementById('splash') as HTMLDivElement
+
+		// QUITAR SPLASH PARA SMARTPHONE
+		if (window.innerWidth < 550) {
+			setTimeout(() => {
+				if (splash) {
+					splash.style.opacity = '0'
+					setTimeout(() => {
+						if (splash) splash.style.display = 'none'
+					}, 300)
+				} else console.log('Run on dev mode')
+			}, 1500)
+		}
+
+		// ALERTA PARA DESKTOP
+		else {
+			// BAJAR SPLASH
+			if (splash) splash.style.zIndex = '99'
+
+			// MOSTRAR ALERTA
+			window.Alert({
+				type: 'window',
+				fixed: true,
+				title: 'Estamos trabajando',
+				body:
+					'Hola agradecemos mucho tu visita ❤️, aún estamos trabajando 💻 en la aplicación para escritorio pero puedes probarla desde tu smartphone 📱, visita la tienda ahora!',
+			})
+		}
 	}, [])
-}
