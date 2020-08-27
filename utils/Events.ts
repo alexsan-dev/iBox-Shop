@@ -82,22 +82,35 @@ export const swipeDrawer = (
 	// VARIABLES DE DESPLAZAMIENTO
 	let x0 = 0
 	let x01 = 0
+	const options = { capture: true, passive: true }
 
 	// ABRIR  DRAWER AL DESLIZAR EL HOOK
 	if (hook) {
-		hook.addEventListener('touchstart', (e: TouchEvent) => (x0 = e.changedTouches[0].clientX))
-		hook.addEventListener('touchend', (e: TouchEvent) => {
-			if (e.changedTouches[0].clientX - x0 > 60 && drawerToggle) drawerToggle.checked = true
-			x0 = 0
-		})
+		hook.addEventListener(
+			'touchstart',
+			(e: TouchEvent) => (x0 = e.changedTouches[0].clientX),
+			options
+		)
+		hook.addEventListener(
+			'touchend',
+			(e: TouchEvent) => {
+				if (e.changedTouches[0].clientX - x0 > 60 && drawerToggle) drawerToggle.checked = true
+				x0 = 0
+			},
+			options
+		)
 	}
 
 	// CERRAR DRAWER AL DESLIZAR EL DRAWER
 	if (drawer) {
 		drawer.addEventListener('touchstart', (e: TouchEvent) => (x01 = e.changedTouches[0].clientX))
-		drawer.addEventListener('touchend', (e: TouchEvent) => {
-			if (e.changedTouches[0].clientX - x01 < -100 && drawerToggle) drawerToggle.checked = false
-			x01 = 0
-		})
+		drawer.addEventListener(
+			'touchend',
+			(e: TouchEvent) => {
+				if (e.changedTouches[0].clientX - x01 < -100 && drawerToggle) drawerToggle.checked = false
+				x01 = 0
+			},
+			options
+		)
 	}
 }

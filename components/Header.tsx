@@ -13,6 +13,7 @@ interface HeaderProps {
 	span?: string
 	href: string
 	img?: string
+	imgMobile?: string
 	icon?: string
 	link?: string
 	back?: boolean
@@ -51,7 +52,14 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
 			{props.span && <span>{props.span}</span>}
 
-			{props.img && <img src={props.img} alt='Header Image' />}
+			{props.img && props.imgMobile ? (
+				<picture>
+					<source media='(max-width:500px)' srcSet={props.imgMobile} />
+					<source media='(min-width:500px)' srcSet={props.img} />
+				</picture>
+			) : (
+				<img src={props.img} alt='Header Image' />
+			)}
 
 			{props.img ? (
 				<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
@@ -77,7 +85,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 					z-index: 2;
 					width: 100%;
 				}
-				#mainHeader > img {
+				#mainHeader > img,
+				#mainHeader > picture {
 					position: absolute;
 					left: 0px;
 					margin-top: -32px;
@@ -138,17 +147,20 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 					#headText h1 {
 						line-height: 25px;
 					}
-					#mainHeader > img {
+					#mainHeader > img,
+					#mainHeader > picture {
 						height: 80px;
 					}
 				}
 				@media screen and (min-width: 445px) {
-					#mainHeader > img {
+					#mainHeader > img,
+					#mainHeader > picture {
 						height: 110px;
 					}
 				}
 				@media screen and (min-width: 460px) {
-					#mainHeader > img {
+					#mainHeader > img,
+					#mainHeader > picture {
 						height: 100px;
 						left: -2.5%;
 					}
@@ -157,7 +169,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 					}
 				}
 				@media screen and (min-width: 545px) {
-					#mainHeader > img {
+					#mainHeader > img,
+					#mainHeader > picture {
 						height: 110px;
 					}
 				}

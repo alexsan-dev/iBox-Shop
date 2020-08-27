@@ -42,7 +42,7 @@ const Index: React.FC = () => {
 			<motion.div variants={upAnimation}>
 				<Header
 					link={indexPage.header.button}
-					img='/images/home/box.png'
+					img='/images/home/boxmobile.png'
 					href='/tienda'
 					icon='store'
 					text={indexPage.header.text}
