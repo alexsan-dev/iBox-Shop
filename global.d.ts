@@ -424,6 +424,7 @@ interface ILangToast {
 	offline: string
 }
 interface ILangErrors {
+	popup_closed_by_user: string
 	app_deleted: string
 	app_not_authorized: string
 	argument_error: string

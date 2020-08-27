@@ -19,12 +19,14 @@ interface AppContext {
 	cartList: string[]
 	user: UserData | null
 	productList: IProduct[] | undefined
+	refreshApp: (refresh: boolean) => any
 	addToCartEvent: (key: string, mode: boolean, reset?: boolean) => any
 }
 const defaultAppContext: AppContext = {
 	lang: LangsPackages.es,
 	user: null,
 	theme: 'light',
+	refreshApp: () => null,
 	addToCartEvent: () => null,
 	cartList: [],
 	productList: [],

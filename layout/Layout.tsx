@@ -30,11 +30,19 @@ interface LayoutState {
 	user: UserData | null
 	cartList: string[]
 	productList: IProduct[] | undefined
+	refreshAuth: boolean
+	refreshApp: (refresh: boolean) => any
 }
 
 // VARIABLES GLOBALES
 const emptyAlert = () => null
-const defaultState: LayoutState = { user: null, productList: [], cartList: [] }
+const defaultState: LayoutState = {
+	user: null,
+	productList: [],
+	cartList: [],
+	refreshAuth: false,
+	refreshApp: () => null,
+}
 
 const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 	// CONTEXTO DEL COMPONENTE
@@ -60,15 +68,23 @@ const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 			)
 	}
 
+	// ACTUALIZAR AUTH
+	const refreshApp = (refreshAuth: boolean) =>
+		setState((prevState: LayoutState) => ({ ...prevState, refreshAuth }))
+
 	// DETECTAR CAMBIOS EN EL INICIÓ DE SESIÓN
-	useAuth((user: firebase.User | null) => {
-		// SI EXISTE USUARIO LEER DE FIRESTORE
-		if (user)
-			getUser(user?.uid || '').then((fullUserData: UserData | null) =>
-				setState((prevState: LayoutState) => ({ ...prevState, user: fullUserData }))
-			)
-		else setState((prevState: LayoutState) => ({ ...prevState, user }))
-	}, true)
+	useAuth(
+		(user: firebase.User | null) => {
+			// SI EXISTE USUARIO LEER DE FIRESTORE
+			if (user)
+				getUser(user?.uid || '').then((fullUserData: UserData | null) =>
+					setState((prevState: LayoutState) => ({ ...prevState, user: fullUserData }))
+				)
+			else setState((prevState: LayoutState) => ({ ...prevState, user }))
+		},
+		true,
+		contextState.refreshAuth
+	)
 
 	// UTILIZAR RIPPLES
 	useRipples()
@@ -95,6 +111,7 @@ const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 			<appContext.Provider
 				value={{
 					lang,
+					refreshApp,
 					theme: 'light',
 					user: contextState.user,
 					addToCartEvent,
@@ -106,8 +123,15 @@ const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 					<Drawer strings={lang.general} user={contextState.user} />
 				</nav>
 				<main>{props.children}</main>
-				<AlertTemplate ref={(AlertRef) => (window.Alert = AlertRef?.show || emptyAlert)} />
-				<ToastTemplate ref={(ToastRef) => (window.Toast = ToastRef?.show || emptyAlert)} />
+				<AlertTemplate
+					confirmText='Aceptar'
+					cancelText='Cancelar'
+					ref={(AlertRef) => (window.Alert = AlertRef?.show || emptyAlert)}
+				/>
+				<ToastTemplate
+					confirmText='Aceptar'
+					ref={(ToastRef) => (window.Toast = ToastRef?.show || emptyAlert)}
+				/>
 			</appContext.Provider>
 
 			<Footer {...lang.footer} />

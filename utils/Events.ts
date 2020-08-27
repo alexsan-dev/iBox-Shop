@@ -1,3 +1,6 @@
+// EVENTOS DE REACT
+import { MouseEvent } from 'react'
+
 // EVENTO DE CERRAR SESIÓN
 export const logoutEvent = (
 	callback: () => any,
@@ -115,4 +118,88 @@ export const swipeDrawer = (
 			options
 		)
 	}
+}
+
+// EVENTO DE INICIO DE SESIÓN
+export const signInEvent = (e: MouseEvent<HTMLButtonElement>, title: string, type: string) => {
+	// INHABILITAR BOTON
+	const btn: HTMLButtonElement = e.target as HTMLButtonElement
+	btn.style.pointerEvents = 'none'
+
+	// HABILITAR BOTON
+	const enableBtn = () => (btn.style.pointerEvents = 'unset')
+
+	// LOGIN
+	import('next/router').then((Router) => {
+		import('utils/Auth').then(({ useLogin }) => {
+			useLogin({
+				type,
+				onSuccess: () => {
+					Router.default.push('/tienda')
+					enableBtn()
+				},
+			}).catch((body: firebase.FirebaseError) =>
+				window.Alert({
+					onHide: enableBtn,
+					title,
+					body: body.code,
+					type: 'error',
+				})
+			)
+		})
+	})
+}
+
+// INICIAR SESIÓN CON CORREO O CREAR CUENTA
+export const emailSignInEvent = (
+	e: MouseEvent<HTMLElement>,
+	callback: (refresh: boolean) => any,
+	accountState: boolean,
+	email: string,
+	name: string,
+	pass: string,
+	title: string,
+	errPackage: ILangErrors,
+	errBody: string
+) => {
+	// INHABILITAR BOTON
+	const btn: HTMLButtonElement = e.target as HTMLButtonElement
+	btn.style.pointerEvents = 'none'
+	e.preventDefault()
+
+	import('next/router').then((Router) => {
+		import('utils/Auth').then(async ({ useLogin }) => {
+			// ERROR HANDLING
+			const { useAuthError } = await import('utils/Error')
+
+			// INICIAR SESIÓN
+			if (email.length * pass.length !== 0)
+				useLogin({
+					type: accountState,
+					name: name.length !== 0 && name.length <= 15 ? name : undefined,
+					email,
+					pass,
+					onSuccess: () => {
+						callback(true)
+						Router.default.push('/tienda')
+					},
+				}).catch((errF: firebase.FirebaseError) =>
+					// ERROR HANDLING
+					window.Alert({
+						title,
+						body: useAuthError(errF.code, errPackage),
+						type: 'error',
+						onHide: () => (btn.style.pointerEvents = 'unset'),
+					})
+				)
+			// VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
+			else
+				window.Alert({
+					title: title,
+					body: errBody,
+					type: 'error',
+					onHide: () => (btn.style.pointerEvents = 'unset'),
+				})
+		})
+	})
 }

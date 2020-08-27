@@ -93,7 +93,7 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 							{!this.state.fixed && this.state.type === 'confirm' && (
 								<li>
 									{!this.state.cancelBtn ? (
-										<button onClick={this.hide} className='cancelBtn'>
+										<button onClick={this.hide} className='cancelBtn waves'>
 											{this.state.cancelText || this.props.cancelText || 'Cancel'}
 										</button>
 									) : (
@@ -104,6 +104,7 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 							<li>
 								{!this.state.confirmBtn ? (
 									<button
+										className='waves'
 										style={{
 											background:
 												this.state.type === 'error'
@@ -155,10 +156,10 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 					}
 					.alertContent > p {
 						color: #333;
-						margin-bottom: 20px;
 						line-height: 20px;
 					}
 					.alertActions {
+						margin-top: 20px;
 						display: flex;
 						justify-content: flex-end;
 						position: relative;
@@ -175,7 +176,7 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 						box-shadow: none;
 						border-radius: 5px;
 						cursor: pointer;
-						font-weight: 500;
+						font-weight: boldx;
 					}
 					.alertActions > li > .cancelBtn {
 						color: #333;

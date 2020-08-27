@@ -1,17 +1,25 @@
-// TIPOS DE DATOS Y HOOKS
-import { setProviders, useLogin, useAuthError, useResetPass } from 'Hooks'
-import { useState, Dispatch, SetStateAction, MouseEvent } from 'react'
+// REACT
+import {
+	useState,
+	Dispatch,
+	SetStateAction,
+	MouseEvent,
+	MutableRefObject,
+	useRef,
+	useContext,
+	memo,
+} from 'react'
 
-// ROUTER
-import { useRouter, NextRouter } from 'next/router'
+// COMPONENTES
+import Input from 'components/Input'
+import ForgotAlert from './ForgotAlert'
 
-// COMPONENTES Y ALERTAS
-import Input from './Input'
+// EVENTOS
+import { signInEvent, emailSignInEvent } from 'utils/Events'
 
-// VARIABLES GLOBALES
-let email: string = ''
-let pass: string = ''
-let name: string = ''
+// AUTH
+import { setProviders } from 'utils/Auth'
+import { appContext } from 'Ctx'
 
 // PROPIEDADES
 interface FormProps {
@@ -19,203 +27,91 @@ interface FormProps {
 	strings: ILangAccountPage
 }
 
+// INPUTS
+interface FormInputs {
+	email: string
+	displayName: string
+	pass: string
+}
+
 // ESTADOS INICIALES
 interface AccountState {
 	switchC: boolean
 }
 const defaultState: AccountState = { switchC: false }
+const defaultForm: FormInputs = { email: '', displayName: '', pass: '' }
 
 const Forms: React.FC<FormProps> = (props: FormProps) => {
+	// CONTEXTO
+	const { refreshApp } = useContext(appContext)
+
 	// ESTADOS DEL COMPONENTE
-	const [account, setAccount]: [AccountState, Dispatch<SetStateAction<AccountState>>] = useState(
-		defaultState
-	)
-	const regText = account.switchC
-		? props.strings.buttons.login
-		: props.strings.buttons.createAccount
+	const [accountState, setAccount]: [
+		AccountState,
+		Dispatch<SetStateAction<AccountState>>
+	] = useState(defaultState)
 
-	// INPUT DE RECUPERACIÓN
-	const inputVal: InputGetProps = { name: 'remail', text: '' }
-
-	// ROUTERS
-	const router: NextRouter = useRouter()
+	// REFERENCIAS
+	const inputRefs: MutableRefObject<FormInputs> = useRef(defaultForm)
 
 	// CONFIGURAR PROVEEDORES DE LOGIN
 	setProviders().catch((e: Error) => console.log('Error during set providers ', e))
 
 	// OBTENER TEXTO DE LOS INPUTS
-	const value = (data: InputGetProps) => {
-		if (data.name === 'email') email = data.text
-		else if (data.name === 'displayName') name = data.text
-		else if (data.name === 'pass') pass = data.text
-	}
+	const value = (data: InputGetProps) =>
+		// @ts-ignore
+		inputRefs.current ? (inputRefs.current[data.name] = data.text) : null
 
 	// MOSTRAR ALERTA EN EL BOTÓN DE RECUPERAR CLAVE
-	const forgotPass = () => {
-		let input: HTMLDivElement
-		let currentAlert: HTMLDivElement
-		let form: HTMLDivElement
-
-		setTimeout(() => {
-			// SELECCIONAR ELEMENTOS
-			form = document.getElementById('form') as HTMLDivElement
-			input = document.getElementById('forgotInput') as HTMLDivElement
-			currentAlert = document.querySelector('.alertBody') as HTMLDivElement
-
-			// MOSTRAR INPUTS
-			input.style.display = 'block'
-
-			// AGREGAR A LA ALERTA
-			if (currentAlert) currentAlert.appendChild(input)
-		}, 10)
-
-		// MOSTRAR ALERTA PRIMERO
-		window.Alert({
-			title: props.strings.forms.forgot.title,
-			body: props.strings.forms.forgot.text,
-			confirmText: 'Recuperar',
-			type: 'confirm',
-
-			// VERIFICAR EL TEXTO EN EL INPUT DE LA ALERTA
-			onConfirm: () => {
-				if (inputVal)
-					// SI EXISTE REINICIAR LA CLAVE
-					useResetPass(inputVal.text).catch((e: firebase.FirebaseError) =>
-						window.Alert({
-							title: props.strings.alerts.title,
-							body: useAuthError(e.code, props.errorLangPackage),
-							type: 'error',
-						})
-					)
-				// SINO MOSTRAR ERROR
-				else
-					window.Alert({
-						title: props.strings.alerts.title,
-						body: props.strings.alerts.text_1,
-						type: 'error',
-					})
-			},
-			onHide: () => {
-				try {
-					input.style.display = 'none'
-					form.appendChild(input)
-				} catch (e) {
-					console.log(e)
-				}
-			},
-		})
-	}
+	const forgotPass = () =>
+		ForgotAlert(
+			props.strings.forms.forgot.title,
+			props.strings.forms.forgot.text,
+			props.strings.forms.inputs.email.field,
+			props.strings.forms.inputs.email.helper,
+			props.strings.alerts.title,
+			props.errorLangPackage
+		)
 
 	// INICIAR SESIÓN CON CORREO O CREAR CUENTA
-	const logs = (e: MouseEvent<HTMLButtonElement>) => {
-		const btn: HTMLButtonElement = e.target as HTMLButtonElement
-		btn.style.pointerEvents = 'none'
-
-		if (account.switchC && email.length * name.length * pass.length !== 0 && name.length <= 15)
-			// INICIAR SESIÓN CON CUENTA NUEVA
-			useLogin({
-				type: account.switchC,
-				name,
-				email,
-				pass,
-				onSuccess: () => router.push('/tienda'),
-			}).catch((err: firebase.FirebaseError) =>
-				window.Alert({
-					title: props.strings.alerts.title,
-					body: useAuthError(err.code, props.errorLangPackage),
-					type: 'error',
-					onHide: () => (btn.style.pointerEvents = 'unset'),
-				})
-			)
-		// INICIAR SESIÓN CON CUENTA EXISTENTE
-		else if (!account.switchC && email.length * pass.length !== 0)
-			useLogin({
-				type: account.switchC,
-				email,
-				pass,
-				onSuccess: () => router.push('/tienda'),
-			}).catch((errF: firebase.FirebaseError) =>
-				window.Alert({
-					title: props.strings.alerts.title,
-					body: useAuthError(errF.code, props.errorLangPackage),
-					type: 'error',
-					onHide: () => (btn.style.pointerEvents = 'unset'),
-				})
-			)
-		// VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
-		else
-			window.Alert({
-				title: props.strings.alerts.title,
-				body: props.strings.alerts.text_2,
-				type: 'error',
-				onHide: () => (btn.style.pointerEvents = 'unset'),
-			})
-	}
-
-	// INICIAR SESIÓN CON FACEBOOK
-	const fbLog = (e: MouseEvent<HTMLButtonElement>) => {
-		const btn: HTMLButtonElement = e.target as HTMLButtonElement
-		btn.style.pointerEvents = 'none'
-
-		const enableBtn = () => (btn.style.pointerEvents = 'unset')
-		useLogin({
-			type: 'fb',
-			onSuccess: () => {
-				router.push('/tienda')
-				enableBtn()
-			},
-		}).catch((body: firebase.FirebaseError) =>
-			window.Alert({
-				onHide: enableBtn,
-				title: props.strings.alerts.title,
-				body: body.code,
-				type: 'error',
-			})
+	const login = (ev: any) =>
+		emailSignInEvent(
+			ev,
+			refreshApp,
+			accountState.switchC,
+			inputRefs.current.email,
+			inputRefs.current.displayName,
+			inputRefs.current.pass,
+			props.strings.alerts.title,
+			props.errorLangPackage,
+			props.strings.alerts.text_2
 		)
-	}
 
 	// INICIAR SESIÓN CON GOOGLE
-	const gLog = (e: MouseEvent<HTMLButtonElement>) => {
-		// DESHABILITAR BOTÓN
-		const btn: HTMLButtonElement = e.target as HTMLButtonElement
-		btn.style.pointerEvents = 'none'
+	const gLog = (ev: MouseEvent<HTMLButtonElement>) =>
+		signInEvent(ev, props.strings.alerts.title, 'g')
 
-		// HABILITAR BOTÓN
-		const enableBtn = () => (btn.style.pointerEvents = 'unset')
-
-		// INICIAR SESIÓN
-		useLogin({
-			type: 'g',
-			onSuccess: () => {
-				router.push('/tienda')
-				enableBtn()
-			},
-		}).catch((body: firebase.FirebaseError) =>
-			window.Alert({
-				onHide: enableBtn,
-				title: props.strings.alerts.title,
-				body: body.code,
-				type: 'error',
-			})
-		)
-	}
+	// INICIAR SESIÓN CON FACEBOOK
+	const fbLog = (ev: MouseEvent<HTMLButtonElement>) =>
+		signInEvent(ev, props.strings.alerts.title, 'fb')
 
 	// ACTUALIZAR ESTADO ( NUEVA CUENTA / CUENTA EXISTENTE )
-	const regSwitch = () => setAccount({ switchC: !account.switchC })
-
-	// OBTENER ESTADO DE OLVIDAR PASSWORD
-	const forgotValues = (vals: InputGetProps) => (inputVal.text = vals.text)
+	const regSwitch = () => setAccount({ switchC: !accountState.switchC })
 
 	return (
 		<>
-			<div id='form'>
+			<div id='form' onSubmit={login}>
 				<h2>
 					{props.strings.title} <i className='material-icons'>sync</i>
 				</h2>
 				<p>{props.strings.text}</p>
 				<p>
-					{account.switchC ? props.strings.confirm_1 : 'no'} {props.strings.alreadyAccount}{' '}
-					<button onClick={regSwitch}>{regText}</button>
+					{accountState.switchC ? props.strings.confirm_1 : 'no'} {props.strings.alreadyAccount}{' '}
+					<button onClick={regSwitch}>
+						{accountState.switchC
+							? props.strings.buttons.login
+							: props.strings.buttons.createAccount}
+					</button>
 				</p>
 
 				<form id='credentials'>
@@ -227,7 +123,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 						helper={props.strings.forms.inputs.email.helper}
 						icon='email'
 					/>
-					{account.switchC ? (
+					{accountState.switchC ? (
 						<Input
 							type='text'
 							label={props.strings.forms.inputs.user.field}
@@ -247,34 +143,26 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 						helper={props.strings.forms.inputs.pass.helper}
 						icon='lock'
 					/>
+
+					{accountState.switchC ? (
+						''
+					) : (
+						<p>
+							{props.strings.forms.forgot.buttonText}{' '}
+							<span className='waves waves-dark' onClick={forgotPass}>
+								{props.strings.forms.forgot.title}
+							</span>
+						</p>
+					)}
+
+					<button onClick={login} className='blue waves'>
+						<i className='material-icons'>person</i>
+						{accountState.switchC
+							? props.strings.buttons.createAccount
+							: props.strings.buttons.login}
+					</button>
 				</form>
 
-				{account.switchC ? (
-					''
-				) : (
-					<p>
-						{props.strings.forms.forgot.buttonText}{' '}
-						<button className='waves waves-dark' onClick={forgotPass}>
-							{props.strings.forms.forgot.title}
-						</button>
-					</p>
-				)}
-
-				<div id='forgotInput'>
-					<Input
-						type='text'
-						label={props.strings.forms.inputs.email.field}
-						name='remail'
-						helper={props.strings.forms.forgot.helper}
-						icon='email'
-						value={forgotValues}
-					/>
-				</div>
-
-				<button onClick={logs} className='blue waves'>
-					<i className='material-icons'>person</i>
-					{account.switchC ? props.strings.buttons.createAccount : props.strings.buttons.login}
-				</button>
 				<button onClick={fbLog} className='waves fbLog'>
 					<img src='/images/general/f-icon.png' /> {props.strings.buttons.fbLoginText}
 				</button>
@@ -303,14 +191,19 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 					font-size: 13px;
 					color: var(--backgrounds);
 				}
-				#form > p {
+				#form > p,
+				form > p {
 					color: var(--paragraph);
 				}
-				#form > p:nth-child(5) {
+				#form > p > button {
+					display: inline-block;
+					color: var(--paragraph);
+				}
+				form > p {
+					margin: 15px 0;
 					text-align: center;
 				}
-				p > button {
-					display: inline-block;
+				p > span {
 					color: var(--paragraph);
 				}
 				h2 {
@@ -328,14 +221,12 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 					transform: translate(-50%, 0%);
 					margin-bottom: 60px;
 				}
-				#form > button {
+				#form > button,
+				form > button {
 					color: var(--backgrounds);
 					width: 100%;
 					justify-content: center;
 					margin-top: 10px;
-				}
-				#forgotInput {
-					display: none;
 				}
 				#credentials {
 					margin-top: -10px;
@@ -371,4 +262,4 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 	)
 }
 
-export default Forms
+export default memo(Forms)

@@ -191,3 +191,17 @@ export const getUser = async (id: string | undefined) => {
 }
 
 export const resetFirestore = (handlerValue: number) => (fireStoreHandler = handlerValue)
+
+// AGREGAR USUARIO EN CUENTA NUEVA
+export const saveUserToDB = async (id?: string, data?: UserData) => {
+	// FIREBASE
+	await import('firebase/firestore')
+	const db = (await import('keys/firebase')).default.firestore()
+	// LOCAL DB
+	const { setUser } = await import('utils/IndexDB')
+
+	if (id && data) {
+		await db.collection('users').doc(id).set(data)
+		setUser(data)
+	}
+}
