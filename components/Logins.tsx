@@ -1,7 +1,9 @@
+// REACT
+import { useContext, FC } from 'react'
+
 // CONTENEDORES DE ANIMACIÓN Y HOOKS
 import { motion } from 'framer-motion'
 import Head from 'next/head'
-import { useContext, FC } from 'react'
 
 // CONTEXTO
 import { appContext } from 'Ctx'

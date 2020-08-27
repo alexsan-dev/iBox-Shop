@@ -14,7 +14,7 @@ const Slider: React.FC<ILangIndexPage['slider']> = (strings: ILangIndexPage['sli
 			<div className='slider'>
 				<ul>
 					<li className='green'>
-						<Link href='/404' passHref scroll={false}>
+						<Link href='/' passHref scroll={false}>
 							<a className='catContent waves' title={strings.electroCatTitle}>
 								<div className='cardBackground' />
 								<div className='catTitle'>
@@ -27,7 +27,7 @@ const Slider: React.FC<ILangIndexPage['slider']> = (strings: ILangIndexPage['sli
 					</li>
 
 					<li className='red'>
-						<Link href='/404' passHref scroll={false}>
+						<Link href='/' passHref scroll={false}>
 							<a className='catContent waves' title={strings.devicesCatTitle}>
 								<div className='cardBackground' />
 								<div className='catTitle'>
@@ -40,7 +40,7 @@ const Slider: React.FC<ILangIndexPage['slider']> = (strings: ILangIndexPage['sli
 					</li>
 
 					<li className='five'>
-						<Link href='/404' passHref scroll={false}>
+						<Link href='/' passHref scroll={false}>
 							<a className='catContent waves' title={strings.accessCatTitle}>
 								<div className='cardBackground' />
 								<div className='catTitle'>

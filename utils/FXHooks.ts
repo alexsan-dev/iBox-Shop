@@ -70,7 +70,7 @@ export const useRipples = () =>
 	}, [])
 
 // HOO DE RUTAS ACTIVAS
-export const useActiveRoutes = (drawerToggle: HTMLInputElement | null) => {
+export const useActiveRoutes = (onEnd: () => any) => {
 	useEffect(() => {
 		import('next/router').then((Router) => {
 			import('utils/Events').then(({ setActiveRoutes }) => {
@@ -78,7 +78,7 @@ export const useActiveRoutes = (drawerToggle: HTMLInputElement | null) => {
 				const routes: NodeListOf<HTMLAnchorElement> | null = document.querySelectorAll(
 					'.routes'
 				) as NodeListOf<HTMLAnchorElement>
-				const setActive = (url: string) => setActiveRoutes(routes, url, drawerToggle)
+				const setActive = (url: string) => setActiveRoutes(routes, url, onEnd)
 
 				// SELECCIONAR CUAL ES LA PAGINA ACTUAL
 				Router.default.events.on('routeChangeComplete', setActive)

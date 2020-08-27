@@ -41,7 +41,7 @@ export const shareEvent = (strings: ILangGeneral['app']['share']) => {
 export const setActiveRoutes = (
 	routes: NodeListOf<HTMLAnchorElement> | null,
 	url: string,
-	drawerToggle: HTMLInputElement | null
+	onEnd: () => any
 ) => {
 	setTimeout(() => {
 		if (routes)
@@ -68,9 +68,7 @@ export const setActiveRoutes = (
 				}
 			})
 	}, 600)
-	setTimeout(() => {
-		if (drawerToggle) drawerToggle.checked = false
-	}, 300)
+	setTimeout(onEnd, 300)
 }
 
 // EVENTO DE SWIPE DE DRAWER

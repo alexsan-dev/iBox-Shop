@@ -47,7 +47,9 @@ const Drawer: React.FC<DrawerProps> = (props: DrawerProps) => {
 	}, [])
 
 	// ROUTER LISTENER
-	useActiveRoutes(drawerToggle.current)
+	useActiveRoutes(() => {
+		if (drawerToggle.current) drawerToggle.current.checked = false
+	})
 
 	return (
 		<>

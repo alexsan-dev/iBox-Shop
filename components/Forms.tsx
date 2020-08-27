@@ -1,12 +1,12 @@
 // TIPOS DE DATOS Y HOOKS
 import { setProviders, useLogin, useAuthError, useResetPass } from 'Hooks'
 import { useState, Dispatch, SetStateAction, MouseEvent } from 'react'
+
+// ROUTER
 import { useRouter, NextRouter } from 'next/router'
 
 // COMPONENTES Y ALERTAS
 import Input from './Input'
-import { FirebaseError } from 'firebase'
-import { showAlert } from 'Tools'
 
 // VARIABLES GLOBALES
 let email: string = ''
@@ -70,18 +70,18 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 		}, 10)
 
 		// MOSTRAR ALERTA PRIMERO
-		showAlert({
+		window.Alert({
 			title: props.strings.forms.forgot.title,
 			body: props.strings.forms.forgot.text,
-			confirmBtn: 'Recuperar',
-			type: 'input',
+			confirmText: 'Recuperar',
+			type: 'confirm',
 
 			// VERIFICAR EL TEXTO EN EL INPUT DE LA ALERTA
 			onConfirm: () => {
 				if (inputVal)
 					// SI EXISTE REINICIAR LA CLAVE
-					useResetPass(inputVal.text).catch((e: FirebaseError) =>
-						showAlert({
+					useResetPass(inputVal.text).catch((e: firebase.FirebaseError) =>
+						window.Alert({
 							title: props.strings.alerts.title,
 							body: useAuthError(e.code, props.errorLangPackage),
 							type: 'error',
@@ -89,7 +89,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 					)
 				// SINO MOSTRAR ERROR
 				else
-					showAlert({
+					window.Alert({
 						title: props.strings.alerts.title,
 						body: props.strings.alerts.text_1,
 						type: 'error',
@@ -119,8 +119,8 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 				email,
 				pass,
 				onSuccess: () => router.push('/tienda'),
-			}).catch((err: FirebaseError) =>
-				showAlert({
+			}).catch((err: firebase.FirebaseError) =>
+				window.Alert({
 					title: props.strings.alerts.title,
 					body: useAuthError(err.code, props.errorLangPackage),
 					type: 'error',
@@ -134,8 +134,8 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 				email,
 				pass,
 				onSuccess: () => router.push('/tienda'),
-			}).catch((errF: FirebaseError) =>
-				showAlert({
+			}).catch((errF: firebase.FirebaseError) =>
+				window.Alert({
 					title: props.strings.alerts.title,
 					body: useAuthError(errF.code, props.errorLangPackage),
 					type: 'error',
@@ -144,7 +144,7 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 			)
 		// VERIFICAR SI TODOS LOS CAMPOS SE HAN LLENADO
 		else
-			showAlert({
+			window.Alert({
 				title: props.strings.alerts.title,
 				body: props.strings.alerts.text_2,
 				type: 'error',
@@ -164,8 +164,8 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 				router.push('/tienda')
 				enableBtn()
 			},
-		}).catch((body: FirebaseError) =>
-			showAlert({
+		}).catch((body: firebase.FirebaseError) =>
+			window.Alert({
 				onHide: enableBtn,
 				title: props.strings.alerts.title,
 				body: body.code,
@@ -190,8 +190,8 @@ const Forms: React.FC<FormProps> = (props: FormProps) => {
 				router.push('/tienda')
 				enableBtn()
 			},
-		}).catch((body: FirebaseError) =>
-			showAlert({
+		}).catch((body: firebase.FirebaseError) =>
+			window.Alert({
 				onHide: enableBtn,
 				title: props.strings.alerts.title,
 				body: body.code,
