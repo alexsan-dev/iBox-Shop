@@ -90,25 +90,27 @@ export const useActiveRoutes = (drawerToggle: HTMLInputElement | null) => {
 
 // ALERTA DE ACTUALIZACIÓN
 export const useUpdateAlert = () =>
-	window.navigator.serviceWorker
-		.getRegistration()
-		.then((reg: ServiceWorkerRegistration | undefined) => {
-			reg?.addEventListener('updatefound', () => {
-				const worker = reg.installing
-				worker?.addEventListener('statechange', () => {
-					if (worker.state === 'installed') {
-						window.Alert({
-							type: 'confirm',
-							body: 'Hay una nueva actualización disponible, ¿deseas actualizar?',
-							title: 'Nueva actualización',
-							confirmText: 'Recargar',
-							onConfirm: () => window.location.reload(),
-						})
-						worker.postMessage({ type: 'SKIP_WAITING' })
-					}
+	useEffect(() => {
+		window.navigator.serviceWorker
+			.getRegistration()
+			.then((reg: ServiceWorkerRegistration | undefined) => {
+				reg?.addEventListener('updatefound', () => {
+					const worker = reg.installing
+					worker?.addEventListener('statechange', () => {
+						if (worker.state === 'installed') {
+							window.Alert({
+								type: 'confirm',
+								body: 'Hay una nueva actualización disponible, ¿deseas actualizar?',
+								title: 'Nueva actualización',
+								confirmText: 'Recargar',
+								onConfirm: () => window.location.reload(),
+							})
+							worker.postMessage({ type: 'SKIP_WAITING' })
+						}
+					})
 				})
 			})
-		})
+	})
 
 export const useSplash = () =>
 	useEffect(() => {
