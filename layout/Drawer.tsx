@@ -34,19 +34,20 @@ const Drawer: React.FC<DrawerProps> = (props: DrawerProps) => {
 	const hideDrawer = () => (drawerToggle.current ? (drawerToggle.current.checked = false) : null)
 
 	// EVENTOS
-	const logout = () => logoutEvent(hideDrawer, addToCartEvent, props.strings.logout)
-	const share = () => shareEvent(props.strings.app.share)
+	const logout = () =>
+		process.browser ? logoutEvent(hideDrawer, addToCartEvent, props.strings.logout) : null
+	const share = () => (process.browser ? shareEvent(props.strings.app.share) : null)
 
 	// FUNCIÓN DE SWIPE PARA DRAWER
 	useEffect(() => {
 		swipeDrawer(drawerToggle.current, hook.current, drawer.current)
+
+		// BOTÓN DE INSTALAR APP
+		installPrompt(addBtn.current)
 	}, [])
 
 	// ROUTER LISTENER
 	useActiveRoutes(drawerToggle.current)
-
-	// BOTÓN DE INSTALAR APP
-	installPrompt(addBtn.current)
 
 	return (
 		<>

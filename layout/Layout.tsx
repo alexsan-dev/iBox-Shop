@@ -49,14 +49,16 @@ const Layout: FC<LayoutProps> = (props: LayoutProps) => {
 	const topBar: any = useRef(null)
 
 	// AGREGAR AL CARRITO
-	const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) =>
-		handleCart(
-			contextState.cartList,
-			(length: number) => (topBar.current ? topBar.current.callRender(length) : null),
-			key,
-			mode,
-			reset
-		)
+	const addToCartEvent = async (key: string, mode: boolean, reset?: boolean) => {
+		if (process.browser)
+			handleCart(
+				contextState.cartList,
+				(length: number) => (topBar.current ? topBar.current.callRender(length) : null),
+				key,
+				mode,
+				reset
+			)
+	}
 
 	// DETECTAR CAMBIOS EN EL INICIÓ DE SESIÓN
 	useAuth((user: firebase.User | null) => {

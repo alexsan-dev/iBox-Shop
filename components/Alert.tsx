@@ -197,9 +197,6 @@ export class AlertTemplate extends PureComponent<HOCProps, InternalState> {
 	}
 }
 
-// ASIGNAR A GLOBAL O COMO EXPORTACIÓN
-export const Alert = (props: AlertProps) => window.Alert(props)
-
 // AGREGAR DEFINICIÓN A TYPESCRIPT
 declare global {
 	interface Window {

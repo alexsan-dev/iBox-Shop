@@ -128,9 +128,6 @@ export class ToastTemplate extends PureComponent<HOCProps, InternalState> {
 	}
 }
 
-// ASIGNAR A GLOBAL O COMO EXPORTACIÓN
-export const Toast = (props: ToastProps) => window.Toast(props)
-
 // AGREGAR DEFINICIÓN A TYPESCRIPT
 declare global {
 	interface Window {
