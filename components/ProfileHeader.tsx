@@ -128,6 +128,11 @@ const ProfileHeader: React.FC<Props> = (props: Props) => {
 					right: 0;
 					color: transparent;
 				}
+				@media screen and (min-width: 445px) {
+					#infoSecure {
+						width: 110px;
+					}
+				}
 				@media screen and (max-width: 355px) {
 					#profilePic {
 						width: 110px;

@@ -197,11 +197,34 @@ export const saveUserToDB = async (id?: string, data?: UserData) => {
 	// FIREBASE
 	await import('firebase/firestore')
 	const db = (await import('keys/firebase')).default.firestore()
+
 	// LOCAL DB
 	const { setUser } = await import('utils/IndexDB')
 
 	if (id && data) {
 		await db.collection('users').doc(id).set(data)
 		setUser(data)
+	}
+}
+
+// GUARDAR NUEVOS USUARIOS
+export const saveNewUser = async (credentials: firebase.auth.UserCredential, id?: string) => {
+	if (id) {
+		// USUARIO POR DEFECTO
+		const userData: UserData = {
+			displayName: credentials.user?.displayName || null,
+			email: credentials.user?.email || null,
+			provider: credentials.user?.providerData[0]?.providerId,
+			photoURL:
+				'https://firebasestorage.googleapis.com/v0/b/iboxshops.appspot.com/o/profile.png?alt=media&token=cd5f21df-ce9d-4ebe-9bcb-a35b391cd5ef',
+			uid: credentials.user?.uid,
+			address: '',
+			phone: 0,
+			nit: '',
+			department: '',
+		}
+
+		// CREAR EN DB
+		saveUserToDB(id, userData)
 	}
 }
